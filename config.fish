@@ -1,0 +1,1 @@
+/home/traum/.config/fish/config.fish
