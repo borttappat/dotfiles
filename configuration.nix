@@ -144,6 +144,7 @@
     light
     pfetch
     nethogs
+    gcc
 
   #  wget
   ];
