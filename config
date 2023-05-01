@@ -8,9 +8,13 @@ exec --no-startup-id dex --autostart --environment i3
 # Autostart 
 exec --no-startup-id picom
 exec_always --no-startup-id wal -R
-exec --no-startup-id alacritty
+# exec --no-startup-id alacritty
 # exec --no-startup-id "neofetch"
 # exec --no-startup-id "htop"
+exec --no-startup-id alacritty --command "htop"
+exec --no-startup-id alacritty --command "neofetch"
+exec --no startup-id alacritty --command "ranger"
+exec --no-startup.id alacritty --command "chatgpt
 
 # Cycle wallpapers and apply new colorscheme.
 bindsym $mod+Shift+w exec "wal -i $HOME/Downloads -o wal-set"
@@ -98,11 +102,14 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+# i3 commands
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 
+
+# resizing
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -127,15 +134,20 @@ mode "resize" {
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
-
 bindsym $mod+r mode "resize"
 
+
+# hiding window title
 for_window [class="^.*"] border pixel 0
 
-# gaps
- gaps inner 10
- gaps outer 1
+# active window border
+# for_window [focused] border pixel 3
 
+# gaps
+gaps inner 6
+gaps outer 1
+
+# rounded border radius
 border_radius 1
 
 # Smart gaps

@@ -55,6 +55,7 @@
   # Enable the GNOME Desktop Environment.
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
+  #  services.xserver.displayManager.startx.enable = true;
     services.xserver.windowManager.i3.enable = true;
 
   # Configure keymap in X11
@@ -115,35 +116,44 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
+    neovim
+    gcc
+
     librewolf
+    
     alacritty
     htop
     glances
     fish
     neofetch
+    bunnyfetch
+    pfetch
+    nitch
+    cbonsai
+    cmatrix
+    ranger
+    
     i3-gaps
     i3-rounded
+  # xborders
     polybar
-    cbonsai
-    ranger
+    rofi
+    picom
     wpgtk
     pywal
     feh
-    rofi
-    picom
+    
     brightnessctl
+    
     xorg.xinit
     xorg.xrdb
-    cmatrix
-    bunnyfetch 
-    neovim
-    nitch
+    xorg.xorgserver
+    
     unclutter
-    ly
     git
     light
-    pfetch
     nethogs
+    chatgpt-cli
 
   #  wget
   ];
@@ -176,7 +186,9 @@
 
   # Enable Automatic Upgrades
   system.autoUpgrade.enable = true;
-system.autoUpgrade.allowReboot = true;
+  
+  # Do not allow for automatic reboots
+  # system.autoUpgrade.allowReboot = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
