@@ -1,6 +1,8 @@
 set $mod Mod4
 font pango:monospace 8
 
+# testkommentar
+
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
@@ -11,10 +13,10 @@ exec_always --no-startup-id wal -R
 # exec --no-startup-id alacritty
 # exec --no-startup-id "neofetch"
 # exec --no-startup-id "htop"
-exec --no-startup-id alacritty --command "htop"
-exec --no-startup-id alacritty --command "neofetch"
-exec --no startup-id alacritty --command "ranger"
-exec --no-startup.id alacritty --command "chatgpt
+# exec --no-startup-id alacritty --command "htop"
+# exec --no-startup-id alacritty --command "neofetch"
+# exec --no startup-id alacritty --command "ranger"
+# exec --no-startup.id alacritty --command "chatgpt
 
 # Cycle wallpapers and apply new colorscheme.
 bindsym $mod+Shift+w exec "wal -i $HOME/Downloads -o wal-set"
@@ -148,21 +150,21 @@ gaps inner 6
 gaps outer 1
 
 # rounded border radius
-border_radius 1
+# border_radius 1
 
 # Smart gaps
 # Only enable gaps on a workspace when there is at least one container
 smart_gaps on
 
 # Only enable outer gaps when there is exactly one container
-Smart_gaps inverse_outer
+smart_gaps inverse_outer
 
 
 # Activate smart borders (always)
 smart_borders on
 
 # Activate smart borders (only when there are effectively no gaps)
-Smart_borders no_gaps
+smart_borders no_gaps
 
 
 

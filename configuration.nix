@@ -53,9 +53,9 @@
   # services.xserver.displayManager.defaultSession = "none+i3";
 
   # Enable the GNOME Desktop Environment.
-    services.xserver.displayManager.gdm.enable = true;
-    services.xserver.desktopManager.gnome.enable = true;
-  # services.xserver.displayManager.startx.enable = true;
+  #  services.xserver.displayManager.gdm.enable = true;
+  #  services.xserver.desktopManager.gnome.enable = true;
+    services.xserver.displayManager.startx.enable = true;
     services.xserver.windowManager.i3.enable = true;
 
   # Configure keymap in X11
@@ -88,7 +88,7 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+   services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.traum = {
@@ -140,7 +140,7 @@
     
     # WM
     i3-gaps
-    i3-rounded
+    # i3-rounded
     # xborders
     polybar
     rofi
@@ -173,8 +173,8 @@
    programs.fish.enable=true;
    users.defaultUserShell = pkgs.fish;
 
-  #  services.xserver.windowManager.i3.package = pkgs.i3-gaps; 	   
-    services.xserver.windowManager.i3.package = pkgs.i3-rounded;
+    services.xserver.windowManager.i3.package = pkgs.i3-gaps; 	   
+  #  services.xserver.windowManager.i3.package = pkgs.i3-rounded;
   # Some programs need SUID wrappers, can be configured further or are
   
 
