@@ -55,7 +55,7 @@
   # Enable the GNOME Desktop Environment.
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
-  #  services.xserver.displayManager.startx.enable = true;
+  # services.xserver.displayManager.startx.enable = true;
     services.xserver.windowManager.i3.enable = true;
 
   # Configure keymap in X11
@@ -115,12 +115,17 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # Editors
     vim
     neovim
+    
+    # Compilers
     gcc
 
+    # Programs
     librewolf
     
+    # Terminal stuff
     alacritty
     htop
     glances
@@ -133,9 +138,10 @@
     cmatrix
     ranger
     
+    # WM
     i3-gaps
     i3-rounded
-  # xborders
+    # xborders
     polybar
     rofi
     picom
@@ -143,17 +149,23 @@
     pywal
     feh
     
+    # Tools
     brightnessctl
-    
+    light 
+    pciutils
+    git
+    iftop
+    chatgpt-cli
+    # zatura
+
+    # X11
     xorg.xinit
     xorg.xrdb
     xorg.xorgserver
     
+    # Uncategorized
     unclutter
-    git
-    light
-    nethogs
-    chatgpt-cli
+    # nethogs
 
   #  wget
   ];
