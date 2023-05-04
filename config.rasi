@@ -2,4 +2,4 @@
 @import "~/.cache/wal/colors-rofi-dark"
 
 /* Light theme. */
-@import "~/.cache/wal/colors-rofi-light"
+/* @import "~/.cache/wal/colors-rofi-light" */
