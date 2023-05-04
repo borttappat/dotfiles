@@ -140,7 +140,6 @@
     
     # WM
     i3-gaps
-    # i3-rounded
     # xborders
     polybar
     rofi
@@ -156,7 +155,7 @@
     git
     iftop
     chatgpt-cli
-    # zatura
+    zathura
 
     # X11
     xorg.xinit
@@ -165,9 +164,7 @@
     
     # Uncategorized
     unclutter
-    # nethogs
-
-  #  wget
+    
   ];
   
    programs.fish.enable=true;

@@ -10,6 +10,8 @@ exec --no-startup-id dex --autostart --environment i3
 # Autostart 
 exec --no-startup-id picom -b
 exec_always --no-startup-id wal -R
+exec_always --no startup id unclutter
+
 # exec --no-startup-id alacritty
 # exec --no-startup-id "neofetch"
 # exec --no-startup-id "htop"
@@ -18,8 +20,10 @@ exec_always --no-startup-id wal -R
 # exec --no startup-id alacritty --command "ranger"
 # exec --no-startup.id alacritty --command "chatgpt
 
+
 # Cycle wallpapers and apply new colorscheme.
 bindsym $mod+Shift+w exec "wal -i $HOME/Downloads -o wal-set"
+
 
 # Set keyboard backlight to 100
 # bindsym $mod+F8 exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 100" 
@@ -56,9 +60,9 @@ bindsym $mod+v split h
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
+# bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle

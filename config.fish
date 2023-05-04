@@ -7,7 +7,7 @@ end
 # aliases
 alias reboot='systemctl reboot'
 alias ls='ls -A'
-alias neofetch='clear && neofetch'
+# alias neofetch='clear && neofetch'
 
 
 set -U fish_greeting ""
