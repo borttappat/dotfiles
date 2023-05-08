@@ -68,7 +68,7 @@
   console.keyMap = "sv-latin1";
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  #  services.printing.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -101,7 +101,8 @@
     ];
   };
 
-  # removing need for user traum to type password after sudo
+
+  # Removing need for user traum to type password after sudo
   security.sudo.extraRules= [
    {  users = [ "traum" ];
      commands = [
@@ -112,20 +113,21 @@
    }
  ];
 
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # Editors
+   # Editors
     vim
-    neovim
+    # neovim
     
-    # Compilers
-    gcc
+   # Compilers
+    # gcc
 
-    # Programs
+   # Programs
     librewolf
     
-    # Terminal stuff
+   # Terminal stuff
     alacritty
     htop
     glances
@@ -138,31 +140,34 @@
     cmatrix
     ranger
     
-    # WM
+   # WM
     i3-gaps
+    # i3-resurrect
     # xborders
     polybar
     rofi
     picom
     wpgtk
     pywal
-    feh
+    # feh
     
-    # Tools
+   # Tools
     brightnessctl
     light 
     pciutils
     git
-    iftop
+    # iftop
     chatgpt-cli
+    # shell_gpt
     zathura
+    xdotool
 
-    # X11
+   # X11
     xorg.xinit
     xorg.xrdb
     xorg.xorgserver
     
-    # Uncategorized
+   # Uncategorized
     unclutter
     
   ];
