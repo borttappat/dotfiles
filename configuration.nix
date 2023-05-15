@@ -149,12 +149,12 @@
     picom
     wpgtk
     pywal
-    # feh
+    feh
     
    # Tools
     brightnessctl
     light 
-    pciutils
+    #pciutils
     git
     # iftop
     chatgpt-cli
@@ -168,7 +168,7 @@
     xorg.xorgserver
     
    # Uncategorized
-    unclutter
+    # unclutter
     
   ];
   
