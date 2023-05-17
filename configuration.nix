@@ -3,8 +3,11 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
+{   
+    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.allowUnstable = true;
+      
 
-{
  # allowing for flakes and nix-command 
    nix.settings.experimental-features = [ "nix-command" "flakes" ];
  
