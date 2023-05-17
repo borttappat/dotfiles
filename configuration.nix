@@ -123,6 +123,7 @@
     
    # Compilers
     # gcc
+    python3
 
    # Programs
     librewolf

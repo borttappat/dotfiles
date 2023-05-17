@@ -12,7 +12,7 @@ sleep 1
 xdotool type "htop"
 xdotool key enter
 sleep 1
-xdotool key super+h
+xdotool key super+c
 sleep 1
 xdotool key super+enter
 sleep 1

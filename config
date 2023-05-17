@@ -7,10 +7,12 @@ exec --no-startup-id dex --autostart --environment i3
 
 # Autostart 
 exec --no-startup-id picom -b
-exec_always --no-startup-id wal -R
+exec_always --no-startup-id wal -i ~/Wallpapers/Cerise.jpg
+exec_always --no-startup-id feh --bg-fill ~/Wallpapers/Schematic.png
 exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
 exec --no-startup-id ~/.config/i3/scripts/startup.sh
-
+# exec --no-startup-id alacritty
+  
 
 # Cycle wallpapers and apply new colorscheme.
 bindsym $mod+Shift+w exec "wal -i $HOME/Wallpapers -o wal-set"
@@ -35,14 +37,19 @@ bindsym $mod+q kill
 # start rofi
 bindsym $mod+d exec --no-startup-id "rofi -modi drun,run -show drun -font"
 
-# alternatively, you can use the cursor keys:
+# window focus keys
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
 # split in horizontal orientation
-bindsym $mod+h split v
+bindsym $mod+c split v
 
 # split in vertical orientation
 bindsym $mod+v split h
