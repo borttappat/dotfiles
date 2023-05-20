@@ -1,7 +1,7 @@
 /* Dark theme. */
 @import "~/.cache/wal/colors-rofi-dark"
 
-/* font: "Minecraft 8"; */
+// font: "Minecraft 8"; 
 
 /* Light theme. */
 /* @import "~/.cache/wal/colors-rofi-light" */

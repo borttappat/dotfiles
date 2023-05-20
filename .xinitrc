@@ -1,3 +1,3 @@
 #!/bin/bash
-# exec unclutter
+unclutter -grab &
 exec i3

@@ -146,8 +146,6 @@
     
    # WM
     i3-gaps
-    # i3-resurrect
-    # xborders
     polybar
     rofi
     picom
@@ -158,8 +156,12 @@
    # Tools
     brightnessctl
     light 
+    auto-cpufreq
     #pciutils
+    cpufrequtils
+    undervolt
     git
+    tlp
     # iftop
     chatgpt-cli
     # shell_gpt
@@ -172,7 +174,8 @@
     xorg.xorgserver
     
    # Uncategorized
-    # unclutter
+    unclutter
+    #nixos-grub2-theme
     
   ];
   

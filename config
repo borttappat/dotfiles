@@ -7,8 +7,8 @@ exec --no-startup-id dex --autostart --environment i3
 
 # Autostart 
 exec --no-startup-id picom -b
-#exec_alway --no-startup-id wal -R
-exec_always --no-startup-id wal -i ~/Wallpapers/Nervnasa.png
+exec_always --no-startup-id wal -R
+#exec_always --no-startup-id wal -i ~/Wallpapers/Nervnasa.png
 #exec_always --no-startup-id feh --bg-fill ~/Wallpapers/Schematic.png
 exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
 exec --no-startup-id ~/.config/i3/scripts/startup.sh
@@ -37,6 +37,7 @@ bindsym $mod+q kill
 
 # start rofi
 bindsym $mod+d exec --no-startup-id "rofi -modi drun,run -show drun -font"
+# bindsym $mod+d exec --no-startuo-id rofi -show run -font "cozette 12"
 
 # window focus keys
 bindsym $mod+Left focus left
@@ -149,7 +150,7 @@ for_window [class="^.*"] border pixel 0
 # for_window [focused] border pixel 3
 
 # gaps
-gaps inner 120
+gaps inner 40
 gaps outer 1
 
 # rounded border radius
