@@ -8,7 +8,7 @@ end
 alias reboot='systemctl reboot'
 alias ls='ls -A'
 alias fetch='clear && nitch && cd ~/.dotfiles/nixos'
-
+alias shutdown='shutdown now'
 
 set -U fish_greeting ""
 # end

@@ -24,10 +24,6 @@
   networking.hostName = "nix"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -52,12 +48,11 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   
-  # Auto-login, IE skipping LightDM
-  # services.xserver.displayManager.defaultSession = "none+i3";
-
   # Enable the GNOME Desktop Environment.
   #  services.xserver.displayManager.gdm.enable = true;
   #  services.xserver.desktopManager.gnome.enable = true;
+
+  # Window- and Display-manager settings
     services.xserver.displayManager.startx.enable = true;
     services.xserver.windowManager.i3.enable = true;
 
@@ -70,9 +65,6 @@
   # Configure console keymap
   console.keyMap = "sv-latin1";
 
-  # Enable CUPS to print documents.
-  #  services.printing.enable = true;
-
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -81,13 +73,10 @@
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    pulse.enable = true;
+    #pulse.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -99,7 +88,7 @@
     description = "A";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      firefox
+      #firefox
       
     ];
   };
@@ -126,7 +115,7 @@
     
    # Compilers
     # gcc
-    python3
+    #python3
 
    # Programs
     librewolf
@@ -152,16 +141,17 @@
     wpgtk
     pywal
     feh
+    eww
     
    # Tools
     brightnessctl
     light 
-    auto-cpufreq
+    #auto-cpufreq
     #pciutils
-    cpufrequtils
+    #cpufrequtils
     undervolt
     git
-    tlp
+    #tlp
     # iftop
     chatgpt-cli
     # shell_gpt
@@ -184,9 +174,10 @@
 
     services.xserver.windowManager.i3.package = pkgs.i3-gaps; 	   
   #  services.xserver.windowManager.i3.package = pkgs.i3-rounded;
-  # Some programs need SUID wrappers, can be configured further or are
   
 
+  # Some programs need SUID wrappers, can be configured further or are
+  
   # started in user sessions.
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {

@@ -18,6 +18,8 @@ exec --no-startup-id ~/.config/i3/scripts/startup.sh
 # Cycle wallpapers and apply new colorscheme.
 bindsym $mod+Shift+w exec "wal -i $HOME/Wallpapers -o wal-set"
 
+# Launch Librewolf
+bindsym $mod+b exec librewolf
 
 # Set keyboard backlight to 100
 # bindsym $mod+F8 exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 100" 
@@ -36,8 +38,9 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+q kill
 
 # start rofi
-bindsym $mod+d exec --no-startup-id "rofi -modi drun,run -show drun -font"
-# bindsym $mod+d exec --no-startuo-id rofi -show run -font "cozette 12"
+# bindsym $mod+d exec --no-startup-id "rofi -modi drun,run -show drun -font"
+
+bindsym $mod+d exec --no-startup-id rofi -show run -font "cozette 8"
 
 # window focus keys
 bindsym $mod+Left focus left
@@ -150,7 +153,7 @@ for_window [class="^.*"] border pixel 0
 # for_window [focused] border pixel 3
 
 # gaps
-gaps inner 40
+gaps inner 20
 gaps outer 1
 
 # rounded border radius
