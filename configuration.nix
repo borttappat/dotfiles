@@ -177,6 +177,13 @@
   
   # Enabling TLP
    services.tlp.enable = true;
+ 
+  # Enabling auto-cpufreq
+  # services.autocpuFreq = {
+  #    enable = true;
+  #    governor = "powersave";
+  #    frequency = "33%";
+  #  };;
 
   # Some programs need SUID wrappers, can be configured further or are
   
