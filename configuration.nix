@@ -151,10 +151,10 @@
     #cpufrequtils
     undervolt
     git
-    #tlp
+    tlp
     # iftop
     chatgpt-cli
-    # shell_gpt
+    nmon
     zathura
     xdotool
 
@@ -175,6 +175,8 @@
     services.xserver.windowManager.i3.package = pkgs.i3-gaps; 	   
   #  services.xserver.windowManager.i3.package = pkgs.i3-rounded;
   
+  # Enabling TLP
+   services.tlp.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   

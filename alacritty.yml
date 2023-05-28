@@ -125,14 +125,14 @@ font:
     style: Bold
 
   italic:
-    family: Minecraft
+    family: cozette
     style: Italic
 
   bold_italic:
-    family: Minecraft
+    family: cozette
     style: Bold Italic
 
-  size: 8
+  size: 10
       
 
   # Offset is the extra space around each character. `offset.y` can be thought
