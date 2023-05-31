@@ -157,6 +157,7 @@
     nmon
     zathura
     xdotool
+    killall
 
    # X11
     xorg.xinit

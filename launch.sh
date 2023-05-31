@@ -7,7 +7,7 @@ polybar-msg cmd quit
 # killall -q polybar
 
 # Generate colors from Xresources
-xrdb -merge ~/.cache/wal/colors.Xresources
+# xrdb -merge ~/.cache/wal/colors.Xresources
 
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done

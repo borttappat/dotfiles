@@ -153,7 +153,7 @@ for_window [class="^.*"] border pixel 0
 # for_window [focused] border pixel 3
 
 # gaps
-gaps inner 10
+gaps inner 8
 gaps outer 1
 
 # rounded border radius
@@ -164,8 +164,8 @@ gaps outer 1
 smart_gaps on
 
 # Controlling gap sizes
-bindsym $mod+Shift+Up gaps inner current plus 5
-bindsym $mod+Shift+Down gaps inner current minus 5
+bindsym $mod+Shift+Up gaps inner current plus 2
+bindsym $mod+Shift+Down gaps inner current minus 2
 
 # Only enable outer gaps when there is exactly one container
 smart_gaps inverse_outer
