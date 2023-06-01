@@ -9,6 +9,9 @@ alias reboot='systemctl reboot'
 alias ls='ls -A'
 alias fetch='clear && nitch && cd ~/.dotfiles/nixos'
 alias shutdown='shutdown now'
+alias x='startx'
+alias gitpush='git push -uf origin main'
+alias v='sudo vim'
 
 set -U fish_greeting ""
 # end

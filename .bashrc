@@ -16,4 +16,6 @@ alias ....='cd ../../..;pwd'
 
 # Show hidden files with ls by default
 alias ls='ls -A'
+alias x='startx'
+'
 cat /home/traum/.cache/wal/sequences
