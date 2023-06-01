@@ -141,7 +141,7 @@
     wpgtk
     pywal
     feh
-    eww
+    #eww
     
    # Tools
     brightnessctl
