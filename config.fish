@@ -11,7 +11,7 @@ alias fetch='clear && nitch && cd ~/.dotfiles/nixos'
 alias shutdown='shutdown now'
 alias x='startx'
 alias gitpush='git push -uf origin main'
-alias v='sudo vim'
+alias v='sudo -E vim'
 
 set -U fish_greeting ""
 # end
