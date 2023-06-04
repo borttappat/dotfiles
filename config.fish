@@ -12,6 +12,10 @@ alias shutdown='shutdown now'
 alias x='startx'
 alias gitpush='git push -uf origin main'
 alias v='sudo -E vim'
+alias nixconf='v ~/.dotfiles/nixos/configuration.nix'
+alias nixbuild='sudo nixos-rebuild switch'
+
+
 
 set -U fish_greeting ""
 # end

@@ -106,6 +106,20 @@
  ];
 
 
+fonts.fonts = with pkgs; [
+  noto-fonts
+  noto-fonts-cjk
+  noto-fonts-emoji
+  liberation_ttf
+  fira-code
+  fira-code-symbols
+  dina-font
+  proggyfonts
+  nerdfonts
+];
+
+
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -119,7 +133,8 @@
 
    # Programs
     librewolf
-    
+    icecat
+
    # Terminal stuff
     alacritty
     htop
@@ -158,6 +173,7 @@
     zathura
     xdotool
     killall
+    virtualbox
 
    # X11
     xorg.xinit

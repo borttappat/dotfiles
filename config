@@ -4,7 +4,8 @@ font cozette 8
 # Autostart 
 exec --no-startup-id picom -b
 exec_always --no-startup-id wal -R
-exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
+#exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
+exec_always --no-startup-id polybar
 exec --no-startup-id ~/.config/i3/scripts/startup.sh
 # exec --no-startup-id alacritty
   
@@ -14,10 +15,6 @@ bindsym $mod+Shift+w exec "wal -i $HOME/Wallpapers -o wal-set"
 
 # Launch Librewolf
 bindsym $mod+b exec librewolf
-
-# Launch ranger
-#bindsym $mod+shift+h exec alacritty "ranger"
-
 
 # Set keyboard backlight to 100
 # bindsym $mod+F8 exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 100" 
@@ -51,6 +48,12 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+
+# Move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # Split in horizontal orientation
 bindsym $mod+c split v
