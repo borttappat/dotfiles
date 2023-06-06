@@ -73,10 +73,6 @@
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    #pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -88,8 +84,6 @@
     description = "A";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      #firefox
-      
     ];
   };
 
@@ -107,39 +101,30 @@
 
 
 fonts.fonts = with pkgs; [
-  noto-fonts
-  noto-fonts-cjk
-  noto-fonts-emoji
-  liberation_ttf
-  fira-code
-  fira-code-symbols
-  dina-font
-  proggyfonts
   nerdfonts
 ];
 
 
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # Packages
   environment.systemPackages = with pkgs; [
    # Editors
     vim
-    # neovim
+    #neovim
     
    # Compilers
-    # gcc
+    #gcc
     #python3
 
    # Programs
     librewolf
-    icecat
+    #ungoogled-chromium
+    brave
 
    # Terminal stuff
     alacritty
     htop
     glances
-    fish
     neofetch
     bunnyfetch
     pfetch
@@ -153,7 +138,7 @@ fonts.fonts = with pkgs; [
     polybar
     rofi
     picom
-    wpgtk
+    #wpgtk
     pywal
     feh
     #eww
@@ -166,14 +151,12 @@ fonts.fonts = with pkgs; [
     #cpufrequtils
     undervolt
     git
-    tlp
-    # iftop
     chatgpt-cli
     nmon
     zathura
     xdotool
     killall
-    virtualbox
+    qemu
 
    # X11
     xorg.xinit
@@ -182,8 +165,7 @@ fonts.fonts = with pkgs; [
     
    # Uncategorized
     unclutter
-    #nixos-grub2-theme
-    
+
   ];
   
    programs.fish.enable=true;
@@ -196,11 +178,11 @@ fonts.fonts = with pkgs; [
    services.tlp.enable = true;
  
   # Enabling auto-cpufreq
-  # services.autocpuFreq = {
-  #    enable = true;
-  #    governor = "powersave";
-  #    frequency = "33%";
-  #  };;
+  # services.autocpuFreq.enable = true;
+      #enable = true;
+      #governor = "powersave";
+      #frequency = "33%";
+    #};
 
   # Some programs need SUID wrappers, can be configured further or are
   

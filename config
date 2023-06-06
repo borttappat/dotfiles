@@ -2,10 +2,11 @@ set $mod Mod4
 font cozette 8
 
 # Autostart 
-exec --no-startup-id picom -b
+exec_always --no-startup-id picom -b
 exec_always --no-startup-id wal -R
-#exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
-exec_always --no-startup-id polybar
+exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
+#exec_always --no-startup-id killall polybar
+#exec_always --no-startup-id polybar
 exec --no-startup-id ~/.config/i3/scripts/startup.sh
 # exec --no-startup-id alacritty
   
@@ -15,6 +16,7 @@ bindsym $mod+Shift+w exec "wal -i $HOME/Wallpapers -o wal-set"
 
 # Launch Librewolf
 bindsym $mod+b exec librewolf
+bindsym $mod+Shift+b exec librewolf https://github.com/borttappat/nixos
 
 # Set keyboard backlight to 100
 # bindsym $mod+F8 exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 100" 
@@ -24,6 +26,8 @@ bindsym $mod+F8 exec "brightnessctl set 80%"
 bindsym $mod+F7 exec "brightnessctl set 20%" 
 # exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 20"
 
+# Only initiate a tiling drag when the modifier is held:
+tiling_drag modifier
 
 floating_modifier $mod
 
@@ -139,13 +143,26 @@ bindsym $mod+r mode "default"
 
 
 # Hiding window title
-for_window [class="^.*"] border pixel 0
+#for_window [class="^.*"] border pixel 0
 
-# Window border
-##for_window [class="^.*"] border pixel 10 #FF0000
-#default_border pixel 3
-#client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+# Window border, WIP
+default_border pixel 1
+hide_edge_borders both
+smart_borders on
 
+
+
+# Set colors from Xresources
+# Change 'color7' and 'color2' to whatever colors you want i3 to use 
+# from the generated scheme.
+# NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
+# it fails to get colors from Xresources.
+set_from_resource $fg i3wm.color1 #ffffff
+set_from_resource $bg i3wm.color0 #000000
+
+# class                 border  backgr. text    indicator child_border
+client.focused          $fg     $fg     $fg     $fg       $fg    
+client.focused_inactive $bg     $bg     $bg     $bg       $bg
 
 # Gaps
 gaps inner 8
@@ -160,12 +177,15 @@ bindsym $mod+Shift+Up gaps inner current plus 2
 bindsym $mod+Shift+Down gaps inner current minus 2
 
 # Only enable outer gaps when there is exactly one container
-smart_gaps inverse_outer
+#smart_gaps inverse_outer
 
 
 # Activate smart borders (always)
-smart_borders on
+#smart_borders on
 
 # Activate smart borders (only when there are effectively no gaps)
-smart_borders no_gaps
+#smart_borders no_gaps
 
+
+#for i3-rounded
+#border_radius 2
