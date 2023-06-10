@@ -1,3 +1,7 @@
+#######################
+#     i3-config       #
+#######################
+
 set $mod Mod4
 font cozette 8
 
@@ -17,7 +21,7 @@ bindsym $mod+Shift+w exec "wal -i $HOME/Wallpapers -o wal-set"
 # Launch Librewolf
 bindsym $mod+b exec librewolf
 bindsym $mod+Shift+b exec librewolf https://github.com/borttappat/nixos
-
+bindsym $mod+p exec librewolf https://search.nixos.org/packages
 # Set keyboard backlight to 100
 # bindsym $mod+F8 exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 100" 
 bindsym $mod+F8 exec "brightnessctl set 80%"
@@ -146,7 +150,7 @@ bindsym $mod+r mode "default"
 #for_window [class="^.*"] border pixel 0
 
 # Window border, WIP
-default_border pixel 1
+default_border pixel 2
 hide_edge_borders both
 smart_borders on
 

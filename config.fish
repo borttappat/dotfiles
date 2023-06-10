@@ -18,4 +18,5 @@ alias nixbuild='sudo nixos-rebuild switch'
 
 
 set -U fish_greeting ""
+
 # end
