@@ -14,7 +14,9 @@ alias gitpush='git push -uf origin main'
 alias v='sudo -E vim'
 alias nixconf='v ~/.dotfiles/nixos/configuration.nix'
 alias nixbuild='sudo nixos-rebuild switch'
-
+alias kb0='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "0"'
+alias kb1='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "1"'
+alias kb5='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "5"'
 
 
 set -U fish_greeting ""

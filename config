@@ -24,11 +24,12 @@ bindsym $mod+Shift+b exec librewolf https://github.com/borttappat/nixos
 bindsym $mod+p exec librewolf https://search.nixos.org/packages
 # Set keyboard backlight to 100
 # bindsym $mod+F8 exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 100" 
-bindsym $mod+F8 exec "brightnessctl set 80%"
+bindsym $mod+F8 exec "sudo light -A 10"
+bindsym $mod+Shift+F8 exec "sudo light -A 1"
 
 # Set keyboard backlight to 20
-bindsym $mod+F7 exec "brightnessctl set 20%" 
-# exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 20"
+bindsym $mod+F7 exec "sudo light -U 10"
+bindsym $mod+Shift+F7 exec "sudo light -U 1"
 
 # Only initiate a tiling drag when the modifier is held:
 tiling_drag modifier
