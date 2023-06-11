@@ -103,7 +103,7 @@
 
 
 fonts.fonts = with pkgs; [
-  nerdfonts
+  #nerdfonts
 ];
 
 
@@ -171,8 +171,10 @@ fonts.fonts = with pkgs; [
     tldr
     unzip
     tealdeer
+    #asusctl
   ];
-  
+    # programs and services
+   services.asusd.enable = true; 
    programs.fish.enable=true;
    users.defaultUserShell = pkgs.fish;
 
