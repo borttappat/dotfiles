@@ -1,3 +1,7 @@
+##################################
+#          config.fish           #  
+##################################
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
 
@@ -21,7 +25,7 @@ alias kb0='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "0"'
 alias kb1='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "1"'
 alias kb5='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "5"'
 alias aliases='v ~/.dotfiles/nixos/config.fish'
-
+alias w='feh --bg-fill ~/Wallpapers/BWMountain2.jpg'
 set -U fish_greeting ""
 
 # end

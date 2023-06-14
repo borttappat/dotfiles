@@ -14,14 +14,20 @@ exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
 exec --no-startup-id ~/.config/i3/scripts/startup.sh
 # exec --no-startup-id alacritty
   
+# B / W a e s t h e t i c s 
+bindsym $mod+w exec --no-startup-id feh --bg-fill ~/Wallpapers/BWmountain2.jpg
+
+# Lockscreen
+bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/BWmountain2.jpg
 
 # Cycle wallpapers and apply new colorscheme.
-bindsym $mod+Shift+w exec "wal -i $HOME/Wallpapers -o wal-set"
+bindsym $mod+Shift+o exec "wal -i $HOME/Wallpapers -o wal-set"
 
 # Launch Librewolf
 bindsym $mod+b exec librewolf
 bindsym $mod+Shift+b exec librewolf https://github.com/borttappat/nixos
 bindsym $mod+p exec librewolf https://search.nixos.org/packages
+
 # Set keyboard backlight to 100
 # bindsym $mod+F8 exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 100" 
 bindsym $mod+F8 exec "sudo light -A 10"
@@ -30,6 +36,15 @@ bindsym $mod+Shift+F8 exec "sudo light -A 1"
 # Set keyboard backlight to 20
 bindsym $mod+F7 exec "sudo light -U 10"
 bindsym $mod+Shift+F7 exec "sudo light -U 1"
+
+# Configs
+ bindsym $mod+Shift+n exec --no-startup-id /run/current-system/sw/bin/fish -i -c "source ~/.config/fish/config.fish; nixconf"
+#bindsym $mod+Shift+n "nixconf"
+bindsym $mod+Shift+i exec "i3conf"i
+bindsym $mod+Shift+a exec "aliases"
+bindsym $mod+Shift+p exec "polybarconfig"
+
+
 
 # Only initiate a tiling drag when the modifier is held:
 tiling_drag modifier
@@ -163,14 +178,14 @@ smart_borders on
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
 set_from_resource $fg i3wm.color1 #ffffff
-set_from_resource $bg i3wm.color0 #000000
+set_from_resource $bg i3wm.color0
 
 # class                 border  backgr. text    indicator child_border
 client.focused          $fg     $fg     $fg     $fg       $fg    
 client.focused_inactive $bg     $bg     $bg     $bg       $bg
 
 # Gaps
-gaps inner 8
+gaps inner 16
 gaps outer 1
 
 # Smart gaps

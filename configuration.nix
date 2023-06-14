@@ -145,7 +145,11 @@ fonts.fonts = with pkgs; [
     pywal
     feh
     #eww
-    
+    betterlockscreen
+    i3lock-color
+    i3lock
+    #i3lock-fancy
+
    # Tools
     brightnessctl
     light 
@@ -177,19 +181,15 @@ fonts.fonts = with pkgs; [
    services.asusd.enable = true; 
    programs.fish.enable=true;
    users.defaultUserShell = pkgs.fish;
-
-    services.xserver.windowManager.i3.package = pkgs.i3-gaps; 	   
+   programs.i3lock.enable=true;
+   services.xserver.windowManager.i3.package = pkgs.i3-gaps; 	   
   #  services.xserver.windowManager.i3.package = pkgs.i3-rounded;
   
   # Enabling TLP
-   services.tlp.enable = true;
+    services.tlp.enable = true;
  
   # Enabling auto-cpufreq
-  # services.autocpuFreq.enable = true;
-      #enable = true;
-      #governor = "powersave";
-      #frequency = "33%";
-    #};
+    #services.auto-cpufreq.enable
 
   # Some programs need SUID wrappers, can be configured further or are
   
