@@ -1,7 +1,7 @@
 #######################
 #     i3-config       #
 #######################
-
+  
 set $mod Mod4
 font cozette 8
 
@@ -14,14 +14,14 @@ exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
 exec --no-startup-id ~/.config/i3/scripts/startup.sh
 # exec --no-startup-id alacritty
   
-# B / W a e s t h e t i c s 
+# B/W Wallpaper bind 
 bindsym $mod+w exec --no-startup-id feh --bg-fill ~/Wallpapers/BWmountain2.jpg
 
 # Lockscreen
 bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/BWmountain2.jpg
 
 # Cycle wallpapers and apply new colorscheme.
-bindsym $mod+Shift+o exec "wal -i $HOME/Wallpapers -o wal-set"
+bindsym $mod+Shift+w exec "wal -i $HOME/Wallpapers -o wal-set"
 
 # Launch Librewolf
 bindsym $mod+b exec librewolf
@@ -178,11 +178,12 @@ smart_borders on
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
 set_from_resource $fg i3wm.color1 #ffffff
-set_from_resource $bg i3wm.color0
+set_from_resource $bg i3wm.color0 #f0f0f0
 
 # class                 border  backgr. text    indicator child_border
 client.focused          $fg     $fg     $fg     $fg       $fg    
 client.focused_inactive $bg     $bg     $bg     $bg       $bg
+client.unfocused        $bg     $bg     $bg     $bg     $bg
 
 # Gaps
 gaps inner 16
@@ -206,6 +207,5 @@ bindsym $mod+Shift+Down gaps inner current minus 2
 # Activate smart borders (only when there are effectively no gaps)
 #smart_borders no_gaps
 
-
-#for i3-rounded
+# Settings for i3-rounded
 #border_radius 2
