@@ -16,20 +16,23 @@
     exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
     #exec_always --no-startup-id killall polybar
     #exec_always --no-startup-id polybar
-    exec --no-startup-id ~/.config/i3/scripts/startup.sh
+    #exec --no-startup-id ~/.config/i3/scripts/startup.sh
     #exec --no-startup-id alacritty
   
 
 # Binds
 
+# Polybar restart
+    bindsym $mod+Shift+p exec killall polybar && polybar
+
 # B/W Wallpaper 
-    bindsym $mod+w exec --no-startup-id feh --bg-fill ~/Wallpapers/BWmountain2.jpg
+    bindsym $mod+Shift+w exec feh --bg-fill ~/Wallpapers/BWmountain2.jpg
 
 # Lockscreen
     bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/BWmountain2.jpg
 
 # Cycle wallpapers and apply new colorscheme.
-    bindsym $mod+Shift+w exec "wal -i $HOME/Wallpapers -o wal-set"
+    bindsym $mod+w exec "wal -i $HOME/Wallpapers -o wal-set"
 
 # Launch Librewolf
     bindsym $mod+b exec librewolf
@@ -51,7 +54,7 @@
     #bindsym $mod+Shift+n "nixconf"
     bindsym $mod+Shift+i exec "i3conf"i
     bindsym $mod+Shift+a exec "aliases"
-    bindsym $mod+Shift+p exec "polybarconfig"
+    #bindsym $mod+Shift+p exec "polybarconfig"
 
 
 
