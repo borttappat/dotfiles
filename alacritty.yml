@@ -1,45 +1,8 @@
-# Configuration for Alacritty, the GPU enhanced terminal emulator.
 
-# Import additional configuration files
-#
-# Imports are loaded in order, skipping all missing files, with the importing
-# file being loaded last. If a field is already present in a previous import, it
-# will be replaced.
-#
-# All imports must either be absolute paths starting with `/`, or paths relative
-# to the user's home directory starting with `~/`.
-#import:
-#  - /path/to/alacritty.yml
-
-# Any items in the `env` entry below will be added as
-# environment variables. Some entries may override variables
-# set by alacritty itself.
 env:
    TERM: alacritty
 
 window:
-  # Window dimensions (changes require restart)
-  #
-  # Number of lines/columns (not pixels) in the terminal. Both lines and columns
-  # must be non-zero for this to take effect. The number of columns must be at
-  # least `2`, while using a value of `0` for columns and lines will fall back
-  # to the window manager's recommended size
-  #dimensions:
-  #  columns: 0
-  #  lines: 0
-
-  # Window position (changes require restart)
-  #
-  # Specified in number of pixels.
-  # If the position is not set, the window manager will handle the placement.
-  #position:
-  #  x: 0
-  #  y: 0
-
-  # Window padding (changes require restart)
-  #
-  # Blank space added around the window in pixels. This padding is scaled
-  # by DPI and the specified value is always added at both opposing sides.
   padding:
     x: 10
     y: 10
@@ -47,72 +10,16 @@ window:
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
 
-  # Window decorations
-  #
-  # Values for `decorations`:
-  #     - full: Borders and title bar
-  #     - none: Neither borders nor title bar
-  #
-  # Values for `decorations` (macOS only):
-  #     - transparent: Title bar, transparent background and title bar buttons
-  #     - buttonless: Title bar, transparent background and no title bar buttons
-  #decorations: full
-
   # Background opacity
-  #
-  # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
   opacity: 1.0
 
-  # Startup Mode (changes require restart)
-  #
-  # Values for `startup_mode`:
-  #   - Windowed
-  #   - Maximized
-  #   - Fullscreen
-  #
-  # Values for `startup_mode` (macOS only):
-  #   - SimpleFullscreen
-  #startup_mode: Windowed
-
-  # Window title
-  #title: Alacritty
-
-  # Allow terminal applications to change Alacritty's window title.
-  #dynamic_title: true
-
-  # Window class (Linux/BSD only):
   class:
     # Application instance name
     instance: Alacritty
     # General application class
     general: Alacritty
 
-  # Decorations theme variant
-  #
-  # Override the variant of the System theme/GTK theme/Wayland client side
-  # decorations. Commonly supported values are `Dark`, `Light`, and `None` for
-  # auto pick-up. Set this to `None` to use the default theme variant.
-  #decorations_theme_variant: None
-
-  # Resize increments
-  #
-  # Prefer resizing window by discrete steps equal to cell dimensions.
-  #resize_increments: false
-
-  # Make `Option` key behave as `Alt` (macOS only):
-  #   - OnlyLeft
-  #   - OnlyRight
-  #   - Both
-  #   - None (default)
-  #option_as_alt: None
-
-#scrolling:
-  # Maximum number of lines in the scrollback buffer.
-  # Specifying '0' will disable scrolling.
-  #history: 10000
-
-  # Scrolling distance multiplier.
   #multiplier: 3
 
 font:
@@ -308,56 +215,6 @@ font:
   # regardless of their background color.
   #transparent_background_colors: false
 
-# Bell
-#
-# The bell is rung every time the BEL control character is received.
-#bell:
-  # Visual Bell Animation
-  #
-  # Animation effect for flashing the screen when the visual bell is rung.
-  #
-  # Values for `animation`:
-  #   - Ease
-  #   - EaseOut
-  #   - EaseOutSine
-  #   - EaseOutQuad
-  #   - EaseOutCubic
-  #   - EaseOutQuart
-  #   - EaseOutQuint
-  #   - EaseOutExpo
-  #   - EaseOutCirc
-  #   - Linear
-  #animation: EaseOutExpo
-
-  # Duration of the visual bell flash in milliseconds. A `duration` of `0` will
-  # disable the visual bell animation.
-  #duration: 0
-
-  # Visual bell animation color.
-  #color: '#ffffff'
-
-  # Bell Command
-  #
-  # This program is executed whenever the bell is rung.
-  #
-  # When set to `command: None`, no command will be executed.
-  #
-  # Example:
-  #   command:
-  #     program: notify-send
-  #     args: ["Hello, World!"]
-  #
-  #command: None
-
-#selection:
-  # This string contains all characters that are used as separators for
-  # "semantic words" in Alacritty.
-  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-
-  # When set to `true`, selected text will be copied to the primary clipboard.
-  #save_to_clipboard: false
-
-#cursor:
   # Cursor style
   #style:
     # Cursor shape
@@ -404,40 +261,6 @@ font:
 # Live config reload (changes require restart)
 live_config_reload: true
 
-# Shell
-#
-# You can set `shell.program` to the path of your favorite shell, e.g.
-# `/bin/fish`. Entries in `shell.args` are passed unmodified as arguments to the
-# shell.
-#
-# Default:
-#   - (Linux/BSD/macOS) `$SHELL` or the user's login shell, if `$SHELL` is unset
-#   - (Windows) powershell
-#shell:
-#  program: /bin/bash
-#  args:
-#    - --login
-
-# Startup directory
-#
-# Directory the shell is started in. If this is unset, or `None`, the working
-# directory of the parent process will be used.
-#working_directory: None
-
-# Offer IPC using `alacritty msg` (unix only)
-#ipc_socket: true
-
-#mouse:
-  # Click settings
-  #
-  # The `double_click` and `triple_click` settings control the time
-  # alacritty should wait for accepting multiple clicks as one double
-  # or triple click.
-  #double_click: { threshold: 300 }
-  #triple_click: { threshold: 300 }
-
-  # If this is `true`, the cursor is temporarily hidden when typing.
-  #hide_when_typing: false
 
 # Hints
 #

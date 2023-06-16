@@ -18,9 +18,12 @@
     #exec_always --no-startup-id polybar
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
     #exec --no-startup-id alacritty
-  
+ 
 
-# Binds
+
+#########
+# Binds #
+#########
 
 # Polybar restart
     bindsym $mod+Shift+p exec killall polybar && polybar
@@ -56,12 +59,6 @@
     bindsym $mod+Shift+a exec "aliases"
     #bindsym $mod+Shift+p exec "polybarconfig"
 
-
-
-# Only initiate a tiling drag when the modifier is held:
-    tiling_drag modifier
-    floating_modifier $mod
-
 # Start a terminal
     bindsym $mod+Return exec alacritty
 
@@ -71,6 +68,13 @@
 # Start rofi
     #bindsym $mod+d exec --no-startup-id "rofi -modi drun,run -show drun -font"
     bindsym $mod+d exec --no-startup-id rofi -show run -font "cozette 8"
+
+
+
+
+#####################
+# Window management #
+#####################
 
 # Window focus keys
     bindsym $mod+Left focus left
@@ -105,8 +109,7 @@
     bindsym $mod+space focus mode_toggle
 
 
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
+# Workspaces
     set $ws1 "1"
     set $ws2 "2"
     set $ws3 "3"
@@ -143,14 +146,6 @@
     bindsym $mod+Shift+0 move container to workspace number $ws10
 
 
-# i3 commands
-
-# Reload the configuration file
-    bindsym $mod+Shift+c reload
-# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-    bindsym $mod+Shift+r restart
-
-
 # Resizing
     bindsym $mod+r mode "resize"
 # Resize window (you can also use the mouse for that)
@@ -171,6 +166,25 @@
         bindsym $mod+r mode "default"
         }
 
+
+
+
+#######################
+# i3-related commands #
+#######################
+
+
+# Reload the configuration file
+    bindsym $mod+Shift+c reload
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+    bindsym $mod+Shift+r restart
+
+
+
+
+###################
+# Visual settinga #
+###################
 
 # Hiding window title
     #for_window [class="^.*"] border pixel 0
@@ -215,7 +229,16 @@
     #smart_borders no_gaps
 
 
+# Only initiate a tiling drag when the modifier is held:
+    tiling_drag modifier
+    floating_modifier $mod
 
+
+
+
+########
+# Misc #
+########
 
 # Settings for i3-rounded
     #border_radius 2

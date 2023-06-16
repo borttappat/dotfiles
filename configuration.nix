@@ -102,15 +102,20 @@
     }
     ];
 
-# Fonts
+#########
+# Fonts #
+#########
+
     fonts.fonts = with pkgs; [
     nerdfonts
     ];
 
 
-
- # Packages
+############
+# Packages #
+############
   environment.systemPackages = with pkgs; [
+
 # Editors
     vim
     #neovim
@@ -123,7 +128,8 @@
     librewolf
     #ungoogled-chromium
     brave
-    mullvad-browser
+    #mullvad-browser
+    #tor
 
 # Terminal stuff
     alacritty
@@ -154,9 +160,7 @@
 # Tools
     brightnessctl
     light 
-    #auto-cpufreq
     #pciutils
-    #cpufrequtils
     undervolt
     git
     chatgpt-cli
@@ -165,6 +169,11 @@
     xdotool
     killall
     qemu
+    #kvmtool
+    
+    #onionshare
+    #picosnitch
+
 
 # X11
     xorg.xinit
@@ -176,12 +185,13 @@
     tldr
     unzip
     tealdeer
-    #asusctl
 ];
    
    
-# Programs and services
-   
+#########################
+# Programs and services #
+#########################
+
 # Asusd
     services.asusd.enable = true; 
    
@@ -197,10 +207,10 @@
     #services.xserver.windowManager.i3.package = pkgs.i3-rounded;
   
 # Enabling TLP
-    services.tlp.enable = true;
+    #services.tlp.enable = true;
  
 # Enabling auto-cpufreq
-    #services.auto-cpufreq.enable
+    services.auto-cpufreq.enable = true;
 
   
 # Some programs need SUID wrappers, can be configured further or are
@@ -212,13 +222,14 @@
     #   enableSSHSupport = true;
     # };
 
-  
-# List services that you want to enable:
-
 # Enable the OpenSSH daemon.
     # services.openssh.enable = true;
 
   
+##############
+#  Firewall  #
+##############
+
 # Open ports in the firewall.
     # networking.firewall.allowedTCPPorts = [ ... ];
     # networking.firewall.allowedUDPPorts = [ ... ];
@@ -226,6 +237,10 @@
     # networking.firewall.enable = false;
 
   
+###########
+#  Misc   #
+###########
+
 # Enable Automatic Upgrades
     system.autoUpgrade.enable = true;
 # Do not allow for automatic reboots
@@ -242,6 +257,9 @@
       #inherit pkgs;
     #};
   #};
+
+
+
 # This value determines the NixOS release from which the default
 # settings for stateful data, like file locations and database versions
 # on your system were taken. It‘s perfectly fine and recommended to leave

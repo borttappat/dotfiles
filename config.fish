@@ -11,7 +11,7 @@ end
 # aliases
 alias reboot='systemctl reboot'
 alias ls='ls -A'
-alias fetch='clear && nitch && cd ~/.dotfiles/nixos'
+alias fetch='clear && bunnyfetch && cd ~/.dotfiles/nixos'
 alias shutdown='shutdown now'
 alias x='startx'
 alias gitpush='git push -uf origin main'
