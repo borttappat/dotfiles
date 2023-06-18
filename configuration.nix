@@ -1,10 +1,12 @@
-###########################################
-#             NixOS Config                #
-###########################################
+#####################
+#   NixOS Config    #
+#####################
 
 #NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
+
+# Allowing unfree andn unstable packages
 {   
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.allowUnstable = true;
@@ -18,22 +20,22 @@
       ./hardware-configuration.nix
     ];
 
-# Bootloader.
+# Bootloader
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.
-    #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant
 
 # Enable networking
     networking.networkmanager.enable = true;
 
-# Set your time zone.
+# Time zone
     time.timeZone = "Europe/Stockholm";
 
-# Select internationalisation properties.
+# Locale settings
     i18n.defaultLocale = "en_US.UTF-8";
 
     i18n.extraLocaleSettings = {
@@ -48,10 +50,10 @@
         LC_TIME = "sv_SE.UTF-8";
     };
 
-# Enable the X11 windowing system.
+# Enable the X11 windowing system
     services.xserver.enable = true;
   
-# Enable the GNOME Desktop Environment.
+# Enable the GNOME Desktop Environment
     #services.xserver.displayManager.gdm.enable = true;
     #services.xserver.desktopManager.gnome.enable = true;
 
@@ -68,7 +70,7 @@
 # Configure console keymap
   console.keyMap = "sv-latin1";
 
-# Enable sound with pipewire.
+# Enable sound with pipewire
     sound.enable = true;
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
@@ -78,7 +80,7 @@
         alsa.support32Bit = true;
     };
 
-# Enable touchpad support (enabled default in most desktopManager).
+# Enable touchpad support
     services.xserver.libinput.enable = true;
 
 # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -102,14 +104,10 @@
     }
     ];
 
-#########
-# Fonts #
-#########
-
+# Fonts 
     fonts.fonts = with pkgs; [
     nerdfonts
     ];
-
 
 ############
 # Packages #
@@ -118,7 +116,6 @@
 
 # Editors
     vim
-    #neovim
     
 # Compilers
     #gcc
@@ -126,10 +123,9 @@
 
 # Programs
     librewolf
-    #ungoogled-chromium
     brave
     #mullvad-browser
-    #tor
+    tor
 
 # Terminal stuff
     alacritty
@@ -152,6 +148,7 @@
     pywal
     feh
     #eww
+    #conky
     betterlockscreen
     i3lock-color
     i3lock
@@ -182,7 +179,6 @@
     
 # Uncategorized
     unclutter
-    tldr
     unzip
     tealdeer
 ];
@@ -212,7 +208,10 @@
 # Enabling auto-cpufreq
     services.auto-cpufreq.enable = true;
 
-  
+# Intel-undervolt
+    #services.undervolt.enable = true;
+
+
 # Some programs need SUID wrappers, can be configured further or are
   
     # started in user sessions.
