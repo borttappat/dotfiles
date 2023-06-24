@@ -119,13 +119,13 @@
     
 # Compilers
     #gcc
-    #python3
+    python3
 
 # Programs
     librewolf
     brave
     #mullvad-browser
-    tor
+    #tor
 
 # Terminal stuff
     alacritty
@@ -140,7 +140,7 @@
     ranger
 
 # WM
-    i3-gaps
+    #i3-gaps
     polybar
     rofi
     picom
@@ -168,8 +168,10 @@
     qemu
     #kvmtool
     
-    #onionshare
+    onionshare
     #picosnitch
+    wget
+    nmap
 
 
 # X11
@@ -222,7 +224,7 @@
     # };
 
 # Enable the OpenSSH daemon.
-    # services.openssh.enable = true;
+    services.openssh.enable = true;
 
   
 ##############
