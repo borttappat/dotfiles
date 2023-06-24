@@ -1,22 +1,30 @@
+#!/usr/bin/env python3
+
 import os
-import sys
+import argparse
 
-def main():
-    # Get the file name and directory path from command line arguments
-    filename = sys.argv[1]
-    directory = sys.argv[2]
+parser = argparse.ArgumentParser(description='Create symbolic links for files and directories.')
+parser.add_argument('--files', metavar='file1,file2,file3', type=str, required=True,
+                        help='comma-separated list of files to be linked')
+parser.add_argument('--dirs', metavar='dir1,dir2,dir3', type=str, required=True,
+                        help='comma-separated list of directories to link the files')
+args = parser.parse_args()
 
-    # Check if the directory exists, if not, create it
-    if not os.path.exists(directory):
-        os.makedirs(directory)
+files = args.files.split(",")
+dirs = args.dirs.split(",")
 
-    # Check if a file with the same name exists in the directory, if so, delete it
-    file_path = os.path.join(directory, filename)
-    if os.path.exists(file_path):
-        os.remove(file_path)
+for i in range(len(files)):
+    file_path = os.path.join(os.getcwd(), files[i])
 
-    # Create a hard link to the directory
-    os.link(filename, file_path)
+    # Check if the directory path exists, create it if it doesn't
+    dir_path = os.path.join(os.getcwd(), dirs[i])
+    if not os.path.isdir(dir_path):
+        os.makedirs(dir_path)
 
-if __name__ == '__main__':
-    main()
+    # Remove any existing file in the directory with same name as the file being linked
+    link_path = os.path.join(dir_path, files[i])
+    if os.path.exists(link_path):
+        os.remove(link_path)
+
+    # Create the symbolic link
+    os.symlink(file_path, link_path)
