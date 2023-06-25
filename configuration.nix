@@ -160,6 +160,7 @@
     #pciutils
     undervolt
     git
+    gh
     chatgpt-cli
     nmon
     zathura
