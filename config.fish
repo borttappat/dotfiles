@@ -24,7 +24,7 @@ alias polyconf='v ~/dotfiles/config.ini'
 alias kb0='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "0"'
 alias kb1='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "1"'
 alias kb5='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "5"'
-alias aliases='v ~/dotfile/sconfig.fish'
+alias aliases='v ~/dotfiles/config.fish'
 alias w='feh --bg-fill ~/Wallpapers/BWMountain2.jpg'
 set -U fish_greeting ""
 
