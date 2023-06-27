@@ -2,6 +2,8 @@
 #   NixOS Config    #
 #####################
 
+#testedit
+
 #NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
@@ -125,7 +127,7 @@
     librewolf
     brave
     #mullvad-browser
-    #tor
+    tor
 
 # Terminal stuff
     alacritty
@@ -140,7 +142,7 @@
     ranger
 
 # WM
-    #i3-gaps
+    i3-gaps
     polybar
     rofi
     picom
@@ -151,7 +153,7 @@
     #conky
     betterlockscreen
     i3lock-color
-    i3lock
+    #i3lock
     #i3lock-fancy
 
 # Tools
@@ -171,8 +173,6 @@
     
     onionshare
     #picosnitch
-    wget
-    nmap
 
 
 # X11
@@ -192,7 +192,7 @@
 #########################
 
 # Asusd
-    services.asusd.enable = true; 
+#    services.asusd.enable = true; 
    
 # Fish-shell
     programs.fish.enable=true;
@@ -206,6 +206,7 @@
     #services.xserver.windowManager.i3.package = pkgs.i3-rounded;
   
 # Enabling TLP
+# TLP fucking sucks, don't use it. Instead, use auto-cpufreq below
     #services.tlp.enable = true;
  
 # Enabling auto-cpufreq
@@ -213,16 +214,6 @@
 
 # Intel-undervolt
     #services.undervolt.enable = true;
-
-
-# Some programs need SUID wrappers, can be configured further or are
-  
-    # started in user sessions.
-    # programs.mtr.enable = true;
-    # programs.gnupg.agent = {
-    #   enable = true;
-    #   enableSSHSupport = true;
-    # };
 
 # Enable the OpenSSH daemon.
     services.openssh.enable = true;
@@ -248,17 +239,28 @@
 # Do not allow for automatic reboots
     # system.autoUpgrade.allowReboot = true;
 
-  
+# Enable i2c-bus
+    hardware.i2c.enable = true;
+
 # Enable Flatpak
     #xdg.portal.enable = true; # only needed if you are not doing Gnome
     #services.flatpak.enable = true;  
   
 # Setup NUR
-  #nixpkgs.config.packageOverrides = pkgs: {
+    #nixpkgs.config.packageOverrides = pkgs: {
     #nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-      #inherit pkgs;
+        #inherit pkgs;
+        #};
     #};
-  #};
+
+# Some programs need SUID wrappers, can be configured further or are
+  
+    #started in user sessions.
+    #programs.mtr.enable = true;
+    #programs.gnupg.agent = {
+    #   enable = true;
+    #   enableSSHSupport = true;
+    #};
 
 
 
