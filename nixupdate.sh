@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/run/current-system/sw/bin/bash
 
 # add unstable channel
 nix-channel --add https://nixos.org/channels/nixos-unstable nixos
