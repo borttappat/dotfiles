@@ -12,12 +12,12 @@
 
 # Autostart 
     exec_always --no-startup-id picom -b
-    exec_always --no-startup-id wal -R
+    #exec_always --no-startup-id wal -R
     exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
     #exec_always --no-startup-id killall polybar
     #exec_always --no-startup-id polybar
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
-    exec --no-startup-id ~/Wallpapers/Razer.jpeg
+    exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Razer.jpeg
     exec --no-startup-id alacritty
      
 
