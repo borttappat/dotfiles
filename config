@@ -35,7 +35,7 @@
 
 # Cycle wallpapers and apply new colorscheme.
     #bindsym $mod+w exec "wal -i $HOME/Wallpapers -o wal-set"
-    bindsym $mod+w exec ~/dotfiles/walrgb.sh
+    bindsym $mod+w exec ~/dotfiles/randomwalrgb.sh
 
 # Launch Librewolf
     #bindsym $mod+b exec librewolf
