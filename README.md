@@ -3,4 +3,5 @@ Currently setting up a NixOS system and will do so for the forseeable future.
 
 Welcome!
 
-https://github.com/borttappat/dotfiles/blob/main/2023-07-02_00-41.png
+![Screenshot](https://github.com/borttappat/dotfiles/blob/main/2023-07-02_00-41.png)
+
