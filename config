@@ -17,7 +17,7 @@
     #exec_always --no-startup-id killall polybar
     #exec_always --no-startup-id polybar
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
-    #exec --no-startup-id alacritty
+    exec --no-startup-id alacritty
  
 
 #########
@@ -28,10 +28,10 @@
     bindsym $mod+Shift+p exec killall polybar && polybar
 
 # B/W Wallpaper 
-    bindsym $mod+Shift+w exec feh --bg-fill ~/Wallpapers/BWmountain2.jpg
+    bindsym $mod+Shift+w exec feh --bg-fill ~/Wallpapers/Clouds.jpg
 
 # Lockscreen
-    bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/BWmountain2.jpg
+    bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Clouds.jpg
 
 # Cycle wallpapers and apply new colorscheme.
     bindsym $mod+w exec "wal -i $HOME/Wallpapers -o wal-set"

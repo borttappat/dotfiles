@@ -27,6 +27,10 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+# Enabling i2c for intel-related things
+#    hardware.i2c.enable = true;
+#    services.hardware.openrgb.motherboard = intel;
+
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.
     #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant
@@ -170,7 +174,7 @@
     killall
     qemu
     #kvmtool
-    
+    tmux    
     onionshare
     #picosnitch
 
@@ -217,6 +221,12 @@
 
 # Enable the OpenSSH daemon.
     services.openssh.enable = true;
+
+# Enabling tailscale VPN
+    services.tailscale.enable = true;
+
+# Enabling OpenRGB
+    services.hardware.openrgb.enable = true;
 
   
 ##############
