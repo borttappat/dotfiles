@@ -2,7 +2,6 @@
 #   NixOS Config    #
 #####################
 
-#testedit
 
 #NixOS manual (accessible by running ‘nixos-help’).
 
@@ -33,7 +32,9 @@
 
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.
-    #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant
+    
+    # Enables wireless support via wpa_supplicant
+    #networking.wireless.enable = true;  
 
 # Enable networking
     networking.networkmanager.enable = true;
@@ -177,7 +178,8 @@
     tmux    
     onionshare
     #picosnitch
-
+    flameshot
+    
 
 # X11
     xorg.xinit
