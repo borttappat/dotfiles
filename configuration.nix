@@ -179,7 +179,7 @@
     onionshare
     #picosnitch
     flameshot
-    
+    #steam    
 
 # X11
     xorg.xinit
