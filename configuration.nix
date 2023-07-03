@@ -257,7 +257,9 @@
 # Enable Flatpak
     #xdg.portal.enable = true; # only needed if you are not doing Gnome
     #services.flatpak.enable = true;  
-  
+    # Run this command to add flathub
+    # flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  
+
 # Setup NUR
     #nixpkgs.config.packageOverrides = pkgs: {
     #nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {

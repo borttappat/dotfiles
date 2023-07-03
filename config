@@ -40,11 +40,13 @@
 
 # Launch Librewolf
     #bindsym $mod+b exec librewolf
-    bindsym $mod+b exec librewolf https://github.com/borttappat/nixos
-    bindsym $mod+p exec librewolf https://search.nixos.org/packages
+    #bindsym $mod+b exec librewolf https://github.com/borttappat/nixos
+    #bindsym $mod+p exec librewolf https://search.nixos.org/packages
 
 # Launch Brave
     bindsym $mod+Shift+b exec brave
+    bindsym $mod+b exec brave https://github.com/borttappat/dotfiles
+    bindsym $mod+p exec brave https://search.nixos.org/packages
 
 # Set keyboard backlight to 100
     #bindsym $mod+F8 exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 100" 
