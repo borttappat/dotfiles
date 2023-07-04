@@ -39,6 +39,9 @@ alias gs='git status'
 alias ga='git add'
 alias gc='git commit -m'
 alias gp='git push -uf origin main'
+alias gur='git add -A && git commit -m "updates" && git push -uf origin main' 
+alias gu='git add -u && git commit -m "updates" && git push -uf origin main' 
+
 
 
 
