@@ -19,6 +19,9 @@
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
     exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Wallpaper.jpeg
     exec --no-startup-id alacritty
+    exec --no-startup-id alacritty  
+    exec --no-startup-id alacritty
+     
      
 
 #########
@@ -61,9 +64,9 @@
 # Configs, WIP
     bindsym $mod+Shift+n exec --no-startup-id /run/current-system/sw/bin/fish -i -c "source ~/.config/fish/config.fish; nixconf"
     #bindsym $mod+Shift+n "nixconf"
-    bindsym $mod+Shift+i exec "i3conf"
     bindsym $mod+Shift+a exec "aliases"
     #bindsym $mod+Shift+p exec "polybarconfig"
+    bindsym $mod+Shift+i exec ~/dotfiles/i3config.sh 
 
 # Start a terminal
     bindsym $mod+Return exec alacritty
@@ -207,11 +210,13 @@
 # it fails to get colors from Xresources.
     set_from_resource $fg i3wm.color1 #ffffff
     set_from_resource $bg i3wm.color0 #f0f0f0
+    set_from_resource $al i3wm.color2 #ff0000
 
 # class                     border  backgr. text    indicator child_border
-    client.focused          $fg     $fg     $fg     $fg       $fg    
-    client.focused_inactive $bg     $bg     $bg     $bg       $bg
+    client.focused          $fg     $fg     $fg     $fg     $fg    
+    client.focused_inactive $bg     $bg     $bg     $bg     $bg
     client.unfocused        $bg     $bg     $bg     $bg     $bg
+    client.urgent           $al     $al     $al     $al     $al
 
 # Gaps
     gaps inner 16
