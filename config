@@ -135,8 +135,8 @@
     workspace 1 gaps inner 70
     
     # Enable floating windows on workspace 3
-    assign [class="^.*"] $ws3
-    for_window [workspace=$ws3] floating enable
+    #assign [class="^.*"] $ws3
+    #for_window [workspace=$ws3] floating enable
 
 # Switch to workspace
     bindsym $mod+1 workspace number $ws1
@@ -167,10 +167,10 @@
     bindsym $mod+r mode "resize"
 # Resize window (you can also use the mouse for that)
     mode "resize" {
-        bindsym l resize shrink width 15 px or 15 ppt
+        bindsym h resize shrink width 15 px or 15 ppt
         bindsym k resize grow height 15 px or 15 ppt
-        bindsym j resize shrink height 15 px or 15 ppt
-        bindsym h resize grow width 15 px or 15 ppt
+        bindsym h resize shrink height 15 px or 15 ppt
+        bindsym l resize grow width 15 px or 15 ppt
 # Same bindings, but for the arrow keys
         bindsym Left resize shrink width 2 px or 2 ppt
         bindsym Up resize grow height 2 px or 2 ppt
@@ -236,6 +236,8 @@
 # Controlling gap sizes
     bindsym $mod+Shift+Up gaps inner current plus 2
     bindsym $mod+Shift+Down gaps inner current minus 2
+    bindsym $mod+Shift+Right gaps inner current plus 15
+    bindsym $mod+Shift+Left gaps inner current minus 15
 
 # Only enable outer gaps when there is exactly one container
     #smart_gaps inverse_outer
