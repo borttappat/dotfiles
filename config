@@ -12,12 +12,12 @@
 
 # Autostart 
     exec_always --no-startup-id picom -b
-    #exec_always --no-startup-id wal -R
+    exec_always --no-startup-id wal -R
     exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
     #exec_always --no-startup-id killall polybar
     #exec_always --no-startup-id polybar
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
-    exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Wallpaper.jpeg
+    #exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Wallpaper.jpeg
     exec --no-startup-id alacritty
     exec --no-startup-id alacritty  
     exec --no-startup-id alacritty
@@ -130,6 +130,13 @@
     set $ws8 "8"
     set $ws9 "9"
     set $ws10 "10"
+
+    # Set gaps for workspace 1
+    workspace 1 gaps inner 70
+    
+    # Enable floating windows on workspace 3
+    assign [class="^.*"] $ws3
+    for_window [workspace=$ws3] floating enable
 
 # Switch to workspace
     bindsym $mod+1 workspace number $ws1
