@@ -27,6 +27,8 @@ alias picomconf='v ~/dotfiles/picom.conf'
 alias polyconf='v ~/dotfiles/config.ini'
 alias aliases='v ~/dotfiles/config.fish'
 
+# maybe deprecated, only used with asus hardware
+# to be replaced with non-platform specific syntax
 alias kb0='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "0"'
 alias kb1='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "1"'
 alias kb5='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "5"'
