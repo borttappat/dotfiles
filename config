@@ -132,7 +132,7 @@
     set $ws10 "10"
 
     # Set gaps for workspace 1
-    workspace 1 gaps inner 70
+    workspace 1 gaps inner 30
     
     # Enable floating windows on workspace 3
     #assign [class="^.*"] $ws3
@@ -169,7 +169,7 @@
     mode "resize" {
         bindsym h resize shrink width 15 px or 15 ppt
         bindsym k resize grow height 15 px or 15 ppt
-        bindsym h resize shrink height 15 px or 15 ppt
+        bindsym j resize shrink height 15 px or 15 ppt
         bindsym l resize grow width 15 px or 15 ppt
 # Same bindings, but for the arrow keys
         bindsym Left resize shrink width 2 px or 2 ppt
