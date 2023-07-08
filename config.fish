@@ -14,7 +14,7 @@ alias shutdown='shutdown now'
 
 alias ls='ls -A'
 
-alias fetch='clear && bunnyfetch && cd ~/dotfiles'
+alias fetch='clear && bunnyfetch && cd ~/dotfiles && git status'
 
 alias x='startx'
 alias v='sudo -E vim'
