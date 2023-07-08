@@ -181,6 +181,8 @@
     flameshot
     rar
 
+    uncover
+
     wifite2
     iw
     wirelesstools
