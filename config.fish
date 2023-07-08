@@ -41,7 +41,7 @@ alias gc='git commit -m'
 alias gp='git push -uf origin main'
 alias gur='git add -A && git commit -m "updates" && git push -uf origin main' 
 alias gu='git add -u && git commit -m "updates" && git push -uf origin main' 
-
+alias gsy='git pull && sh ~/dotfiles/links.sh'
 
 
 
