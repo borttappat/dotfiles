@@ -2,7 +2,6 @@
 #   NixOS Config    #
 #####################
 
-#testedit
 
 #NixOS manual (accessible by running ‘nixos-help’).
 
@@ -33,7 +32,9 @@
 
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.
-    #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant
+    
+    # Enables wireless support via wpa_supplicant
+    #networking.wireless.enable = true;  
 
 # Enable networking
     networking.networkmanager.enable = true;
@@ -177,8 +178,9 @@
     tmux    
     onionshare
     #picosnitch
-
-
+    flameshot
+    #steam    
+    
 # X11
     xorg.xinit
     xorg.xrdb
@@ -255,7 +257,9 @@
 # Enable Flatpak
     #xdg.portal.enable = true; # only needed if you are not doing Gnome
     #services.flatpak.enable = true;  
-  
+    # Run this command to add flathub
+    # flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  
+
 # Setup NUR
     #nixpkgs.config.packageOverrides = pkgs: {
     #nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {

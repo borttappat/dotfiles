@@ -12,13 +12,16 @@
 
 # Autostart 
     exec_always --no-startup-id picom -b
-    #exec_always --no-startup-id wal -R
+    exec_always --no-startup-id wal -R
     exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
     #exec_always --no-startup-id killall polybar
     #exec_always --no-startup-id polybar
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
-    exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Razer.jpeg
+    #exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Wallpaper.jpeg
     exec --no-startup-id alacritty
+    exec --no-startup-id alacritty  
+    exec --no-startup-id alacritty
+     
      
 
 #########
@@ -40,11 +43,13 @@
 
 # Launch Librewolf
     #bindsym $mod+b exec librewolf
-    bindsym $mod+b exec librewolf https://github.com/borttappat/nixos
-    bindsym $mod+p exec librewolf https://search.nixos.org/packages
+    #bindsym $mod+b exec librewolf https://github.com/borttappat/nixos
+    #bindsym $mod+p exec librewolf https://search.nixos.org/packages
 
 # Launch Brave
     bindsym $mod+Shift+b exec brave
+    bindsym $mod+b exec brave https://github.com/borttappat/dotfiles
+    bindsym $mod+p exec brave https://search.nixos.org/packages
 
 # Set keyboard backlight to 100
     #bindsym $mod+F8 exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 100" 
@@ -59,9 +64,9 @@
 # Configs, WIP
     bindsym $mod+Shift+n exec --no-startup-id /run/current-system/sw/bin/fish -i -c "source ~/.config/fish/config.fish; nixconf"
     #bindsym $mod+Shift+n "nixconf"
-    bindsym $mod+Shift+i exec "i3conf"
     bindsym $mod+Shift+a exec "aliases"
     #bindsym $mod+Shift+p exec "polybarconfig"
+    bindsym $mod+Shift+i exec ~/dotfiles/i3config.sh 
 
 # Start a terminal
     bindsym $mod+Return exec alacritty
@@ -126,6 +131,13 @@
     set $ws9 "9"
     set $ws10 "10"
 
+    # Set gaps for workspace 1
+    workspace 1 gaps inner 70
+    
+    # Enable floating windows on workspace 3
+    #assign [class="^.*"] $ws3
+    #for_window [workspace=$ws3] floating enable
+
 # Switch to workspace
     bindsym $mod+1 workspace number $ws1
     bindsym $mod+2 workspace number $ws2
@@ -155,10 +167,10 @@
     bindsym $mod+r mode "resize"
 # Resize window (you can also use the mouse for that)
     mode "resize" {
-        bindsym l resize shrink width 15 px or 15 ppt
+        bindsym h resize shrink width 15 px or 15 ppt
         bindsym k resize grow height 15 px or 15 ppt
-        bindsym j resize shrink height 15 px or 15 ppt
-        bindsym h resize grow width 15 px or 15 ppt
+        bindsym h resize shrink height 15 px or 15 ppt
+        bindsym l resize grow width 15 px or 15 ppt
 # Same bindings, but for the arrow keys
         bindsym Left resize shrink width 2 px or 2 ppt
         bindsym Up resize grow height 2 px or 2 ppt
@@ -205,11 +217,13 @@
 # it fails to get colors from Xresources.
     set_from_resource $fg i3wm.color1 #ffffff
     set_from_resource $bg i3wm.color0 #f0f0f0
+    set_from_resource $al i3wm.color2 #ff0000
 
 # class                     border  backgr. text    indicator child_border
-    client.focused          $fg     $fg     $fg     $fg       $fg    
-    client.focused_inactive $bg     $bg     $bg     $bg       $bg
+    client.focused          $fg     $fg     $fg     $fg     $fg    
+    client.focused_inactive $bg     $bg     $bg     $bg     $bg
     client.unfocused        $bg     $bg     $bg     $bg     $bg
+    client.urgent           $al     $al     $al     $al     $al
 
 # Gaps
     gaps inner 16
@@ -222,6 +236,8 @@
 # Controlling gap sizes
     bindsym $mod+Shift+Up gaps inner current plus 2
     bindsym $mod+Shift+Down gaps inner current minus 2
+    bindsym $mod+Shift+Right gaps inner current plus 15
+    bindsym $mod+Shift+Left gaps inner current minus 15
 
 # Only enable outer gaps when there is exactly one container
     #smart_gaps inverse_outer

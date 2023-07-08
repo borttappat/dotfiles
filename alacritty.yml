@@ -346,7 +346,10 @@ live_config_reload: true
 #  - { mouse: Middle, mode: ~Vi,     action: PasteSelection  }
 
 # Key bindings
-#
+key_bindings:
+- { key: F10, mods: Control|Shift, action: IncreaseFontSize }
+- { key: F9, mods: Control|Shift, action: DecreaseFontSize }
+#- { key: F8, mods: Control, action:} 
 # Key bindings are specified as a list of objects. For example, this is the
 # default paste binding:
 #
