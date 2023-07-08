@@ -45,7 +45,8 @@ alias gur='git add -A && git commit -m "updates" && git push -uf origin main'
 alias gu='git add -u && git commit -m "updates" && git push -uf origin main' 
 alias gsy='git pull && sh ~/dotfiles/links.sh'
 
-
+# transfer files over tailscale, append with path_to_file and target machine followed with :
+alias tscp='sudo tailscale file cp'
 
 set -U fish_greeting ""
 
