@@ -13,7 +13,7 @@
 # Autostart 
     exec_always --no-startup-id picom -b
     exec_always --no-startup-id wal -R
-    exec_always --no-startup-id ~/.dotfiles/nixos/launch.sh
+    exec_always --no-startup-id ~/.dotfiles/launch.sh
     #exec_always --no-startup-id killall polybar
     #exec_always --no-startup-id polybar
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
@@ -65,8 +65,8 @@
     bindsym $mod+Shift+n exec --no-startup-id /run/current-system/sw/bin/fish -i -c "source ~/.config/fish/config.fish; nixconf"
     #bindsym $mod+Shift+n "nixconf"
     bindsym $mod+Shift+a exec "aliases"
-    #bindsym $mod+Shift+p exec "polybarconfig"
-    bindsym $mod+Shift+i exec ~/dotfiles/i3config.sh 
+    bindsym $mod+Shift+o exec alacritty -e sudo -E vim ~/dotfiles/config.ini
+    bindsym $mod+Shift+i exec alacritty -e ~/dotfiles/i3config.sh 
 
 # Start a terminal
     bindsym $mod+Return exec alacritty
