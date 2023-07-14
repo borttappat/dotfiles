@@ -62,10 +62,6 @@
 
 
 # Configs, WIP
-    bindsym $mod+Shift+n exec --no-startup-id /run/current-system/sw/bin/fish -i -c "source ~/.config/fish/config.fish; nixconf"
-    #bindsym $mod+Shift+n "nixconf"
-    bindsym $mod+Shift+a exec "aliases"
-    bindsym $mod+Shift+o exec alacritty -e sudo -E vim ~/dotfiles/config.ini
     bindsym $mod+Shift+i exec alacritty -e ~/dotfiles/i3config.sh 
 
 # Start a terminal
