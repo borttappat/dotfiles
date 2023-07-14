@@ -51,6 +51,8 @@ alias tds='sudo tailscale file cp'
 # recieve files over tailscale, append with path for file to be saved
 alias tdr='sudo tailscale file get'
 
+alias cf='clear && neofetch'
+
 set -U fish_greeting ""
 
 # end
