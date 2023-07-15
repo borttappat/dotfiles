@@ -180,6 +180,7 @@
     #picosnitch
     flameshot
     rar
+    pciutils
 
     uncover
 
@@ -234,8 +235,8 @@
     evil-winrm
     python311Packages.pypykatz
     driftnet    
-    #cowpatty
-    #hcxtools
+    cowpatty
+    hcxtools
     
 # X11
     xorg.xinit
