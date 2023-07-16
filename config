@@ -32,10 +32,10 @@
     bindsym $mod+Shift+p exec killall polybar && polybar
 
 # B/W Wallpaper 
-    bindsym $mod+Shift+w exec feh --bg-fill ~/Wallpapers/Clouds.jpg
+    bindsym $mod+Shift+w exec feh --bg-fill ~/Wallpapers/Dark.jpg
 
 # Lockscreen
-    bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Clouds.jpg
+    bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg
 
 # Cycle wallpapers and apply new colorscheme.
     #bindsym $mod+w exec "wal -i $HOME/Wallpapers -o wal-set"
