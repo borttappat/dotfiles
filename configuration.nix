@@ -115,9 +115,7 @@
     nerdfonts
     ];
 
-############
-# Packages #
-############
+# Packages 
   environment.systemPackages = with pkgs; [
 
 # Editors
@@ -130,7 +128,7 @@
 # Programs
     librewolf
     brave
-    #mullvad-browser
+    mullvad-browser
     tor
 
 # Terminal stuff
