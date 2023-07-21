@@ -1,4 +1,7 @@
 #!/run/current-system/sw/bin/bash
+# TODO: split this into 2 sections; one for services and one for packages
+# Right now, this is needed to run openrgb on specific machines since others don't handle it well.
+# Along with this, the binds in i3 and walrgb.sh needs to be changed to be openrgb-device specific.
 
 dotfiles_dir="$HOME/dotfiles"
 config_file="configuration.nix"
