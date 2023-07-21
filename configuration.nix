@@ -2,7 +2,6 @@
 #   NixOS Config    #
 #####################
 
-
 #NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
@@ -145,6 +144,7 @@
     cbonsai
     cmatrix
     ranger
+    figlet
 
 # WM
     i3-gaps
@@ -158,7 +158,7 @@
     #conky
     betterlockscreen
     i3lock-color
-    #i3lock
+    i3lock
     #i3lock-fancy
 
 # Tools

@@ -55,6 +55,10 @@ alias iknowkungfu='walrgb ~/Wallpapers/Wallpaper.jpeg && feh --bg-fill ~/Wallpap
 
 alias cf='clear && neofetch'
 
+# network-related
+alias nwshow='nmcli dev wifi show'
+alias nwconnect='nmcli --ask dev wifi connect'
+
 set -U fish_greeting ""
 
 # end
