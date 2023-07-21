@@ -8,7 +8,8 @@
 
 # Allowing unfree andn unstable packages
 {   
-    nixpkgs.config.allowUnfree = true;
+    # I'm sorry, Stallman
+    nixpkgs.config.allowUnfree = true; 
     nixpkgs.config.allowUnstable = true;
       
 
