@@ -241,7 +241,7 @@
 
 # Smart gaps
 # Only enable gaps on a workspace when there is at least one container
-    smart_gaps on
+    #smart_gaps on
 
 # Controlling gap sizes
     bindsym $mod+Shift+Up gaps inner current plus 2
