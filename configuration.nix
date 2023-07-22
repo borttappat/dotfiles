@@ -182,6 +182,7 @@
     flameshot
     rar
     pciutils
+    whois
 
     uncover
 
