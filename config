@@ -28,6 +28,16 @@
 # Binds #
 #########
 
+
+# Work-in-progress
+    bindsym $mod+Shift+Return exec --no-startup-id alacritty --class floating
+# enable startup in float from exec by setting the x11 class to floating
+# many apps support '--class floating' for setting the x11 class (the instance get renamed)
+    for_window [instance="floating"] floating enabled
+    for_window [instance="floating"] resize set 600 360
+    for_window [instance="floating"] move absolute position 100 px 100  px
+    #for_window [class="alacritty"] floating enable move right 330px,move down 70px
+
 # Polybar restart
     bindsym $mod+Shift+p exec killall polybar && polybar
 
@@ -72,7 +82,9 @@
 
 # Start rofi
     #bindsym $mod+d exec --no-startup-id "rofi -modi drun,run -show drun -font"
-    bindsym $mod+d exec --no-startup-id rofi -show run -font "cozette 8"
+    bindsym $mod+d exec --no-startup-id rofi -show drun -font "cozette 8"
+    bindsym $mod+Shift+d exec --no-startup-id rofi -show run -font "cozette 8"
+
 
 
 
@@ -178,9 +190,11 @@
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
         }
-
-
-
+# Binds for resizing without entering resize mode
+    bindsym $mod+ctrl+j i3-msg resize shrink height 5 ppt
+    bindsym $mod+ctrl+k i3-msg resize grow height 5 ppt
+    bindsym $mod+ctrl+h i3-msg resize width shrink 5 ppt
+    bindsym $mod+ctrl+l i3-msg resize width grow 5 ppt
 
 #######################
 # i3-related commands #
