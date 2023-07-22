@@ -1,6 +1,8 @@
-##################################
-#          config.fish           #  
-##################################
+#    _______      __
+#   / ____(_)____/ /_
+#  / /_  / / ___/ __ \
+# / __/ / (__  ) / / /
+#/_/   /_/____/_/ /_/
 
 if status is-interactive
     # Commands to run in interactive sessions can go here

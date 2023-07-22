@@ -1,14 +1,14 @@
-#######################
-#     i3-config       #
-#######################
+#    _ _____
+#   (_)__  /
+#  / / /_ <
+# / /___/ /
+#/_//____/
 
 # Modifier-settings
     set $mod Mod4
 
-
 # Font
     font cozette 8
-
 
 # Autostart 
     exec_always --no-startup-id picom -b

@@ -1,7 +1,9 @@
-#####################
-#   NixOS Config    #
-#####################
-
+#    _   ___      ____  _____                     _____
+#   / | / (_)  __/ __ \/ ___/   _________  ____  / __(_)___ _
+#  /  |/ / / |/_/ / / /\__ \   / ___/ __ \/ __ \/ /_/ / __ `/
+# / /|  / />  </ /_/ /___/ /  / /__/ /_/ / / / / __/ / /_/ /
+#/_/ |_/_/_/|_|\____//____/   \___/\____/_/ /_/_/ /_/\__, /
+#                                                   /____/
 #NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
@@ -266,10 +268,6 @@
 # Window-manager
     services.xserver.windowManager.i3.package = pkgs.i3-gaps; 	   
     #services.xserver.windowManager.i3.package = pkgs.i3-rounded;
-  
-# Enabling TLP
-# TLP fucking sucks, don't use it. Instead, use auto-cpufreq below
-    #services.tlp.enable = true;
  
 # Enabling auto-cpufreq
     services.auto-cpufreq.enable = true;
