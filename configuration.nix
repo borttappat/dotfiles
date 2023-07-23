@@ -162,6 +162,7 @@
     i3lock
     #i3lock-fancy
     i3-layout-manager
+
 # Tools
     brightnessctl
     light 
@@ -177,7 +178,7 @@
     qemu
     #kvmtool
     tmux    
-    onionshare
+    #onionshare
     #picosnitch
     flameshot
     rar
