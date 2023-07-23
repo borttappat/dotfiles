@@ -15,7 +15,7 @@ configuration{
 
 window {
     height: 240px;
-    border: 5px;
+    border: 6px;
     width: 360px;
 }
 
