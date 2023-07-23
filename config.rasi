@@ -5,7 +5,7 @@
 
 configuration{
     modi: "run,drun,window";
-    lines: 6;
+    lines: 5;
     font: "cozette 8";
     terminal: "alacritty";
     location: 0;
@@ -21,7 +21,7 @@ window {
 
 inputbar {
     children: [prompt,entry];
-    border-radius: 5px;
+    border-radius: 2px;
     padding: 2px;
 }
 
@@ -38,8 +38,8 @@ textbox-prompt-colon {
 }
 
 entry {
-    padding: 5px;
-    margin: 5px 0px 0px 5px;
+    padding: 2px;
+    margin: 2px 0px 0px 2px;
 }
 
 listview {
