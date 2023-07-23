@@ -161,7 +161,7 @@
     i3lock-color
     i3lock
     #i3lock-fancy
-
+    i3-layout-manager
 # Tools
     brightnessctl
     light 
@@ -187,10 +187,12 @@
     uncover
 
     wifite2
+    
     iw
     wirelesstools
     hydra-cli
     thc-hydra
+    
     theharvester
     nmap
     dirb
@@ -207,7 +209,6 @@
     cewl
     bettercap
     whatweb
-    python311Packages.scapy
     reaverwps
     reaverwps-t6x
     john
@@ -217,6 +218,7 @@
     dnsrecon
     socat
     macchanger
+    
     httrack
     ghidra
     foremost
@@ -224,11 +226,14 @@
     fierce
     cryptsetup
     aircrack-ng
+    
     wfuzz
     testdisk
     sqlmap
     wpscan
+    
     hashcat
+    
     tcpdump
     ettercap
     masscan
@@ -237,6 +242,7 @@
     evil-winrm
     python311Packages.pypykatz
     driftnet    
+    
     cowpatty
     hcxtools
     

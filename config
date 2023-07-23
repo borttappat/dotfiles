@@ -22,21 +22,9 @@
     exec --no-startup-id alacritty  
     exec --no-startup-id alacritty
      
-     
-
 #########
 # Binds #
 #########
-
-
-# Work-in-progress
-    bindsym $mod+Shift+Return exec --no-startup-id alacritty --class floating
-# enable startup in float from exec by setting the x11 class to floating
-# many apps support '--class floating' for setting the x11 class (the instance get renamed)
-    for_window [instance="floating"] floating enabled
-    for_window [instance="floating"] resize set 600 360
-    for_window [instance="floating"] move absolute position 100 px 100  px
-    #for_window [class="alacritty"] floating enable move right 330px,move down 70px
 
 # Polybar restart
     bindsym $mod+Shift+p exec killall polybar && polybar
@@ -48,7 +36,6 @@
     bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg
 
 # Cycle wallpapers and apply new colorscheme.
-    #bindsym $mod+w exec "wal -i $HOME/Wallpapers -o wal-set"
     bindsym $mod+w exec ~/dotfiles/randomwalrgb.sh
 
 # Launch Librewolf
@@ -76,6 +63,12 @@
 
 # Start a terminal
     bindsym $mod+Return exec alacritty
+    bindsym $mod+Shift+Return exec --no-startup-id alacritty --class floating
+    # enable startup in float from exec by setting the x11 class to floating
+    # many apps support '--class floating' for setting the x11 class (the instance get renamed)
+    for_window [instance="floating"] floating enabled
+    for_window [instance="floating"] resize set 600 360
+    for_window [instance="floating"] move absolute position 100 px 100  px
 
 # Kill focused window
     bindsym $mod+q kill
