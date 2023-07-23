@@ -60,6 +60,7 @@ alias cf='clear && neofetch'
 # network-related
 alias nwshow='nmcli dev wifi show'
 alias nwconnect='nmcli --ask dev wifi connect'
+alias wifirestore='~/dotfiles/wifirestore.sh'
 
 set -U fish_greeting ""
 
