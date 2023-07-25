@@ -6,7 +6,7 @@ sudo python link_file.py --files alacritty.yml,config.ini,rifle.conf,.bashrc,con
 # additional files can be linked apart from the above blob by running it according to the example below;
 #   sudo python link_file.py --files FILE_NAME --dirs DIR_PATH
 
-# For some reason, the configuration.nix file tries to run from this directory instead of in /etc/nixos
+# For some reason, "nixos-rebuild switch" tries to read the file from this directory instead of in /etc/nixos
 # To fix this, the file is removed and then hard-linked ti the expected directory
 sudo rm /etc/nixos/configuration.nix
 sudo ln ~/dotfiles/configuration.nix /etc/nixos/configuration.nix
