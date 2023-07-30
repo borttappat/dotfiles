@@ -14,6 +14,7 @@
     nixpkgs.config.allowUnfree = true; 
     nixpkgs.config.allowUnstable = true;
       
+    nix.package = pkgs.nixUnstable;
 
 # Allowing for flakes and nix-command 
    nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -114,7 +115,7 @@
     ];
 
 # Fonts 
-    fonts.fonts = with pkgs; [
+    fonts.packages = with pkgs; [
     nerdfonts
     ];
 
@@ -256,6 +257,7 @@
     unclutter
     unzip
     tealdeer
+    gimp
 ];
    
    

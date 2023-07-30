@@ -11,6 +11,8 @@ sudo python link_file.py --files alacritty.yml,config.ini,rifle.conf,.bashrc,con
 sudo rm /etc/nixos/configuration.nix
 sudo ln ~/dotfiles/configuration.nix /etc/nixos/configuration.nix
 
+sudo python link_file.py --files flake.nix,flake.lock --dirs /etc/nixos,/etc/nixos
+
 echo "files linked"
 
 

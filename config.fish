@@ -21,7 +21,7 @@ alias gd='clear && figlet -f slant Git && echo && cd ~/dotfiles && git status'
 alias x='startx'
 alias v='sudo -E vim'
 
-alias nixbuild='sudo nixos-rebuild switch'
+alias nixbuild='sudo nixos-rebuild switch --flake /etc/nixos#traum'
 alias nixconf='v ~/dotfiles/configuration.nix'
 
 alias i3conf='v ~/dotfiles/config'
