@@ -184,6 +184,9 @@
     flameshot
     rar
     pciutils
+    curl
+    wget
+
     whois
 
     uncover
