@@ -147,6 +147,8 @@
     cmatrix
     ranger
     figlet
+    ticker
+    tickrs
 
 # WM
     i3-gaps
