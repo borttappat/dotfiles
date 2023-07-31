@@ -194,18 +194,24 @@
     uncover
 
     wifite2
-    
+    nikto
+    iw
+    nmap
+    wireshark
+    sherlock
     iw
     wirelesstools
     hydra-cli
     thc-hydra
-    
-    theharvester
-    nmap
-    dirb
-    wireshark
-    medusa
     metasploit
+    hashcat
+    cowpatty
+    hcxtools
+    aircrack-ng
+
+    theharvester
+    dirb
+    medusa
     libargon2
     kismet
     airgeddon
@@ -224,34 +230,23 @@
     fcrackzip
     dnsrecon
     socat
-    macchanger
-    
+    macchanger 
     httrack
     ghidra
     foremost
     dnsenum
     fierce
     cryptsetup
-    aircrack-ng
-    
     wfuzz
     testdisk
     sqlmap
     wpscan
-    
-    hashcat
-    
     tcpdump
     ettercap
     masscan
-    sherlock
     fping
     evil-winrm
-    python311Packages.pypykatz
     driftnet    
-    
-    cowpatty
-    hcxtools
     
 # X11
     xorg.xinit
