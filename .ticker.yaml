@@ -1,0 +1,20 @@
+show-fundamentals: true
+show-separator: true
+show-holdings: true
+interval: 5
+currency: SEK
+currency-summary-only: false
+watchlist:
+  - QCOM
+  - NVDA
+  - AMD
+  - AAPL
+  - MA
+  - BTC-USD
+  - V
+  - SPLK
+  - INTC
+  - AMZN
+  - MSFT
+  - GOOG
+  - GOOGL
