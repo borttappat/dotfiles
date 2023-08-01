@@ -15,6 +15,8 @@ sudo python link_file.py --files flake.nix --dirs /etc/nixos
 
 sudo python link_file.py --files .ticker.yaml --dirs ~/
 
+sudo python link_file.py --files packages.nix --dirs /etc/nixos
+
 echo "files linked"
 
 

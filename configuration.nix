@@ -22,6 +22,7 @@
     imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./packages.nix
     ];
 
 # Bootloader
@@ -149,6 +150,7 @@
     figlet
     ticker
     tickrs
+    exa
 
 # WM
     i3-gaps

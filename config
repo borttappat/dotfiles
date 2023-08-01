@@ -237,10 +237,10 @@
     #smart_gaps on
 
 # Controlling gap sizes
-    bindsym $mod+Shift+Up gaps inner current plus 2
-    bindsym $mod+Shift+Down gaps inner current minus 2
-    bindsym $mod+Shift+Right gaps inner current plus 15
-    bindsym $mod+Shift+Left gaps inner current minus 15
+    bindsym $mod+Shift+Down gaps inner current plus 2
+    bindsym $mod+Shift+Up gaps inner current minus 2
+    bindsym $mod+Shift+Left gaps inner current plus 15
+    bindsym $mod+Shift+Right gaps inner current minus 15
 
 # Only enable outer gaps when there is exactly one container
     #smart_gaps inverse_outer
@@ -256,7 +256,6 @@
 # Only initiate a tiling drag when the modifier is held:
     tiling_drag modifier
     floating_modifier $mod
-
 
 
 
