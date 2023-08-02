@@ -13,6 +13,7 @@ end
 # aliases
 alias reboot='systemctl reboot'
 alias shutdown='shutdown now'
+alias suspend='systemctl suspend'
 
 # alias ls='ls -A'
 alias ls='exa -a'
@@ -26,7 +27,7 @@ alias v='sudo -E vim'
 alias nixbuild='sudo nixos-rebuild switch --flake /etc/nixos#traum'
 alias flakebuild='sudo rm /etc/nixos/flake.nix && sudo ln ~/dotfiles/flake.nix /etc/nixos && nixbuild'
 alias nixconf='v ~/dotfiles/configuration.nix'
-
+alias nixpkgs='v ~/dotfiles/packages.nix'
 
 alias i3conf='v ~/dotfiles/config'
 alias picomconf='v ~/dotfiles/picom.conf'
