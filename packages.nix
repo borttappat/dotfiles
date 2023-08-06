@@ -4,7 +4,8 @@
 
  environment.systemPackages = with pkgs; [
     
-#    razergenie
+    ttyper
+    terminal-typeracer
     obsidian
 
     ];

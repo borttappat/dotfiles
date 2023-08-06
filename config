@@ -35,6 +35,9 @@
 # Lockscreen
     bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg
 
+# Suspend
+    bindsym $mod+Shift+s exec systemctl suspend
+
 # Cycle wallpapers and apply new colorscheme.
     bindsym $mod+w exec ~/dotfiles/randomwalrgb.sh
 
