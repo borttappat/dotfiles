@@ -34,6 +34,10 @@
 #    hardware.i2c.enable = true;
 #    services.hardware.openrgb.motherboard = intel;
 
+    # OpenGL
+    #hardware.opengl.extraPackage = with pkgs; [ intel-media-driver ];
+
+    
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.
     

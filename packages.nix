@@ -7,6 +7,7 @@
     ttyper
     terminal-typeracer
     obsidian
+    ocl-icd
 
     ];
 }

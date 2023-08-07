@@ -8,7 +8,7 @@ window:
     y: 5
 
   # Spread additional padding evenly around the terminal content.
-  dynamic_padding: false
+  dynamic_padding: true 
 
   # Background opacity
   # The value `0.0` is completely transparent and `1.0` is opaque.
@@ -63,8 +63,22 @@ live_config_reload: true
 
 # Key bindings
 key_bindings:
-    - { key: K,     mods: Control|Alt,    action: IncreaseFontSize }
-    - { key: J,     mods: Control|Alt,    action: DecreaseFontSize }
+  #- { key: Equals,   mods: Control,       action: IncreaseFontSize }
+  #- { key: Add,      mods: Control,       action: IncreaseFontSize }
+  #- { key: Subtract, mods: Control,       action: DecreaseFontSize }
+  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
+
+   # - { 
+   # key: K,     
+   # mods: Alt,    
+   # action: IncreaseFontSize 
+   # }
+    #- { 
+    #key: J,     
+    #mods: Alt,    
+    #action: DecreaseFontSize 
+    #}
+
 #- { key: F8, mods: Control, action:} 
 # Key bindings are specified as a list of objects. For example, this is the
 # default paste binding:
