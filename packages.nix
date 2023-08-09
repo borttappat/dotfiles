@@ -3,11 +3,15 @@
 {
 
  environment.systemPackages = with pkgs; [
-    
+
+
+    # recent ucategorized installs
+
+    # Categorized
     ttyper
     terminal-typeracer
     obsidian
-    ocl-icd
-
+    opencl-info
+    
     ];
 }

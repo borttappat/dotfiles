@@ -8,7 +8,7 @@
 
 { config, pkgs, ... }:
 
-# Allowing unfree andn unstable packages
+# Allowing unfree and unstable packages
 {   
     # I'm sorry, Stallman
     nixpkgs.config.allowUnfree = true; 
@@ -17,7 +17,7 @@
     nix.package = pkgs.nixUnstable;
 
 # Allowing for flakes and nix-command 
-   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
  
     imports =
     [ # Include the results of the hardware scan.
@@ -35,8 +35,10 @@
 #    services.hardware.openrgb.motherboard = intel;
 
     # OpenGL
-    #hardware.opengl.extraPackage = with pkgs; [ intel-media-driver ];
-
+    # hardware.opengl.extraPackage = with pkgs; [ intel-media-driver intel-ocl vaapiIntel ];
+    
+    # Video acceleration
+    boot.kernelParams = [ "i915.force_probe=9a49" ];
     
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.
