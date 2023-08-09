@@ -12,6 +12,8 @@
     terminal-typeracer
     obsidian
     opencl-info
-    
+    sleuthkit
+    bully
+
     ];
 }
