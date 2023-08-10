@@ -14,6 +14,7 @@
     opencl-info
     sleuthkit
     bully
+    openconnect
 
     ];
 }

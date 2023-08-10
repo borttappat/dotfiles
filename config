@@ -19,8 +19,6 @@
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
     #exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Wallpaper.jpeg
     exec --no-startup-id alacritty
-    exec --no-startup-id alacritty  
-    exec --no-startup-id alacritty
      
 #########
 # Binds #
