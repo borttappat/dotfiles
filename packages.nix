@@ -2,6 +2,20 @@
 
 {
 
+# Allowing unfree and unstable packages
+    
+    # I'm sorry, Stallman
+    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.allowUnstable = true;
+
+    nix.package = pkgs.nixUnstable;
+ 
+# Fonts
+    fonts.packages = with pkgs; [
+    nerdfonts
+    ];
+
+# Packages to install on a system-wide level
  environment.systemPackages = with pkgs; [
 
 # Editors

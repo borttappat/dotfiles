@@ -8,14 +8,8 @@
 
 { config, pkgs, ... }:
 
-# Allowing unfree and unstable packages
 {   
-    # I'm sorry, Stallman
-    nixpkgs.config.allowUnfree = true; 
-    nixpkgs.config.allowUnstable = true;
       
-    nix.package = pkgs.nixUnstable;
-
 # Allowing for flakes and nix-command 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
  
@@ -24,16 +18,13 @@
       ./hardware-configuration.nix
       ./packages.nix
       ./users.nix
+      ./services.nix
     ];
 
 # Bootloader
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
-# Enabling i2c for intel-related things
-#    hardware.i2c.enable = true;
-#    services.hardware.openrgb.motherboard = intel;
 
     # OpenGL
     # hardware.opengl.extraPackage = with pkgs; [ intel-media-driver intel-ocl vaapiIntel ];
@@ -50,44 +41,6 @@
 # Enable networking
     networking.networkmanager.enable = true;
 
-# Time zone
-    time.timeZone = "Europe/Stockholm";
-
-# Locale settings
-    i18n.defaultLocale = "en_US.UTF-8";
-
-    i18n.extraLocaleSettings = {
-        LC_ADDRESS = "sv_SE.UTF-8";
-        LC_IDENTIFICATION = "sv_SE.UTF-8";
-        LC_MEASUREMENT = "sv_SE.UTF-8";
-        LC_MONETARY = "sv_SE.UTF-8";
-        LC_NAME = "sv_SE.UTF-8";
-        LC_NUMERIC = "sv_SE.UTF-8";
-        LC_PAPER = "sv_SE.UTF-8";
-        LC_TELEPHONE = "sv_SE.UTF-8";
-        LC_TIME = "sv_SE.UTF-8";
-    };
-
-# Enable the X11 windowing system
-    services.xserver.enable = true;
-  
-# Enable the GNOME Desktop Environment
-    #services.xserver.displayManager.gdm.enable = true;
-    #services.xserver.desktopManager.gnome.enable = true;
-
-# Window- and Display-manager settings
-    services.xserver.displayManager.startx.enable = true;
-    services.xserver.windowManager.i3.enable = true;
-
-# Configure keymap in X11
-    services.xserver = {
-        layout = "se";
-        xkbVariant = "";
-    };
-
-# Configure console keymap
-  console.keyMap = "sv-latin1";
-
 # Enable sound with pipewire
     sound.enable = true;
     hardware.pulseaudio.enable = false;
@@ -98,216 +51,6 @@
         alsa.support32Bit = true;
     };
 
-# Enable touchpad support
-    services.xserver.libinput.enable = true;
-
-# Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.traum = {
-        isNormalUser = true;
-        description = "A";
-        extraGroups = [ "networkmanager" "wheel" ];
-        packages = with pkgs; [
-        ];
-    };
-
-
-# Removing need for user "traum" to type password after sudo
-    security.sudo.extraRules= [
-    {users = [ "traum" ];
-        commands = [
-            { command = "ALL" ;
-          options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea
-            }
-            ];
-    }
-    ];
-
-# Fonts 
-    fonts.packages = with pkgs; [
-    nerdfonts
-    ];
-
-# Packages 
-  environment.systemPackages = with pkgs; [
-
-# Editors
-    vim
-    
-# Compilers
-    #gcc
-    python3
-
-# Programs
-    librewolf
-    brave
-    mullvad-browser
-    tor
-
-# Terminal stuff
-    alacritty
-    htop
-    glances
-    neofetch
-    bunnyfetch
-    pfetch
-    nitch
-    cbonsai
-    cmatrix
-    ranger
-    figlet
-    ticker
-    tickrs
-    exa
-
-# WM
-    #i3-gaps
-    
-    polybar
-    rofi
-    picom
-    #wpgtk
-    pywal
-    feh
-    #eww
-    #conky
-    betterlockscreen
-    i3lock-color
-    i3lock
-    #i3lock-fancy
-
-# Tools
-    brightnessctl
-    light 
-    #pciutils
-    undervolt
-    git
-    gh
-    chatgpt-cli
-    nmon
-    zathura
-    xdotool
-    killall
-    qemu
-    #kvmtool
-    tmux    
-    #onionshare
-    #picosnitch
-    flameshot
-    rar
-    pciutils
-    curl
-    wget
-    lshw
-
-    whois
-
-    uncover
-
-    wifite2
-    nikto
-    iw
-    nmap
-    wireshark
-    sherlock
-    iw
-    wirelesstools
-    hydra-cli
-    thc-hydra
-    metasploit
-    hashcat
-    cowpatty
-    hcxtools
-    aircrack-ng
-    
-    hostapd-mana
-    dbmonster
-    linux-router
-    pixiewps
-    theharvester
-    dirb
-    medusa
-    libargon2
-    kismet
-    airgeddon
-    steghide
-    stegseek
-    parsero
-    commix
-    cewl
-    bettercap
-    whatweb
-    reaverwps
-    reaverwps-t6x
-    john
-    netdiscover
-    lynis
-    fcrackzip
-    dnsrecon
-    socat
-    macchanger 
-    httrack
-    foremost
-    dnsenum
-    fierce
-    cryptsetup
-    wfuzz
-    testdisk
-    sqlmap
-    wpscan
-    tcpdump
-    ettercap
-    masscan
-    fping
-    evil-winrm
-    driftnet    
-    
-# X11
-    xorg.xinit
-    xorg.xrdb
-    xorg.xorgserver
-    
-# Uncategorized
-    unclutter
-    unzip
-    tealdeer
-    gimp
-];
-   
-   
-#########################
-# Programs and services #
-#########################
-
-# Asusd
-#    services.asusd.enable = true; 
-   
-# Fish-shell
-    programs.fish.enable=true;
-    users.defaultUserShell = pkgs.fish;
-   
-# i3-lock
-    programs.i3lock.enable=true;
-   
-# Window-manager
-    services.xserver.windowManager.i3.package = pkgs.i3-gaps; 	   
-    #services.xserver.windowManager.i3.package = pkgs.i3-rounded;
- 
-# Enabling auto-cpufreq
-    services.auto-cpufreq.enable = true;
-
-# Intel-undervolt
-    #services.undervolt.enable = true;
-
-# Enable the OpenSSH daemon.
-    services.openssh.enable = true;
-
-# Enabling tailscale VPN
-    services.tailscale.enable = true;
-
-# Enabling OpenRGB
-    services.hardware.openrgb.enable = true;
-
-  
 ##############
 #  Firewall  #
 ##############
@@ -344,17 +87,6 @@
         #};
     #};
 
-# Some programs need SUID wrappers, can be configured further or are
-  
-    #started in user sessions.
-    #programs.mtr.enable = true;
-    #programs.gnupg.agent = {
-    #   enable = true;
-    #   enableSSHSupport = true;
-    #};
-
-
-
-system.stateVersion = "22.11"; # Did you read the comment?
+system.stateVersion = "22.11"; 
 
 }
