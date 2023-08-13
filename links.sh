@@ -11,12 +11,21 @@ sudo python link_file.py --files alacritty.yml,config.ini,rifle.conf,.bashrc,con
 sudo rm /etc/nixos/configuration.nix
 sudo ln ~/dotfiles/configuration.nix /etc/nixos/configuration.nix
 
-sudo python link_file.py --files flake.nix --dirs /etc/nixos
+sudo rm /etc/nixos/flake.nix
+sudo ln ~/dotfiles/flake.nix /etc/nixos/flake.nix
 
 sudo python link_file.py --files .ticker.yaml --dirs ~/
 
-sudo python link_file.py --files packages.nix --dirs /etc/nixos
+sudo rm /etc/nixos/packages.nix 
+sudo ln ~/dotfiles/packages.nix /etc/nixos/packages.nix
+
+sudo rm /etc/nixos/users.nix
+sudo ln ~/dotfiles/users.nix /etc/nixos/users.nix
+
+sudo rm /etc/nixos/services.nix
+sudo ln ~/dotfiles/services.nix /etc/nixos/services.nix
 
 echo "files linked"
+
 
 
