@@ -43,7 +43,7 @@
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.
     
-    # Enables wireless support via wpa_supplicant
+# Enables wireless support via wpa_supplicant
     #networking.wireless.enable = true;  
 
 # Enable networking
@@ -159,7 +159,8 @@
     exa
 
 # WM
-    i3-gaps
+    #i3-gaps
+    
     polybar
     rofi
     picom
@@ -172,7 +173,6 @@
     i3lock-color
     i3lock
     #i3lock-fancy
-    i3-layout-manager
 
 # Tools
     brightnessctl
@@ -196,6 +196,7 @@
     pciutils
     curl
     wget
+    lshw
 
     whois
 
@@ -216,7 +217,11 @@
     cowpatty
     hcxtools
     aircrack-ng
-
+    
+    hostapd-mana
+    dbmonster
+    linux-router
+    pixiewps
     theharvester
     dirb
     medusa
@@ -240,7 +245,6 @@
     socat
     macchanger 
     httrack
-    ghidra
     foremost
     dnsenum
     fierce
