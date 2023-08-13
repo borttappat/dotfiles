@@ -27,4 +27,4 @@ for i in range(len(files)):
         os.remove(link_path)
 
     # Create the symbolic link
-    os.symlink(file_path, link_path)
+    os.link(file_path, link_path)

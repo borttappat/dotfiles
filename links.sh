@@ -6,24 +6,14 @@ sudo python link_file.py --files alacritty.yml,config.ini,rifle.conf,.bashrc,con
 # additional files can be linked apart from the above blob by running it according to the example below;
 #   sudo python link_file.py --files FILE_NAME --dirs DIR_PATH
 
-# For some reason, "nixos-rebuild switch" tries to read the file from this directory instead of in /etc/nixos
-# To fix this, the file is removed and then hard-linked ti the expected directory
-sudo rm /etc/nixos/configuration.nix
-sudo ln ~/dotfiles/configuration.nix /etc/nixos/configuration.nix
-
-sudo rm /etc/nixos/flake.nix
-sudo ln ~/dotfiles/flake.nix /etc/nixos/flake.nix
-
 sudo python link_file.py --files .ticker.yaml --dirs ~/
 
-sudo rm /etc/nixos/packages.nix 
-sudo ln ~/dotfiles/packages.nix /etc/nixos/packages.nix
-
-sudo rm /etc/nixos/users.nix
-sudo ln ~/dotfiles/users.nix /etc/nixos/users.nix
-
-sudo rm /etc/nixos/services.nix
-sudo ln ~/dotfiles/services.nix /etc/nixos/services.nix
+# links for /etc/nixos
+sudo python link_file.py --file configuration.nix --dirs /etc/nixos
+sudo python link_file.py --file flake.nix --dirs /etc/nixos
+sudo python link_file.py --file packages.nix --dirs /etc/nixos
+sudo python link_file.py --file users.nix --dirs /etc/nixos
+sudo python link_file.py --file services.nix --dirs /etc/nixos
 
 echo "files linked"
 
