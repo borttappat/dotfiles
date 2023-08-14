@@ -47,7 +47,7 @@
     tickrs
     exa
     ttyper
-    matrixcli
+    #matrixcli
 
 # WM
     polybar
