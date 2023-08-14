@@ -4,6 +4,9 @@
 # Asusd
 #    services.asusd.enable = true;
 
+# Behaviour settings for closing lid on external power
+    services.logind.lidSwitchExternalPower = "ignore";
+
 # Fish-shell
     programs.fish.enable=true;
     users.defaultUserShell = pkgs.fish;
