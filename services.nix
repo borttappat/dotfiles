@@ -4,6 +4,12 @@
 # Asusd
 #    services.asusd.enable = true;
 
+# Undervolt
+   # services.undervolt = {
+   #     enable = false;
+   #     coreOffset = -80;
+   # };
+
 # Behaviour settings for closing lid on external power
     services.logind.lidSwitchExternalPower = "ignore";
 
