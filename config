@@ -24,11 +24,19 @@
 # Binds #
 #########
 
+# Scratchpad
+# Make the currently focused window a scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+    bindsym $mod+minus scratchpad show
+
+
 # Polybar restart
     bindsym $mod+Shift+p exec killall polybar && polybar
 
 # B/W Wallpaper 
-    bindsym $mod+Shift+w exec feh --bg-fill ~/Wallpapers/Dark.jpg
+    bindsym $mod+Shift+w exec feh --bg-fill ~/Wallpapers/Black.jpg
 
 # Lockscreen
     bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg

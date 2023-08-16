@@ -108,7 +108,9 @@
     cowpatty
     hcxtools
     aircrack-ng
-    
+   
+    websploit
+    routersploit
     hostapd-mana
     bully
     sleuthkit
