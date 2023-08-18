@@ -48,6 +48,7 @@
     exa
     ttyper
     #matrixcli
+    dfrs
 
 # WM
     polybar
