@@ -36,7 +36,7 @@
     bindsym $mod+Shift+p exec killall polybar && polybar
 
 # B/W Wallpaper 
-    bindsym $mod+Shift+w exec feh --bg-fill ~/Wallpapers/Black.jpg
+    bindsym $mod+Shift+w exec feh --bg-fill ~/dotfiles/wallpapers/Black.jpg
 
 # Lockscreen
     bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg
@@ -76,8 +76,8 @@
     # enable startup in float from exec by setting the x11 class to floating
     # many apps support '--class floating' for setting the x11 class (the instance get renamed)
     for_window [instance="floating"] floating enabled
-    for_window [instance="floating"] resize set 600 360
-    for_window [instance="floating"] move absolute position 60 px 70 px
+    for_window [instance="floating"] resize set 700 480
+    for_window [instance="floating"] move absolute position 80 px 90 px
 
 # Kill focused window
     bindsym $mod+q kill
@@ -141,10 +141,10 @@
     set $ws9 "9"
     set $ws10 "10"
 
-    # Set gaps for workspace 1
-    workspace 1 gaps inner 42
+# Set gaps for workspace 1
+    #workspace 1 gaps inner 42
     
-    # Enable floating windows on workspace 3
+# Enable floating windows on workspace 3
     #assign [class="^.*"] $ws3
     #for_window [workspace=$ws3] floating enable
 
