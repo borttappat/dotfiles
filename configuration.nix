@@ -31,6 +31,13 @@
     
     # Video acceleration
     boot.kernelParams = [ "i915.force_probe=9a49" ];
+   
+# WIP Virtualisation
+    virtualisation.libvirtd.enable = true;
+    programs.dconf.enable = true;
+    environment.systemPackages = with pkgs; [ virt-manager ];
+    
+    users.users.traum.extraGroups = [ "libvirtd" ];
     
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.
