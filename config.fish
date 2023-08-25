@@ -29,7 +29,7 @@ alias flakebuild='sudo rm /etc/nixos/flake.nix && sudo ln ~/dotfiles/flake.nix /
 alias nixconf='v ~/dotfiles/configuration.nix'
 alias nixpkg='v ~/dotfiles/packages.nix'
 alias nixsrv='v ~/dotfiles/services.nix'
-
+alias nixclean='sudo nix-collect-garbage -d && nixbuild'
 alias i3conf='v ~/dotfiles/config'
 alias picomconf='v ~/dotfiles/picom.conf'
 alias polyconf='v ~/dotfiles/config.ini'

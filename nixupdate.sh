@@ -1,10 +1,10 @@
 #!/run/current-system/sw/bin/bash
 
-# add unstable channel
-nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+# Add unstable channel
+sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
 
 # Update with new channel
-nix-channel --update
-
-# Rebuild with new 
+sudo nix-channel --update
+    
+# Rebuild 
 sudo nixos-rebuild switch --upgrade
