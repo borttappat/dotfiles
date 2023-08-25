@@ -109,7 +109,11 @@
     cowpatty
     hcxtools
     aircrack-ng
-   
+    
+    #burpsuite
+    #proxychains-ng
+    
+    crunch
     websploit
     routersploit
     hostapd-mana
