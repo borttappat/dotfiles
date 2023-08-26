@@ -109,6 +109,13 @@
     cowpatty
     hcxtools
     aircrack-ng
+    airgeddon
+    mdk4
+    hcxdumptool
+    openssl
+    asleap
+    netcat
+    traceroute
     
     #burpsuite
     #proxychains-ng
@@ -127,7 +134,6 @@
     medusa
     libargon2
     kismet
-    airgeddon
     steghide
     stegseek
     parsero

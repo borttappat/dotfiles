@@ -31,6 +31,8 @@
 # Show the first scratchpad window
     bindsym $mod+minus scratchpad show
 
+# Shutdown
+    bindsym $mod+Shift+Escape exec shutdown
 
 # Polybar restart
     bindsym $mod+Shift+p exec killall polybar && polybar
