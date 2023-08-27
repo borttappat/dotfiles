@@ -15,10 +15,11 @@
  
     imports =
     [ 
-      ./hardware-configuration.nix
-      ./packages.nix
-      ./users.nix
-      ./services.nix
+      # Deprecated, have all been added to flake.nix. Saved for backup purposes
+      #./hardware-configuration.nix
+      #./packages.nix
+      #./users.nix
+      #./services.nix
     ];
 
 # Bootloader

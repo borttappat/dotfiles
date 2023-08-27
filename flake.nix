@@ -28,8 +28,13 @@
                     inherit system;
                     specialArgs = {inherit user;};
                     modules = [ 
-                    ./configuration.nix
-                    ./hardware-configuration.nix ]; 
+                        ./configuration.nix
+                        ./hardware-configuration.nix 
+                        ./packages.nix
+                        ./services.nix
+                        ./users.nix
+
+                    ]; 
                     };
                 };
         };
