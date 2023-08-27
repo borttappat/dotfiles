@@ -31,8 +31,6 @@
 # Show the first scratchpad window
     bindsym $mod+minus scratchpad show
 
-# Shutdown
-    bindsym $mod+Shift+Escape exec shutdown
 
 # Polybar restart
     bindsym $mod+Shift+p exec killall polybar && polybar
@@ -41,7 +39,8 @@
     bindsym $mod+Shift+w exec feh --bg-fill ~/dotfiles/wallpapers/Black.jpg
 
 # Lockscreen
-    bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg
+    #bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg
+    bindsym $mod+Shift+e exec betterlockscreen -s ~/Wallpapers/Digipepe.png -b 1
 
 # Suspend
     bindsym $mod+Shift+s exec systemctl suspend
@@ -114,6 +113,23 @@
     bindsym $mod+Shift+j move down
     bindsym $mod+Shift+k move up
     bindsym $mod+Shift+l move right
+
+# Moving floating windows
+    mode "moveit" {
+        bindsym Up move up 20px
+        bindsym Left move left 20px
+        bindsym Down move down 20px
+        bindsym Right move right 20px
+        
+        bindsym h move left 40px
+        bindsym j move down 40px
+        bindsym k move up 40px
+        bindsym l move right 40px
+
+        bindsym Mod4+m mode "default"
+    }
+    
+    bindsym $mod+m focus floating; mode "moveit"
 
 # Split in horizontal orientation
     bindsym $mod+c split v
