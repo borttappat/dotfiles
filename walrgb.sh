@@ -16,8 +16,14 @@
     echo "File name: $file_name"
     echo "Directory: $directory"
 
-
+# run wal with the specified image path
 wal -i ${file_path}
 
+# Convert line 2 of the wal colors cache to a hex code 
+# for openrgb to read and then runs openrgb with said code
 HEX_CODE=$(sed -n '2p' ~/.cache/wal/colors | sed 's/#//')
 openrgb --device 0 --mode static --color ${HEX_CODE/#/}
+
+# refresh polybar
+killall polybar
+polybar

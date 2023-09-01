@@ -9,6 +9,8 @@
    #     enable = false;
    #     coreOffset = -80;
    # };
+# Mullvad-vpn
+    services.mullvad-vpn.enable = true;
 
 # Behaviour settings for closing lid on external power
     services.logind.lidSwitchExternalPower = "ignore";

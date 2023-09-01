@@ -39,8 +39,8 @@
     bindsym $mod+Shift+w exec feh --bg-fill ~/dotfiles/wallpapers/Black.jpg
 
 # Lockscreen
-    #bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg
-    bindsym $mod+Shift+e exec betterlockscreen -s ~/Wallpapers/Digipepe.png -b 1
+    bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg
+    #bindsym $mod+Shift+e exec betterlockscreen -s ~/Wallpapers/Digipepe.png -b 1
 
 # Suspend
     bindsym $mod+Shift+s exec systemctl suspend

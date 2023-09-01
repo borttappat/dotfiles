@@ -29,6 +29,7 @@
     librewolf
     brave
     mullvad-browser
+    mullvad-vpn
     tor
 
 # Terminal stuff
@@ -67,6 +68,7 @@
 
 # Tools
     openconnect
+    openvpn
     brightnessctl
     obsidian
     light 
@@ -90,6 +92,8 @@
     curl
     wget
     lshw
+    toybox
+    findutils
 
     whois
 
