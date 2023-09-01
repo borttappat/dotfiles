@@ -121,6 +121,9 @@
     asleap
     netcat
     traceroute
+    samba
+    gobuster
+    ffuf
     
     #burpsuite
     #proxychains-ng

@@ -78,7 +78,7 @@
     # many apps support '--class floating' for setting the x11 class (the instance get renamed)
     for_window [instance="floating"] floating enabled
     for_window [instance="floating"] resize set 700 480
-    for_window [instance="floating"] move absolute position 80 px 90 px
+    for_window [instance="floating"] move absolute position 1150 px 90 px
 
 # Kill focused window
     bindsym $mod+q kill
