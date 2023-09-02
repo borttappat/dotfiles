@@ -124,6 +124,7 @@
     samba
     gobuster
     ffuf
+    exploitdb
     
     #burpsuite
     #proxychains-ng

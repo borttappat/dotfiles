@@ -27,3 +27,5 @@ openrgb --device 0 --mode static --color ${HEX_CODE/#/}
 # refresh polybar
 killall polybar
 polybar
+
+echo "Colors updated!"
