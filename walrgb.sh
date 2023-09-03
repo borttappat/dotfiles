@@ -17,15 +17,20 @@
     echo "Directory: $directory"
 
 # run wal with the specified image path
+echo "Setting colorscheme according to $file_path"
 wal -i ${file_path}
+echo "Colorscheme set"
 
 # Convert line 2 of the wal colors cache to a hex code 
 # for openrgb to read and then runs openrgb with said code
 HEX_CODE=$(sed -n '2p' ~/.cache/wal/colors | sed 's/#//')
 openrgb --device 0 --mode static --color ${HEX_CODE/#/}
+echo "Backlight set"
 
 # refresh polybar
+echo "Restarting Polybar"
 killall polybar
-polybar
+polybar -q & 
+echo "Polybar launched"
 
 echo "Colors updated!"
