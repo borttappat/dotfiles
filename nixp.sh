@@ -24,6 +24,17 @@ for arg in "$@"; do
   ((line_number++))
 done
 
-echo "Arguments inserted into $file_path starting from line 8:"
+echo "Arguments inserted into $file_path:" 
 echo "$@"
 
+# Prompt the user to update the system
+read -p "Do you want to update the system? (Y/N): " response
+if [[ "$response" == "Y" || "$response" == "y" ]]; then
+  
+  echo "Updating system..."
+  update="sudo nixos-rebuild switch --flake /etc/nixos#traum"
+  $update
+  #echo "System updated successfully."
+else
+  echo "No action taken."
+fi
