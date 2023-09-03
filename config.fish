@@ -23,7 +23,7 @@ alias l='exa -a -l'
 alias x='startx'
 alias v='sudo -E vim'
 
-
+alias nixp='~/dotfiles/nixp.sh '
 alias nixbuild='sudo nixos-rebuild switch --flake /etc/nixos#traum'
 alias flakebuild='sudo rm /etc/nixos/flake.nix && sudo ln ~/dotfiles/flake.nix /etc/nixos && nixbuild'
 alias nixconf='v ~/dotfiles/configuration.nix'
