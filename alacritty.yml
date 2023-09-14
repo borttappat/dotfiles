@@ -64,9 +64,9 @@ live_config_reload: true
 # Key bindings
 key_bindings:
   #- { key: Equals,   mods: Control,       action: IncreaseFontSize }
-  #- { key: Add,      mods: Control,       action: IncreaseFontSize }
+  - { key: K,   mods: Control,  action: IncreaseFontSize }
   #- { key: Subtract, mods: Control,       action: DecreaseFontSize }
-  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
+  - { key: J,   mods: Control,  action: DecreaseFontSize }
 
    # - { 
    # key: K,     
@@ -424,7 +424,7 @@ key_bindings:
   #renderer: None
 
   # Print all received window events.
-  #print_events: false
+  # print_events: true
 
   # Highlight window damage information.
-  #highlight_damage: false
+  #highlight_damage: true

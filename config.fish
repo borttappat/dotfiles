@@ -16,8 +16,8 @@ alias shutdown='shutdown now'
 alias suspend='systemctl suspend'
 
 # alias ls='ls -A'
-alias ls='exa -a'
-alias l='exa -a -l'
+alias ls='eza -a'
+alias l='eza -a -l'
 
 
 alias x='startx'

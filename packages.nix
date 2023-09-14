@@ -21,6 +21,15 @@
 # Editors
     vim
     
+# Intel drivers
+    intel-ocl
+    ocl-icd
+    clinfo
+    #intelmetool
+    #intel-media-driver
+    #intel-compute-runtime
+    #intel-graphics-compiler
+
 # Compilers
     #gcc
     python3
@@ -46,7 +55,7 @@
     figlet
     ticker
     tickrs
-    exa
+    eza
     ttyper
     #matrixcli
     dfrs
@@ -125,6 +134,8 @@
     gobuster
     ffuf
     exploitdb
+    libxml2
+    hcxtools
     
     #burpsuite
     #proxychains-ng
