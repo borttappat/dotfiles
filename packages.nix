@@ -103,6 +103,9 @@
     lshw
     toybox
     findutils
+    busybox
+    inetutils
+    udisks
 
     whois
 
@@ -136,6 +139,7 @@
     exploitdb
     libxml2
     hcxtools
+    enum4linux
     
     #burpsuite
     #proxychains-ng
