@@ -140,7 +140,9 @@
     libxml2
     hcxtools
     enum4linux
-    
+    redis
+    #remmina
+ 
     #burpsuite
     #proxychains-ng
     
