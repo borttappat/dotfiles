@@ -59,6 +59,7 @@
     ttyper
     #matrixcli
     dfrs
+    pipes
 
 # WM
     polybar
@@ -141,7 +142,7 @@
     hcxtools
     enum4linux
     redis
-    #remmina
+    remmina
  
     #burpsuite
     #proxychains-ng
