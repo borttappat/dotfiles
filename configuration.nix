@@ -26,24 +26,7 @@
 # Bootloader
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
-    # the 
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
-    # OpenGL
-    hardware.opengl.extraPackages = with pkgs; [ intel-media-driver intel-ocl vaapiIntel ];
-    hardware.opengl.enable = true; 
-    # Video acceleration
-    # 9a49 is sourced from the output of command: $ nix-shell -p pciutils --run "lspci -nn | grep VGA"
-    boot.kernelParams = [ "i915.force_probe=9a49" ];
-
-
-
-# WIP Virtualisation
-    virtualisation.libvirtd.enable = true;
-    programs.dconf.enable = true;
-    environment.systemPackages = with pkgs; [ virt-manager ];
-    
-    users.users.traum.extraGroups = [ "libvirtd" ];
     
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.

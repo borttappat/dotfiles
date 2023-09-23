@@ -6,7 +6,7 @@
     users.users.traum = {
         isNormalUser = true;
         description = "A";
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
         packages = with pkgs; [
         ];
     };
