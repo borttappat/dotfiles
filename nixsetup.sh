@@ -1,5 +1,8 @@
 #!/run/current-system/sw/bin/bash
 
+# Links files after git clone 
+links.sh
+
 # Adds a line allowing flakes to configuration.nix 
 new_line='nix.settings.experimental-features = [ "nix-command" "flakes" ];'
 
@@ -17,8 +20,6 @@ else
     exit 1
 fi
 
-# Links files after git clone 
-links.sh
 
 # Rebuilds using flake, edit the name after # to your username after editing flake.nix in the same way
 sudo nixos-rebuild switch --flake /etc/nixos#traum
