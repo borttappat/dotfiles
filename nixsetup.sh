@@ -20,7 +20,7 @@ sudo python link_file.py --file services.nix --dirs /etc/nixos
 sudo python link_file.py --file nixp.nix --dirs /etc/nixos
 
 sudo python link_file.py --file MemoryFixed.png --dirs $HOME/Wallpapers
-echo "files linked"
+echo "Files linked."
 
 
 # Adds a line allowing flakes to configuration.nix 

@@ -59,10 +59,10 @@ alias gsy='git pull && sh ~/dotfiles/links.sh'
 
 
 alias links='sh ~/dotfiles/links.sh'
+
+
 # transfer files over tailscale using taildrop.
 # append with path_to_file and target machine followed with :
-
-
 alias tds='sudo tailscale file cp'
 # recieve files over tailscale, append with path for file to be saved
 alias tdr='sudo tailscale file get'
