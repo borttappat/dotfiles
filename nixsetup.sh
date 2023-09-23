@@ -1,6 +1,7 @@
 #!/run/current-system/sw/bin/bash
 
 # Links files after git clone 
+sudo chmod +x links.sh
 links.sh
 
 # Adds a line allowing flakes to configuration.nix 
@@ -19,7 +20,6 @@ else
     echo "File not found: $file_path"
     exit 1
 fi
-
 
 # Rebuilds using flake, edit the name after # to your username after editing flake.nix in the same way
 sudo nixos-rebuild switch --flake /etc/nixos#traum
