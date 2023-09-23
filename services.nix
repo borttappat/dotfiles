@@ -51,26 +51,38 @@
 # Enabling tailscale VPN
     services.tailscale.enable = true;
 
+
 # Enabling OpenRGB
     services.hardware.openrgb.enable = true;
 
-# Enable the X11 windowing system
-    services.xserver.enable = true;
+# Enable i2c-bus
+    hardware.i2c.enable = true;
+
+
 
 # Enable the GNOME Desktop Environment
     #services.xserver.displayManager.gdm.enable = true;
     #services.xserver.desktopManager.gnome.enable = true;
 
-# Window- and Display-manager settings
-    services.xserver.displayManager.startx.enable = true;
-    services.xserver.windowManager.i3.enable = true;
-
 # Enable touchpad support
     services.xserver.libinput.enable = true;
 
-# Configure keymap in X11
-    services.xserver = {
-        layout = "se";
-        xkbVariant = "";
-    };
+# Enable Automatic Upgrades
+    system.autoUpgrade.enable = true;
+
+# Do not allow for automatic reboots
+    # system.autoUpgrade.allowReboot = true;
+
+# Enable Flatpak
+    #xdg.portal.enable = true; # only needed if you are not doing Gnome
+    #services.flatpak.enable = true;
+    # Run this command to add flathub
+    # flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# Setup NUR
+    #nixpkgs.config.packageOverrides = pkgs: {
+    #nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+        #inherit pkgs;
+        #};
+    #};
 }

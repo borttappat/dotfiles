@@ -47,9 +47,14 @@
         alsa.support32Bit = true;
     };
 
-##############
-#  Firewall  #
-##############
+# Define a user account. Don't forget to set a password with ‘passwd’.
+    users.users.traum = {
+        isNormalUser = true;
+        description = "A";
+        extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+        packages = with pkgs; [
+            ];
+        };
 
 # Open ports in the firewall.
     # networking.firewall.allowedTCPPorts = [ ... ];
@@ -57,31 +62,44 @@
     # Or disable the firewall altogether.
     # networking.firewall.enable = false;
 
-  
-###########
-#  Misc   #
-###########
+# Time zone
+    time.timeZone = "Europe/Stockholm";
 
-# Enable Automatic Upgrades
-    system.autoUpgrade.enable = true;
-# Do not allow for automatic reboots
-    # system.autoUpgrade.allowReboot = true;
+# Locale settings
+    i18n.defaultLocale = "en_US.UTF-8";
+    
+    i18n.extraLocaleSettings = {
+        LC_ADDRESS = "sv_SE.UTF-8";
+        LC_IDENTIFICATION = "sv_SE.UTF-8";
+        LC_MEASUREMENT = "sv_SE.UTF-8";
+        LC_MONETARY = "sv_SE.UTF-8";
+        LC_NAME = "sv_SE.UTF-8";
+        LC_NUMERIC = "sv_SE.UTF-8";
+        LC_PAPER = "sv_SE.UTF-8";
+        LC_TELEPHONE = "sv_SE.UTF-8";
+        LC_TIME = "sv_SE.UTF-8";
+    };
 
-# Enable i2c-bus
-    hardware.i2c.enable = true;
+# Configure console keymap
+    console.keyMap = "sv-latin1";
 
-# Enable Flatpak
-    #xdg.portal.enable = true; # only needed if you are not doing Gnome
-    #services.flatpak.enable = true;  
-    # Run this command to add flathub
-    # flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo  
 
-# Setup NUR
-    #nixpkgs.config.packageOverrides = pkgs: {
-    #nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-        #inherit pkgs;
-        #};
-    #};
+# Enable the X11 windowing system
+    services.xserver.enable = true;
+
+# Window- and Display-manager settings
+    services.xserver.displayManager.startx.enable = true;
+    services.xserver.windowManager.i3.enable = true;
+
+# Window-manager
+    #services.xserver.windowManager.i3.package = pkgs.i3-gaps;
+    #services.xserver.windowManager.i3.package = pkgs.i3-rounded;
+
+# Configure keymap in X11
+    services.xserver = {
+        layout = "se";
+        xkbVariant = "";
+    };
 
 system.stateVersion = "22.11"; 
 
