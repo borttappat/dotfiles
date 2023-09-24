@@ -4,7 +4,7 @@
 #sudo chmod +x links.sh
 #links.sh
 # I know this is the hackiest solution known to lizardkind, but I clearly don't know how Python uses links/or file paths. It does however, work.
-sudo python link_file.py --files alacritty.yml,config.ini,rifle.conf,.bashrc,config.rasi,config,picom.conf,.vimrc,config.fish,cozette.otb,rc.conf,.xinitrc --dirs $HOME/.config/alacritty,$HOME/.config/polybar,$HOME/.config/ranger,$HOME,$HOME/.config/rofi,$HOME/.config/i3,HOME/.config/picom,$HOME/,$HOME/.config/fish,$HOME/.local/share/fonts,$HOME/.config/ranger,$HOME
+sudo python link_file.py --files alacritty.yml,config.ini,rifle.conf,.bashrc,config.rasi,config,picom.conf,.vimrc,config.fish,cozette.otb,rc.conf,.xinitrc --dirs $HOME/.config/alacritty,$HOME/.config/polybar,$HOME/.config/ranger,$HOME,$HOME/.config/rofi,$HOME/.config/i3,$HOME/.config/picom,$HOME/,$HOME/.config/fish,$HOME/.local/share/fonts,$HOME/.config/ranger,$HOME
 
 # additional files can be linked apart from the above blob by running it according to the example below;
 #   sudo python link_file.py --files FILE_NAME --dirs DIR_PATH
@@ -39,6 +39,12 @@ else
     echo "File not found: $file_path"
     exit 1
 fi
+
+
+# TODO: delete 2 lines in configuration.nix that starts with services.xserver and paste the following 2 lines:
+#   services.xserver.displayManager.startx.enable = true;
+#   services.xserver.windowManager.i3.enable = true;
+
 
 # Rebuilds using flake, edit the name after # to your username after editing flake.nix in the same way
 sudo nixos-rebuild switch --flake /etc/nixos#traum
