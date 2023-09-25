@@ -27,7 +27,11 @@
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
-    
+
+    #boot.loader.grub.enable = true;
+    #boot.loader.grub.device = "/dev/vda";
+    #boot.loader.grub.useOSProber = true;
+
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.
     
