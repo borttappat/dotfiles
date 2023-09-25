@@ -18,6 +18,7 @@
 # Fish-shell
     programs.fish.enable=true;
     users.defaultUserShell = pkgs.fish;
+    environment.shells = with pkgs; [ fish ];
 
 # Virtualisation
     virtualisation.libvirtd.enable = true;
