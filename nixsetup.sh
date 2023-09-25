@@ -1,8 +1,5 @@
 #!/run/current-system/sw/bin/bash
 
-# Links files after git clone 
-#sudo chmod +x links.sh
-#links.sh
 # I know this is the hackiest solution known to lizardkind, but I clearly don't know how Python uses links/or file paths. It does however, work.
 sudo python link_file.py --files alacritty.yml,config.ini,rifle.conf,.bashrc,config.rasi,config,picom.conf,.vimrc,config.fish,cozette.otb,rc.conf,.xinitrc --dirs $HOME/.config/alacritty,$HOME/.config/polybar,$HOME/.config/ranger,$HOME,$HOME/.config/rofi,$HOME/.config/i3,$HOME/.config/picom,$HOME/,$HOME/.config/fish,$HOME/.local/share/fonts,$HOME/.config/ranger,$HOME
 
@@ -22,6 +19,7 @@ sudo python link_file.py --file nixp.nix --dirs /etc/nixos
 sudo python link_file.py --file fish_variables  --dirs $HOME/.config/fis
 
 sudo python link_file.py --file MemoryFixed.png --dirs $HOME/Wallpapers
+
 echo "Files linked."
 
 
@@ -41,7 +39,6 @@ else
     echo "File not found: $file_path"
     exit 1
 fi
-
 
 # Removes existing xserver-settings and replaces the lines with i3-related lines
 python i3setup.py
