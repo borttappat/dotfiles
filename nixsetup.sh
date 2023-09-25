@@ -19,6 +19,8 @@ sudo python link_file.py --file users.nix --dirs /etc/nixos
 sudo python link_file.py --file services.nix --dirs /etc/nixos
 sudo python link_file.py --file nixp.nix --dirs /etc/nixos
 
+sudo python link_file.py --file fish_variables  --dirs $HOME/.config/fis
+
 sudo python link_file.py --file MemoryFixed.png --dirs $HOME/Wallpapers
 echo "Files linked."
 
@@ -41,10 +43,8 @@ else
 fi
 
 
-# TODO: delete 2 lines in configuration.nix that starts with services.xserver and paste the following 2 lines:
-#   services.xserver.displayManager.startx.enable = true;
-#   services.xserver.windowManager.i3.enable = true;
-
+# Removes existing xserver-settings and replaces the lines with i3-related lines
+python i3setup.py
 
 # Rebuilds using flake, edit the name after # to your username after editing flake.nix in the same way
 sudo nixos-rebuild switch --flake /etc/nixos#traum
