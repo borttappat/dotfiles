@@ -41,7 +41,7 @@ else
 fi
 
 # Removes existing xserver-settings and replaces the lines with i3-related lines
-python i3setup.py
+sudo python i3setup.py
 
 # Rebuilds using flake, edit the name after # to your username after editing flake.nix in the same way
 sudo nixos-rebuild switch --flake /etc/nixos#traum
