@@ -95,15 +95,16 @@
     services.xserver.displayManager.startx.enable = true;
     services.xserver.windowManager.i3.enable = true;
 
-# Window-manager
-    #services.xserver.windowManager.i3.package = pkgs.i3-gaps;
-    #services.xserver.windowManager.i3.package = pkgs.i3-rounded;
-
 # Configure keymap in X11
     services.xserver = {
         layout = "se";
         xkbVariant = "";
     };
+
+# Window-manager
+    #services.xserver.windowManager.i3.package = pkgs.i3-gaps;
+    #services.xserver.windowManager.i3.package = pkgs.i3-rounded;
+
 
 system.stateVersion = "22.11"; 
 
