@@ -9,9 +9,8 @@ line2 = "services.xserver.windowManager.i3.enable = true;"
 user_home = os.path.expanduser("~")
 
 #file_path = os.path.join(user_home, "etc/nixos/configuration.nix")
-#file_path = "/etc/nixos/configuration.nix"
-#file_path = "$HOME/test/testfile.txt"
-file_path = os.path.join(user_home, "test/testfile.txt")
+file_path = "/etc/nixos/configuration.nix"
+#file_path = os.path.join(user_home, "test/testfile.txt")
 
 # Open the input file for reading
 with open(file_path, "r") as file:
