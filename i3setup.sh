@@ -5,30 +5,37 @@ line1 = "services.xserver.displayManager.startx.enable = true;"
 line2 = "services.xserver.windowManager.i3.enable = true;"
 line3 = "services.xserver.enable = true;"
 
+
 # Define the file path
-file_path = "/etc/nixos/configuration.nix"
+file_path="/etc/nixos/configuration.nix"
 
-# Open the input file for reading
-with open(file_path, "r") as file:
-    lines = file.readlines()
+# Temporary file for storing modified content
+temp_file="/tmp/configuration_temp.nix"
 
-# Open the same file for writing, which will clear its contents
-with open(file_path, "w") as file:
-    replace_next_lines = False
+# Flag to keep track of whether lines have been replaced
+lines_replaced=false
 
-    for line in lines:
-        # Check if the line starts with "services.xserver"
-        if line.startswith("services.xserver."):
-            replace_next_lines = True
-        elif replace_next_lines:
-            # Replace the line with the new lines
-            file.write(line1 + "\n")
-            file.write(line2 + "\n")
-            file.write(line3 + "\n")
-            replace_next_lines = False
-        else
-            # If not, write the line back to the file
-            file.write(line)
+# Read the input file line by line
+while IFS= read -r line; do
+    if [[ $line == *"services.xserver."* ]]; then
+        # Replace the line with the new lines
+        echo "$line1" >> "$temp_file"
+        echo "$line2" >> "$temp_file"
+        echo "$line3" >> "$temp_file"
+        lines_replaced=true
+    else
+        # If not, write the line back to the temporary file
+        echo "$line" >> "$temp_file"
+    fi
+done < "$file_path"
 
-print("Lines starting with 'services.xserver' replaced with new lines successfully in /etc/nixos/configuration.nix.")
+# Check if the lines were replaced or not
+if $lines_replaced; then
+    # Replace the original file with the temporary file
+    mv "$temp_file" "$file_path"
+    echo "Lines starting with 'services.xserver' replaced with new lines successfully in $file_path."
+else
+    echo "Original lines not found in $file_path."
+    rm -f "$temp_file"  # Remove the temporary file if no replacements were made
+fi
 
