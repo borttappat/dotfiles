@@ -36,4 +36,4 @@ with open(file_path, "w") as file:
             # If not, write the line back to the file
             file.write(line)
 
-print("Lines starting with 'services.xserver' replaced with new lines successfully in /etc/nixos/configuration.nix.")
+print("Lines starting with 'services.xserver' replaced with new lines successfully in /etc/nixos/configuration.nix")
