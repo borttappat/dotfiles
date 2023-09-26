@@ -10,7 +10,7 @@ line3 = "services.xserver.enable = true;"
 file_path="/etc/nixos/configuration.nix"
 
 # Temporary file for storing modified content
-temp_file="/tmp/configuration_temp.nix"
+temp_file="/etc/configuration_temp.nix"
 
 # Flag to keep track of whether lines have been replaced
 lines_replaced=false
