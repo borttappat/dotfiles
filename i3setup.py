@@ -6,7 +6,7 @@ line1 = "services.xserver.displayManager.startx.enable = true;"
 line2 = "services.xserver.windowManager.i3.enable = true;"
 line3 = "services.xserver.enable = true;"
 
-
+# Relic below, ignore
 # Set user_home variable to make script user-agnostic
 user_home = os.path.expanduser("~")
 
