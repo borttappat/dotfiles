@@ -143,6 +143,7 @@
     enum4linux
     redis
     remmina
+    mariadb
  
     #burpsuite
     #proxychains-ng

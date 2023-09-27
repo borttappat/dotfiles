@@ -1,6 +1,13 @@
 { config, pkgs, ... }:
 
 {
+
+# MySQL
+    services.mysql = {
+        enable = true;
+        package = pkgs.mariadb;
+        };
+
 # Asusd
 #    services.asusd.enable = true;
 
