@@ -21,7 +21,12 @@
       #./users.nix
       #./services.nix
     ];
-
+# Modify the following like you would /etc/hosts
+    networking.extraHosts =
+  ''
+    10.129.240.39 unika.htb
+    #10.0.0.1 server
+  '';
 
 # Bootloader
     boot.loader.systemd-boot.enable = true;

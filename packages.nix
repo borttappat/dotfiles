@@ -144,7 +144,9 @@
     redis
     remmina
     mariadb
+    udevil #udisks replacement
  
+
     #burpsuite
     #proxychains-ng
     
