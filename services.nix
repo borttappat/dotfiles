@@ -7,6 +7,8 @@
         enable = true;
         package = pkgs.mariadb;
         };
+# Docker-support
+    virtualisation.docker.enable = true; #added with docker pkg in packages.nix
 
 # Asusd
 #    services.asusd.enable = true;

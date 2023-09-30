@@ -107,6 +107,7 @@
     busybox
     inetutils
     udisks
+    docker  #added with virt.enable = true in services.nix
 
     whois
 
