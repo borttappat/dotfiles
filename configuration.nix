@@ -25,7 +25,9 @@
     networking.extraHosts =
   ''
     10.129.240.39 unika.htb
-    #10.0.0.1 server
+    10.129.72.251 thetoppers.htb
+    10.129.72.251 s3.thetoppers.htb
+    10.129.1.27 ignition.htb
   '';
 
 # Bootloader

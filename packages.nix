@@ -111,8 +111,9 @@
 
     whois
 
+# Pentesting
+    awscli2
     uncover
-
     wifite2
     nikto
     iw
