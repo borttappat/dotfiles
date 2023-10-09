@@ -147,9 +147,7 @@
     remmina
     mariadb
     udevil #udisks replacement
- 
-
-    #burpsuite
+    burpsuite
     #proxychains-ng
     
     crunch

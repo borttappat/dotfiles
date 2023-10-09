@@ -21,20 +21,26 @@
       #./users.nix
       #./services.nix
     ];
+
+
 # Modify the following like you would /etc/hosts
     networking.extraHosts =
-  ''
+    ''
     10.129.240.39 unika.htb
     10.129.72.251 thetoppers.htb
     10.129.72.251 s3.thetoppers.htb
-    10.129.1.27 ignition.htb
-  '';
+    10.129.20.110 ignition.htb
+    192.176.132.31 ek.sll.se
+    
+    '';
 
 # Bootloader
+    # SystemD-boot
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
+    
+    # Grub
     #boot.loader.grub.enable = true;
     #boot.loader.grub.device = "/dev/vda";
     #boot.loader.grub.useOSProber = true;
