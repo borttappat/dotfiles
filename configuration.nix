@@ -30,7 +30,8 @@
     10.129.72.251 thetoppers.htb
     10.129.72.251 s3.thetoppers.htb
     10.129.20.110 ignition.htb
-    192.176.132.31 ek.sll.se
+    10.10.11.233 analytical.htb
+    10.10.11.233 data.analytical.htb
     
     '';
 
