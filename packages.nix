@@ -93,7 +93,7 @@
     killall
     qemu
     #kvmtool
-    tmux    
+    #tmux    
     #onionshare
     #picosnitch
     flameshot
