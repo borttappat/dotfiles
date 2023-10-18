@@ -36,7 +36,7 @@
     bindsym $mod+Shift+p exec killall polybar && polybar
 
 # B/W Wallpaper 
-    bindsym $mod+Shift+w exec feh --bg-fill ~/dotfiles/wallpapers/Black.jpg
+    bindsym $mod+Shift+w exec feh --bg-fill ~/dotfiles/Black.jpg
 
 # Lockscreen
     bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg

@@ -32,6 +32,8 @@
     10.129.20.110 ignition.htb
     10.10.11.233 analytical.htb
     10.10.11.233 data.analytical.htb
+    10.10.11.227 tickets.keeper.htb/rt/
+    10.10.11.219 pilgrimage.htb
     
     '';
 
