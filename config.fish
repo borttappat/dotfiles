@@ -22,6 +22,8 @@ alias l='eza -a -l'
 
 alias x='startx'
 alias v='sudo -E vim'
+alias h='htop'
+
 
 alias nixp='~/dotfiles/nixp.sh '
 alias nixbuild='sudo nixos-rebuild switch --flake /etc/nixos#traum'
