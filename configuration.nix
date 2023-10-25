@@ -35,6 +35,7 @@
     10.10.11.227 tickets.keeper.htb/rt/
     10.10.11.219 pilgrimage.htb
     10.10.11.221 2million.htb
+    10.10.11.189 precious.htb
     
     '';
 
