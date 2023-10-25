@@ -34,6 +34,7 @@
     10.10.11.233 data.analytical.htb
     10.10.11.227 tickets.keeper.htb/rt/
     10.10.11.219 pilgrimage.htb
+    10.10.11.221 2million.htb
     
     '';
 
