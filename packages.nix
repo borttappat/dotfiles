@@ -135,7 +135,7 @@
     openssl
     asleap
     netcat
-    traceroute
+    #traceroute
     samba
     gobuster
     ffuf
