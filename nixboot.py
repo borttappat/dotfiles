@@ -19,6 +19,9 @@ def write_lines_to_file(file_path, lines, start_line):
     with open(file_path, 'r') as file:
         content = file.readlines()
 
+    # Remove existing boot lines in the new configuration
+    content = [line for line in content if not line.strip().startswith("boot")]
+
     # Insert the lines at the specified position
     content[start_line:start_line] = lines
 
@@ -31,9 +34,6 @@ boot_lines = extract_boot_lines(old_config_path)
 # Read the new configuration to determine where to insert the boot lines
 with open(new_config_path, 'r') as file:
     new_config_content = file.readlines()
-
-# Remove existing boot lines in the new configuration
-new_config_content = [line for line in new_config_content if not line.strip().startswith("boot")]
 
 # Find the line position of the last "boot" line in the new configuration
 last_boot_line_position = -1
