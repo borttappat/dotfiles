@@ -50,6 +50,7 @@
     #boot.loader.grub.device = "/dev/vda";
     #boot.loader.grub.useOSProber = true;
 
+
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.
     
