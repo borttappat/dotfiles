@@ -20,7 +20,7 @@ sudo python link_file.py --files fish_variables  --dirs $HOME/.config/fish
 sudo python link_file.py --files MemoryFixed.png --dirs $HOME/Wallpapers
 
 
-python switchuser.py
+python userswitch.py
 
 # Adds a line allowing flakes to configuration.nix 
 #new_line='nix.settings.experimental-features = [ "nix-command" "flakes" ];'
@@ -37,7 +37,7 @@ python switchuser.py
 #else
 #    echo "File not found: $file_path"
 #    exit 1
-fi
+#fi
 
 # Removes existing xserver-settings and replaces the lines with i3-related lines
 #sudo python i3setup.py
