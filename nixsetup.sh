@@ -23,21 +23,21 @@ sudo python link_file.py --files MemoryFixed.png --dirs $HOME/Wallpapers
 python userswitch.py
 
 # Adds a line allowing flakes to configuration.nix 
-#new_line='nix.settings.experimental-features = [ "nix-command" "flakes" ];'
+new_line='nix.settings.experimental-features = [ "nix-command" "flakes" ];'
 
 # Define the file and line number
-#file_path="/etc/nixos/configuration.nix"
-#line_number=6
+file_path="/etc/nixos/configuration.nix"
+line_number=6
 
 # Check if the file exists
-#if [ -f "$file_path" ]; then
+if [ -f "$file_path" ]; then
     # Add the new line to the file
-#    sed -i "${line_number}i$new_line" "$file_path"
-#    echo "Line added successfully."
-#else
-#    echo "File not found: $file_path"
-#    exit 1
-#fi
+    sed -i "${line_number}i$new_line" "$file_path"
+    echo "Line added successfully."
+else
+    echo "File not found: $file_path"
+    exit 1
+fi
 
 # Removes existing xserver-settings and replaces the lines with i3-related lines
 #sudo python i3setup.py
