@@ -8,7 +8,7 @@ sudo python link_file.py --files alacritty.yml,config.ini,rifle.conf,.bashrc,con
 sudo python link_file.py --files .ticker.yaml --dirs ~/
 
 # links for /etc/nixos
-#sudo python link_file.py --files configuration.nix --dirs /etc/nixos
+sudo python link_file.py --files configuration.nix --dirs /etc/nixos
 sudo python link_file.py --files flake.nix --dirs /etc/nixos
 sudo python link_file.py --files packages.nix --dirs /etc/nixos
 sudo python link_file.py --files users.nix --dirs /etc/nixos

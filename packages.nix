@@ -148,7 +148,8 @@
     mariadb
     udevil #udisks replacement
     burpsuite
-    #proxychains-ng
+    proxychains-ng
+    wprecon
     
     crunch
     websploit

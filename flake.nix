@@ -30,7 +30,7 @@
                     modules = [ 
                         ./configuration.nix
                         ./hardware-configuration.nix 
-                        ./packages.nix
+                        #removed for tests ./packages.nix
                         ./services.nix
                         ./users.nix
                         #./nixp.nix
