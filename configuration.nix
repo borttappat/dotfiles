@@ -115,6 +115,13 @@
         layout = "se";
         xkbVariant = "";
     };
+    
+# Automatic gargabe collection
+    nix.gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 30d";
+    };
 
 system.stateVersion = "22.11"; 
 
