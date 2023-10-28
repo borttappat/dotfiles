@@ -7,7 +7,13 @@
     # which represents the GitHub repository URL + branch/commit-id/tag.
 
     # Official NixOS package source, using nixos-unstable branch here
+    
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    #nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    #nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     };
     
     outputs = { self, nixpkgs }:
