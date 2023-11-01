@@ -7,6 +7,7 @@ sudo python link_file.py --files alacritty.yml,config.ini,rifle.conf,.bashrc,con
 #   sudo python link_file.py --files FILE_NAME --dirs DIR_PATH
 
 sudo python link_file.py --files .ticker.yaml --dirs ~/
+sudo python link_file.py --files joshuto.toml --dirs $HOME/.config/joshuto
 
 # links for /etc/nixos
 sudo python link_file.py --file configuration.nix --dirs /etc/nixos

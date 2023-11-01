@@ -52,6 +52,9 @@
     cbonsai
     cmatrix
     ranger
+    #zoxide
+    joshuto
+    #yazi
     figlet
     ticker
     tickrs
@@ -59,7 +62,9 @@
     ttyper
     #matrixcli
     dfrs
-    pipes
+    #pipes
+    pipes-rs # rust-written replacement
+    gurk-rs
 
 # WM
     polybar

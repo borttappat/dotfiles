@@ -16,7 +16,7 @@ sudo python link_file.py --files services.nix --dirs /etc/nixos
 sudo python link_file.py --files nixp.nix --dirs /etc/nixos
 
 sudo python link_file.py --files fish_variables  --dirs $HOME/.config/fish
-
+sudo python link_file.py --files joshuto.toml --dirs $HOME/.config/joshuto
 sudo python link_file.py --files MemoryFixed.png --dirs $HOME/Wallpapers
 
 
