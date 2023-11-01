@@ -8,8 +8,9 @@
 
     # Official NixOS package source, using nixos-unstable branch here
     
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = github:NixOS/Nixpkgs;
 
     #nixos-hardware.url = "github:nixos/nixos-hardware";
 
