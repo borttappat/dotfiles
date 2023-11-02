@@ -41,6 +41,7 @@
                         ./services.nix
                         ./users.nix
                         #./nixp.nix
+                        ./hosts.nix
 
                     ]; 
                     };

@@ -17,6 +17,7 @@ sudo python link_file.py --file users.nix --dirs /etc/nixos
 sudo python link_file.py --file services.nix --dirs /etc/nixos
 sudo python link_file.py --file nixp.nix --dirs /etc/nixos
 sudo python link_file.py --file fish_variables  --dirs $HOME/.config/fish
+sudo python link_file.py --file hosts.nix --dirs /etc/nixos
 
 echo "files linked"
 
