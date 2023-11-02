@@ -20,6 +20,12 @@ alias ls='eza -a'
 alias l='eza -a -l'
 
 
+# widescreen setup
+alias xrandrwide='xrandr --output HDMI-1 --mode 3440x1440 --output eDP-1 --off && wal -R && killall polybar &&  polybar -q &'
+
+alias xrandrrestore='xrandr --output eDP-1 --mode 1920x1200 --output HDMI-1 --off && wal -R && killall polybar && polybar -q &'
+
+
 alias x='startx'
 alias v='sudo -E vim'
 alias h='htop'
