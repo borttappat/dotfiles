@@ -67,6 +67,8 @@
     gurk-rs
 
 # WM
+    i3-auto-layout
+    autotiling-rs
     polybar
     rofi
     picom

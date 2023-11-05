@@ -11,6 +11,8 @@
     font cozette 8
 
 # Autostart 
+    #exec_always --no-startup-id i3-auto-layout
+    exec_always --no-startup-id autotiling
     exec_always --no-startup-id picom -b
     exec_always --no-startup-id wal -R
     #exec_always --no-startup-id ~/dotfiles/launch.sh
@@ -71,9 +73,10 @@
 # Configs, WIP
     bindsym $mod+Shift+i exec alacritty -e ~/dotfiles/i3config.sh 
 
-# Start a terminal
-    bindsym $mod+Return exec alacritty
-    bindsym $mod+Shift+Return exec --no-startup-id alacritty --class floating
+# Bind for launching terminals
+    bindsym $mod+Shift+Return exec alacritty
+    bindsym $mod+Return exec alacritty; split toggle
+    bindsym $mod+S exec --no-startup-id alacritty --class floating
     # enable startup in float from exec by setting the x11 class to floating
     # many apps support '--class floating' for setting the x11 class (the instance get renamed)
     for_window [instance="floating"] floating enabled
