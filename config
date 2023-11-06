@@ -18,17 +18,24 @@
     exec_always --no-startup-id polybar -q &
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
     #exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Wallpaper.jpeg
-    exec --no-startup-id alacritty
-    
+    exec --no-startup-id alacritty 
 
 
 #########
 # Binds #
 #########
 
-bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -R && htop"
-bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -R && sudo -E vim ~/.config/i3/config"
+# htop
+    bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -R && htop"
 
+# i3config
+    bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -R && sudo -E vim ~/.config/i3/config"
+
+# nix-packages
+    bindsym $mod+Shift+n exec alacritty -e /bin/sh -c "wal -R && sudo -E vim /etc/nixos/packages.nix"
+
+# file-manager
+    bindsym $mod+Shift+f exec alacritty -e /bin/sh -c "wal -R && joshuto"
 
 
 # Scratchpad
