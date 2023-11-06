@@ -26,6 +26,11 @@
 # Binds #
 #########
 
+bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -R && htop"
+bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -R && sudo -E vim ~/.config/i3/config"
+
+
+
 # Scratchpad
 # Make the currently focused window a scratchpad
     bindsym $mod+Shift+minus move scratchpad
@@ -69,9 +74,6 @@
     bindsym $mod+F7 exec "sudo light -U 10"
     bindsym $mod+Shift+F7 exec "sudo light -U 1"
 
-
-# Configs, WIP
-    bindsym $mod+Shift+i exec sudo -E vim ~/.config/i3/config
 
 # Bind for launching terminals   
     bindsym $mod+Shift+Return exec alacritty

@@ -63,8 +63,9 @@
     #matrixcli
     dfrs
     #pipes
-    pipes-rs # rust-written replacement
+    pipes-rs #rust-written replacement
     gurk-rs
+    #gtop
 
 # WM
     polybar

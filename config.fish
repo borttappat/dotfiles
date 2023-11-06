@@ -10,12 +10,17 @@ if status is-interactive
 cat /home/traum/.cache/wal/sequences
 end
 
+# Binds
+
+#bind \§ bind_sect_to_tilde
+
+
 # aliases
 alias reboot='systemctl reboot'
 alias shutdown='shutdown now'
 alias suspend='systemctl suspend'
 
-# alias ls='ls -A'
+
 alias ls='eza -a'
 alias l='eza -a -l'
 
@@ -47,12 +52,11 @@ alias aliases='v ~/dotfiles/config.fish'
 
 # maybe deprecated, only used with asus hardware
 # to be replaced with non-platform specific syntax
-alias kb0='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "0"'
-alias kb1='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "1"'
-alias kb5='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "5"'
+#alias kb0='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "0"'
+#alias kb1='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "1"'
+#alias kb5='sudo light -Srs "sysfs/leds/asus::kbd_backlight" "5"'
 
 
-alias w='feh --bg-fill ~/Wallpapers/Dark.jpg'
 alias rgb='openrgb --device 0 --mode static --color'
 alias walrgb='~/dotfiles/walrgb.sh '
 
@@ -75,9 +79,6 @@ alias links='sh ~/dotfiles/links.sh'
 alias tds='sudo tailscale file cp'
 # recieve files over tailscale, append with path for file to be saved
 alias tdr='sudo tailscale file get'
-
-
-alias iknowkungfu='walrgb ~/Wallpapers/Wallpaper.jpeg && feh --bg-fill ~/Wallpapers/Black.jpg && cmatrix -a'
 
 
 alias cf='clear && neofetch'
