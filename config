@@ -11,8 +11,6 @@
     font cozette 8
 
 # Autostart 
-    #exec_always --no-startup-id i3-auto-layout
-    exec_always --no-startup-id autotiling
     exec_always --no-startup-id picom -b
     exec_always --no-startup-id wal -R
     #exec_always --no-startup-id ~/dotfiles/launch.sh
@@ -21,7 +19,9 @@
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
     #exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Wallpaper.jpeg
     exec --no-startup-id alacritty
-     
+    
+
+
 #########
 # Binds #
 #########
@@ -71,9 +71,9 @@
 
 
 # Configs, WIP
-    bindsym $mod+Shift+i exec alacritty -e ~/dotfiles/i3config.sh 
+    bindsym $mod+Shift+i exec sudo -E vim ~/.config/i3/config
 
-# Bind for launching terminals
+# Bind for launching terminals   
     bindsym $mod+Shift+Return exec alacritty
     bindsym $mod+Return exec alacritty; split toggle
     bindsym $mod+S exec --no-startup-id alacritty --class floating
