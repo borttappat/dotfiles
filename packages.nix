@@ -81,6 +81,7 @@
     i3lock-color
     i3lock
     #i3lock-fancy
+    autorandr
 
 # Tools
     openconnect
