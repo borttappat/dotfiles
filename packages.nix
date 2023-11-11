@@ -12,7 +12,8 @@
  
 # Fonts
     fonts.packages = with pkgs; [
-    nerdfonts
+    #nerdfonts
+    cozette
     ];
 
 # Packages to install on a system-wide level

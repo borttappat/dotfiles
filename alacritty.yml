@@ -20,26 +20,26 @@ window:
     # General application class
     general: Alacritty
 
-  #multiplier: 3
+  multiplier: 3
 
 font:
   normal:
-    family: cozette
+    family: CozetteVector
     style: Regular
 
   bold:
-    family: cozette
+    family: CozetteVector
     style: Bold
 
   italic:
-    family: cozette
+    family: CozetteVector
     style: Italic
 
   bold_italic:
-    family: cozette
+    family: CozetteVector
     style: Bold Italic
 
-  size: 10
+  size: 5.5
       
 
   # Offset is the extra space around each character. `offset.y` can be thought
@@ -58,26 +58,18 @@ font:
 
 
 # Live config reload (changes require restart)
-live_config_reload: true
+    live_config_reload: true
 
-
-# Key bindings
 key_bindings:
-  #- { key: Equals,   mods: Control,       action: IncreaseFontSize }
-  - { key: K,   mods: Control,  action: IncreaseFontSize }
-  #- { key: Subtract, mods: Control,       action: DecreaseFontSize }
-  - { key: J,   mods: Control,  action: DecreaseFontSize }
+    # (Windows, Linux, and BSD only)
+  - { key: V,         mods: Control|Shift, action: Paste                       }
+  - { key: C,         mods: Control|Shift, action: Copy                        }
+  - { key: Insert,    mods: Shift,         action: PasteSelection              }
+  - { key: Key0,      mods: Control,       action: ResetFontSize               }
+  - { key: Plus,      mods: Control,       action: IncreaseFontSize            }
+  - { key: Minus,     mods: Control,       action: DecreaseFontSize            }
 
-   # - { 
-   # key: K,     
-   # mods: Alt,    
-   # action: IncreaseFontSize 
-   # }
-    #- { 
-    #key: J,     
-    #mods: Alt,    
-    #action: DecreaseFontSize 
-    #}
+
 
 #- { key: F8, mods: Control, action:} 
 # Key bindings are specified as a list of objects. For example, this is the

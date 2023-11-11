@@ -8,7 +8,7 @@
     set $mod Mod4
 
 # Font
-    font cozette 10
+    font cozette 20
 
 # Autostart 
     exec_always --no-startup-id picom -b
