@@ -51,6 +51,7 @@
 
 # Terminal stuff
     tmux
+    fzf
     alacritty
     htop
     glances
@@ -161,6 +162,7 @@
     enum4linux
     redis
     remmina
+    xrdp
     mariadb
     udevil #udisks replacement
     burpsuite

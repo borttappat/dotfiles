@@ -19,7 +19,9 @@ end
 
 # aliases
 alias reboot='systemctl reboot'
+alias rb='reboot'
 alias shutdown='shutdown now'
+alias sd='shutdown'
 alias suspend='systemctl suspend'
 
 
@@ -36,10 +38,12 @@ alias xrandrrestore='xrandr --output eDP-1 --mode 1920x1200 --output HDMI-1 --of
 alias x='startx'
 alias v='sudo -E vim'
 alias h='htop'
+alias ka='killall'
 
 
 alias nixp='~/dotfiles/nixp.sh '
 alias nixbuild='sudo nixos-rebuild switch --flake /etc/nixos#traum'
+alias nb='nixbuild'
 alias flakebuild='sudo rm /etc/nixos/flake.nix && sudo ln ~/dotfiles/flake.nix /etc/nixos && nixbuild'
 alias nixconf='v /etc/nixos/configuration.nix'
 alias nixpkgs='v /etc/nixos/packages.nix'
