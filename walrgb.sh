@@ -28,9 +28,10 @@ openrgb --device 0 --mode static --color ${HEX_CODE/#/}
 echo "Backlight set"
 
 # refresh polybar
-echo "Restarting Polybar"
-killall polybar
-polybar -q & 
+#echo "Restarting Polybar"
+#killall polybar
+#polybar -q & 
+polybar-msg cmd restart
 echo "Polybar launched"
 
 echo "Colors updated!"
