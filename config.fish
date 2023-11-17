@@ -24,6 +24,12 @@ alias shutdown='shutdown now'
 alias sd='shutdown'
 alias suspend='systemctl suspend'
 
+alias j='joshuto'
+alias r='ranger'
+alias ranger='joshuto'
+alias cm='cmatrix -u 10'
+alias p='pipes-rs -f 25 -p 7 -r 1.0'
+
 
 alias ls='eza -a'
 alias l='eza -a -l'
@@ -47,13 +53,19 @@ alias nb='nixbuild'
 alias flakebuild='sudo rm /etc/nixos/flake.nix && sudo ln ~/dotfiles/flake.nix /etc/nixos && nixbuild'
 alias nixconf='v /etc/nixos/configuration.nix'
 alias nixpkgs='v /etc/nixos/packages.nix'
+alias n='nixpkgs'
 alias nixhosts='v /etc/nixos/hosts.nix'
 alias nixsrv='v /etc/nixos/services.nix'
 alias nixclean='sudo nix-collect-garbage -d && nixbuild'
 alias i3conf='v ~/dotfiles/config'
+alias i='i3conf'
 alias picomconf='v ~/dotfiles/picom.conf'
+alias pic='picomconf'
 alias polyconf='v ~/dotfiles/config.ini'
+alias poc='polyconf'
 alias aliases='v ~/dotfiles/config.fish'
+alias a='aliases'
+alias f='a'
 
 
 # maybe deprecated, only used with asus hardware
@@ -65,6 +77,7 @@ alias aliases='v ~/dotfiles/config.fish'
 
 alias rgb='openrgb --device 0 --mode static --color'
 alias walrgb='~/dotfiles/walrgb.sh '
+alias w='walrgb'
 
 
 alias gd='clear && figlet -f slant Git && echo && cd ~/dotfiles && git status'

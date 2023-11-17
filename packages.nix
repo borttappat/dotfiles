@@ -81,6 +81,7 @@
     polybar
     rofi
     picom
+    #picom-allusive #to be replaced by compfy
     #wpgtk
     pywal
     feh
