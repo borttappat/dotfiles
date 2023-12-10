@@ -15,6 +15,9 @@ end
 # Binds
 
 #bind \§ bind_sect_to_tilde
+#bind \§ 'echo "~"'
+
+
 
 
 # aliases
@@ -26,7 +29,6 @@ alias suspend='systemctl suspend'
 
 alias j='joshuto'
 alias r='ranger'
-alias ranger='joshuto'
 alias cm='cmatrix -u 10'
 alias p='pipes-rs -f 25 -p 7 -r 1.0'
 
@@ -53,6 +55,7 @@ alias nb='nixbuild'
 alias flakebuild='sudo rm /etc/nixos/flake.nix && sudo ln ~/dotfiles/flake.nix /etc/nixos && nixbuild'
 alias nixconf='v /etc/nixos/configuration.nix'
 alias nixpkgs='v /etc/nixos/packages.nix'
+alias nixhosts='v /etc/nixos/hosts.nix'
 alias n='nixpkgs'
 alias nixhosts='v /etc/nixos/hosts.nix'
 alias nixsrv='v /etc/nixos/services.nix'

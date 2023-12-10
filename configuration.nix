@@ -93,6 +93,8 @@
 # Window- and Display-manager settings
     services.xserver.displayManager.startx.enable = true;
     services.xserver.windowManager.i3.enable = true;
+    programs.hyprland.enable = true;
+    programs.hyprland.xwayland.enable = true;
 
 # Configure keymap in X11
     services.xserver = {

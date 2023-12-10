@@ -71,11 +71,15 @@
     eza
     ttyper
     #matrixcli
-    dfrs
+    dfrs #df-replacement
     #pipes
     pipes-rs #rust-written replacement
     gurk-rs
     #gtop
+    bat #cat-replacement
+    ddgr
+    #browsh
+
 
 # WM
     polybar
@@ -95,6 +99,8 @@
     autorandr
 
 # Tools
+    bandwhich
+    gping
     openconnect
     openvpn
     brightnessctl
@@ -220,6 +226,7 @@
     xorg.xinit
     xorg.xrdb
     xorg.xorgserver
+    xorg.xmodmap
     
 # Uncategorized
     unclutter

@@ -12,10 +12,13 @@
 
 # Autostart 
     exec_always --no-startup-id picom -b
-    exec_always --no-startup-id wal -R
+    #exec_always --no-startup-id wal -R
     #exec_always --no-startup-id ~/dotfiles/launch.sh
     #exec_always --no-startup-id killall polybar 
-    exec_always --no-startup-id polybar -q &
+    exec_always --no-startup-id polybar -q main2 &
+    exec_always --no-startup-id polybar -q main &
+    exec_always --no-startup-id wal -R
+    exec_always --no-startup-id polybar-msg cmd restart
     #exec_always --no-startup-id polybar -r main &
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
     #exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Wallpaper.jpeg
@@ -48,7 +51,8 @@
 
 
 # Polybar restart
-    bindsym $mod+Shift+p exec killall polybar && polybar
+    #bindsym $mod+Shift+p exec killall polybar && polybar
+    bindsym $mod+Shift+p exec polybar-msg cmd restart
 
 # B/W Wallpaper 
     bindsym $mod+Shift+w exec feh --bg-fill ~/dotfiles/Black.jpg
