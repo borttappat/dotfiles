@@ -28,10 +28,13 @@ alias sd='shutdown'
 alias suspend='systemctl suspend'
 
 alias j='joshuto'
+alias cb='cbonsai -l -t 1'
+alias g='glances'
+alias p='polyconf'
 alias r='ranger'
 alias cm='cmatrix -u 10'
 alias p='pipes-rs -f 25 -p 7 -r 1.0'
-
+alias a='alacrittyconf'
 
 alias ls='eza -a'
 alias l='eza -a -l'
@@ -48,7 +51,7 @@ alias v='sudo -E vim'
 alias h='htop'
 alias ka='killall'
 
-
+alias alacrittyconf='v ~/dotfiles/alacritty.yml'
 alias nixp='~/dotfiles/nixp.sh '
 alias nixbuild='sudo nixos-rebuild switch --flake /etc/nixos#traum'
 alias nb='nixbuild'
@@ -67,9 +70,8 @@ alias picomconf='v ~/dotfiles/picom.conf'
 alias pic='picomconf'
 alias polyconf='v ~/dotfiles/config.ini'
 alias poc='polyconf'
-alias aliases='v ~/dotfiles/config.fish'
-alias a='aliases'
-alias f='a'
+alias fishconf='v ~/dotfiles/config.fish'
+alias f='fishconf'
 
 
 # maybe deprecated, only used with asus hardware
