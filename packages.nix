@@ -28,6 +28,7 @@
 
 # Editors
     vim
+    inkscape
     
 # Intel drivers
     intel-ocl
