@@ -80,6 +80,7 @@
     bat #cat-replacement
     ddgr
     #browsh
+    sanctity
 
 
 # WM

@@ -8,6 +8,9 @@
 
 {
 
+# udisksctl
+    services.udisks2.enable = true; #added with udisks in packages.nix
+
 # Docker-support
     virtualisation.docker.enable = true; #added with docker pkg in packages.nix
 

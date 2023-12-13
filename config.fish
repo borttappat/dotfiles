@@ -35,6 +35,8 @@ alias r='ranger'
 alias cm='cmatrix -u 10'
 alias p='pipes-rs -f 25 -p 7 -r 1.0'
 alias a='alacrittyconf'
+alias bw='sudo bandwhich'
+alias pc='picomconf'
 
 alias ls='eza -a'
 alias l='eza -a -l'
@@ -52,7 +54,8 @@ alias h='htop'
 alias ka='killall'
 
 alias alacrittyconf='v ~/dotfiles/alacritty.yml'
-alias nixp='~/dotfiles/nixp.sh '
+alias nixp='sudo ~/dotfiles/nixp.sh && nixpsort'
+alias nixpsort='sudo python ~/dotfiles/nixpsort.py && sudo rm ~/dotfiles/nixp.nix && sudo ln /etc/nixos/nixp.nix ~/dotfiles/nixp.nix'
 alias nixbuild='sudo nixos-rebuild switch --flake /etc/nixos#traum'
 alias nb='nixbuild'
 alias flakebuild='sudo rm /etc/nixos/flake.nix && sudo ln ~/dotfiles/flake.nix /etc/nixos && nixbuild'
@@ -67,7 +70,6 @@ alias nixclean='sudo nix-collect-garbage -d && nixbuild'
 alias i3conf='v ~/dotfiles/config'
 alias i='i3conf'
 alias picomconf='v ~/dotfiles/picom.conf'
-alias pic='picomconf'
 alias polyconf='v ~/dotfiles/config.ini'
 alias poc='polyconf'
 alias fishconf='v ~/dotfiles/config.fish'
@@ -83,7 +85,7 @@ alias f='fishconf'
 
 alias rgb='openrgb --device 0 --mode static --color'
 alias walrgb='~/dotfiles/walrgb.sh '
-alias w='walrgb'
+alias w='~/dotfiles/walrgb.sh ~/Wallpapers/'
 
 
 alias gd='clear && figlet -f slant Git && echo && cd ~/dotfiles && git status'
@@ -97,6 +99,7 @@ alias gsy='git pull && sh ~/dotfiles/links.sh'
 
 
 alias links='sh ~/dotfiles/links.sh'
+alias link='sudo python ~/dotfiles/link_file.py'
 
 
 # transfer files over tailscale using taildrop.

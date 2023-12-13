@@ -51,7 +51,7 @@ def replace_unsorted_content(file_path, start_marker, end_marker, sorted_lines):
 
                 # Add sorted lines with line breaks
                 for sorted_line in sorted_lines:
-                    new_content.append(f"  {sorted_line};\n")
+                    new_content.append(f"  {sorted_line}\n")
 
                 continue
 

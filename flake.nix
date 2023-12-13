@@ -46,7 +46,7 @@
                         ./packages.nix
                         ./services.nix
                         ./users.nix
-                        #./nixp.nix
+                        ./nixp.nix
                         ./hosts.nix
 
                     ]; 

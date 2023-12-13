@@ -7,7 +7,8 @@ if [ $# -eq 0 ]; then
 fi
 
 # Define the file path
-file_path="$HOME/dotfiles/nixp.nix"
+#file_path="$HOME/dotfiles/nixp.nix"
+file_path="/etc/nixos/nixp.nix"
 
 # Line number to insert the arguments
 line_number=8
