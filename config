@@ -41,6 +41,9 @@
 # file-manager
     bindsym $mod+Shift+f exec alacritty -e /bin/sh -c "wal -R && joshuto"
 
+    bindsym $mod+Shift+g exec alacritty -e /bin/sh -c "wal -R && clear && figlet -f slant Git && echo && cd ~/dotfiles && git status"
+
+
 
 # Scratchpad
 # Make the currently focused window a scratchpad

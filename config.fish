@@ -54,7 +54,7 @@ alias h='htop'
 alias ka='killall'
 
 alias alacrittyconf='v ~/dotfiles/alacritty.yml'
-alias nixp='sudo ~/dotfiles/nixp.sh && nixpsort'
+alias nixp='sudo ~/dotfiles/nixp.sh'
 alias nixpsort='sudo python ~/dotfiles/nixpsort.py && sudo rm ~/dotfiles/nixp.nix && sudo ln /etc/nixos/nixp.nix ~/dotfiles/nixp.nix'
 alias nixbuild='sudo nixos-rebuild switch --flake /etc/nixos#traum'
 alias nb='nixbuild'
