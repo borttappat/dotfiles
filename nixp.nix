@@ -5,9 +5,11 @@
 environment.systemPackages = with pkgs; [
 
 # Packages parsed with nixp.nix will be parsed below
-  #monsoon
   asciiquarium
+  dig
   monsoon
+  signal-cli
+  zoxide
 ];
 
 }

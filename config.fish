@@ -12,6 +12,9 @@ wal -R -q
 
 end
 
+# Zoxide
+zoxide init fish | source
+
 # Binds
 
 #bind \§ bind_sect_to_tilde
