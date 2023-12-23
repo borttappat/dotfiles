@@ -30,6 +30,7 @@ alias shutdown='shutdown now'
 alias sd='shutdown'
 alias suspend='systemctl suspend'
 
+alias wp='cd ~/Wallpapers && ranger'
 alias j='joshuto'
 alias cb='cbonsai -l -t 1'
 alias g='glances'
@@ -91,7 +92,7 @@ alias walrgb='~/dotfiles/walrgb.sh '
 alias w='~/dotfiles/walrgb.sh ~/Wallpapers/'
 
 
-alias gd='clear && figlet -f slant Git && echo && cd ~/dotfiles && git status'
+alias gd='figlet -f slant Git && echo && cd ~/dotfiles && git status'
 alias gs='git status'
 alias ga='git add'
 alias gc='git commit -m'
