@@ -18,9 +18,9 @@ alias reboot='systemctl reboot'
 alias shutdown='shutdown now'
 alias suspend='systemctl suspend'
 
-# alias ls='ls -A'
-alias ls='eza -a'
-alias l='eza -a -l'
+# alias ls='ls -A' [disabled to use bash as a backup if fish fails]
+#alias ls='eza -a'
+#alias l='eza -a -l'
 
 
 alias x='startx'

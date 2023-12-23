@@ -31,9 +31,9 @@
     inkscape
     
 # Intel drivers
-    intel-ocl
-    ocl-icd
-    clinfo
+    #intel-ocl
+    #ocl-icd
+    #clinfo
     #intelmetool
     #intel-media-driver
     #intel-compute-runtime
@@ -63,7 +63,7 @@
     cbonsai
     cmatrix
     ranger
-    #zoxide
+    zoxide
     joshuto
     #yazi
     figlet
@@ -81,7 +81,7 @@
     ddgr
     #browsh
     sanctity
-
+    asciiquarium
 
 # WM
     polybar
@@ -134,7 +134,7 @@
     inetutils
     udisks
     docker  #added with virt.enable = true in services.nix
-
+    signal-cli
     whois
 
 # Pentesting
@@ -146,7 +146,7 @@
     nmap
     wireshark
     sherlock
-    iw
+    dig
     wirelesstools
     hydra-cli
     thc-hydra
@@ -177,7 +177,7 @@
     burpsuite
     proxychains-ng
     wprecon
-    
+    monsoon
     crunch
     websploit
     routersploit

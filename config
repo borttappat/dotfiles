@@ -22,7 +22,9 @@
     #exec_always --no-startup-id polybar -r main &
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
     #exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Wallpaper.jpeg
+    exec --no-startup-id xmodmap ~/.Xmodmap
     exec --no-startup-id alacritty 
+
 
 
 #########
