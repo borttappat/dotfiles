@@ -8,9 +8,10 @@ Currently setting up a NixOS system and will do so for the foreseeable future.
 Flakey Nix-configuration with modules split into "configuration.nix, hosts.nix, nixp.nix, packages.nix, services.nix and user.nix"
 
 ## link_file.py
-``
+```
 python link_file.py --files [FILE] --dirs [DIRECTORY]
-``
+```
+
 link_file.py checks for parsed directories and creates it if it's missing, deletes file(s) with the name of the parsed file and then creates a link to the specified directory. 
 TODO: back up any existing file instead of deleting
 
