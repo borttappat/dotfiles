@@ -13,6 +13,7 @@ python link_file.py --files [FILE] --dirs [DIRECTORY]
 ```
 
 link_file.py checks for parsed directories and creates it if it's missing, deletes file(s) with the name of the parsed file and then creates a link to the specified directory. 
+
 TODO: back up any existing file instead of deleting
 
 links.sh runs through a list of files and directories to link files to in order to ensure that things work correctly.
@@ -41,5 +42,9 @@ and then reads the color codes from the cache provided by pywal, converts them t
 
 ## nixsetup.sh
 script to be used on any system to an environment like my own with 
-#i3, alacritty, fish, picom, Xmodmap and programs listed in packages.nix and nixp.nix along with services in services.nix. Currently set up to backup any existing configuration.nix and implement everything in this repo while preserving usernames.
+```
+i3, alacritty, fish, picom, Xmodmap and programs listed in packages.nix and nixp.nix along with services in services.nix.
+```
+Currently set up to backup any existing configuration.nix and implement everything in this repo while preserving usernames.
+
 TODO: set up some sort of automatic bootloader-selection.
