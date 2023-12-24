@@ -44,7 +44,7 @@ and then reads the color codes from the cache provided by pywal, converts them t
 script to be used on any system to an environment like my own with 
 
 ``
-i3, alacritty, fish, picom, Xmodmap 
+i3, alacritty, fish, picom, Xmodmap
 ``
 
 and programs listed in packages.nix and nixp.nix along with services in services.nix.
