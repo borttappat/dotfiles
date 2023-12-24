@@ -5,9 +5,13 @@ Welcome!
 
 ![Screenshot](https://github.com/borttappat/dotfiles/blob/main/2023-07-23_18-08.png)
 
-A few noteworthy includes:
+Flakey Nix-configuration with modules split into "configuration.nix, hosts.nix, nixp.nix, packages.nix, services.nix and user.nix"
 
-## [Nixp]
+link_file.py checks for parsed directories and creates it if it's missing, deletes file(s) with the name of the parsed file and then creates a link to the specified directory. 
+TODO: back up any existing file instead of deleting
+
+
+## Nixp
 nixp.nix along with the scripts nixp.sh and nixpsort.py along with related aliases in config.fish allows you to install packages with prompts like:
 
 > ~ nixp neofetch
@@ -21,7 +25,7 @@ to install neofetch and htop
 You'll then be given a (Y/N) to rebuild after the inputs have been parsed.
 
 
-## [Walrgb]
+## Walrgb
 simple combination of wal and openrgb. Accepts the path of an image file like 
 
 > ~ walrgb  [PATH/TO/IMAGE] 
