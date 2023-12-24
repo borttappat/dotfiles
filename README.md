@@ -11,7 +11,7 @@ Flakey Nix-configuration with modules split into "configuration.nix, hosts.nix, 
 
 ## link_file.py
 ```
-python link_file.py --files [FILE] --dirs [DIRECTORY]
+$ python link_file.py --files [FILE] --dirs [DIRECTORY]
 ```
 
 link_file.py checks for parsed directories and creates it if it's missing, deletes file(s) with the name of the parsed file and then creates a link to the specified directory. 
@@ -24,11 +24,11 @@ links.sh runs through a list of files and directories to link files to in order 
 ## Nixp.sh
 nixp.nix along with the scripts nixp.sh and nixpsort.py along with related aliases in config.fish allows you to install packages with prompts like:
 ```
-~ nixp neofetch
+$ nixp neofetch
 ```
 to install neofetch, or
 ```
-~ nixp neofetch htop
+$ nixp neofetch htop
 ```
 to install neofetch and htop
 
@@ -38,7 +38,7 @@ You'll then be given a (Y/N) to rebuild your system after the inputs have been p
 ## Walrgb.sh
 simple combination of wal and openrgb. Accepts the path of an image file like 
 ```
-~ walrgb  [PATH/TO/IMAGE] 
+$ walrgb  [PATH/TO/IMAGE] 
 ```
 and then reads the color codes from the cache provided by pywal, converts them to a format OpenRGB then can read and sets the backlight color to the device specified in the script.
 
