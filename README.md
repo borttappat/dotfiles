@@ -13,13 +13,13 @@ TODO: back up any existing file instead of deleting
 
 ## Nixp
 nixp.nix along with the scripts nixp.sh and nixpsort.py along with related aliases in config.fish allows you to install packages with prompts like:
-
-> ~ nixp neofetch
-
+```
+~ nixp neofetch
+```
 to install neofetch, or
-
-> ~ nixp neofetch htop
-
+```
+~ nixp neofetch htop
+```
 to install neofetch and htop
 
 You'll then be given a (Y/N) to rebuild after the inputs have been parsed.
@@ -27,9 +27,9 @@ You'll then be given a (Y/N) to rebuild after the inputs have been parsed.
 
 ## Walrgb
 simple combination of wal and openrgb. Accepts the path of an image file like 
-
-> ~ walrgb  [PATH/TO/IMAGE] 
-
+```
+~ walrgb  [PATH/TO/IMAGE] 
+```
 and then reads the color codes from the cache provided by pywal, converts them to a format OpenRGB then can read and sets the backlight color to the device specified in the script.
 
 
