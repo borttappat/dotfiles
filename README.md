@@ -8,7 +8,7 @@ Welcome!
 A few noteworthy includes:
 
 [Nixp]
-nixp.nix along with the scripts nixp.sh and nixpsort.py along with related aliases in config.fish allows you to install packages with prompts like:
+## nixp.nix along with the scripts nixp.sh and nixpsort.py along with related aliases in config.fish allows you to install packages with prompts like:
 
 > ~>nixp neofetch
 
