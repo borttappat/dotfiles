@@ -22,6 +22,10 @@ You'll then be given a (Y/N) to rebuild after the inputs have been parsed.
 
 
 ## [Walrgb]
-simple combination of wal and openrgb. Accepts the path of an image file like [wal -i /PATH/TO/IMAGE] and then reads the color codes from the cache provided by pywal, converts them to a format OpenRGB then can read and sets the backlight color to the device specified in the script.
+simple combination of wal and openrgb. Accepts the path of an image file like 
+
+[wal -i /PATH/TO/IMAGE] 
+
+and then reads the color codes from the cache provided by pywal, converts them to a format OpenRGB then can read and sets the backlight color to the device specified in the script.
 
 
