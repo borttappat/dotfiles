@@ -10,11 +10,11 @@ A few noteworthy includes:
 [Nixp]
 nixp.nix along with the scripts nixp.sh and nixpsort.py along with related aliases in config.fish allows you to install packages with prompts like:
 
-> > nixp neofetch
+> ~>nixp neofetch
 
 to install neofetch, or
 
-> > nixp neofetch htop
+> ~>nixp neofetch htop
 
 to install neofetch and htop
 
