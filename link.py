@@ -26,5 +26,5 @@ if os.path.exists(link_path):
     os.remove(link_path)
 
 # Create the symbolic link
-os.symlink(file_path, link_path)
+os.link(file_path, link_path)
 
