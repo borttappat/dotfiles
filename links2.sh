@@ -19,7 +19,7 @@ sudo python link.py --file config.fish --dir ~/.config/fish
 sudo python link.py --file fish_variables  --dir ~/.config/fish
 
 # ranger
-sudo python link.py --file rifle.comf --dir ~/.config/ranger
+sudo python link.py --file rifle.conf --dir ~/.config/ranger
 sudo python link.py --file rc.conf --dir ~/.config/ranger
 
 # nix
