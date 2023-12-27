@@ -106,7 +106,7 @@
     openconnect
     openvpn
     brightnessctl
-    obsidian
+    #obsidian
     light 
     #pciutils
     undervolt
