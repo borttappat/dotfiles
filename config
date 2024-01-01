@@ -11,10 +11,10 @@
     font cozette 20
 
 # Autostart 
-    exec_always --no-startup-id picom -b
+#    exec_always --no-startup-id picom -b
     #exec_always --no-startup-id wal -R
     #exec_always --no-startup-id ~/dotfiles/launch.sh
-    #exec_always --no-startup-id killall polybar 
+    exec_always --no-startup-id killall polybar 
     exec_always --no-startup-id polybar -q main2 &
     exec_always --no-startup-id polybar -q main &
     exec_always --no-startup-id wal -R
@@ -22,7 +22,7 @@
     #exec_always --no-startup-id polybar -r main &
     #exec --no-startup-id ~/.config/i3/scripts/startup.sh
     #exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Wallpaper.jpeg
-    exec --no-startup-id xmodmap ~/.Xmodmap
+    exec_always --no-startup-id xmodmap ~/.Xmodmap
     exec --no-startup-id alacritty 
 
 
