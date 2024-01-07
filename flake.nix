@@ -16,11 +16,13 @@
     
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     #unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = github:NixOS/Nixpkgs;
-
+    
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    #nixpkgs.url = github:NixOS/Nixpkgs;
+    #nixpkgs-unstable.url = github:MixOS/nixpkgs/nixos-unstable;
+    
     #nixos-hardware.url = "github:nixos/nixos-hardware";
-
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+     #nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     };
     
     outputs = { self, nixpkgs }:
