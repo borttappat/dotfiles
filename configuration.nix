@@ -29,7 +29,8 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
     
-
+# Kernel
+     boot.kernelPackages = pkgs.linuxPackages_latest;
 
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.

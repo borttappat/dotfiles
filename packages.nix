@@ -136,7 +136,8 @@
     docker  #added with virt.enable = true in services.nix
     signal-cli
     whois
-
+    remmina
+    
 # Pentesting
     awscli2
     uncover
@@ -144,6 +145,7 @@
     nikto
     iw
     nmap
+    #rustscan
     wireshark
     sherlock
     dig
@@ -161,6 +163,7 @@
     openssl
     asleap
     netcat
+    rustcat
     #traceroute
     samba
     gobuster
@@ -170,7 +173,6 @@
     hcxtools
     enum4linux
     redis
-    remmina
     xrdp
     mariadb
     udevil #udisks replacement

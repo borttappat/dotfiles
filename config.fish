@@ -7,8 +7,8 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
 
-#cat /home/traum/.cache/wal/sequences
-wal -R -q
+cat /home/traum/.cache/wal/sequences
+#wal -R -q
 
 end
 
