@@ -28,7 +28,7 @@ font:
     style: Regular
 
   bold:
-    family: CozetteVector
+    family: CozetteVectorBold
     style: Bold
 
   italic:
