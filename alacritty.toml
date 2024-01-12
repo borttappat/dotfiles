@@ -13,7 +13,7 @@ family = "CozetteVector"
 style = "Bold Italic"
 
 [font.glyph_offset]
-live_config_reload = true
+#live_config_reload = true
 x = 1
 y = 1
 
@@ -61,7 +61,7 @@ mods = "Control"
 
 [window]
 dynamic_padding = true
-multiplier = 3
+#multiplier = 3
 opacity = 1.0
 
 [window.class]
