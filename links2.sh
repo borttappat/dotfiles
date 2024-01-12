@@ -7,7 +7,7 @@ sudo python link.py --file .vimrc --dir ~/
 sudo python link.py --file .xinitrc --dir ~/
 sudo python link.py --file .Xmodmap --dir ~/
 
-sudo python link.py --file alacritty.yml --dir ~/.config/alacritty
+sudo python link.py --file alacritty.toml --dir ~/.config/alacritty
 sudo python link.py --file config.rasi --dir ~/.config/rofi
 sudo python link.py --file config --dir ~/.config/i3
 sudo python link.py --file config.ini --dir ~/.config/polybar
