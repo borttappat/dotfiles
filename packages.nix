@@ -29,7 +29,9 @@
 # Editors
     vim
     inkscape
-    
+    obs-studio
+    #davinci-resolve
+
 # Intel drivers
     #intel-ocl
     #ocl-icd
