@@ -51,6 +51,9 @@
     mullvad-browser
     mullvad-vpn
     tor
+    vlc
+    mpv
+    gimp
 
 # Terminal stuff
     tmux
@@ -238,6 +241,5 @@
     unclutter
     unzip
     tealdeer
-    gimp
 ];
 }
