@@ -85,7 +85,7 @@
     bat #cat-replacement
     ddgr
     #browsh
-    sanctity
+    #sanctity
     asciiquarium
 
 # WM
