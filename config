@@ -8,7 +8,7 @@
     set $mod Mod4
 
 # Font
-    font cozette 20
+    font CozetteVector 10
 
 # Autostart 
 #    exec_always --no-startup-id picom -b
@@ -223,30 +223,31 @@
 # Resize window (you can also use the mouse for that)
     mode "resize" {
         bindsym h resize shrink width 15 px or 15 ppt
-        bindsym k resize grow height 15 px or 15 ppt
-        bindsym j resize shrink height 15 px or 15 ppt
+        bindsym j resize grow height 15 px or 15 ppt
+        bindsym k resize shrink height 15 px or 15 ppt
         bindsym l resize grow width 15 px or 15 ppt
-# Same bindings, but for the arrow keys
+    # Same bindings, but for the arrow keys
         bindsym Left resize shrink width 2 px or 2 ppt
         bindsym Up resize grow height 2 px or 2 ppt
         bindsym Down resize shrink height 2 px or 2 ppt
         bindsym Right resize grow width 2 px or 2 ppt
 
-# Back to normal: Enter or Escape or $mod+r
+    # Back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
         }
+
 # Binds for resizing without entering resize mode
-    bindsym $mod+ctrl+j i3-msg resize shrink height 5 ppt
-    bindsym $mod+ctrl+k i3-msg resize grow height 5 ppt
+    bindsym $mod+ctrl+k i3-msg resize shrink height 5 ppt
+    bindsym $mod+ctrl+j i3-msg resize grow height 5 ppt
     bindsym $mod+ctrl+h i3-msg resize width shrink 5 ppt
     bindsym $mod+ctrl+l i3-msg resize width grow 5 ppt
+
 
 #######################
 # i3-related commands #
 #######################
-
 
 # Reload the configuration file
     bindsym $mod+Shift+c reload
@@ -272,9 +273,12 @@
 # Set colors from Xresources
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
-    set_from_resource $fg i3wm.color1 #ffffff
+    set_from_resource $fg i3wm.color3 #ffffff
     set_from_resource $bg i3wm.color0 #f0f0f0
     set_from_resource $al i3wm.color2 #ff0000
+    set_from_resource $c1 i3wm.color3 #ff0000
+
+
 
 # class                     border  backgr. text    indicator child_border
     client.focused          $fg     $fg     $fg     $fg     $fg    
