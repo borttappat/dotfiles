@@ -22,6 +22,8 @@
 # Behaviour settings for closing lid on external power
     services.logind.lidSwitchExternalPower = "ignore";
 
+# Rsync
+    services.rsyncd.enable = true;
 
 # Enable touchpad support
     services.xserver.libinput.enable = true;
