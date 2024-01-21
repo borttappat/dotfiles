@@ -74,4 +74,4 @@ alias nwconnect='nmcli --ask dev wifi connect'
 alias wifirestore='~/dotfiles/wifirestore.sh'
 
 
-cat /home/traum/.cache/wal/sequences
+#cat /home/traum/.cache/wal/sequences
