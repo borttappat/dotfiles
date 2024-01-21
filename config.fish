@@ -93,9 +93,10 @@ alias walrgb='~/dotfiles/walrgb.sh '
 alias w='~/dotfiles/walrgb.sh ~/Wallpapers/'
 
 
-alias gd='figlet -f slant Git && echo && cd ~/dotfiles && git status'
+alias dots='figlet -f slant Git && echo && cd ~/dotfiles && git status'
 alias gs='git status'
 alias ga='git add'
+alias gd='git diff'
 alias gc='git commit -m'
 alias gp='git push -uf origin main'
 alias gur='git add -A && git commit -m "updates" && git push -uf origin main' 
