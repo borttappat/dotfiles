@@ -56,11 +56,13 @@
     gimp
 
 # Terminal stuff
+    rsync
     tmux
     fzf
     alacritty
     htop
     glances
+    gotop
     neofetch
     bunnyfetch
     pfetch
