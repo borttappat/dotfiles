@@ -57,7 +57,12 @@
 
 # Terminal stuff
     rsync
+    tgpt
+    du-dust
     tmux
+    zellij
+    ripgrep
+    wiki-tui
     fzf
     alacritty
     htop
