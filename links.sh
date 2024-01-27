@@ -1,27 +1,41 @@
 #!/run/current-system/sw/bin/bash
 
-# I know this is the hackiest solution known to lizardkind, but I clearly don't know how Python uses links/or file paths. It does however, work.
-sudo python link_file.py --files alacritty.yml,config.ini,rifle.conf,.bashrc,config.rasi,config,picom.conf,.vimrc,config.fish,cozette.otb,rc.conf,.xinitrc --dirs $HOME/.config/alacritty,$HOME/.config/polybar,$HOME/.config/ranger,$HOME,$HOME/.config/rofi,$HOME/.config/i3,$HOME/.config/picom,$HOME/,$HOME/.config/fish,$HOME/.local/share/fonts,$HOME/.config/ranger,$HOME
+# misc
+sudo python link.py --file .ticker.yaml --dir ~/
+sudo python link.py --file .bashrc --dir ~/
+sudo python link.py --file .vimrc --dir ~/
+sudo python link.py --file .xinitrc --dir ~/
+sudo python link.py --file .Xmodmap --dir ~/
 
-# additional files can be linked apart from the above blob by running it according to the example below;
-#   sudo python link_file.py --files FILE_NAME --dirs DIR_PATH
+sudo python link.py --file alacritty.toml --dir ~/.config/alacritty
+sudo python link.py --file config.rasi --dir ~/.config/rofi
+sudo python link.py --file config --dir ~/.config/i3
+sudo python link.py --file config.ini --dir ~/.config/polybar
+sudo python link.py --file joshuto.toml --dir ~/.config/joshuto
+sudo python link.py --file picom.conf --dir ~/.config/picom
 
-sudo python link_file.py --files .ticker.yaml --dirs ~/
-sudo python link_file.py --files joshuto.toml --dirs $HOME/.config/joshuto
+# fish
+sudo python link.py --file config.fish --dir ~/.config/fish
+sudo python link.py --file fish_variables  --dir ~/.config/fish
 
-# links for /etc/nixos
-sudo python link_file.py --file configuration.nix --dirs /etc/nixos
-sudo python link_file.py --file flake.nix --dirs /etc/nixos
-sudo python link_file.py --file packages.nix --dirs /etc/nixos
-sudo python link_file.py --file users.nix --dirs /etc/nixos
-sudo python link_file.py --file services.nix --dirs /etc/nixos
-sudo python link_file.py --file nixp.nix --dirs /etc/nixos
-sudo python link_file.py --file fish_variables  --dirs $HOME/.config/fish
-sudo python link_file.py --file hosts.nix --dirs /etc/nixos
-sudo python link_file.py --file .Xmodmap --dirs ~/ 
+# ranger
+sudo python link.py --file rifle.conf --dir ~/.config/ranger
+sudo python link.py --file rc.conf --dir ~/.config/ranger
 
+# nix
+sudo python link.py --file configuration.nix --dir /etc/nixos
+sudo python link.py --file flake.nix --dir /etc/nixos
+sudo python link.py --file packages.nix --dir /etc/nixos
+sudo python link.py --file users.nix --dir /etc/nixos
+sudo python link.py --file services.nix --dir /etc/nixos
+sudo python link.py --file nixp.nix --dir /etc/nixos
+sudo python link.py --file hosts.nix --dir /etc/nixos
+sudo python link.py --file razer.nix --dir /etc/nixos
+sudo python link.py --file asus.nix --dir /etc/nixos
+sudo python link.py --file steam.nix --dir /etc/nixos
 
-echo "files linked"
+# make very script in ~/dotfiles executeable
+chmod +x *.sh
 
 
 
