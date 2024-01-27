@@ -28,14 +28,14 @@ sudo python link.py --file flake.nix --dir /etc/nixos
 sudo python link.py --file packages.nix --dir /etc/nixos
 sudo python link.py --file users.nix --dir /etc/nixos
 sudo python link.py --file services.nix --dir /etc/nixos
-sudo python link.py --file nixp.nix --dir /etc/nixos
+#sudo python link.py --file nixp.nix --dir /etc/nixos
 sudo python link.py --file hosts.nix --dir /etc/nixos
 sudo python link.py --file razer.nix --dir /etc/nixos
 sudo python link.py --file asus.nix --dir /etc/nixos
 sudo python link.py --file steam.nix --dir /etc/nixos
 
-# make very script in ~/dotfiles executeable
-chmod +x *.sh
+# make every script in ~/dotfiles executeable
+sudo chmod +x *.sh
 
 
 
