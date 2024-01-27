@@ -5,9 +5,7 @@
 
             nixpkgs.url = "nixpkgs/nixos-unstable";
             
-            inputs.nixpkgs.follows = "nixpkgs";
         };
-};
 
     outputs = { self, nixpkgs, ... }@inputs: {
         nixosConfigurations = {
