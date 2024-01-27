@@ -38,7 +38,7 @@
                         ./users.nix
                         ./hosts.nix
                     ];
-            } 
+            }; 
 
 
             "asus" = nixpkgs.lib.nixosSystem {
