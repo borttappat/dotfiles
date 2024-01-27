@@ -83,8 +83,8 @@
     services.tailscale.enable = true;
 
 
-# Enabling OpenRGB
-    services.hardware.openrgb.enable = true;
+# Enabling OpenRGB *moved to razer.nix*
+    #services.hardware.openrgb.enable = true;
 
 
 # Enable i2c-bus
