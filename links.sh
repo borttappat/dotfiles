@@ -33,6 +33,9 @@ sudo python link.py --file hosts.nix --dir /etc/nixos
 sudo python link.py --file razer.nix --dir /etc/nixos
 sudo python link.py --file asus.nix --dir /etc/nixos
 sudo python link.py --file steam.nix --dir /etc/nixos
+sudo python link.py --file boot.nix --dir /etc/nixos
+
+
 
 # make every script in ~/dotfiles executeable
 sudo chmod +x *.sh
