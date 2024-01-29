@@ -6,7 +6,7 @@ sudo python link.py --file .bashrc --dir ~/
 sudo python link.py --file .vimrc --dir ~/
 sudo python link.py --file .xinitrc --dir ~/
 sudo python link.py --file .Xmodmap --dir ~/
-
+sudo python link.py --file zathurarc --dir ~/zathura
 sudo python link.py --file alacritty.toml --dir ~/.config/alacritty
 sudo python link.py --file config.rasi --dir ~/.config/rofi
 sudo python link.py --file config --dir ~/.config/i3
@@ -28,7 +28,6 @@ sudo python link.py --file flake.nix --dir /etc/nixos
 sudo python link.py --file packages.nix --dir /etc/nixos
 sudo python link.py --file users.nix --dir /etc/nixos
 sudo python link.py --file services.nix --dir /etc/nixos
-#sudo python link.py --file nixp.nix --dir /etc/nixos
 sudo python link.py --file hosts.nix --dir /etc/nixos
 sudo python link.py --file razer.nix --dir /etc/nixos
 sudo python link.py --file asus.nix --dir /etc/nixos

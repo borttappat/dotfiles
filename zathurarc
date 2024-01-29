@@ -1,0 +1,6 @@
+# colors
+set default-bg     "{color2}"
+set default-fg     "{foreground}"
+set statusbar-bg   "{color4}"
+set statusbar-fg   "{color6}"
+set inputbar-bg    "{color1}"

@@ -8,6 +8,9 @@ sudo python link.py --file .bashrc --dir ~/
 sudo python link.py --file .vimrc --dir ~/
 sudo python link.py --file .xinitrc --dir ~/
 sudo python link.py --file .Xmodmap --dir ~/
+sudo python link.py --file zathurarc --dir ~/zathura
+
+
 
 sudo python link.py --file alacritty.toml --dir ~/.config/alacritty
 sudo python link.py --file config.rasi --dir ~/.config/rofi
