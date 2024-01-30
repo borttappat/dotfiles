@@ -60,7 +60,7 @@ alias ka='killall'
 alias alacrittyconf='v ~/dotfiles/alacritty/alacritty.toml'
 alias nixp='sudo ~/dotfiles/scripts/bash/nixp.sh'
 alias nixpsort='sudo python ~/dotfiles/scripts/python/nixpsort.py'
-alias nu='sudo sh ~/dotfiles/scipts/bash/nixupdate.sh'
+alias nu='sudo sh ~/dotfiles/scripts/bash/nixupdate.sh'
 alias nixbuild='~/dotfiles/nixbuild.sh'
 alias nb='nixbuild'
 alias nixconf='v /etc/nixos/configuration.nix'
@@ -88,7 +88,7 @@ alias f='fishconf'
 
 
 alias rgb='openrgb --device 0 --mode static --color'
-alias walrgb='~/dotfiles/scipts/bash/walrgb.sh '
+alias walrgb='~/dotfiles/scripts/bash/walrgb.sh '
 alias w='~/dotfiles/scripts/bash/walrgb.sh ~/Wallpapers/'
 
 
