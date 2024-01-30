@@ -57,13 +57,12 @@ alias v='sudo -E vim'
 alias h='htop'
 alias ka='killall'
 
-alias alacrittyconf='v ~/dotfiles/alacritty.toml'
-alias nixp='sudo ~/dotfiles/nixp.sh'
-alias nixpsort='sudo python ~/dotfiles/nixpsort.py && sudo rm ~/dotfiles/nixp.nix && sudo ln /etc/nixos/nixp.nix ~/dotfiles/nixp.nix'
-alias nu='sudo sh ~/dotfiles/nixupdate.sh'
+alias alacrittyconf='v ~/dotfiles/alacritty/alacritty.toml'
+alias nixp='sudo ~/dotfiles/scripts/bash/nixp.sh'
+alias nixpsort='sudo python ~/dotfiles/scripts/python/nixpsort.py'
+alias nu='sudo sh ~/dotfiles/scipts/bash/nixupdate.sh'
 alias nixbuild='~/dotfiles/nixbuild.sh'
 alias nb='nixbuild'
-alias flakebuild='sudo rm /etc/nixos/flake.nix && sudo ln ~/dotfiles/flake.nix /etc/nixos && nixbuild'
 alias nixconf='v /etc/nixos/configuration.nix'
 alias nixpkgs='v /etc/nixos/packages.nix'
 alias np='nixpkgs'
@@ -72,12 +71,12 @@ alias n='nixpkgs'
 alias nixhosts='v /etc/nixos/hosts.nix'
 alias nixsrv='v /etc/nixos/services.nix'
 alias nixclean='sudo nix-collect-garbage -d && nixbuild'
-alias i3conf='v ~/dotfiles/config'
+alias i3conf='v ~/dotfiles/i3/config'
 alias i='i3conf'
-alias picomconf='v ~/dotfiles/picom.conf'
-alias polyconf='v ~/dotfiles/config.ini'
+alias picomconf='v ~/dotfiles/picom/picom.conf'
+alias polyconf='v ~/dotfiles/polybar/config.ini'
 alias poc='polyconf'
-alias fishconf='v ~/dotfiles/config.fish'
+alias fishconf='v ~/dotfiles/fish/config.fish'
 alias f='fishconf'
 
 
@@ -89,8 +88,8 @@ alias f='fishconf'
 
 
 alias rgb='openrgb --device 0 --mode static --color'
-alias walrgb='~/dotfiles/walrgb.sh '
-alias w='~/dotfiles/walrgb.sh ~/Wallpapers/'
+alias walrgb='~/dotfiles/scipts/bash/walrgb.sh '
+alias w='~/dotfiles/scripts/bash/walrgb.sh ~/Wallpapers/'
 
 
 alias dots='figlet -f slant Git && echo && cd ~/dotfiles && git status'
@@ -104,8 +103,8 @@ alias gu='git add -u && git commit -m "updates" && git push -uf origin main'
 alias gsy='git pull && sh ~/dotfiles/links.sh'
 
 
-alias links='sh ~/dotfiles/links.sh'
-alias link='sudo python ~/dotfiles/link_file.py'
+alias links='sh ~/dotfiles/scripts/bash/links.sh'
+alias link='sudo python ~/dotfiles/scripts/python/link_file.py'
 
 
 # transfer files over tailscale using taildrop.
@@ -121,7 +120,7 @@ alias cf='clear && neofetch'
 # network-related
 alias nwshow='nmcli dev wifi show'
 alias nwconnect='nmcli --ask dev wifi connect'
-alias wifirestore='~/dotfiles/wifirestore.sh'
+alias wifirestore='~/dotfiles/scripts/bash/wifirestore.sh'
 
 
 set -U fish_greeting ""
