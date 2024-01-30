@@ -1,7 +1,5 @@
 #!/run/current-system/sw/bin/bash
 
-#!/bin/bash
-
 current_host=$(neofetch --stdout | grep Host)
 
 if echo "$current_host" | grep -q "Razer"; then
@@ -11,5 +9,6 @@ elif echo "$current_host" | grep -q "KVM/QEMU"; then
 elif echo "$current_host" | grep -q "ASUS"; then
     sudo nixos-rebuild switch --flake /etc/nixos#asus
 else
-    echo "Unknown host: $current_host, build manually or modify flake.nix"
+    echo "Unknown host: $current_host, building default versionm. Modify flake.nix to adjust according to preferences"
+    sudo nixos-rebuild switch --flake /etc/nixos#default
 fi

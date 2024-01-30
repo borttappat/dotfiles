@@ -56,6 +56,20 @@
                         ./steam.nix
                     ];
             };
+            
+            "default" = nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                    modules = [
+                        ./hardware-configuration.nix
+                        ./configuration.nix
+                        ./boot.nix
+                        ./packages.nix
+                        ./services.nix
+                        ./nixp.nix
+                        ./users.nix
+                        ./hosts.nix
+                    ];
+            };
 
         };
 
