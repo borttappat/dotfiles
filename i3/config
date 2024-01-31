@@ -75,7 +75,7 @@
     bindsym $mod+Shift+s exec systemctl suspend
 
 # Cycle wallpapers and apply new colorscheme.
-    bindsym $mod+w exec ~/dotfiles/randomwalrgb.sh 
+    bindsym $mod+w exec ~/dotfiles/scripts/bash/randomwalrgb.sh 
 
 # Launch Librewolf
     #bindsym $mod+b exec librewolf
