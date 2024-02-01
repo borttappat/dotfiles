@@ -65,7 +65,7 @@
     bindsym $mod+Shift+p exec polybar-msg cmd restart
 
 # B/W Wallpaper 
-    bindsym $mod+Shift+w exec feh --bg-fill ~/dotfiles/Black.jpg
+    bindsym $mod+Shift+w exec feh --bg-fill ~/dotfiles/wallpapers/Black.jpg
 
 # Lockscreen
     bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg
