@@ -10,7 +10,7 @@ cd /etc/nixos || exit 1
 sudo nix flake update
 
 # Update the system
-sudo nixos-rebuild switch --flake /etc/nixos#traum
+sudo ~/dotfiles/scripts/bash/nixbuild.sh
 
 # Return to the original directory
 cd "$original_dir" || exit 1
