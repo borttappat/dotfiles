@@ -1,9 +1,9 @@
-#                       __                                 _
-#     ____  ____ ______/ /______ _____ ____  _____  ____  (_)  __
-#    / __ \/ __ `/ ___/ //_/ __ `/ __ `/ _ \/ ___/ / __ \/ / |/_/
-#   / /_/ / /_/ / /__/ ,< / /_/ / /_/ /  __(__  ) / / / / />  <
-#  / .___/\__,_/\___/_/|_|\__,_/\__, /\___/____(_)_/ /_/_/_/|_|
-# /_/                          /____/
+#                        __                                 _
+#      ____  ____ ______/ /______ _____ ____  _____  ____  (_)  __
+#     / __ \/ __ `/ ___/ //_/ __ `/ __ `/ _ \/ ___/ / __ \/ / |/_/
+#    / /_/ / /_/ / /__/ ,< / /_/ / /_/ /  __(__  ) / / / / />  <
+#   / .___/\__,_/\___/_/|_|\__,_/\__, /\___/____(_)_/ /_/_/_/|_|
+#  /_/                          /____/
 
 { config, pkgs, ... }:
 
@@ -19,27 +19,19 @@
  
 # Fonts
     fonts.packages = with pkgs; [
-    #nerdfonts
     cozette
     ];
 
 # Packages to install on a system-wide level
  environment.systemPackages = with pkgs; [
 
+    
 # Editors
     vim
     inkscape
     obs-studio
     #davinci-resolve
 
-# Intel drivers
-    #intel-ocl
-    #ocl-icd
-    #clinfo
-    #intelmetool
-    #intel-media-driver
-    #intel-compute-runtime
-    #intel-graphics-compiler
 
 # Compilers
     #gcc
@@ -48,6 +40,7 @@
 # Programs
     librewolf
     brave
+    mullvad
     mullvad-browser
     mullvad-vpn
     tor
@@ -77,7 +70,6 @@
     ranger
     zoxide
     joshuto
-    #yazi
     figlet
     ticker
     tickrs
@@ -85,14 +77,10 @@
     ttyper
     #matrixcli
     dfrs #df-replacement
-    #pipes
     pipes-rs #rust-written replacement
     gurk-rs
-    #gtop
     bat #cat-replacement
     ddgr
-    #browsh
-    #sanctity
     asciiquarium
 
 # WM
@@ -120,7 +108,6 @@
     brightnessctl
     #obsidian
     light 
-    #pciutils
     undervolt
     git
     gh
@@ -131,7 +118,6 @@
     killall
     qemu
     #kvmtool
-    #tmux    
     #onionshare
     #picosnitch
     flameshot
@@ -149,6 +135,7 @@
     signal-cli
     whois
     remmina
+    warpd
     
 # Pentesting
     awscli2
@@ -157,7 +144,7 @@
     nikto
     iw
     nmap
-    #rustscan
+    rustscan
     wireshark
     sherlock
     dig
@@ -176,7 +163,6 @@
     asleap
     netcat
     rustcat
-    #traceroute
     samba
     gobuster
     ffuf

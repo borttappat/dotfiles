@@ -4,8 +4,6 @@ set bg=light
 
 set noswapfile
 
-set incsearch
-
 set clipboard=unnamedplus
 vnoremap <C-c> "+y
 

@@ -7,7 +7,6 @@ if [ $# -eq 0 ]; then
 fi
 
 # Define the file path
-#file_path="$HOME/dotfiles/nixp.nix"
 file_path="/etc/nixos/nixp.nix"
 
 # Line number to insert the arguments
@@ -33,9 +32,9 @@ read -p "Do you want to update the system? (Y/N): " response
 if [[ "$response" == "Y" || "$response" == "y" ]]; then
   
   echo "Updating system..."
-  update="sudo nixos-rebuild switch --flake /etc/nixos#traum"
-  $update
-  #echo "System updated successfully."
+  sudo ~/dotfiles/scripts/bash/nixbuild.sh
+  echo "System updated successfully."
+
 else
   echo "No action taken."
 fi

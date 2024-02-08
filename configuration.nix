@@ -4,39 +4,41 @@
 #    / /|  / />  </ /_/ /___/ /
 #   /_/ |_/_/_/|_|\____//____/
 
-#NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
 
 {   
       
 # Allowing for flakes and nix-command 
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
- 
-    imports =
-    [ 
-      # Deprecated, have all been added to flake.nix. Saved for backup purposes
-      #./hardware-configuration.nix
-      #./packages.nix
-      #./users.nix
-      #./services.nix
-    ];
-
-
-# Bootloader
-    # SystemD-boot
-    #boot.loader.systemd-boot.enable = true;
-    #boot.loader.efi.canTouchEfiVariables = true;
-    #boot.loader.efi.efiSysMountPoint = "/boot/efi";
+    nix.settings.experimental-features = [ 
+        "nix-command" 
+        "flakes" 
+        ];
     
+# Nix-scripts, WIP
+
+/*
+environment.systemPackages = [
+    (import /.nixbuild.nix { inherit pkgs; })
+    ];
+*/
+
+/*
+let
+    nixbuild = import ./nixbuild.nix { inherit pkgs; };
+in
+{
+    environment.systemPackagess = [
+        nixbuild
+    ];
+};
+
+*/
 # Kernel
      boot.kernelPackages = pkgs.linuxPackages_latest;
 
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.
-    
-# Enables wireless support via wpa_supplicant
-    #networking.wireless.enable = true;  
 
 # Enable networking
     networking.networkmanager.enable = true;
@@ -107,8 +109,12 @@
     nix.gc = {
         automatic = true;
         dates = "weekly";
-        options = "--delete-older-than 30d";
+        options = "--delete-older-than 10d";
     };
+
+# Automatic nix-store optimizing
+    nix.settings.auto-optimise-store = true;
+
 
 system.stateVersion = "22.11"; 
 

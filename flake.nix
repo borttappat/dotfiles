@@ -5,9 +5,11 @@
 
             nixpkgs.url = "nixpkgs/nixos-unstable";
             
+            nix-index-database.url = "github:Mic92/nix-index-database";
+            nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
         };
 
-    outputs = { self, nixpkgs, ... }@inputs: {
+    outputs = { self, nixpkgs, nix-index-database, ... }@inputs: {
         nixosConfigurations = {
             
             "razer" = nixpkgs.lib.nixosSystem {
@@ -22,6 +24,8 @@
                         ./users.nix
                         ./hosts.nix
                         ./razer.nix
+                        #./scripts.nix
+                        #nix-index-database.nixosModules.nix-index
                     ];
             };
 
