@@ -24,6 +24,7 @@
                         ./users.nix
                         ./hosts.nix
                         ./razer.nix
+                        #./nixbuild.nix
                         #./scripts.nix
                         #nix-index-database.nixosModules.nix-index
                     ];

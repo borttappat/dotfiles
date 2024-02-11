@@ -1,25 +1,19 @@
 { config, pkgs, ... }:
 
 {
-
+  # Your existing configuration settings
   
-environment.systemPackages = [
+  environment.systemPackages = [
     # Any existing system packages
     
-# Importing and including your script
-    (import /etc/nixos/nixbuild.nix {}).nixbuild
-    ];
+    # Importing and including your script from the dotfiles repository
+   (import (pkgs.fetchFromGitHub {
+      owner = "borttappat";
+      repo = "dotfiles";
+      rev = "main";  # Use the branch name
+      sha256 = null; # Disable SHA256 hash checking
 
-/*
-dotfilesRepo = builtins.fetchGit {
-    url = "https://github.com/borttappat/dotfiles.git";
-    rev = "main";  # or specify a commit hash, tag, etc.
-  };
-
-  environment.shellInit = ''
-    export PATH=$PATH:$dotfilesRepo/scripts/python:$dotfilesRepo/scripts/bash
-  '';
-*/
-
+    }) {}).nixbuild
+  ];
 }
 
