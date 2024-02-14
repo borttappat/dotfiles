@@ -17,6 +17,8 @@
 
 # Mullvad-vpn
     services.mullvad-vpn.enable = true;
+    services.resolved.enable = true;
+
 
 
 # Behaviour settings for closing lid on external power
