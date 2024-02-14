@@ -40,9 +40,9 @@
 # Programs
     librewolf
     brave
-    mullvad
+    #mullvad
     mullvad-browser
-    mullvad-vpn
+    #mullvad-vpn
     tor
     vlc
     mpv
@@ -139,6 +139,7 @@
     
 # Pentesting
     awscli2
+    seclists
     uncover
     wifite2
     nikto
