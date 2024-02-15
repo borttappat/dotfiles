@@ -102,6 +102,7 @@
 
 # Tools
     bandwhich
+    bottles
     gping
     openconnect
     openvpn
