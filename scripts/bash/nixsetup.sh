@@ -6,6 +6,9 @@ sudo ~/dotfiles/scripts/bash/links.sh
 
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/boot.nix --dir /etc/nixos
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/nixp.nix --dir /etc/nixos
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/colors.nix --dir /etc/nixos
+
+
 
 
 sudo python ~/dotfiles/scripts/python/userswitch.py
