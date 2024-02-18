@@ -24,6 +24,7 @@
                         ./users.nix
                         ./hosts.nix
                         ./razer.nix
+                        ./colors.nix
                         #./nixbuild.nix
                         #./scripts.nix
                         #nix-index-database.nixosModules.nix-index
@@ -42,6 +43,7 @@
                         ./nixp.nix
                         ./users.nix
                         ./hosts.nix
+                        ./colors.nix 
                     ];
             }; 
 
@@ -59,6 +61,7 @@
                         ./users.nix
                         ./asus.nix
                         ./steam.nix
+                        ./colors.nix 
                     ];
             };
             
@@ -72,7 +75,7 @@
                         ./services.nix
                         ./nixp.nix
                         ./users.nix
-                        ./hosts.nix
+                        ./colors.nix
                     ];
             };
 

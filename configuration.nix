@@ -7,6 +7,22 @@
 
 { config, pkgs, ... }:
 
+
+let
+  colorsRepo = builtins.fetchGit {
+    url = "https://github.com/borttappat/dotfiles.git";
+    ref = "main";  # Assuming your branch is named "main"
+  };
+  colorConfig = import "${colorsRepo}/wal/nix-colors.nix";
+in
+
+{
+  console = {
+    colors = colorConfig;
+  };
+}
+
+
 {   
       
 # Allowing for flakes and nix-command 
@@ -33,7 +49,38 @@ in
     ];
 };
 
+
+
 */
+
+
+
+/*
+# System-colors
+    console.colors = [
+
+"040404"
+"E62759"
+"E74E74"
+"7F827D"
+"EC6E8C"
+"EE9DAC"
+"CDB0B2"
+"efe3e1"
+"a79e9d"
+"E62759"
+"E74E74"
+"7F827D"
+"EC6E8C"
+"EE9DAC"
+"CDB0B2"
+"efe3e1"
+
+];
+
+*/
+
+
 # Kernel
      boot.kernelPackages = pkgs.linuxPackages_latest;
 
