@@ -40,7 +40,7 @@
     bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -R && htop"
 
 # i3config
-    bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -R && sudo -E vim ~/.config/i3/config"
+    bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "sudo -E vim ~/.config/i3/config"
 
 # nix-packages
     bindsym $mod+Shift+n exec alacritty -e /bin/sh -c "wal -R && sudo -E vim /etc/nixos/packages.nix"

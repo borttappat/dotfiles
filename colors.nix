@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 
+{
+
 # System-colors
 console.colors = [
 "040404"
@@ -21,4 +23,5 @@ console.colors = [
 
 ];
 
-{
+
+}
