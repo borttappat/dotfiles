@@ -1,7 +1,7 @@
 #!/run/current-system/sw/bin/bash
 
 unclutter -grab &
-#wal -R &
+wal -Rn &
 mullvad connect & 
 
 # Here i3 is kept as default
