@@ -11,8 +11,6 @@
     font CozetteVector 10
 
 # Autostart 
-#    exec_always --no-startup-id picom -b
-    #exec_always --no-startup-id wal -R
     #exec_always --no-startup-id ~/dotfiles/launch.sh
     #exec_always --no-startup-id killall polybar 
     #exec_always --no-startup-id polybar -q main2 &
