@@ -52,10 +52,12 @@ alias h='htop'
 alias ka='killall'
 
 alias alacrittyconf='v ~/dotfiles/alacritty/alacritty.toml'
+
+
 alias nixp='sudo ~/dotfiles/scripts/bash/nixp.sh'
 alias nixpsort='sudo python ~/dotfiles/scripts/python/nixpsort.py'
 alias nu='sh ~/dotfiles/scripts/bash/nixupdate.sh'
-#alias nu='sudo sh ~/dotfiles/scripts/bash/nixupdate.sh'
+alias ncg='sudo nix-collect-garbage -d'
 alias nixbuild='~/dotfiles/scripts/bash/nixbuild.sh'
 alias nb='nixbuild'
 alias nixconf='v /etc/nixos/configuration.nix'
