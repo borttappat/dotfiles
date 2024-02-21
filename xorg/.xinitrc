@@ -2,7 +2,7 @@
 
 unclutter -grab &
 wal -Rn &
-mullvad connect & 
+#mullvad connect & 
 
 # Here i3 is kept as default
 session=${1:-i3}

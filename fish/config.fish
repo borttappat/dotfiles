@@ -15,13 +15,7 @@ end
 # Zoxide
 zoxide init fish | source
 
-# Binds
-
-#bind \§ bind_sect_to_tilde
-#bind \§ 'echo "~"'
-
-
-
+set -x EDITOR 'vim'
 
 # aliases
 alias reboot='systemctl reboot'

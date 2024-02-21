@@ -4,8 +4,7 @@
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/ticker/.ticker.yaml --dir ~/
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/bash/.bashrc --dir ~/
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/vim/.vimrc --dir ~/
-sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/xorg/.xinitrc --dir ~/
-sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/xorg/.Xmodmap --dir ~/
+
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/zathura/zathurarc --dir ~/zathura
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/alacritty/alacritty.toml --dir ~/.config/alacritty
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/rofi/config.rasi --dir ~/.config/rofi
@@ -21,6 +20,12 @@ sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/fish/fish_variab
 # ranger
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/ranger/rifle.conf --dir ~/.config/ranger
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/ranger/rc.conf --dir ~/.config/ranger
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/ranger/scope.sh --dir ~/.config/ranger
+
+# xorg
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/xorg/.xinitrc --dir ~/
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/xorg/.Xmodmap --dir ~/
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/xorg/.xsessionrc --dir ~/
 
 # nix
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/configuration.nix --dir /etc/nixos
