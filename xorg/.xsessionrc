@@ -1,0 +1,10 @@
+#!/run/current-system/sw/bin/bash
+
+# Set the Xauthority file location
+export XAUTHORITY=$HOME/.Xauthority
+
+# Merge existing .Xauthority file if it exists
+if [ -f $XAUTHORITY ]; then
+    xauth merge $XAUTHORITY
+fi
+
