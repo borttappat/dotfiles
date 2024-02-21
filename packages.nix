@@ -17,6 +17,9 @@
 
     nix.package = pkgs.nixUnstable;
  
+# Special-usecase
+    programs.wireshark.enable = true;
+    
 # Fonts
     fonts.packages = with pkgs; [
     cozette
@@ -148,6 +151,8 @@
     nmap
     rustscan
     wireshark
+    tshark
+    termshark
     sherlock
     dig
     wirelesstools
