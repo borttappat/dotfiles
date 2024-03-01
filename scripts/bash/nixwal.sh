@@ -22,5 +22,5 @@ while IFS= read -r line; do
     echo "$line" >> "$target_file"
 done < "$source_file"
 
-echo "New file 'nix-colors' created in '~/dotfiles/wal' with modified colors."
+echo "'nix-colors' created in '~/dotfiles/wal' with modified colors."
 

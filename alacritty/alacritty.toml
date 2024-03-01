@@ -3,10 +3,10 @@ TERM = "alacritty"
 
 [font]
 # For internal display
-size = 5.5
+#size = 5.5
 
 # For external display
-#size = 8.5
+size = 8.5
 
 [font.bold]
 family = "CozetteVectorBold"

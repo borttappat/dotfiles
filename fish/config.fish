@@ -86,8 +86,8 @@ alias f='fishconf'
 
 alias rgb='openrgb --device 0 --mode static --color'
 alias walrgb='~/dotfiles/scripts/bash/walrgb.sh '
-alias w='~/dotfiles/scripts/bash/walrgb.sh ~/Wallpapers/'
-
+#alias w='~/dotfiles/scripts/bash/walrgb.sh ~/Wallpapers/'
+alias w='wal -Rn'
 
 alias dots='figlet -f slant Git && echo && cd ~/dotfiles && git status'
 alias gs='git status'

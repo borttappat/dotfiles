@@ -14,7 +14,11 @@
         "nix-command" 
         "flakes" 
         ];
-    
+
+
+programs.nix-ld.enable = true;
+programs.nix-ld.libraries = with pkgs; [
+];
 # Nix-scripts, WIP
 
 /*

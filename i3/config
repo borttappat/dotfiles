@@ -258,7 +258,7 @@
 
 
 ###################
-# Visual settinga #
+# Visual settings #
 ###################
 
 # Hiding window title
@@ -292,23 +292,20 @@
 
 # Smart gaps
 # Only enable gaps on a workspace when there is at least one container
-    #smart_gaps on
+    smart_gaps on
+
+# Only enable outer gaps when there is exactly one container
+    #smart_gaps inverse_outer
+
+# Activate smart borders (only when there are effectively no gaps)
+    smart_borders no_gaps
+
 
 # Controlling gap sizes
     bindsym $mod+Shift+Down gaps inner current plus 2
     bindsym $mod+Shift+Up gaps inner current minus 2
     bindsym $mod+Shift+Left gaps inner current plus 15
     bindsym $mod+Shift+Right gaps inner current minus 15
-
-# Only enable outer gaps when there is exactly one container
-    #smart_gaps inverse_outer
-
-
-# Activate smart borders (always)
-    #smart_borders on
-
-# Activate smart borders (only when there are effectively no gaps)
-    #smart_borders no_gaps
 
 
 # Only initiate a tiling drag when the modifier is held:

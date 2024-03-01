@@ -11,7 +11,7 @@
 
 # Allowing unfree and unstable packages
     
-    # I'm sorry, Stallman
+# I'm sorry, Stallman
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.allowUnstable = true;
 
@@ -26,7 +26,7 @@
     ];
 
 # Packages to install on a system-wide level
- environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs; [
 
     
 # Editors
@@ -53,6 +53,9 @@
 
 # Terminal stuff
     rsync
+    asciinema
+    haxor-news
+    duf
     tgpt
     du-dust
     tmux
@@ -105,6 +108,10 @@
 
 # Tools
     bandwhich
+    ngrok
+    tmate
+    exiftool
+    procs
     bottles
     gping
     openconnect
@@ -136,6 +143,7 @@
     inetutils
     udisks
     docker  #added with virt.enable = true in services.nix
+    lazydocker
     signal-cli
     whois
     remmina
@@ -155,6 +163,7 @@
     termshark
     sherlock
     dig
+    dog #replacecment for dig
     wirelesstools
     hydra-cli
     thc-hydra
@@ -241,5 +250,6 @@
     unclutter
     unzip
     tealdeer
-];
+
+    ];
 }

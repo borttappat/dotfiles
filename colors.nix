@@ -4,24 +4,21 @@
 
 # System-colors
 console.colors = [
-"040404"
-"E62759"
-"E74E74"
-"7F827D"
-"EC6E8C"
-"EE9DAC"
-"CDB0B2"
-"efe3e1"
-"a79e9d"
-"E62759"
-"E74E74"
-"7F827D"
-"EC6E8C"
-"EE9DAC"
-"CDB0B2"
-"efe3e1"
-
+"000000"
+"C0A500"
+"A8E900"
+"D7E400"
+"F0FE00"
+"888888"
+"B1B1B1"
+"dedede"
+"9b9b9b"
+"C0A500"
+"A8E900"
+"D7E400"
+"F0FE00"
+"888888"
+"B1B1B1"
+"dedede"
 ];
-
-
 }

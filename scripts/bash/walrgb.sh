@@ -28,10 +28,13 @@ openrgb --device 0 --mode static --color ${HEX_CODE/#/}
 echo "Backlight set"
 
 # refresh polybar
-#echo "Restarting Polybar"
-#killall polybar
-#polybar -q & 
 polybar-msg cmd restart
-echo "Polybar launched"
+echo "Polybar updated"
+
+# Paste colors from wal-cache ~/dotfiles/wal/nix-colors
+~/dotfiles/scripts/bash/nixwal.sh
+
+# Update /etc/nixos/colors.nix with colors from ~/dotfiles/wal/nix-color
+python ~/dotfiles/scripts/python/nixcolors.py
 
 echo "Colors updated!"
