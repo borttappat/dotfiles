@@ -151,6 +151,7 @@
     
 # Pentesting
     awscli2
+    responder
     seclists
     uncover
     wifite2

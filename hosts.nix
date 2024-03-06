@@ -22,6 +22,8 @@
     10.10.11.221 2million.htb
     10.10.11.189 precious.htb
     10.10.11.242 devvortex.htb 
+    10.10.11.252 bizness.htb
+    10.10.11.130 goodgames.htb
 
     '';
 }

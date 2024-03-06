@@ -54,6 +54,7 @@ alias ka='killall'
 alias alacrittyconf='v ~/dotfiles/alacritty/alacritty.toml'
 
 
+alias hosts='v /etc/nixos/hosts.nix'
 alias nixp='sudo ~/dotfiles/scripts/bash/nixp.sh'
 alias nixpsort='sudo python ~/dotfiles/scripts/python/nixpsort.py'
 alias nu='sh ~/dotfiles/scripts/bash/nixupdate.sh'
