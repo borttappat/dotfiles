@@ -53,6 +53,7 @@
 
 # Terminal stuff
     rsync
+    mop
     asciinema
     haxor-news
     duf
@@ -108,6 +109,7 @@
 
 # Tools
     bandwhich
+    poetry
     ngrok
     tmate
     exiftool
@@ -151,6 +153,10 @@
     
 # Pentesting
     awscli2
+    openldap
+    crackmapexec
+    bloodhound-py
+    bloodhound
     responder
     seclists
     uncover
@@ -181,17 +187,21 @@
     netcat
     rustcat
     samba
+    smbmap
     gobuster
     ffuf
     exploitdb
     libxml2
     hcxtools
     enum4linux
+    enum4linux-ng
     redis
     xrdp
     mariadb
     udevil #udisks replacement
     burpsuite
+    mitmproxy
+    mitmproxy2swagger
     proxychains-ng
     wprecon
     monsoon
