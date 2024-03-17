@@ -8,7 +8,7 @@ xdg_open = true
 xdg_open_fork = true
 
 # Use system trash can instead of permanently removing files
-use_trash = true
+use_trash = false
 
 # Watch for filesystem changes and update directory listings accordingly
 watch_files = true
@@ -38,7 +38,7 @@ show_borders = true
 show_hidden = true
 
 # Show file icons (requires a supporting font)
-show_icons = true
+show_icons = false
 
 # Shorten /home/$USER to ~
 tilde_in_titlebar = true
