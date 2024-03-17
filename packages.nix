@@ -65,6 +65,7 @@
     wiki-tui
     fzf
     alacritty
+    #kitty
     htop
     glances
     gotop
@@ -97,6 +98,7 @@
     #picom-allusive #to be replaced by compfy
     wpgtk
     pywal
+    imagemagick
     feh
     #eww
     #conky
@@ -109,6 +111,8 @@
 
 # Tools
     bandwhich
+    youtube-tui
+    mage
     poetry
     ngrok
     tmate

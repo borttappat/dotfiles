@@ -15,6 +15,7 @@
     #exec_always --no-startup-id killall polybar 
     #exec_always --no-startup-id polybar -q main2 &
     exec_always --no-startup-id polybar -q main 
+    exec_always --no-startup-id ~/.fehbg &
     #exec_always --no-startup-id wal -R
     #exec_always --no-startup-id polybar-msg cmd restart
 #    exec_always --no-startup-id polybar -r main 

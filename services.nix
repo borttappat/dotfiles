@@ -11,6 +11,10 @@
 # udisksctl
     services.udisks2.enable = true; #added with udisks in packages.nix
 
+    # Settings for making mounting/unmounting easier
+    #services.gvfs.enable = true; #added for easier mounting/unmounting of usb disks
+    #services.devmon.enable = true; #added for easier mounting/unmounting of usb disks 
+
 # Docker-support
     virtualisation.docker.enable = true; #added with docker pkg in packages.nix
 
