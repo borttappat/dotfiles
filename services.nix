@@ -8,6 +8,9 @@
 
 {
 
+# ollama, LLM
+    services.ollama.enable = true;
+
 # udisksctl
     services.udisks2.enable = true; #added with udisks in packages.nix
 

@@ -17,9 +17,6 @@
 
     nix.package = pkgs.nixUnstable;
  
-# Special-usecase
-    programs.wireshark.enable = true;
-    
 # Fonts
     fonts.packages = with pkgs; [
     cozette
@@ -28,7 +25,6 @@
 # Packages to install on a system-wide level
     environment.systemPackages = with pkgs; [
 
-    
 # Editors
     vim
     inkscape
@@ -47,13 +43,12 @@
     mullvad-browser
     mullvad-vpn
     tor
-    vlc
     mpv
-    gimp
 
 # Terminal stuff
     rsync
-    mop
+    porsmo
+    #mop
     asciinema
     haxor-news
     duf
@@ -62,7 +57,7 @@
     tmux
     zellij
     ripgrep
-    wiki-tui
+    #wiki-tui
     fzf
     alacritty
     #kitty
@@ -71,7 +66,7 @@
     gotop
     neofetch
     bunnyfetch
-    pfetch
+    #pfetch
     nitch
     cbonsai
     cmatrix
@@ -96,18 +91,16 @@
     rofi
     picom
     #picom-allusive #to be replaced by compfy
-    wpgtk
+    #wpgtk
     pywal
     imagemagick
     feh
     #eww
     #conky
-    betterlockscreen
     #dunst
-    i3lock-color
     i3lock
-    #i3lock-fancy
-    autorandr
+    i3lock-fancy-rapid
+    #autorandr
 
 # Tools
     bandwhich
@@ -116,7 +109,7 @@
     poetry
     ngrok
     tmate
-    exiftool
+    #exiftool
     procs
     bottles
     gping
@@ -128,7 +121,7 @@
     undervolt
     git
     gh
-    chatgpt-cli
+    #chatgpt-cli
     nmon
     zathura
     xdotool
@@ -154,7 +147,14 @@
     whois
     remmina
     warpd
-    
+    ollama
+    oterm
+    aichat
+    pentestgpt
+    open-interpreter
+    llm-ls
+    #llm
+
 # Pentesting
     awscli2
     openldap

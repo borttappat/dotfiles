@@ -11,7 +11,11 @@ sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/rofi/config.rasi
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/i3/config --dir ~/.config/i3
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/polybar/config.ini --dir ~/.config/polybar
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/joshuto/joshuto.toml --dir ~/.config/joshuto
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/joshuto/mimetype.toml --dir ~/.config/joshuto
+
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/picom/picom.conf --dir ~/.config/picom
+
+
 
 # fish
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/fish/config.fish --dir ~/.config/fish

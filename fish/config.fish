@@ -39,6 +39,8 @@ alias pc='picomconf'
 alias ls='eza -a'
 alias l='eza -a -l'
 
+alias sls='eza -a -l | grep -i'
+
 
 # widescreen setup
 alias xrandrwide='xrandr --output HDMI-1 --mode 3440x1440 --output eDP-1 --off && wal -R && killall polybar &&  polybar -q &'
