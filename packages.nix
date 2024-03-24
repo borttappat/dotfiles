@@ -104,6 +104,7 @@
 
 # Tools
     bandwhich
+    lynis
     youtube-tui
     mage
     poetry
@@ -157,6 +158,9 @@
 
 # Pentesting
     awscli2
+    mitmproxy
+    caido
+    ghost
     openldap
     crackmapexec
     bloodhound-py
@@ -191,10 +195,10 @@
     netcat
     rustcat
     samba
-    smbmap
     gobuster
     ffuf
     exploitdb
+    go-exploitdb
     libxml2
     hcxtools
     enum4linux
