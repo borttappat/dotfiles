@@ -8,6 +8,9 @@
 
 {
 
+# android ADB
+    programs.adb.enable = true;
+
 # ollama, LLM
     services.ollama.enable = true;
 

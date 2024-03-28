@@ -104,6 +104,8 @@
 
 # Tools
     bandwhich
+    android-tools
+
     lynis
     youtube-tui
     mage
