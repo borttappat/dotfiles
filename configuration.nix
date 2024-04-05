@@ -41,9 +41,8 @@ in
 
 */
 
-
 # Kernel
-     boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
 
 # Networking/Hostname
     networking.hostName = "nix"; # Define your hostname.
@@ -71,7 +70,7 @@ in
         };
 
 # Open ports in the firewall.
-     networking.firewall.allowedTCPPorts = [ 53 3389];
+     networking.firewall.allowedTCPPorts = [ 8000 53 3389];
      networking.firewall.allowedUDPPorts = [ 5355 5453 ];
     # Or disable the firewall altogether.
     # networking.firewall.enable = false;

@@ -90,7 +90,6 @@
 # Enable the OpenSSH daemon.
     services.openssh.enable = true;
 
-
 # Enabling tailscale VPN
     services.tailscale.enable = true;
 

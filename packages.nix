@@ -38,6 +38,7 @@
 
 # Programs
     librewolf
+    firefox
     brave
     mullvad
     mullvad-browser
@@ -49,13 +50,10 @@
     rsync
     porsmo
     #mop
-    asciinema
-    haxor-news
     duf
     tgpt
     du-dust
     tmux
-    zellij
     ripgrep
     #wiki-tui
     fzf
@@ -63,10 +61,8 @@
     #kitty
     htop
     glances
-    gotop
     neofetch
     bunnyfetch
-    #pfetch
     nitch
     cbonsai
     cmatrix
@@ -78,12 +74,11 @@
     tickrs
     eza
     ttyper
-    #matrixcli
     dfrs #df-replacement
     pipes-rs #rust-written replacement
-    gurk-rs
+    #gurk-rs
     bat #cat-replacement
-    ddgr
+    #ddgr
     asciiquarium
 
 # WM
@@ -93,6 +88,7 @@
     #picom-allusive #to be replaced by compfy
     #wpgtk
     pywal
+    themechanger
     imagemagick
     feh
     #eww
@@ -104,14 +100,14 @@
 
 # Tools
     bandwhich
-    android-tools
-
-    lynis
-    youtube-tui
-    mage
+    iftop
+    #android-tools
+    #lynis
+    #youtube-tui
+    #mage
     poetry
     ngrok
-    tmate
+    #tmate
     #exiftool
     procs
     bottles
@@ -146,12 +142,12 @@
     udisks
     docker  #added with virt.enable = true in services.nix
     lazydocker
-    signal-cli
+    #signal-cli
     whois
     remmina
     warpd
     ollama
-    oterm
+    #oterm
     aichat
     pentestgpt
     open-interpreter
