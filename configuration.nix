@@ -16,9 +16,9 @@
         ];
 
 
-programs.nix-ld.enable = true;
-programs.nix-ld.libraries = with pkgs; [
-];
+    programs.nix-ld.enable = true;
+    programs.nix-ld.libraries = with pkgs; [
+    ];
 # Nix-scripts, WIP
 
 /*
@@ -107,9 +107,9 @@ in
     programs.hyprland.xwayland.enable = true;
 
 # Configure keymap in X11
-    services.xserver = {
+    services.xserver.xkb = {
         layout = "se";
-        xkbVariant = "";
+        variant = "";
     };
     
 # Automatic gargabe collection

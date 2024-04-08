@@ -48,6 +48,7 @@
 
 # Terminal stuff
     rsync
+    cava
     porsmo
     #mop
     duf
