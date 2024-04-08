@@ -9,17 +9,16 @@
 {
 
 # android ADB
-    programs.adb.enable = true;
+#    programs.adb.enable = true;
+
 
 # ollama, LLM
     services.ollama.enable = true;
 
+
 # udisksctl
     services.udisks2.enable = true; #added with udisks in packages.nix
 
-    # Settings for making mounting/unmounting easier
-    #services.gvfs.enable = true; #added for easier mounting/unmounting of usb disks
-    #services.devmon.enable = true; #added for easier mounting/unmounting of usb disks 
 
 # Docker-support
     virtualisation.docker.enable = true; #added with docker pkg in packages.nix
@@ -30,12 +29,13 @@
     services.resolved.enable = true;
 
 
-
 # Behaviour settings for closing lid on external power
     services.logind.lidSwitchExternalPower = "ignore";
 
+
 # Rsync
     services.rsyncd.enable = true;
+
 
 # Enable touchpad support
     services.xserver.libinput.enable = true;
@@ -64,11 +64,11 @@
 
 
 # MySQL
-    services.mysql = {
+/*    services.mysql = {
         enable = true;
         package = pkgs.mariadb;
         };
-
+*/
 
 # i3-lock
     programs.i3lock.enable=true;
@@ -113,30 +113,4 @@
    # };
 
 
-
-# Asusd
-#    services.asusd.enable = true;
-
-# Enable the GNOME Desktop Environment
-    #services.xserver.displayManager.gdm.enable = true;
-    #services.xserver.desktopManager.gnome.enable = true;
-
-
-# Do not allow for automatic reboots
-    # system.autoUpgrade.allowReboot = true;
-
-
-# Enable Flatpak
-    #xdg.portal.enable = true; # only needed if you are not doing Gnome
-    #services.flatpak.enable = true;
-    # Run this command to add flathub
-    # flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-
-# Setup NUR
-    #nixpkgs.config.packageOverrides = pkgs: {
-    #nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-        #inherit pkgs;
-        #};
-    #};
 }

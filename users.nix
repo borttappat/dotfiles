@@ -20,4 +20,7 @@
     }
     ];
 
+# The following could maybe replace the above settings?
+#   security.sudo.wheelNeedsPassword = false;
+
 }
