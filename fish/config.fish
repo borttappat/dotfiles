@@ -35,6 +35,7 @@ alias p='pipes-rs -f 25 -p 7 -r 1.0'
 alias a='alacrittyconf'
 alias bw='sudo bandwhich'
 alias pc='picomconf'
+alias ai='aichat'
 
 alias ls='eza -a'
 alias l='eza -a -l'
