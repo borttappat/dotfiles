@@ -59,6 +59,6 @@ Currently set up to backup any existing configuration.nix and implement everythi
 ## scripts/bash/nixbuild.sh
 Script set up to read the current machine-name and build accordingly, modify the contents of flake.nix to match any desired setup per device if used with multiple devices. Will run as the "default" option if host-name is not any expected setup of mine from this repo.
 
-# scripts/bash/nixupdate.sh
+### scripts/bash/nixupdate.sh
 Script set up to update the current flake to the latest version and then rebuilds the system. Used to update kernel, mostly.
 
