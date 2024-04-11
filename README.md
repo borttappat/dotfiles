@@ -4,7 +4,7 @@ My personal repo where I put stuff I want to use on multiple machines.
 Currently setting up a NixOS system and will do so for the foreseeable future.
 
 ## TL;DR
-Flakey Nix-configuration with modules split into (mainly) ``configuration.nix`` ``hosts.nix`` ``nixp.nix`` ``packages.nix`` ``services.nix`` and ``user.nix``
+Flakey Nix-configuration with modules split into (mainly) ``configuration.nix`` ``hosts.nix`` ``nixp.nix`` ``packages.nix`` ``services.nix`` and ``user.nix`` and managed through scripts in ``scripts/bash`` and ``scripts/python`` and configuration files for among others;``i3wm`` ``fish`` ``polybar`` ``picom``
 
 ![Screenshot](https://github.com/borttappat/dotfiles/blob/main/screenshot.png)
 
