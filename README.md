@@ -9,7 +9,7 @@ Flakey Nix-configuration with modules split into (mainly)"configuration.nix, hos
 ![Screenshot](https://github.com/borttappat/dotfiles/blob/main/screenshot.png)
 
 
-## link.py
+### scripts/python/link.py
 ```
 python link_file.py --file [FILE] --dir [DIRECTORY]
 ```
@@ -35,17 +35,17 @@ to install neofetch and htop
 You'll then be given a (Y/N) to rebuild your system after the inputs have been parsed.
 nixp.nix is left empty for any user to modify locally
 
-## scripts/bash/walrgb.sh
+### scripts/bash/walrgb.sh
 Simple combination of wal and openrgb. Accepts the path of an image file like 
 ```
 walrgb [PATH/TO/IMAGE]
 ```
 and then reads the color codes from the cache provided by pywal, converts them to a format OpenRGB then can read and sets the backlight color to the device specified in the script.
 
-## scripts/bash/randomwalrgb.sh
+### scripts/bash/randomwalrgb.sh
 Similar to the above script but picks a random .jpg or .png from ~/Wallpapers
 
-## scripts/bash/nixsetup.sh
+### scripts/bash/nixsetup.sh
 Script to be used on any system to an environment like my own with 
 
 ``
@@ -56,9 +56,13 @@ and programs listed in packages.nix and nixp.nix along with services in services
 
 Currently set up to backup any existing configuration.nix and implement everything in this repo while preserving usernames and bootloader settings along with hardware-configuration.nix as it is set during installation(left as is for now).
 
-## scripts/bash/nixbuild.sh
+### scripts/bash/nixbuild.sh
 Script set up to read the current machine-name and build accordingly, modify the contents of flake.nix to match any desired setup per device if used with multiple devices. Will run as the "default" option if host-name is not any expected setup of mine from this repo.
 
 ### scripts/bash/nixupdate.sh
 Script set up to update the current flake to the latest version and then rebuilds the system. Used to update kernel, mostly.
 
+# TODO
+[]Use writeShellScriptBin to avoid having to link to the above scripts via fish, should be WIP in configuration.nix
+[]Build from this directory using flake and avoid linking to /etc/nixos in order to preserve previous user settings allowing for easy revertion.
+[]Split packages into Core and Extras for a smaller footprint
