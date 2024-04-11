@@ -6,7 +6,7 @@ Currently setting up a NixOS system and will do so for the foreseeable future.
 ## TL;DR
 Flakey Nix-configuration with modules split into "configuration.nix, hosts.nix, nixp.nix, packages.nix, services.nix and user.nix"
 
-![Screenshot](https://github.com/borttappat/dotfiles/blob/main/2023-07-23_18-08.png)
+![Screenshot](https://github.com/borttappat/dotfiles/blob/main/screenshot.png)
 
 
 ## link_file.py
