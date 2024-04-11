@@ -63,6 +63,8 @@ Script set up to read the current machine-name and build accordingly, modify the
 Script set up to update the current flake to the latest version and then rebuilds the system. Used to update kernel, mostly.
 
 # TODO
-[]Use writeShellScriptBin to avoid having to link to the above scripts via fish, should be WIP in configuration.nix
-[]Build from this directory using flake and avoid linking to /etc/nixos in order to preserve previous user settings allowing for easy revertion.
-[]Split packages into Core and Extras for a smaller footprint
+[  ]Use writeShellScriptBin to avoid having to link to the above scripts via fish, should be WIP in configuration.nix
+
+[  ]Build from this directory using flake and avoid linking to /etc/nixos in order to preserve previous user settings allowing for easy revertion.
+
+[  ]Split packages into Core and Extras for a smaller footprint
