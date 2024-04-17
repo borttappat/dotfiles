@@ -1,14 +1,14 @@
 [env]
 TERM = "alacritty"
-WINIT_X11_SCALE_FACTOR = "1.66"
+#WINIT_X11_SCALE_FACTOR = "1.66"
 
 [font]
 # For internal display
-#size = 5.5
-size = 6
+size = 5.5
+#size = 6
 
 # For external display
-#size = 11
+#size = 12
 
 [font.bold]
 family = "CozetteVectorBold"

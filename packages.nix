@@ -111,20 +111,20 @@
     #tmate
     #exiftool
     procs
-    bottles
+    #bottles
     gping
-    openconnect
+    #openconnect
     openvpn
     brightnessctl
     #obsidian
     light 
-    undervolt
+    #undervolt
     git
     gh
     #chatgpt-cli
     nmon
     zathura
-    xdotool
+    #xdotool
     killall
     qemu
     #kvmtool
@@ -150,20 +150,21 @@
     ollama
     #oterm
     aichat
-    pentestgpt
-    open-interpreter
+    #pentestgpt
+    #open-interpreter
     llm-ls
     #llm
 
 # Pentesting
-    awscli2
+    #awscli2
+    snmpcheck
     mitmproxy
-    caido
+    #caido
     ghost
     openldap
     crackmapexec
-    bloodhound-py
-    bloodhound
+    #bloodhound-py
+    #bloodhound
     responder
     seclists
     uncover
@@ -174,9 +175,9 @@
     rustscan
     wireshark
     tshark
-    termshark
+    #termshark
     sherlock
-    dig
+    #dig
     dog #replacecment for dig
     wirelesstools
     hydra-cli
@@ -191,7 +192,7 @@
     hcxdumptool
     openssl
     asleap
-    netcat
+    #netcat replaced by rustcat
     rustcat
     samba
     gobuster
@@ -200,7 +201,7 @@
     go-exploitdb
     libxml2
     hcxtools
-    enum4linux
+    #enum4linux replaced by enum4linux-ng
     enum4linux-ng
     redis
     xrdp
@@ -256,7 +257,8 @@
     masscan
     fping
     evil-winrm
-    driftnet    
+    driftnet
+    
     
 # X11
     xorg.xinit

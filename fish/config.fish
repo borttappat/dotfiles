@@ -32,11 +32,11 @@ alias p='polyconf'
 alias r='ranger'
 alias cm='cmatrix -u 10'
 alias p='pipes-rs -f 25 -p 7 -r 1.0'
-alias a='alacrittyconf'
+alias ac='alacrittyconf'
 alias bw='sudo bandwhich'
 alias pc='picomconf'
 alias ai='aichat'
-
+alias vn='vim notes.txt'
 alias ls='eza -a'
 alias l='eza -a -l'
 
