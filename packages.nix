@@ -101,9 +101,12 @@
     #autorandr
 
 # Tools
+    dog             #replacecment for cat
+    #proxychains-ng
     bandwhich       #bandwith tracker
+    iw
+    wirelesstools
     iftop           #top for network interfaces
-    #lynis          #vulnerability analyzer
     #youtube-tui
     #mage           #make-build tool written i Go
     poetry          #python dependency management
@@ -122,15 +125,12 @@
     #undervolt
     git
     gh              #git CLI tool
-    #chatgpt-cli
     nmon            #top-like tool
     zathura         #pdf-reader
     #xdotool
     killall 
     qemu 
     #kvmtool
-    #onionshare
-    #picosnitch
     flameshot       #screenshot-tool
     rar             #RAR-archive tool
     pciutils
@@ -150,116 +150,132 @@
     xrdp            #rdp-interface
     warpd           #click stuff without mouse input
     ollama          #run llms locally
-    #oterm
     aichat          #CLI gpt-chatbot 
     #llm-ls
     #llm
+    unclutter       #hides mouse cursor when not in use
+    unzip           #zip-archiving tool 
+    tealdeer        #alternative to man
+    lynis           #security auditing tool
+    xrdp            #RDP-client
+    udevil          #udisks replacement
+
+
 
 # Pentesting
-    #awscli2
+    
+    dirb            #web content scanner
+    whatweb         #web scanning tool
+    gobuster        #Web directory scanner        
+    monsoon         #HTTP-enumerator
     #dirstalk
     feroxbuster     #dirbuster-alike tool
+    
     dalfox          #XSS-scanner
     xsser           #XSS-scanner
     snmpcheck       #SNMP-enumerator
+
+    enum4linux-ng   #SMB-scanner
+
+   
     mitmproxy       #Man-in-the-middle Proxy
+    burpsuite
+    mitmproxy2swagger
     #caido          #Burpsuite-like tool
-    ghost           #Android exploitation framework
+    #bettercap      #swiss army knife mitm-tool
+    websploit       #MITM-framework
+
+    
     openldap
-    crackmapexec
+    ldapdomaindump
     #bloodhound-py
     #bloodhound
+    silenthound     #lightweight tool to enumerate AD enviroments
+
     responder
-    seclists        #SecLists-implementation
-    uncover         #API wrapper to scan for exposed hosts(shodan-ish)
+    #commix         #command injection exploitation tool
     #webanalyze     #similar to wapalyzer
-    wifite2         #TUI Wifi attack software
     nikto           #scanner for website vulnerabilities
-    iw
     nmap            #network-scanner
     rustscan        #nmap-alike tool written in rust
+    
+    #kismet         #wifi, bluetooth and RF-sniffer
     wireshark       #packet analysis and sniffer tool
-    tshark
+    tcpdump         #network-sniffer
+    tshark          #WireShark from the terminal
     #termshark
+    crackmapexec    #tool for pentesting networks
+    netexec
+   
+    uncover         #API wrapper to scan for exposed hosts(shodan-ish)
     sherlock        #OSINT username tracker
-    #dig
-    dog             #replacecment for dig
-    wirelesstools
+    theharvester    #OSINT recon tool
+    
+    dig             #domain name server 
+    
     hydra-cli       #thc-hydra cli program
     thc-hydra       #network-logon cracker
-    metasploit      #All-in-one exploit tool
+    #medusa         #login brute-forcer
+   
     hashcat         #password-cracker
+    john            #password/hash-cracker
+    seclists        #SecLists-implementation
+    crunch          #Wordlist-generator
+    #cewl           #wordlist-generation tool 
+    metasploit      #All-in-one exploit tool
+    sqlmap          #SQL Injection tool
+    evil-winrm      #WinRM shell generator 
+
+    ghost           #Android exploitation framework
+
+    rustcat         #netcat-replacement written in rust
+    
+    bully           #WPA/WPA2 Password recovery from WPS-enabled access point
     cowpatty        #offline dictionary attack tool against WPA/WPA2-networks
     aircrack-ng
     airgeddon       #All-in-one network hacking tool
+    wifite2         #TUI Wifi attack software
     mdk4            #injection tool for wireless networks
     hcxdumptool     #packet-capture tool from wlan devices
     hcxtools
-    openssl
-    asleap
-    #netcat         #replaced by rustcat
-    rustcat         #netcat-replacement written in rust
+    pixiewps        #ffline WPS Brute-forcing
+    
     samba
-    gobuster        
-    ffuf
+    #awscli2
     exploitdb       #searchsploit
-    #go-exploitdb   #Go-rewrite of exploitdb
-    #libxml2
-    hcxtools
-    enum4linux-ng
     redis
-    xrdp
     mariadb
-    udevil          #udisks replacement
-    burpsuite
-    mitmproxy2swagger
-    #proxychains-ng
+    
+    
     wprecon         #WordPress vulnerability scanner
-    monsoon         #HTTP-enumerator
-    crunch          #Wordlist-generator
-    websploit       #MITM-framework
-    routersploit    #Embedded device exploitation framework
-    hostapd-mana    #Rogue access point tool
-    bully           #WPA/WPA2 Password recovery from WPS-enabled access point
-    #sleuthkit       #Data recovery tool
-    dbmonster       #WiFi-strength scanner
-    linux-router    #WiFi-hotspot/Proxy using a single command
-    pixiewps        #Offline WPS Brute-forcing
-    theharvester    #OSINT recon tool
-    dirb            #Web content scanner
-    #medusa          #Login brute-forcer
-    #kismet          #Wifi, bluetooth and RF-sniffer
-    steghide
-    stegseek
-    #parsero         #audit tool for robots.txt
-    #commix          #command injection exploitation tool
-    #cewl            #wordlist-generation tool
-    #bettercap       #Swiss army knife mitm-tool
-    whatweb         #Web scanning tool
-    reaverwps
-    reaverwps-t6x
-    john
-    #netdiscover
-    lynis
-    fcrackzip
-    dnsrecon
-    #socat
-    macchanger 
-    httrack
-    foremost
-    dnsenum
-    fierce
-    cryptsetup
-    wfuzz
-    testdisk
-    sqlmap
     wpscan
-    tcpdump
-    ettercap
-    masscan
-    fping
-    evil-winrm
-    driftnet
+    
+    routersploit    #embedded device exploitation framework
+    
+    #sleuthkit      #data recovery tool
+    foremost        #file recovery tool
+    testdisk        #data recovery tool
+
+    
+    dbmonster       #wifi-strength scanner
+    linux-router    #wifi-hotspot/Proxy using a single command
+    hostapd-mana    #rogue access point tool
+    
+    steghide        #extract data from images
+    stegseek
+
+    #parsero        #audit tool for robots.txt
+    reaverwps       #wifi brute-forcing tool
+    reaverwps-t6x
+    dnsrecon        #DNS enumeration tool
+    macchanger      #tool for spoofing MAC-address 
+    dnsenum         #DNS enumeration tool
+    fierce          #DNS enumeration tool
+    
+    wfuzz           #web fuzzing tool
+    ffuf
+
+    
     
     
 # X11
@@ -269,9 +285,5 @@
     xorg.xmodmap
     
 # Uncategorized
-    unclutter
-    unzip
-    tealdeer
-
-    ];
+        ];
 }
