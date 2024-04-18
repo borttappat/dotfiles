@@ -90,6 +90,7 @@
     wpgtk
     pywal
     #themechanger
+    #theme-sh
     imagemagick
     feh
     #eww
