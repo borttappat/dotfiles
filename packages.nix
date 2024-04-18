@@ -27,7 +27,7 @@
 
 # Editors
     vim
-    inkscape
+    #inkscape
     obs-studio
     #davinci-resolve
 
@@ -48,13 +48,13 @@
 
 # Terminal stuff
     rsync 
-    artem #img-to-ascii
+    artem           #img-to-ascii
     cava
-    porsmo #pomodoro-timer
+    porsmo          #pomodoro-timer
     #mop
-    duf #storage-visualizer
-    #tgpt #gpt chatbot
-    du-dust #better version of du
+    duf             #storage-visualizer
+    #tgpt           #gpt chatbot
+    du-dust         #better version of du
     tmux 
     ripgrep
     #wiki-tui
@@ -69,17 +69,17 @@
     cbonsai
     cmatrix
     ranger
-    zoxide #cd without amnesia
-    joshuto #ranger-like file manager written in rust
-    figlet #for outputting ascii-text in banners etc.
-    ticker #text-based price tracker
-    tickrs #visual price tracker
-    eza #better ls
-    ttyper #typing excercises
-    dfrs #df-replacement
-    pipes-rs #rust-written replacement
+    zoxide          #cd without amnesia
+    joshuto         #ranger-like file manager written in rust
+    figlet          #for outputting ascii-text in banners etc.
+    ticker          #text-based price tracker
+    tickrs          #visual price tracker
+    eza             #better ls
+    ttyper          #typing excercises
+    dfrs            #df-replacement
+    pipes-rs        #rust-written replacement
     #gurk-rs
-    bat #cat-replacement
+    bat             #cat-replacement
     #ddgr
     #asciiquarium
 
@@ -101,39 +101,38 @@
     #autorandr
 
 # Tools
-    bandwhich #bandwith tracker
-    iftop #top for network interfaces
-    #android-tools
-    #lynis #vulnerability analyzer
+    bandwhich       #bandwith tracker
+    iftop           #top for network interfaces
+    #lynis          #vulnerability analyzer
     #youtube-tui
-    #mage #make-build tool written i Go
-    poetry #python dependency management
-    ngrok #web server running on local machine
-    #pgrok #similar to the above
-    #tmate #terminal-sharing
+    #mage           #make-build tool written i Go
+    poetry          #python dependency management
+    ngrok           #web server running on local machine
+    #pgrok          #similar to the above
+    #tmate          #terminal-sharing
     #exiftool
-    procs #ps written in rust
-    #bottles #client for running windows-software
-    gping #graphical ping tool
+    procs           #ps written in rust
+    #bottles        #client for running windows-software
+    gping           #graphical ping tool
     #openconnect
-    openvpn #openvpn-client
-    brightnessctl #brightness-handler
-    #obsidian #note taking too
-    light #backlight-controller
+    openvpn         #openvpn-client
+    brightnessctl   #brightness-handler
+    #obsidian       #note taking tool
+    light           #backlight-controller
     #undervolt
     git
-    gh #git CLI tool
+    gh              #git CLI tool
     #chatgpt-cli
-    nmon #top-like tool
-    zathura #pdf-reader
+    nmon            #top-like tool
+    zathura         #pdf-reader
     #xdotool
     killall 
     qemu 
     #kvmtool
     #onionshare
     #picosnitch
-    flameshot #screenshot-tool
-    rar #RAR-archive tool
+    flameshot       #screenshot-tool
+    rar             #RAR-archive tool
     pciutils
     curl
     wget
@@ -143,112 +142,108 @@
     busybox
     inetutils
     udisks
-    docker #added with virt.enable = true in services.nix
+    docker          #added with virt.enable = true in services.nix
     lazydocker
     #signal-cli
     whois
-    #remmina #rdp-interface
-    xrdp #rdp-interface
-    warpd #click stuff without mouse input
-    ollama #run llms locally
+    #remmina        #rdp-interface
+    xrdp            #rdp-interface
+    warpd           #click stuff without mouse input
+    ollama          #run llms locally
     #oterm
-    aichat #CLI gpt-chatbot 
-    #open-interpreter
+    aichat          #CLI gpt-chatbot 
     #llm-ls
     #llm
 
 # Pentesting
     #awscli2
     #dirstalk
-    feroxbuster #dirbuster-alike tool
-    dalfox #XSS-scanner
-    xsser #XSS-scanner
-    snmpcheck #SNMP-enumerator
-    mitmproxy #Man-in-the-middle Proxy
-    #caido #Burpsuite-like tool
-    ghost #Android exploitation framework
+    feroxbuster     #dirbuster-alike tool
+    dalfox          #XSS-scanner
+    xsser           #XSS-scanner
+    snmpcheck       #SNMP-enumerator
+    mitmproxy       #Man-in-the-middle Proxy
+    #caido          #Burpsuite-like tool
+    ghost           #Android exploitation framework
     openldap
     crackmapexec
     #bloodhound-py
     #bloodhound
     responder
-    seclists #SecLists-implementation
-    uncover #API wrapper to scan for exposed hosts(shodan-ish)
-    #webanalyze #similar to wapalyzer
-    wifite2
-    nikto #scanner for website vulnerabilities
+    seclists        #SecLists-implementation
+    uncover         #API wrapper to scan for exposed hosts(shodan-ish)
+    #webanalyze     #similar to wapalyzer
+    wifite2         #TUI Wifi attack software
+    nikto           #scanner for website vulnerabilities
     iw
-    nmap
-    rustscan
-    wireshark
+    nmap            #network-scanner
+    rustscan        #nmap-alike tool written in rust
+    wireshark       #packet analysis and sniffer tool
     tshark
     #termshark
-    sherlock
+    sherlock        #OSINT username tracker
     #dig
-    dog #replacecment for dig
+    dog             #replacecment for dig
     wirelesstools
-    hydra-cli
-    thc-hydra
-    metasploit
-    hashcat
-    cowpatty
-    hcxtools
+    hydra-cli       #thc-hydra cli program
+    thc-hydra       #network-logon cracker
+    metasploit      #All-in-one exploit tool
+    hashcat         #password-cracker
+    cowpatty        #offline dictionary attack tool against WPA/WPA2-networks
     aircrack-ng
-    airgeddon
-    mdk4
-    hcxdumptool
+    airgeddon       #All-in-one network hacking tool
+    mdk4            #injection tool for wireless networks
+    hcxdumptool     #packet-capture tool from wlan devices
+    hcxtools
     openssl
     asleap
-    #netcat replaced by rustcat
-    rustcat
+    #netcat         #replaced by rustcat
+    rustcat         #netcat-replacement written in rust
     samba
-    gobuster
+    gobuster        
     ffuf
-    exploitdb
-    go-exploitdb
-    libxml2
+    exploitdb       #searchsploit
+    #go-exploitdb   #Go-rewrite of exploitdb
+    #libxml2
     hcxtools
-    #enum4linux replaced by enum4linux-ng
     enum4linux-ng
     redis
     xrdp
     mariadb
-    udevil #udisks replacement
+    udevil          #udisks replacement
     burpsuite
-    mitmproxy
     mitmproxy2swagger
-    proxychains-ng
-    wprecon
-    monsoon
-    crunch
-    websploit
-    routersploit
-    hostapd-mana
-    bully
-    sleuthkit
-    dbmonster
-    linux-router
-    pixiewps
-    theharvester
-    dirb
-    medusa
-    libargon2
-    kismet
+    #proxychains-ng
+    wprecon         #WordPress vulnerability scanner
+    monsoon         #HTTP-enumerator
+    crunch          #Wordlist-generator
+    websploit       #MITM-framework
+    routersploit    #Embedded device exploitation framework
+    hostapd-mana    #Rogue access point tool
+    bully           #WPA/WPA2 Password recovery from WPS-enabled access point
+    #sleuthkit       #Data recovery tool
+    dbmonster       #WiFi-strength scanner
+    linux-router    #WiFi-hotspot/Proxy using a single command
+    pixiewps        #Offline WPS Brute-forcing
+    theharvester    #OSINT recon tool
+    dirb            #Web content scanner
+    #medusa          #Login brute-forcer
+    #kismet          #Wifi, bluetooth and RF-sniffer
     steghide
     stegseek
-    parsero
-    commix
-    cewl
-    bettercap
-    whatweb
+    #parsero         #audit tool for robots.txt
+    #commix          #command injection exploitation tool
+    #cewl            #wordlist-generation tool
+    #bettercap       #Swiss army knife mitm-tool
+    whatweb         #Web scanning tool
     reaverwps
     reaverwps-t6x
     john
-    netdiscover
+    #netdiscover
     lynis
     fcrackzip
     dnsrecon
-    socat
+    #socat
     macchanger 
     httrack
     foremost
