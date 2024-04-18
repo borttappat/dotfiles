@@ -274,11 +274,11 @@
 # Set colors from Xresources
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
-    set_from_resource $fg i3wm.color1 #ffffff
+    set_from_resource $fg i3wm.color5 #ffffff
     set_from_resource $bg i3wm.color0 #f0f0f0
     set_from_resource $al i3wm.color2 #ff0000
     set_from_resource $c1 i3wm.color3 #f0f0f0
-    set_From_resource $c2 i3wm.color7 #f0f0f0
+    set_From_resource $c2 i3wm.color1 #f0f0f0
 
 
 # class                     border  backgr. text    indicator 
