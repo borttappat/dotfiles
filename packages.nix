@@ -47,40 +47,41 @@
     mpv
 
 # Terminal stuff
-    rsync
+    rsync 
+    artem #img-to-ascii
     cava
-    porsmo
+    porsmo #pomodoro-timer
     #mop
-    duf
-    tgpt
-    du-dust
-    tmux
+    duf #storage-visualizer
+    #tgpt #gpt chatbot
+    du-dust #better version of du
+    tmux 
     ripgrep
     #wiki-tui
-    fzf
+    fzf 
     alacritty
     #kitty
     htop
     glances
     neofetch
-    bunnyfetch
+    bunnyfetch 
     nitch
     cbonsai
     cmatrix
     ranger
-    zoxide
-    joshuto
-    figlet
-    ticker
-    tickrs
-    eza
-    ttyper
+    zoxide #cd without amnesia
+    joshuto #ranger-like file manager written in rust
+    figlet #for outputting ascii-text in banners etc.
+    ticker #text-based price tracker
+    tickrs #visual price tracker
+    eza #better ls
+    ttyper #typing excercises
     dfrs #df-replacement
     pipes-rs #rust-written replacement
     #gurk-rs
     bat #cat-replacement
     #ddgr
-    asciiquarium
+    #asciiquarium
 
 # WM
     polybar
@@ -89,7 +90,7 @@
     #picom-allusive #to be replaced by compfy
     #wpgtk
     pywal
-    themechanger
+    #themechanger
     imagemagick
     feh
     #eww
@@ -100,38 +101,39 @@
     #autorandr
 
 # Tools
-    bandwhich
-    iftop
+    bandwhich #bandwith tracker
+    iftop #top for network interfaces
     #android-tools
-    #lynis
+    #lynis #vulnerability analyzer
     #youtube-tui
-    #mage
-    poetry
-    ngrok
-    #tmate
+    #mage #make-build tool written i Go
+    poetry #python dependency management
+    ngrok #web server running on local machine
+    #pgrok #similar to the above
+    #tmate #terminal-sharing
     #exiftool
-    procs
-    #bottles
-    gping
+    procs #ps written in rust
+    #bottles #client for running windows-software
+    gping #graphical ping tool
     #openconnect
-    openvpn
-    brightnessctl
-    #obsidian
-    light 
+    openvpn #openvpn-client
+    brightnessctl #brightness-handler
+    #obsidian #note taking too
+    light #backlight-controller
     #undervolt
     git
-    gh
+    gh #git CLI tool
     #chatgpt-cli
-    nmon
-    zathura
+    nmon #top-like tool
+    zathura #pdf-reader
     #xdotool
-    killall
-    qemu
+    killall 
+    qemu 
     #kvmtool
     #onionshare
     #picosnitch
-    flameshot
-    rar
+    flameshot #screenshot-tool
+    rar #RAR-archive tool
     pciutils
     curl
     wget
@@ -141,35 +143,40 @@
     busybox
     inetutils
     udisks
-    docker  #added with virt.enable = true in services.nix
+    docker #added with virt.enable = true in services.nix
     lazydocker
     #signal-cli
     whois
-    remmina
-    warpd
-    ollama
+    #remmina #rdp-interface
+    xrdp #rdp-interface
+    warpd #click stuff without mouse input
+    ollama #run llms locally
     #oterm
-    aichat
-    #pentestgpt
+    aichat #CLI gpt-chatbot 
     #open-interpreter
-    llm-ls
+    #llm-ls
     #llm
 
 # Pentesting
     #awscli2
-    snmpcheck
-    mitmproxy
-    #caido
-    ghost
+    #dirstalk
+    feroxbuster #dirbuster-alike tool
+    dalfox #XSS-scanner
+    xsser #XSS-scanner
+    snmpcheck #SNMP-enumerator
+    mitmproxy #Man-in-the-middle Proxy
+    #caido #Burpsuite-like tool
+    ghost #Android exploitation framework
     openldap
     crackmapexec
     #bloodhound-py
     #bloodhound
     responder
-    seclists
-    uncover
+    seclists #SecLists-implementation
+    uncover #API wrapper to scan for exposed hosts(shodan-ish)
+    #webanalyze #similar to wapalyzer
     wifite2
-    nikto
+    nikto #scanner for website vulnerabilities
     iw
     nmap
     rustscan
