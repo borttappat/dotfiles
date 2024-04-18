@@ -40,6 +40,7 @@ in
 
 
 */
+programs.dconf.enable = true;
 
 # Kernel
     boot.kernelPackages = pkgs.linuxPackages_latest;
