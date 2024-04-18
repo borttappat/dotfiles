@@ -36,18 +36,18 @@
     bindsym $mod+F3 exec "amixer set Master 10%+"
 
 # htop
-    bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -Rn && htop"
+    bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -Rnq && htop"
 
 # i3config
-    bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -Rn && vim ~/.config/i3/config"
+    bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/.config/i3/config"
 
 # nix-packages
-    bindsym $mod+Shift+n exec alacritty -e /bin/sh -c "wal -Rn && sudo -E vim /etc/nixos/packages.nix"
+    bindsym $mod+Shift+n exec alacritty -e /bin/sh -c "wal -Rnq && sudo -E vim /etc/nixos/packages.nix"
 
 # file-manager
-    bindsym $mod+Shift+f exec alacritty -e /bin/sh -c "wal -Rn && joshuto"
+    bindsym $mod+Shift+f exec alacritty -e /bin/sh -c "wal -Rnq && joshuto"
 
-    bindsym $mod+Shift+g exec alacritty -e /bin/sh -c "wal -Rn && clear && figlet -f slant Git && echo && cd ~/dotfiles && git status"
+    bindsym $mod+Shift+g exec alacritty -e /bin/sh -c "wal -Rnq && clear && figlet -f slant Git && echo && cd ~/dotfiles && git status"
 
 
 
