@@ -36,7 +36,7 @@
     bindsym $mod+F3 exec "amixer set Master 10%+"
 
 # htop
-    bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -Rnq && htop"
+    bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "htop"
 
 # i3config
     bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/.config/i3/config"
