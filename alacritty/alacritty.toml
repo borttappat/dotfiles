@@ -1,6 +1,6 @@
 [env]
 TERM = "xterm"
-#WINIT_X11_SCALE_FACTOR = "1.66"
+WINIT_X11_SCALE_FACTOR = "1.8"
 
 [font]
 # For internal display
