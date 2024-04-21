@@ -24,6 +24,7 @@
                         ./users.nix
                         ./hosts.nix
                         ./razer.nix
+                        ./razerconf.nix
                         ./colors.nix
                         #./nixbuild.nix
                         #./scripts.nix
@@ -60,6 +61,7 @@
                         ./hosts.nix
                         ./users.nix
                         ./asus.nix
+                        ./asusconf.nix
                         ./steam.nix
                         ./colors.nix 
                     ];
