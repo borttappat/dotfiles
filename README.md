@@ -8,7 +8,7 @@ Flakey Nix-configuration with modules split into (mainly) ``configuration.nix`` 
 
 Managed through scripts in ``scripts/bash`` and ``scripts/python`` and configuration files for among others;``i3wm`` ``alaritty`` ``fish`` ``polybar`` and ``picom``.
 
-![Screenshot](https://github.com/borttappat/dotfiles/blob/main/screenshot.png)
+![Screenshot](https://github.com/borttappat/dotfiles/blob/main/misc/screenshot.png)
 
 
 ### scripts/python/link.py

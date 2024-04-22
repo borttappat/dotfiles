@@ -45,7 +45,7 @@ in
 # Kernel
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
-# Networking/Hostname
+# Networking/Hostname, should be edited to conatin your hostname to build correctly with --flake/path/to/flake#hostname
     networking.hostName = "nix"; # Define your hostname.
 
 # Enable networking

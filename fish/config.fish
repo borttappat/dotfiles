@@ -43,6 +43,7 @@ alias l='eza -a -l'
 alias sls='eza -a -l | grep -i'
 
 alias kali='docker start unruffled_edison && sudo docker attach unruffled_edison'
+alias ss='searchsploit'
 
 # widescreen setup
 alias xrandrwide='xrandr --output HDMI-1 --mode 3440x1440 --output eDP-1 --off && wal -R && killall polybar &&  polybar -q &'
