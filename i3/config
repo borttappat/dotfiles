@@ -12,7 +12,7 @@ set $mod Mod4
 exec_always --no-startup-id polybar -q main 
 exec_always --no-startup-id ~/.fehbg &
 exec_always --no-startup-id xmodmap ~/.Xmodmap
-exec --no-startup-id alacritty e /bin/sh -c "neofetch" 
+exec --no-startup-id alacritty -e /bin/sh -c "neofetch" 
 
 # Binds #
 
