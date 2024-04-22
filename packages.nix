@@ -190,6 +190,7 @@
     ldapdomaindump
     #bloodhound-py
     #bloodhound
+    #autobloody     #automatically explioit AD privesc paths
     silenthound     #lightweight tool to enumerate AD enviroments
 
     responder
@@ -229,6 +230,7 @@
     ghost           #Android exploitation framework
 
     rustcat         #netcat-replacement written in rust
+    #pwncat          #netcat with persistent shell
     
     bully           #WPA/WPA2 Password recovery from WPS-enabled access point
     cowpatty        #offline dictionary attack tool against WPA/WPA2-networks
