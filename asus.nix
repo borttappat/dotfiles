@@ -18,7 +18,9 @@ services.jack.jackd.enable = false;
 
 environment.systemPackages = with pkgs; [
 
+#obinskit
 asusctl
+bluez
 
 ];
 

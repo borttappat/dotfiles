@@ -52,7 +52,7 @@
             "asus" = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
                     modules = [
-                        ./hardware-configuration.nix
+                        #./hardware-configuration.nix
                         ./configuration.nix
                         ./boot.nix
                         ./packages.nix
@@ -61,7 +61,7 @@
                         ./hosts.nix
                         ./users.nix
                         ./asus.nix
-                        #./asusconf.nix
+                        ./asusconf.nix
                         ./steam.nix
                         ./colors.nix 
                     ];

@@ -56,8 +56,8 @@ alias v='sudo -E vim'
 alias h='htop'
 alias ka='killall'
 
-alias alacrittyconf='v ~/dotfiles/alacritty/alacritty.toml'
-
+alias alacrittyconf='vim ~/dotfiles/alacritty/alacritty.toml'
+alias asusconf='vim ~/dotfiles/asus.nix'
 
 alias hosts='v /etc/nixos/hosts.nix'
 alias nixhosts='v /etc/nixos/hosts.nix'
