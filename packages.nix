@@ -56,6 +56,7 @@
     #tgpt           #gpt chatbot
     du-dust         #better version of du
     tmux 
+    zellij
     ripgrep
     #wiki-tui
     fzf 
