@@ -12,8 +12,8 @@ set $mod Mod4
 exec_always --no-startup-id polybar -q main 
 exec_always --no-startup-id ~/.fehbg &
 exec_always --no-startup-id xmodmap ~/.Xmodmap
-exec --no-startup-id alacritty -e /bin/sh -c "neofetch" 
-
+#exec --no-startup-id alacritty -e /bin/sh -c "wal -Rnq && neofetch"
+exec_always --no-startup-id warpd
 # Binds #
 
 # amixer
@@ -22,7 +22,7 @@ bindsym $mod+F2 exec "amixer set Master 5%-"
 bindsym $mod+F3 exec "amixer set Master 5%+"
 
 # htop
-bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "htop"
+bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -Rnq && htop"
 
 # i3config
 bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/.config/i3/config"
