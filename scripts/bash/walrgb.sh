@@ -18,7 +18,7 @@
 
 # run wal with the specified image path
 echo "Setting colorscheme according to $file_path"
-wal -i ${file_path}
+wal -q -i ${file_path}
 echo "Colorscheme set"
 
 # Convert line 2 of the wal colors cache to a hex code 

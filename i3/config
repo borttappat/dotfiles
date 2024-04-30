@@ -5,246 +5,242 @@
 #   /_//____/
 
 # Modifier-settings
-    set $mod Mod4
-
-# Font
-    font CozetteVector 10
-
-# Autostart 
-    #exec_always --no-startup-id ~/dotfiles/launch.sh
-    #exec_always --no-startup-id killall polybar 
-    #exec_always --no-startup-id polybar -q main2 &
-    exec_always --no-startup-id polybar -q main 
-    exec_always --no-startup-id ~/.fehbg &
-    #exec_always --no-startup-id wal -R
-    #exec_always --no-startup-id polybar-msg cmd restart
-#    exec_always --no-startup-id polybar -r main 
-    #exec --no-startup-id ~/.config/i3/scripts/startup.sh
-    #exec --no-startup-id ~/dotfiles/walrgb.sh ~/Wallpapers/Wallpaper.jpeg
-    exec_always --no-startup-id xmodmap ~/.Xmodmap
-    exec --no-startup-id alacritty 
+set $mod Mod4
 
 
-
-#########
+# Autostart #
+exec_always --no-startup-id polybar -q main 
+exec_always --no-startup-id ~/.fehbg &
+exec_always --no-startup-id xmodmap ~/.Xmodmap
+#exec --no-startup-id alacritty -e /bin/sh -c "wal -Rnq && neofetch"
+exec_always --no-startup-id warpd
 # Binds #
-#########
 
 # amixer
+<<<<<<< HEAD
     bindsym $mod+F1 exec "amixer set Master 0%"
     bindsym $mod+F2 exec "amixer set Master 10%-"
     bindsym $mod+F3 exec "amixer set Master 10%+"
+=======
+bindsym $mod+F1 exec "amixer set Master 0%"
+bindsym $mod+F2 exec "amixer set Master 5%-"
+bindsym $mod+F3 exec "amixer set Master 5%+"
+>>>>>>> 4fbe32824e6955c28bba5bc66a0265f827b901b1
 
 # htop
-    bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "htop"
+bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -Rnq && htop"
 
 # i3config
-    bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/.config/i3/config"
+bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/.config/i3/config"
 
 # nix-packages
-    bindsym $mod+Shift+n exec alacritty -e /bin/sh -c "wal -Rnq && sudo -E vim /etc/nixos/packages.nix"
+bindsym $mod+Shift+n exec alacritty -e /bin/sh -c "wal -Rnq && sudo -E vim /etc/nixos/packages.nix"
 
 # file-manager
-    bindsym $mod+Shift+f exec alacritty -e /bin/sh -c "wal -Rnq && joshuto"
+bindsym $mod+Shift+f exec alacritty -e /bin/sh -c "wal -Rnq && joshuto"
 
-    bindsym $mod+Shift+g exec alacritty -e /bin/sh -c "wal -Rnq && clear && figlet -f slant Git && echo && cd ~/dotfiles && git status"
-
+bindsym $mod+Shift+g exec alacritty -e /bin/sh -c "wal -Rnq && clear && figlet -f slant Git && echo && cd ~/dotfiles && git status"
 
 
 # Scratchpad
 # Make the currently focused window a scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+minus move scratchpad
 
 # Show the first scratchpad window
-    bindsym $mod+minus scratchpad show
+bindsym $mod+minus scratchpad show
 
 
 # Polybar restart
-    #bindsym $mod+Shift+p exec killall polybar && polybar
-    bindsym $mod+Shift+p exec polybar-msg cmd restart
+#bindsym $mod+Shift+p exec killall polybar && polybar
+bindsym $mod+Shift+p exec polybar-msg cmd restart
 
 # B/W Wallpaper 
-    bindsym $mod+Shift+w exec feh --bg-fill ~/dotfiles/wallpapers/Black.jpg
+bindsym $mod+Shift+w exec feh --bg-fill ~/dotfiles/wallpapers/Black.jpg
 
 # Lockscreen
-    bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg
-    #bindsym $mod+Shift+e exec betterlockscreen -s ~/Wallpapers/Digipepe.png -b 1
+bindsym $mod+Shift+e exec betterlockscreen -l ~/Wallpapers/Dark.jpg
+#bindsym $mod+Shift+e exec betterlockscreen -s ~/Wallpapers/Digipepe.png -b 1
 
 # Suspend
-    bindsym $mod+Shift+s exec systemctl suspend
+bindsym $mod+Shift+s exec systemctl suspend
 
 # Cycle wallpapers and apply new colorscheme.
-    bindsym $mod+w exec ~/dotfiles/scripts/bash/randomwalrgb.sh 
+bindsym $mod+w exec ~/dotfiles/scripts/bash/randomwalrgb.sh 
 
 # Launch Librewolf
-    #bindsym $mod+b exec librewolf
-    #bindsym $mod+b exec librewolf https://github.com/borttappat/nixos
-    #bindsym $mod+p exec librewolf https://search.nixos.org/packages
+#bindsym $mod+b exec librewolf
+#bindsym $mod+b exec librewolf https://github.com/borttappat/nixos
+#bindsym $mod+p exec librewolf https://search.nixos.org/packages
 
 # Launch Brave
-    bindsym $mod+b exec brave
-    bindsym $mod+g exec brave https://github.com/borttappat/dotfiles
-    bindsym $mod+p exec brave https://search.nixos.org/packages?channel=unstable
-    bindsym $mod+a exec brave https://chat.openai.com/
+bindsym $mod+b exec brave
+bindsym $mod+g exec brave https://github.com/borttappat/dotfiles
+bindsym $mod+p exec brave https://search.nixos.org/packages?channel=unstable
+bindsym $mod+a exec brave https://chat.openai.com/
 
 
 # Set keyboard backlight to 100
-    #bindsym $mod+F8 exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 100" 
-    bindsym $mod+F8 exec "sudo light -A 10"
-    bindsym $mod+Shift+F8 exec "sudo light -A 1"
+#bindsym $mod+F8 exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 100" 
+bindsym $mod+F8 exec "sudo light -A 10"
+bindsym $mod+Shift+F8 exec "sudo light -A 1"
 
 # Set keyboard backlight to 20
-    bindsym $mod+F7 exec "sudo light -U 10"
-    bindsym $mod+Shift+F7 exec "sudo light -U 1"
+bindsym $mod+F7 exec "sudo light -U 10"
+bindsym $mod+Shift+F7 exec "sudo light -U 1"
 
 
 # Bind for launching terminals   
-    bindsym $mod+Return exec alacritty
-    bindsym $mod+Shift+Return exec alacritty; split toggle
-    bindsym $mod+S exec --no-startup-id alacritty --class floating
-    # enable startup in float from exec by setting the x11 class to floating
-    # many apps support '--class floating' for setting the x11 class (the instance get renamed)
-    for_window [instance="floating"] floating enabled
-    for_window [instance="floating"] resize set 700 360
-    for_window [instance="floating"] move absolute position 1150 px 90 px
+bindsym $mod+Return exec alacritty
+bindsym $mod+Shift+Return exec alacritty; split toggle
+bindsym $mod+S exec --no-startup-id alacritty --class floating
+# enable startup in float from exec by setting the x11 class to floating
+# many apps support '--class floating' for setting the x11 class (the instance get renamed)
+for_window [instance="floating"] floating enabled
+for_window [instance="floating"] resize set 700 360
+for_window [instance="floating"] move absolute position 1150 px 90 px
 
 # Kill focused window
-    bindsym $mod+q kill
+bindsym $mod+q kill
 
 # Start rofi
-    #bindsym $mod+d exec --no-startup-id "rofi -modi drun,run -show drun -font"
-    bindsym $mod+d exec --no-startup-id rofi -show drun -font "cozette 8"
-    bindsym $mod+Shift+d exec --no-startup-id rofi -show run -font "cozette 8"
+#bindsym $mod+d exec --no-startup-id "rofi -modi drun,run -show drun -font"
+bindsym $mod+d exec --no-startup-id rofi -show drun -font "cozette 8"
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run -font "cozette 8"
 
 
-
-
-
-#####################
 # Window management #
-#####################
 
 
 # Window focus keys
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
-    bindsym $mod+h focus left
-    bindsym $mod+j focus down
-    bindsym $mod+k focus up
-    bindsym $mod+l focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # Move focused window
-    bindsym $mod+Shift+h move left
-    bindsym $mod+Shift+j move down
-    bindsym $mod+Shift+k move up
-    bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # Moving floating windows
-    mode "moveit" {
-        bindsym Up move up 20px
-        bindsym Left move left 20px
-        bindsym Down move down 20px
-        bindsym Right move right 20px
-        
-        bindsym h move left 40px
-        bindsym j move down 40px
-        bindsym k move up 40px
-        bindsym l move right 40px
+mode "moveit" {
+bindsym Up move up 20px
+bindsym Left move left 20px
+bindsym Down move down 20px
+bindsym Right move right 20px
 
-        bindsym Mod4+m mode "default"
-    }
-    
-    bindsym $mod+m focus floating; mode "moveit"
+bindsym h move left 40px
+bindsym j move down 40px
+bindsym k move up 40px
+bindsym l move right 40px
+
+bindsym Mod4+m mode "default"
+}
+
+bindsym $mod+m focus floating; mode "moveit"
 
 # Split in horizontal orientation
-    bindsym $mod+c split v
+bindsym $mod+c split v
 
 # Split in vertical orientation
-    bindsym $mod+v split h
+bindsym $mod+v split h
 
 # Enter fullscreen mode for the focused container
-    bindsym $mod+f fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # Toggle tiling / floating
-    bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # Change focus between tiling / floating windows
-    bindsym $mod+space focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 
 # Workspaces
-    set $ws1 "1"
-    set $ws2 "2"
-    set $ws3 "3"
-    set $ws4 "4"
-    set $ws5 "5"
-    set $ws6 "6"
-    set $ws7 "7"
-    set $ws8 "8"
-    set $ws9 "9"
-    set $ws10 "10"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
 
 # Set gaps for workspace 1
+<<<<<<< HEAD
     workspace 1 gaps inner 20px
     workspace 1 gaps outer 15px
     
+=======
+workspace 1 gaps inner 42
+
+>>>>>>> 4fbe32824e6955c28bba5bc66a0265f827b901b1
 # Enable floating windows on workspace 3
-    #assign [class="^.*"] $ws3
-    #for_window [workspace=$ws3] floating enable
+#assign [class="^.*"] $ws3
+#for_window [workspace=$ws3] floating enable
 
 # Switch to workspace
-    bindsym $mod+1 workspace number $ws1
-    bindsym $mod+2 workspace number $ws2
-    bindsym $mod+3 workspace number $ws3
-    bindsym $mod+4 workspace number $ws4
-    bindsym $mod+5 workspace number $ws5
-    bindsym $mod+6 workspace number $ws6
-    bindsym $mod+7 workspace number $ws7
-    bindsym $mod+8 workspace number $ws8
-    bindsym $mod+9 workspace number $ws9
-    bindsym $mod+0 workspace number $ws10
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
 
 # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number $ws1
-    bindsym $mod+Shift+2 move container to workspace number $ws2
-    bindsym $mod+Shift+3 move container to workspace number $ws3
-    bindsym $mod+Shift+4 move container to workspace number $ws4
-    bindsym $mod+Shift+5 move container to workspace number $ws5
-    bindsym $mod+Shift+6 move container to workspace number $ws6
-    bindsym $mod+Shift+7 move container to workspace number $ws7
-    bindsym $mod+Shift+8 move container to workspace number $ws8
-    bindsym $mod+Shift+9 move container to workspace number $ws9
-    bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
 
 
 # Resizing
     bindsym $mod+r mode "resize"
-# Resize window (you can also use the mouse for that)
-    mode "resize" {
-        bindsym h resize shrink width 15 px or 15 ppt
-        bindsym j resize grow height 15 px or 15 ppt
-        bindsym k resize shrink height 15 px or 15 ppt
-        bindsym l resize grow width 15 px or 15 ppt
-    # Same bindings, but for the arrow keys
-        bindsym Left resize shrink width 2 px or 2 ppt
-        bindsym Up resize grow height 2 px or 2 ppt
-        bindsym Down resize shrink height 2 px or 2 ppt
-        bindsym Right resize grow width 2 px or 2 ppt
 
-    # Back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-        }
+# Resize window (you can also use the mouse for that)
+mode "resize" {
+
+bindsym h resize shrink width 15 px or 15 ppt
+bindsym j resize grow height 15 px or 15 ppt
+bindsym k resize shrink height 15 px or 15 ppt
+bindsym l resize grow width 15 px or 15 ppt
+# Same bindings, but for the arrow keys
+bindsym Left resize shrink width 2 px or 2 ppt
+bindsym Up resize grow height 2 px or 2 ppt
+bindsym Down resize shrink height 2 px or 2 ppt
+bindsym Right resize grow width 2 px or 2 ppt
+
+# Back to normal: Enter or Escape or $mod+r
+bindsym Return mode "default"
+bindsym Escape mode "default"
+bindsym $mod+r mode "default"
+
+}
+
 
 # Binds for resizing without entering resize mode
-    bindsym $mod+ctrl+k i3-msg resize shrink height 5 ppt
-    bindsym $mod+ctrl+j i3-msg resize grow height 5 ppt
-    bindsym $mod+ctrl+h i3-msg resize width shrink 5 ppt
-    bindsym $mod+ctrl+l i3-msg resize width grow 5 ppt
+bindsym $mod+ctrl+k i3-msg resize shrink height 5 ppt
+bindsym $mod+ctrl+j i3-msg resize grow height 5 ppt
+bindsym $mod+ctrl+h i3-msg resize width shrink 5 ppt
+bindsym $mod+ctrl+l i3-msg resize width grow 5 ppt
 
 
 #######################
@@ -252,9 +248,9 @@
 #######################
 
 # Reload the configuration file
-    bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c reload
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-    bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r restart
 
 
 
@@ -267,55 +263,67 @@
     #for_window [class="^.*"] border pixel 0
 
 # Window border, WIP
-    default_border pixel 2
-    hide_edge_borders both
-    smart_borders on
+default_border pixel 2
+hide_edge_borders both
+smart_borders on
 
 
 # Set colors from Xresources
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
-    set_from_resource $fg i3wm.color5 #ffffff
-    set_from_resource $bg i3wm.color0 #f0f0f0
-    set_from_resource $al i3wm.color2 #ff0000
-    set_from_resource $c1 i3wm.color3 #f0f0f0
-    set_From_resource $c2 i3wm.color1 #f0f0f0
+set_from_resource $fg i3wm.color5 #ffffff
+set_from_resource $bg i3wm.color0 #f0f0f0
+set_from_resource $al i3wm.color2 #ff0000
+set_from_resource $c1 i3wm.color3 #f0f0f0
+set_From_resource $c2 i3wm.color1 #f0f0f0
 
 
 # class                     border  backgr. text    indicator 
-    client.focused          $fg     $fg     $fg     $fg       
-    client.focused_inactive $c2     $c2     $c2     $c2       
-    client.unfocused        $c2     $c2     $c2     $c2       
-    client.urgent           $al     $al     $al     $al       
+client.focused          $fg     $fg     $fg     $fg       
+client.focused_inactive $c2     $c2     $c2     $c2       
+client.unfocused        $c2     $c2     $c2     $c2       
+client.urgent           $al     $al     $al     $al       
 
 # Gaps
+<<<<<<< HEAD
     gaps inner 15px
     gaps outer 5px
 
 # Smart gaps
 # Only enable gaps on a workspace when there is at least one container
     smart_gaps off # 
+=======
+gaps inner 16
+gaps outer 1
+
+# Smart gaps
+# Only enable gaps on a workspace when there is at least one container
+smart_gaps on
+>>>>>>> 4fbe32824e6955c28bba5bc66a0265f827b901b1
 
 # Only enable outer gaps when there is exactly one container
     #smart_gaps inverse_outer
 
 # Activate smart borders (only when there are effectively no gaps)
-    smart_borders no_gaps
+smart_borders no_gaps
 
 
 # Controlling gap sizes
-    bindsym $mod+Shift+Down gaps inner current plus 2
-    bindsym $mod+Shift+Up gaps inner current minus 2
-    bindsym $mod+Shift+Left gaps inner current plus 15
-    bindsym $mod+Shift+Right gaps inner current minus 15
+bindsym $mod+Shift+Down gaps inner current plus 2
+bindsym $mod+Shift+Up gaps inner current minus 2
+bindsym $mod+Shift+Left gaps inner current plus 15
+bindsym $mod+Shift+Right gaps inner current minus 15
 
 
 # Only initiate a tiling drag when the modifier is held:
-    tiling_drag modifier
-    floating_modifier $mod
+tiling_drag modifier
+floating_modifier $mod
 
 
+# Font
+    font CozetteVector 10
 
+<<<<<<< HEAD
 ########
 # Misc #
 ########
@@ -324,3 +332,5 @@ focus_follows_mouse no
 
 # Settings for i3-rounded
     #border_radius 2
+=======
+>>>>>>> 4fbe32824e6955c28bba5bc66a0265f827b901b1

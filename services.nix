@@ -41,12 +41,6 @@
     services.xserver.libinput.enable = true;
 
 
-# Fish-shell
-    programs.fish.enable=true;
-    users.defaultUserShell = pkgs.fish;
-    environment.shells = with pkgs; [ fish ];
-
-
 # Virtualisation
     virtualisation.libvirtd.enable = true;
     programs.dconf.enable = true;

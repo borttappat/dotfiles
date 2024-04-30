@@ -26,6 +26,11 @@
     10.10.11.130 goodgames.htb
     10.10.11.18 usage.htb
     10.10.11.18 admin.usage.htb
+    10.10.11.249 crafty.htb
+    10.10.11.249 play.crafty.htb
+    10.10.11.116 validation.htb
+
+
 
     '';
 }
