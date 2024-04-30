@@ -32,8 +32,8 @@
 
 # amixer
     bindsym $mod+F1 exec "amixer set Master 0%"
-    bindsym $mod+F2 exec "amixer set Master 5%-"
-    bindsym $mod+F3 exec "amixer set Master 5%+"
+    bindsym $mod+F2 exec "amixer set Master 10%-"
+    bindsym $mod+F3 exec "amixer set Master 10%+"
 
 # htop
     bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "htop"
@@ -188,7 +188,8 @@
     set $ws10 "10"
 
 # Set gaps for workspace 1
-    workspace 1 gaps inner 42
+    workspace 1 gaps inner 20px
+    workspace 1 gaps outer 15px
     
 # Enable floating windows on workspace 3
     #assign [class="^.*"] $ws3
@@ -288,12 +289,12 @@
     client.urgent           $al     $al     $al     $al       
 
 # Gaps
-    gaps inner 16
-    gaps outer 1
+    gaps inner 15px
+    gaps outer 5px
 
 # Smart gaps
 # Only enable gaps on a workspace when there is at least one container
-    smart_gaps on
+    smart_gaps off # 
 
 # Only enable outer gaps when there is exactly one container
     #smart_gaps inverse_outer
@@ -318,6 +319,8 @@
 ########
 # Misc #
 ########
+
+focus_follows_mouse no
 
 # Settings for i3-rounded
     #border_radius 2
