@@ -181,9 +181,11 @@ set $ws10 "10"
     
 =======
 workspace 1 gaps inner 42
+workspace 1 gaps outer 2
 
 >>>>>>> 4fbe32824e6955c28bba5bc66a0265f827b901b1
 # Enable floating windows on workspace 3
+
 #assign [class="^.*"] $ws3
 #for_window [workspace=$ws3] floating enable
 
