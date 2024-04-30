@@ -29,6 +29,7 @@
     10.10.11.249 crafty.htb
     10.10.11.249 play.crafty.htb
     10.10.11.116 validation.htb
+    10.10.10.150 curling.htb
 
 
 

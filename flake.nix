@@ -29,6 +29,7 @@
                         #./nixbuild.nix
                         #./scripts.nix
                         #nix-index-database.nixosModules.nix-index
+                        ./steam.nix
                     ];
             };
 
