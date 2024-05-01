@@ -9,7 +9,7 @@
 {
 
 # Bootloader
-# SystemD-boot
+
 
 }
                                         

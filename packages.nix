@@ -110,7 +110,7 @@
     iftop           #top for network interfaces
     #youtube-tui
     #mage           #make-build tool written i Go
-    poetry          #python dependency management
+    #poetry          #python dependency management
     ngrok           #web server running on local machine
     #pgrok          #similar to the above
     #tmate          #terminal-sharing
