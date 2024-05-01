@@ -163,6 +163,7 @@
 
 
 
+/*
 # Pentesting
     
     dirb            #web content scanner
@@ -277,7 +278,7 @@
     
     wfuzz           #web fuzzing tool
     ffuf
-
+*/
     
     
     

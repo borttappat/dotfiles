@@ -42,7 +42,7 @@ sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/razer.nix --dir 
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/asus.nix --dir /etc/nixos
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/steam.nix --dir /etc/nixos
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/colors.nix --dir /etc/nixos
-
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/pentesting.nix --dir /etc/nixos
 
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/scripts.nix --dir /etc/nixos
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/nixbuild.nix --dir /etc/nixos

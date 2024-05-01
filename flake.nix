@@ -5,8 +5,8 @@
 
             nixpkgs.url = "nixpkgs/nixos-unstable";
             
-            nix-index-database.url = "github:Mic92/nix-index-database";
-            nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+            #nix-index-database.url = "github:Mic92/nix-index-database";
+            #nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
         };
 
     outputs = { self, nixpkgs, nix-index-database, ... }@inputs: {
@@ -30,6 +30,7 @@
                         #./scripts.nix
                         #nix-index-database.nixosModules.nix-index
                         ./steam.nix
+                        ./pentesting.nix
                     ];
             };
 
@@ -44,7 +45,6 @@
                         ./services.nix
                         ./nixp.nix
                         ./users.nix
-                        ./hosts.nix
                         ./colors.nix 
                     ];
             }; 
@@ -65,6 +65,7 @@
                         ./asusconf.nix
                         ./steam.nix
                         ./colors.nix 
+                        ./pentesting.nix
                     ];
             };
             
