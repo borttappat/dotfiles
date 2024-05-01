@@ -3,7 +3,7 @@
 My personal repo where I put stuff I want to use on multiple machines.
 Currently setting up a NixOS system and will do so for the foreseeable future.
 
-## TL;DR
+### TL;DR
 Flakey Nix-configuration with modules split into (mainly) ``configuration.nix`` ``hosts.nix`` ``nixp.nix`` ``packages.nix`` ``services.nix`` and ``user.nix``. 
 
 Managed through scripts in ``scripts/bash`` and ``scripts/python`` and configuration files for among others;``i3wm`` ``alaritty`` ``fish`` ``polybar`` and ``picom``.
@@ -11,7 +11,7 @@ Managed through scripts in ``scripts/bash`` and ``scripts/python`` and configura
 ![Screenshot](https://github.com/borttappat/dotfiles/blob/main/misc/screenshot.png)
 
 
-### Installation
+## Installation
 Commands to run on an (not recommended)existing install or
 (recommended) fresh install
 
@@ -48,22 +48,22 @@ Keyboard layout is set to Swedish, edit by adjusting the following in ``configur
   3     };
 ```
 ```
-  1     console.keyMap = "sv-latin1";
+128     console.keyMap = "sv-latin1";
 ```
 
 Bindings can be found in ``~/dotfiles/i3/config``, but often used ones include:
 
-``Super + Return`` Launch an Alacritty terminal
+``Super + Return`` launch an Alacritty terminal
 
-``Super + s`` Open a floating terminal
+``Super + s`` open a floating terminal
 
-``Super + c`` or ``Super + v`` Split the way windows open in
+``Super + c`` or ``Super + v`` split the way windows open in
 
-``Super + d`` Launch Rofi, mainly used to search for and launch programs
+``Super + d`` launch Rofi, mainly used to search for and launch programs
 
-``Super + Shift + i`` Open the i3 configuration file
+``Super + Shift + i`` open the i3 configuration file
 
-``Super + Shift + u`` Open htop
+``Super + Shift + u`` open htop
 
 #### Aliases
 ``f`` is aliased to open your fish-config in which you can find every shortcut to every most scripts
@@ -78,6 +78,9 @@ A few useful ones include:
 ``ac`` opens up a vim-session for editing Alacrittys config file
 
 
+
+## Scripts
+
 ### scripts/python/link.py
 ```
 python link_file.py --file [FILE] --dir [DIRECTORY]
@@ -90,7 +93,7 @@ TODO: back up any existing file instead of deleting, or similar.
 [scripts/bash/links.sh] runs through a list of files and directories to link files to in order to ensure that things work correctly.
 
 
-## Nixp.sh
+### Nixp.sh
 Nixp.nix along with the scripts nixp.sh and nixpsort.py along with related aliases in config.fish allows you to install packages with prompts like:
 ```
 nixp neofetch
