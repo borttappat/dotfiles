@@ -15,4 +15,4 @@ sudo python ~/dotfiles/scripts/python/userswitch.py
 sudo python ~/dotfiles/scripts/python/nixboot.py
 
 # Rebuilds using flake, edit the name after # to your username after editing flake.nix in the same way
-sudo ~/dotfiles/scripts/bash/nixbuild.sh
+~/dotfiles/scripts/bash/nixbuild.sh
