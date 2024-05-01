@@ -40,7 +40,7 @@ Your system will then reboot and you should boot into tty and the command ``x`` 
 ### Usage
 
 ### Info
-Keyboard layout is set to Swedish, edit by adjusting comments in ``configuration.nix``
+Keyboard layout is set to Swedish, edit by adjusting the following in ``configuration.nix``
 ```
 141     services.xserver.xkb = {
   1         layout = "se";
@@ -52,11 +52,17 @@ Keyboard layout is set to Swedish, edit by adjusting comments in ``configuration
 ```
 
 Bindings can be found in ``~/dotfiles/i3/config``, but often used ones include:
+
 Super + Return: Launch an Alacritty terminal
+
 Super + c or Super + v: split the way windows open in
+
 Super + d: Launh Rofi, mainly used to search for and launch programs
+
 Super + Shift + i: open the i3 configuration file
+
 Super + Shift + u: open htop
+
 Super + s: open a floating terminal
 
 ``f`` is aliased to open your fish-config in which you can find every shortcut to every most scripts
