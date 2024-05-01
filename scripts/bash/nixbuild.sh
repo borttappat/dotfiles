@@ -12,6 +12,6 @@ elif echo "$current_host" | grep -q "ASUS"; then
     #sudo nixos-rebuild switch --flake /etc/nixos#asus
     sudo nixos-rebuild switch --flake ~/dotfiles#asus
 else
-    echo "Unknown host: $current_host, building default versionm. Modify flake.nix to adjust according to preferences"
+    echo "Unknown host: $current_host, building default version. Modify flake.nix to adjust according to preferences"
     sudo nixos-rebuild switch --flake /etc/nixos#default
 fi
