@@ -96,4 +96,3 @@ Script set up to update the current flake to the latest version and then rebuild
 
 [ 2 ] Build from this directory using flake and avoid linking to /etc/nixos in order to preserve previous Nix-configuration.
 
-[ 3 ] Split packages into Core and Extras for a smaller footprint
