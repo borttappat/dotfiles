@@ -37,6 +37,37 @@ Run the script
 ```
 Your system will then reboot and you should boot into tty and the command ``x`` will start Xserver and i3(picom for transparency is started at launch, if you're running in a WM I run the following to make it more usable, transparency hasn't worked out well for me in virtual environments): ``killall picom`` 
 
+### Usage
+
+### Info
+Keyboard layout is set to Swedish, edit by adjusting comments in ``configuration.nix``
+``
+# Configure keymap in X11
+141     services.xserver.xkb = {
+  1         layout = "se";
+  2         variant = "";
+  3     };
+``
+``
+# Configure console keymap
+  1     console.keyMap = "sv-latin1";
+``
+
+Bindings can be found in ``~/dotfiles/i3/config``, but often used ones include:
+Super + Return: Launch an Alacritty terminal
+Super + c or Super + v: split the way windows open in
+Super + d: Launh Rofi, mainly used to search for and launch programs
+Super + Shift + i: open the i3 configuration file
+Super + Shift + u: open htop
+Super + s: open a floating terminal
+
+``f`` is aliased to open your fish-config in which you can find every shortcut to every most scripts
+A few useful ones include
+``np`` opens a vim-session in which you can edit ``packages.nix`` which determines the packages installed on the system
+``nb`` builds the system with the modules listed in ``flake.nix``in the ``"default"`` section(notably includes ``packages.nix``, the referenced script is a bit hacky and involves fething the name using ``neofetch`` in the background, keep that program around or set up new Configurations with other methos, Nix includes this by referencing the hostname, it's worth looking into.
+``pc`` opens up a vim-session in which you can edit Picom, the compositor responsible for the transparency
+``ac`` opens up a vim-session for editing Alacrittys config file
+
 
 ### scripts/python/link.py
 ```
