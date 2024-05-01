@@ -41,15 +41,15 @@ Your system will then reboot and you should boot into tty and the command ``x`` 
 
 ### Info
 Keyboard layout is set to Swedish, edit by adjusting comments in ``configuration.nix``
-``
+```
 141     services.xserver.xkb = {
   1         layout = "se";
   2         variant = "";
   3     };
-``
-``
+```
+```
   1     console.keyMap = "sv-latin1";
-``
+```
 
 Bindings can be found in ``~/dotfiles/i3/config``, but often used ones include:
 Super + Return: Launch an Alacritty terminal
