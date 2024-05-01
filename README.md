@@ -11,6 +11,38 @@ Managed through scripts in ``scripts/bash`` and ``scripts/python`` and configura
 ![Screenshot](https://github.com/borttappat/dotfiles/blob/main/misc/screenshot.png)
 
 
+### Installation
+Commands to run on an (not recommended)existing install or (recommended) fresh install
+
+Temp-install git and python for cloning repo and running scripts
+```
+nix-shell -p git python3
+```
+Clone the repo
+```
+git clone https://github.com/borttappat/dotfiles
+```
+Navigate to the scripts-directory
+```
+cd dotfiles/scripts/bash
+```
+Make the build-script executable
+```
+chmod +x nixbuild.sh
+```
+Run the script
+```
+./nixbuild.sh
+```
+Your system will then reboot and you should boot into tty and the command 
+```
+x
+```
+will start Xserver and i3(picom for transparency is started at launch, if you're running in a WM I generally type the following to make it more usable, transparency hasn't worked out well for me in virtual environments)
+```
+killall picom
+```
+
 ### scripts/python/link.py
 ```
 python link_file.py --file [FILE] --dir [DIRECTORY]
