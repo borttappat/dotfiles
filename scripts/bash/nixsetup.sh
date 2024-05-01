@@ -2,7 +2,7 @@
 
 sudo cp /etc/nixos/configuration.nix /etc/nixos/configuration.nix.old
 
-sudo ~/dotfiles/scripts/bash/links.sh
+~/dotfiles/scripts/bash/links.sh
 
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/boot.nix --dir /etc/nixos
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/nixp.nix --dir /etc/nixos
