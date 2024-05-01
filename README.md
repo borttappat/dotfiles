@@ -42,14 +42,12 @@ Your system will then reboot and you should boot into tty and the command ``x`` 
 ### Info
 Keyboard layout is set to Swedish, edit by adjusting comments in ``configuration.nix``
 ``
-# Configure keymap in X11
 141     services.xserver.xkb = {
   1         layout = "se";
   2         variant = "";
   3     };
 ``
 ``
-# Configure console keymap
   1     console.keyMap = "sv-latin1";
 ``
 
