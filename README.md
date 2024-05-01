@@ -1,4 +1,4 @@
-### Dotfiles!
+## Dotfiles!
 
 My personal repo where I put stuff I want to use on multiple machines.
 Currently setting up a NixOS system and will do so for the foreseeable future.
@@ -39,7 +39,7 @@ Your system will then reboot and you should boot into tty and the command ``x`` 
 
 ### Usage
 
-### Info
+#### Info
 Keyboard layout is set to Swedish, edit by adjusting the following in ``configuration.nix``
 ```
 141     services.xserver.xkb = {
@@ -53,23 +53,28 @@ Keyboard layout is set to Swedish, edit by adjusting the following in ``configur
 
 Bindings can be found in ``~/dotfiles/i3/config``, but often used ones include:
 
-Super + Return: Launch an Alacritty terminal
+``Super + Return`` Launch an Alacritty terminal
 
-Super + c or Super + v: split the way windows open in
+``Super + s`` Open a floating terminal
 
-Super + d: Launh Rofi, mainly used to search for and launch programs
+``Super + c`` or ``Super + v`` Split the way windows open in
 
-Super + Shift + i: open the i3 configuration file
+``Super + d`` Launch Rofi, mainly used to search for and launch programs
 
-Super + Shift + u: open htop
+``Super + Shift + i`` Open the i3 configuration file
 
-Super + s: open a floating terminal
+``Super + Shift + u`` Open htop
 
+#### Aliases
 ``f`` is aliased to open your fish-config in which you can find every shortcut to every most scripts
-A few useful ones include
+A few useful ones include:
+
 ``np`` opens a vim-session in which you can edit ``packages.nix`` which determines the packages installed on the system
+
 ``nb`` builds the system with the modules listed in ``flake.nix``in the ``"default"`` section(notably includes ``packages.nix``, the referenced script is a bit hacky and involves fething the name using ``neofetch`` in the background, keep that program around or set up new Configurations with other methos, Nix includes this by referencing the hostname, it's worth looking into.
+
 ``pc`` opens up a vim-session in which you can edit Picom, the compositor responsible for the transparency
+
 ``ac`` opens up a vim-session for editing Alacrittys config file
 
 
