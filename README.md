@@ -58,7 +58,8 @@ Bindings can be found in ``~/dotfiles/i3/config``, but often used ones include:
 |---------|----------|
 | Super + Return | Launch Alacritty |
 | Super + s | Launch Alacritty in floating mode |
-| Super + s OR v | Select between splitting options |
+| Super + v | Set window splitting to vertical |
+| Super + s | Set window splitting to horizontal |
 | Super + d | Launch Rofi |
 | Super + Shift + i | Open the i3 configuration file using Vim |
 | Super + Shift + u | Launch htop |
