@@ -53,6 +53,13 @@ Keyboard layout is set to Swedish, edit by adjusting the following in ``configur
 
 Bindings can be found in ``~/dotfiles/i3/config``, but often used ones include:
 
+
+| Keybind | Function |
+|---------|----------|
+| Super+Return | Launch Alacritty |
+
+
+
 ``Super + Return`` launch an Alacritty terminal
 
 ``Super + s`` open a floating terminal
