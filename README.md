@@ -65,18 +65,6 @@ Bindings can be found in ``~/dotfiles/i3/config``, but often used ones include:
 | Super + Shift + u | Launch htop |
 
 
-``Super + Return`` launch an Alacritty terminal
-
-``Super + s`` open a floating terminal
-
-``Super + c`` or ``Super + v`` split the way windows open in
-
-``Super + d`` launch Rofi, mainly used to search for and launch programs
-
-``Super + Shift + i`` open the i3 configuration file
-
-``Super + Shift + u`` open htop
-
 #### Aliases
 ``f`` is aliased to open your fish-config in which you can find every shortcut to every most scripts
 A few useful ones include:
