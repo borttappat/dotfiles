@@ -56,8 +56,18 @@ Bindings can be found in ``~/dotfiles/i3/config``, but often used ones include:
 
 | Keybind | Function |
 |---------|----------|
-| Super+Return | Launch Alacritty |
-
+| Super + Return | Launch Alacritty |
+|---------|----------|
+| Super + s | Launch Alacritty in floating mode |
+|---------|----------|
+| Super + s OR v | Select between splitting options |
+|---------|----------|
+| Super + d | Launch Rofi |
+|---------|----------|
+| Super + Shift + i | Open the i3 configuration file using Vim |
+|---------|----------|
+| Super + Shift + u | Launch htop |
+|---------|----------|
 
 
 ``Super + Return`` launch an Alacritty terminal
