@@ -48,6 +48,7 @@
 
 # Terminal stuff
     rsync 
+    starship
     artem           #img-to-ascii
     cava
     porsmo          #pomodoro-timer

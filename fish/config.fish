@@ -12,10 +12,13 @@ cat /home/traum/.cache/wal/sequences
 
 end
 
+# Starship
+starship init fish | source
+
 # Zoxide
 zoxide init fish | source
 
-set -x EDITOR 'vim'
+#set -x EDITOR 'vim'
 
 # aliases
 alias reboot='systemctl reboot'
