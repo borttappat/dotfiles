@@ -46,8 +46,8 @@ up_to_date = '✓'
 [git_commit]
 commit_hash_length = 4
 
-[git_metric]
-disabled = false
+#[git_metric]
+#disabled = true
 
 [cmd_duration]
 min_time = 1
