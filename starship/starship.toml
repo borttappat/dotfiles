@@ -11,11 +11,12 @@ style_root = "bold red"
 show_always = true
 
 [hostname]
-format = "[$hostname]($style) in "
+format = "[ $hostname]($style) in "
 style = "bold dimmed red"
 trim_at = "-"
 ssh_only = false
-disabled = true
+ssh_symbol = ">>>"
+disabled = false 
 
 [character]
 success_symbol = " [└─><> ](bold red)"
@@ -30,6 +31,8 @@ truncation_length = 0
 truncate_to_repo = true
 truncation_symbol = " "
 disabled = false
+read_only = 'R'
+home_symbol = '~'
 
 [git_status]
 style = "white"
@@ -37,10 +40,39 @@ ahead = "⇡${count}"
 diverged = "⇕⇡${ahead_count}⇣${behind_count}"
 behind = "⇣${count}"
 deleted = "x"
+modified = "!"
+up_to_date = '✓'
+
+[git_commit]
+commit_hash_length = 4
+
+[git_metric]
+disabled = false
 
 [cmd_duration]
 min_time = 1
 format = "took [$duration]($style)"
 disabled = false
 
+[status]
+symbol = " "
+format = '[\[$symbol$status_common_meaning$status_signal_name$status_maybe_int\]]($style)'
+map_symbol = true
+disabled = false
 
+[python]
+symbol = " "
+#pyenv_version_name = true
+format = 'via [${symbol}python (${version} )(\($virtualenv\) )]($style)'
+style = "bold yellow"
+pyenv_prefix = "venv "
+python_binary = ["./venv/bin/python", "python", "python3", "python2"]
+detect_extensions = ["py"]
+version_format = "v${raw}"
+disabled = true
+
+[direnv]
+disabled = true
+
+[aws]
+disabled = true
