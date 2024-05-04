@@ -100,6 +100,7 @@
     #dunst
     i3lock
     i3lock-fancy-rapid
+    i3wsr
     #autorandr
 
 # Tools
