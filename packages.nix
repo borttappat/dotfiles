@@ -20,6 +20,7 @@
 # Fonts
     fonts.packages = with pkgs; [
     cozette
+    hack-font
     ];
 
 # Packages to install on a system-wide level
@@ -91,6 +92,7 @@
     picom
     wpgtk
     pywal
+    pywalfox-native
     #themechanger
     #theme-sh
     imagemagick

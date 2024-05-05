@@ -11,8 +11,8 @@ style_root = "bold red"
 show_always = true
 
 [character]
-success_symbol = " [└─><> ](bold yellow)"
-error_symbol = " [×](bold red)"
+success_symbol = " [└─><>](bold yellow)"
+error_symbol = " [└─>](bold yellow)"
 
 [hostname]
 format = "[ $hostname]($style) in "
@@ -58,7 +58,8 @@ disabled = false
 symbol = " "
 format = '[\[$symbol$status_common_meaning$status_signal_name$status_maybe_int\]]($style)'
 map_symbol = true
-disabled = false
+disabled = true
+not_found_symbol = "X"
 
 [python]
 symbol = " "

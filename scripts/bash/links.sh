@@ -12,6 +12,8 @@ sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/i3/config --dir 
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/polybar/config.ini --dir ~/.config/polybar
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/joshuto/joshuto.toml --dir ~/.config/joshuto
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/joshuto/mimetype.toml --dir ~/.config/joshuto
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/joshuto/preview_file.sh --dir ~/.config/joshuto
+
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/htop/htoprc --dir ~/.config/htop
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/picom/picom.conf --dir ~/.config/picom
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/starship/starship.toml --dir ~/.config
