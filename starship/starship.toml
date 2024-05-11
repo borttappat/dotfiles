@@ -31,7 +31,7 @@ truncation_length = 0
 truncate_to_repo = true
 truncation_symbol = " "
 disabled = false
-read_only = 'R'
+read_only = ' [R]'
 home_symbol = '~'
 
 [git_status]

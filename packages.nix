@@ -15,7 +15,7 @@
     nixpkgs.config.allowUnfree = true;
     nixpkgs.config.allowUnstable = true;
 
-    nix.package = pkgs.nixUnstable;
+    nix.package = pkgs.nixVersions.git;
  
 # Fonts
     fonts.packages = with pkgs; [
@@ -92,6 +92,7 @@
     picom
     wpgtk
     pywal
+    wallust
     pywalfox-native
     #themechanger
     #theme-sh
