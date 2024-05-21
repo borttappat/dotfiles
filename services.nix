@@ -38,7 +38,7 @@
 
 
 # Enable touchpad support
-    services.xserver.libinput.enable = true;
+    services.libinput.enable = true;
 
 
 # Virtualisation
@@ -46,7 +46,7 @@
     programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [ virt-manager ];
     
-    services.xrdp.enable = true; #added along with xrdp package in packages.nix
+    #services.xrdp.enable = true; #added along with xrdp package in packages.nix
 
 
 # OpenGL

@@ -89,7 +89,8 @@
 # WM
     polybar
     rofi
-    picom
+    #picom
+    picom-pijulius
     wpgtk
     pywal
     wallust
