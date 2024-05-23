@@ -5,7 +5,6 @@ WINIT_X11_SCALE_FACTOR = "1.8"
 [font]
 # For internal display
 size = 5.5
-#size = 6
 
 # For external display
 #size = 12
