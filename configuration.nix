@@ -15,6 +15,8 @@
         "flakes" 
         ];
 
+#services.xserver.videoDrivers = [ "intel" ];
+#boot.kernelParams = [ "i915.force_probe=9a49" ];
 
     programs.nix-ld.enable = true;
     programs.nix-ld.libraries = with pkgs; [
