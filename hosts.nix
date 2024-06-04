@@ -31,6 +31,8 @@
     10.10.11.116 validation.htb
     10.10.10.150 curling.htb
     10.10.10.37 blocky.htb
+    10.129.42.195 internal.inlanefreight.htb
+    10.129.42.195 ftp.internal.inlanefreight.htb 
 
 
 
