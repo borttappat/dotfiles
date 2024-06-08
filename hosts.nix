@@ -33,6 +33,7 @@
     10.10.10.37 blocky.htb
     10.129.42.195 internal.inlanefreight.htb
     10.129.42.195 ftp.internal.inlanefreight.htb 
+    10.10.11.11 board.htb
 
 
 

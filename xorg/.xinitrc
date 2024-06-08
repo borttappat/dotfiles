@@ -8,7 +8,7 @@ wal -Rn &
 session=${1:-i3}
 
 case $session in
-    i3           ) picom -b --experimental-backends && wal -Rnq && exec i3;;
+    i3           ) picom -b && wal -Rnq && exec i3;;
     i3wm         ) exec i3;;
 
 # No known session, try to run it as command
