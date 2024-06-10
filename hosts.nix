@@ -34,8 +34,10 @@
     10.129.42.195 internal.inlanefreight.htb
     10.129.42.195 ftp.internal.inlanefreight.htb 
     10.10.11.11 board.htb
-
-
+    10.10.11.19 app.blurry.htb
+    10.10.10.11 arctic.htb
+    10.10.11.7 wifinetic.htb
+    10.10.10.14 grandpa.htb
 
     '';
 }
