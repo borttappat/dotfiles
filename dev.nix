@@ -1,26 +1,20 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   environment.systemPackages = with pkgs; [
+    python312
+    python312Packages.flask
     nodejs
-    nodePackages.npm
-    postgresql
-    python3Packages.virtualenv
+    git
+    #vscode
+    curl
+    wget
   ];
 
-  services.postgresql.enable = true;
-
-  services.nginx = {
-    enable = true;
-    recommendedGzipSettings = true;
-    recommendedProxySettings = true;
-    virtualHosts = {
-      spoils-online.local = {  # Use a local domain name for development
-        enableACME = false;
-        forceSSL = false;
-        root = /var/www/spoils-online;  # Update this path
-      };
-    };
+  networking.firewall = {
+    allowedTCPPorts = [ 
+      5000  # Flask backend
+      5173  # Vue.js development server (default port)
+    ];
   };
 }
-
