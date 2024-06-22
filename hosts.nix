@@ -38,6 +38,11 @@
     10.10.10.11 arctic.htb
     10.10.11.7 wifinetic.htb
     10.10.10.14 grandpa.htb
+    10.129.226.104 app.inlanefreight.local
+    10.129.226.104 dev.inlanefreight.local
+    10.129.157.242  inlanefreight.htb
+    10.129.219.41 app.inlanefreight.local
+    10.129.219.41 dev.inlanefreight.local
 
     '';
 }

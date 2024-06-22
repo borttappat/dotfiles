@@ -49,6 +49,10 @@ sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/pentesting.nix -
 
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/scripts.nix --dir /etc/nixos
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/nixbuild.nix --dir /etc/nixos
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/dev.nix --dir /etc/nixos
+
+
+
 
 
 # make every script in ~/dotfiles/scripts/bash is executeable

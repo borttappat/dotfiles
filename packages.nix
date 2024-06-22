@@ -109,6 +109,7 @@
 
 # Tools
     dog             #replacecment for cat
+    catppuccinifier-cli     #modify wallpapers with a catppucin style
     #proxychains-ng
     bandwhich       #bandwith tracker
     iw
@@ -157,6 +158,7 @@
     xrdp            #rdp-interface
     warpd           #click stuff without mouse input
     ollama          #run llms locally
+    #khoj
     aichat          #CLI gpt-chatbot 
     #llm-ls
     #llm

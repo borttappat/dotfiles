@@ -172,8 +172,8 @@ set $ws10 "10"
 
 
 # Set gaps for workspace 1
-    workspace 1 gaps inner 40px
-    workspace 1 gaps outer 5px
+  #  workspace 1 gaps inner 40px
+  #  workspace 1 gaps outer 5px
 # Enable floating windows on workspace 3
 
 #assign [class="^.*"] $ws3
@@ -277,14 +277,14 @@ client.unfocused        $c2     $c2     $c2     $c2
 client.urgent           $al     $al     $al     $al       
 
 # Gaps
-    gaps inner 15px
+    gaps inner 10px
     gaps outer 5px
 
 # Smart gaps
 # Only enable gaps on a workspace when there is at least one container
     smart_gaps off  
-gaps inner 16
-gaps outer 1
+#gaps inner 16
+#gaps outer 1
 
 
 # Only enable outer gaps when there is exactly one container

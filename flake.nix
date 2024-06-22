@@ -33,6 +33,7 @@
                         #nix-index-database.nixosModules.nix-index
                         ./steam.nix
                         ./pentesting.nix
+                        ./dev.nix
                     ];
             };
 
