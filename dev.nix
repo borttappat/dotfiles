@@ -4,6 +4,10 @@
   environment.systemPackages = with pkgs; [
     python312
     python312Packages.flask
+    python312Packages.pip
+    python312Packages.flask-cors
+    python312Packages.flask-socketio
+
     nodejs
     git
     #vscode
