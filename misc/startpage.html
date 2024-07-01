@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Hacker Start Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: 'Press Start 2P', cursive;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .modules {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .section {
+            flex: 1;
+            margin: 0 10px;
+            text-align: center;
+        }
+        .section h2 {
+            border-bottom: 1px solid #00ff00;
+            padding-bottom: 5px;
+            font-size: 14px;
+        }
+        #clock {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 15px;
+        }
+        a {
+            color: #00ff00;
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        a:hover {
+            color: #66ff66;
+        }
+        a:hover::after {
+            content: '_';
+            position: absolute;
+            right: -12px;
+            animation: blink 0.7s steps(2, start) infinite;
+        }
+        @keyframes blink {
+            to {
+                visibility: hidden;
+            }
+        }
+        #matrix-canvas {
+            margin: 20px auto 0;
+            display: block;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FEAR IS THE MIND-KILLER</h1>
+        <div id="clock"></div>
+        <div class="modules">
+            <div class="section">
+                <h2>Hacktivity</h2>
+                <ul>
+                    <li><a href="https://academy.hackthebox.com/dashboard">Hack The Box - Academy</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </div>
+            <div class="section">
+                <h2>Creativity</h2>
+                <ul>
+                    <li><a href="https://www.reddit.com/r/unixporn/">Unixporn</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </div>
+            <div class="section">
+                <h2>Productivity</h2>
+                <ul>
+                    <li><a href="https://mail.proton.me/u/0/inbox">ProtonMail</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </div>
+        </div>
+        <canvas id="matrix-canvas" width="600" height="200"></canvas>
+    </div>
+     <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Matrix animation
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+        const alphabet = katakana + latin + nums;
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        let rainDrops = [];
+
+        // Initialize raindrops with random delays
+        for (let i = 0; i < columns; i++) {
+            rainDrops[i] = {
+                y: 0,
+                speed: Math.random() * 0.5 + 0.5,
+                delay: Math.floor(Math.random() * 100)
+            };
+        }
+
+        // Create gradient for fading edges
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, "rgba(0, 0, 0, 1)");
+        gradient.addColorStop(0.1, "rgba(0, 0, 0, 0)");
+        gradient.addColorStop(0.9, "rgba(0, 0, 0, 0)");
+        gradient.addColorStop(1, "rgba(0, 0, 0, 1)");
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                if (rainDrops[i].delay > 0) {
+                    rainDrops[i].delay--;
+                    continue;
+                }
+
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i].y * fontSize);
+
+                rainDrops[i].y += rainDrops[i].speed;
+
+                if (rainDrops[i].y * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i].y = 0;
+                }
+            }
+
+            // Apply gradient for fading edges
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Start the animation immediately
+        setInterval(draw, 100);
+
+        // Clear the canvas initially
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    </script>
+</body>
+</html>
