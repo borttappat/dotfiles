@@ -48,6 +48,7 @@
     mpv
 
 # Terminal stuff
+    zsh
     rsync 
     starship
     artem           #img-to-ascii
