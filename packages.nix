@@ -296,6 +296,7 @@
     xorg.xrdb
     xorg.xorgserver
     xorg.xmodmap
+    xorg.xmessage
     
 # Uncategorized
         ];
