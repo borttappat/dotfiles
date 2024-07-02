@@ -1,15 +1,20 @@
 #!/run/current-system/sw/bin/bash
 
 STATE_FILE="/tmp/pomodoro_state"
+PAUSE_FILE="/tmp/pomodoro_pause"
 
 # Check if the state file exists
-if [ ! -f "$STATE_FILE" ]; then
+if [ ! -f "$STATE_FILE" ] && [ ! -f "$PAUSE_FILE" ]; then
   echo "Pomodoro: Inactive"
   exit 0
 fi
 
 # Read the state and start time
-read state start_time < "$STATE_FILE"
+if [ -f "$STATE_FILE" ]; then
+  read state start_time < "$STATE_FILE"
+elif [ -f "$PAUSE_FILE" ]; then
+  read state start_time < "$PAUSE_FILE"
+fi
 
 WORK_TIME=25  # Work time in minutes
 REST_TIME=5   # Rest time in minutes
@@ -26,6 +31,9 @@ if [ "$state" == "WORK" ]; then
     state="REST"
     start_time=$(date +%s)
     echo "REST $start_time" > "$STATE_FILE"
+    i3-msg 'exec --no-startup-id alacritty --class pomo -e sh -c "echo Time to rest! && read"'
+    sleep 0.5
+    i3-msg '[class="^pomo$"] floating enable; resize set width 300px height 100px; move position center'
     remaining_time=$REST_TIME_SEC
   else
     remaining_time=$((WORK_TIME_SEC - elapsed_time))
@@ -35,6 +43,9 @@ else
     state="WORK"
     start_time=$(date +%s)
     echo "WORK $start_time" > "$STATE_FILE"
+    i3-msg 'exec --no-startup-id alacritty --class pomo -e sh -c "echo Time to work! && read"'
+    sleep 0.5
+    i3-msg '[class="^pomo$"] floating enable; resize set width 300px height 100px; move position center'
     remaining_time=$WORK_TIME_SEC
   else
     remaining_time=$((REST_TIME_SEC - elapsed_time))
@@ -44,9 +55,17 @@ fi
 minutes=$((remaining_time / 60))
 seconds=$((remaining_time % 60))
 
-if [ "$state" == "WORK" ]; then
-  echo "Work: $minutes:$seconds"
+# Ensure two-digit formatting
+formatted_minutes=$(printf "%02d" $minutes)
+formatted_seconds=$(printf "%02d" $seconds)
+
+if [ -f "$PAUSE_FILE" ]; then
+  echo "Paused: $formatted_minutes:$formatted_seconds"
 else
-  echo "Rest: $minutes:$seconds"
+  if [ "$state" == "WORK" ]; then
+    echo "Work: $formatted_minutes:$formatted_seconds"
+  else
+    echo "Rest: $formatted_minutes:$formatted_seconds"
+  fi
 fi
 

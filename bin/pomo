@@ -1,27 +1,44 @@
 #!/run/current-system/sw/bin/bash
 
 STATE_FILE="/tmp/pomodoro_state"
+PAUSE_FILE="/tmp/pomodoro_pause"
 
-# Function to initialize or toggle the timer
+# Function to start or resume the timer
+start_timer() {
+  if [ -f "$PAUSE_FILE" ]; then
+    mv "$PAUSE_FILE" "$STATE_FILE"
+    echo "Pomodoro timer resumed."
+  elif [ ! -f "$STATE_FILE" ]; then
+    echo "WORK $(date +%s)" > "$STATE_FILE"
+    echo "Pomodoro timer started."
+  else
+    echo "Pomodoro timer is already running."
+  fi
+}
+
+# Function to toggle between work and rest
 toggle_timer() {
   if [ ! -f "$STATE_FILE" ]; then
-    echo "WORK $(date +%s)" > "$STATE_FILE"
-    i3-msg 'exec --no-startup-id alacritty --class pomo -e sh -c "echo Work session started! && read"'
-    sleep 0.5
-    i3-msg '[class="^pomo$"] floating enable; resize set width 300px height 100px; move position center'
+    echo "Timer not initialized. Use 'pomo start' to start."
+    exit 1
+  fi
+
+  read state start_time < "$STATE_FILE"
+  
+  if [ "$state" == "WORK" ]; then
+    echo "REST $(date +%s)" > "$STATE_FILE"
   else
-    read state start_time < "$STATE_FILE"
-    if [ "$state" == "WORK" ]; then
-      echo "REST $(date +%s)" > "$STATE_FILE"
-      i3-msg 'exec --no-startup-id alacritty --class pomo -e sh -c "echo Time to rest! && read"'
-      sleep 0.5
-      i3-msg '[class="^pomo$"] floating enable; resize set width 300px height 100px; move position center'
-    else
-      echo "WORK $(date +%s)" > "$STATE_FILE"
-      i3-msg 'exec --no-startup-id alacritty --class pomo -e sh -c "echo Time to work! && read"'
-      sleep 0.5
-      i3-msg '[class="^pomo$"] floating enable; resize set width 300px height 100px; move position center'
-    fi
+    echo "WORK $(date +%s)" > "$STATE_FILE"
+  fi
+}
+
+# Function to pause the timer
+pause_timer() {
+  if [ -f "$STATE_FILE" ]; then
+    mv "$STATE_FILE" "$PAUSE_FILE"
+    echo "Pomodoro timer paused."
+  else
+    echo "Pomodoro timer is not running."
   fi
 }
 
@@ -30,20 +47,29 @@ stop_timer() {
   if [ -f "$STATE_FILE" ]; then
     rm "$STATE_FILE"
     echo "Pomodoro timer stopped."
+  elif [ -f "$PAUSE_FILE" ]; then
+    rm "$PAUSE_FILE"
+    echo "Pomodoro timer stopped."
   else
     echo "Pomodoro timer is not running."
   fi
 }
 
 case "$1" in
+  start)
+    start_timer
+    ;;
   toggle)
     toggle_timer
+    ;;
+  pause)
+    pause_timer
     ;;
   stop)
     stop_timer
     ;;
   *)
-    echo "Usage: pomo {toggle|stop}"
+    echo "Usage: pomo {start|toggle|pause|stop}"
     exit 1
     ;;
 esac
