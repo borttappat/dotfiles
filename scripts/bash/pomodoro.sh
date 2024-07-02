@@ -5,7 +5,7 @@ PAUSE_FILE="/tmp/pomodoro_pause"
 
 # Check if the state file exists
 if [ ! -f "$STATE_FILE" ] && [ ! -f "$PAUSE_FILE" ]; then
-  echo "Pomodoro: Inactive"
+  echo "Inactive"
   exit 0
 fi
 
@@ -60,12 +60,12 @@ formatted_minutes=$(printf "%02d" $minutes)
 formatted_seconds=$(printf "%02d" $seconds)
 
 if [ -f "$PAUSE_FILE" ]; then
-  echo "Paused: $formatted_minutes:$formatted_seconds"
+  echo "Paused $formatted_minutes:$formatted_seconds"
 else
   if [ "$state" == "WORK" ]; then
-    echo "Work: $formatted_minutes:$formatted_seconds"
+    echo "Work $formatted_minutes:$formatted_seconds"
   else
-    echo "Rest: $formatted_minutes:$formatted_seconds"
+    echo "Rest $formatted_minutes:$formatted_seconds"
   fi
 fi
 
