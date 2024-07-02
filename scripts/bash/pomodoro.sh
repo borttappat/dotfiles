@@ -4,7 +4,8 @@ STATE_FILE="/tmp/pomodoro_state"
 
 # Check if the state file exists
 if [ ! -f "$STATE_FILE" ]; then
-  echo "WORK 0" > "$STATE_FILE"
+  echo "Pomodoro: Inactive"
+  exit 0
 fi
 
 # Read the state and start time
@@ -48,3 +49,4 @@ if [ "$state" == "WORK" ]; then
 else
   echo "Rest: $minutes:$seconds"
 fi
+
