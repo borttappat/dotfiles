@@ -18,7 +18,8 @@ sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/htop/htoprc --di
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/picom/picom.conf --dir ~/.config/picom
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/starship/starship.toml --dir ~/.config
 
-
+# ~/.local/bin
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/bin/pomo --dir ~/.local/bin
 
 # fish
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/fish/config.fish --dir ~/.config/fish
@@ -55,8 +56,9 @@ sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/dev.nix --dir /e
 
 
 
-# make every script in ~/dotfiles/scripts/bash is executeable
+# make every script in ~/dotfiles/scripts/bash executeable
 sudo chmod +x ~/dotfiles/scripts/bash/*.sh
-
+# make every script in ~/.local/bin executeable
+sudo chmod +x ~/.local/bin/*
 
 

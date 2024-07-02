@@ -1,10 +1,10 @@
 #!/run/current-system/sw/bin/bash
-# Define the temporary file to store the state and start time
+
 STATE_FILE="/tmp/pomodoro_state"
 
-# Initialize the state file if it doesn't exist
+# Check if the state file exists
 if [ ! -f "$STATE_FILE" ]; then
-  echo "WORK $(date +%s)" > "$STATE_FILE"
+  echo "WORK 0" > "$STATE_FILE"
 fi
 
 # Read the state and start time
@@ -25,7 +25,7 @@ if [ "$state" == "WORK" ]; then
     state="REST"
     start_time=$(date +%s)
     echo "REST $start_time" > "$STATE_FILE"
-    xmessage -timeout 5 "Time to rest!"
+    remaining_time=$REST_TIME_SEC
   else
     remaining_time=$((WORK_TIME_SEC - elapsed_time))
   fi
@@ -34,7 +34,7 @@ else
     state="WORK"
     start_time=$(date +%s)
     echo "WORK $start_time" > "$STATE_FILE"
-    xmessage -timeout 5 "Time to work!"
+    remaining_time=$WORK_TIME_SEC
   else
     remaining_time=$((REST_TIME_SEC - elapsed_time))
   fi
@@ -46,9 +46,5 @@ seconds=$((remaining_time % 60))
 if [ "$state" == "WORK" ]; then
   echo "Work: $minutes:$seconds"
 else
-  if (( $seconds % 2 == 0 )); then
-    echo "Rest: $minutes:$seconds"
-  else
-    echo "Rest: "
-  fi
+  echo "Rest: $minutes:$seconds"
 fi

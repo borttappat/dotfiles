@@ -1,0 +1,51 @@
+#!/run/current-system/sw/bin/bash
+
+STATE_FILE="/tmp/pomodoro_state"
+
+# Function to initiate the timer
+init_timer() {
+  if [ "$1" == "work" ]; then
+    echo "WORK $(date +%s)" > "$STATE_FILE"
+  elif [ "$1" == "rest" ]; then
+    echo "REST $(date +%s)" > "$STATE_FILE"
+  fi
+}
+
+# Function to toggle between work and rest
+toggle_timer() {
+  if [ ! -f "$STATE_FILE" ]; then
+    echo "Timer not initialized. Use 'pomo work' or 'pomo rest' to start."
+    exit 1
+  fi
+
+  read state start_time < "$STATE_FILE"
+  
+  if [ "$state" == "WORK" ]; then
+    echo "REST $(date +%s)" > "$STATE_FILE"
+    i3-msg 'exec --no-startup-id alacritty --class pomo -e sh -c "echo Time to rest! && read"'
+    sleep 1
+    i3-msg '[class="^pomo$"] floating enable; resize set width 300px height 100px; move position center'
+  else
+    echo "WORK $(date +%s)" > "$STATE_FILE"
+    i3-msg 'exec --no-startup-id alacritty --class pomo -e sh -c "echo Time to work! && read"'
+    sleep 1
+    i3-msg '[class="^pomo$"] floating enable; resize set width 300px height 100px; move position center'
+  fi
+}
+
+case "$1" in
+  work)
+    init_timer "work"
+    ;;
+  rest)
+    init_timer "rest"
+    ;;
+  toggle)
+    toggle_timer
+    ;;
+  *)
+    echo "Usage: pomo {work|rest|toggle}"
+    exit 1
+    ;;
+esac
+
