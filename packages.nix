@@ -21,6 +21,7 @@
     fonts.packages = with pkgs; [
     cozette
     hack-font
+    creep
     ];
 
 # Packages to install on a system-wide level

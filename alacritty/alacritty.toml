@@ -12,11 +12,13 @@ size = 5.5
 [font.bold]
 #family = "hack"
 family = "CozetteVectorBold"
+#family = "creep"
 style = "Bold"
 
 [font.bold_italic]
 #family = "hack"
 family = "CozetteVector"
+#family= "creep"
 style = "Bold Italic"
 
 [font.glyph_offset]
@@ -27,11 +29,13 @@ y = 1
 [font.italic]
 #family = "hack"
 family = "CozetteVector"
+#family = "creep"
 style = "Italic"
 
 [font.normal]
 #family = "hack"
 family = "CozetteVector"
+#family = "creep"
 style = "Regular"
 
 [font.offset]

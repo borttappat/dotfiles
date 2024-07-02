@@ -4,17 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Griefhound - home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Cozette';
+            src: url('CozetteVector.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        html {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        html::-webkit-scrollbar {
+            width: 0px;
+        }
         body {
             background-color: black;
             color: #00ff00;
-            font-family: 'Press Start 2P', cursive;
+            font-family: 'Cozette', 'Courier New', monospace;
             margin: 0;
             padding: 20px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            font-size: 16px;
+            line-height: 1.5;
+            -webkit-font-smoothing: none;
+            -moz-osx-font-smoothing: grayscale;
         }
         .container {
             max-width: 1200px;
@@ -25,9 +44,9 @@
         }
         h1 {
             text-align: center;
-            font-size: 18px;
+            font-size: 24px;
             margin-bottom: 20px;
-            line-height: 1.5;
+            line-height: 1.2;
         }
         .modules {
             display: flex;
@@ -40,12 +59,12 @@
             text-align: center;
         }
         .section h2 {
-            border-bottom: 1px solid #00ff00;
             padding-bottom: 5px;
-            font-size: 14px;
+            font-size: 20px;
+            margin-bottom: 10px;
         }
         #clock {
-            font-size: 24px;
+            font-size: 32px;
             text-align: center;
             margin-bottom: 20px;
         }
@@ -59,7 +78,7 @@
         a {
             color: #00ff00;
             text-decoration: none;
-            font-size: 12px;
+            font-size: 16px;
             transition: color 0.3s ease;
             position: relative;
             display: inline-block;
@@ -114,7 +133,6 @@
                     <li><a href="https://mail.proton.me/u/0/inbox">ProtonMail</a></li>
                     <li><a href="https://mail.google.com/mail/u/0/#inbox">GMail</a></li>
                     <li><a href="https://se.indeed.com/jobs?q=linux&l=Stockholm&from=searchOnHP">Indeed</a></li>
-
                 </ul>
             </div>
         </div>
