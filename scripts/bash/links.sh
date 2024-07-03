@@ -7,6 +7,7 @@ sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/vim/.vimrc --dir
 
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/zathura/zathurarc --dir ~/zathura
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/alacritty/alacritty.toml --dir ~/.config/alacritty
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/alacritty/alacritty4k.toml --dir ~/.config/alacritty
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/rofi/config.rasi --dir ~/.config/rofi
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/i3/config --dir ~/.config/i3
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/polybar/config.ini --dir ~/.config/polybar

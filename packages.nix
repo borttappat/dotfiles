@@ -137,7 +137,7 @@
     gh              #git CLI tool
     nmon            #top-like tool
     zathura         #pdf-reader
-    #xdotool
+    xdotool
     killall 
     qemu 
     #kvmtool
