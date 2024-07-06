@@ -43,6 +43,8 @@
     10.129.157.242  inlanefreight.htb
     10.129.219.41 app.inlanefreight.local
     10.129.219.41 dev.inlanefreight.local
+    10.10.11.20 editorial.htb
+    10.10.11.23 permx.htb
 
     '';
 }

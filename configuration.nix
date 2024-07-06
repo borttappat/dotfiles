@@ -22,6 +22,7 @@
     programs.nix-ld.libraries = with pkgs; [
     ];
 
+
 # Fish-shell
     programs.fish.enable=true;
     users.defaultUserShell = pkgs.fish;
