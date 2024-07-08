@@ -72,6 +72,7 @@ bindsym $mod+w exec ~/dotfiles/scripts/bash/randomwalrgb.sh
 # Launch Brave
 bindsym $mod+b exec brave
 bindsym $mod+g exec brave https://github.com/borttappat/dotfiles
+bindsym $mod+Shift+v exec brave https://vim.rtorr.com/
 bindsym $mod+p exec brave https://search.nixos.org/packages?channel=unstable
 bindsym $mod+a exec brave https://chat.openai.com/
 
@@ -175,12 +176,18 @@ set $ws10 "10"
 
 
 # Set gaps for workspace 1
-  #  workspace 1 gaps inner 40px
-  #  workspace 1 gaps outer 5px
-# Enable floating windows on workspace 3
+    workspace 1 gaps inner 30px
+    workspace 1 gaps outer 50px
 
+# Set gaps for workspace 3
+    workspace 3 gaps inner 30px
+    workspace 3 gaps outer 50px
+
+
+# Enable floating windows on workspace 3
 #assign [class="^.*"] $ws3
 #for_window [workspace=$ws3] floating enable
+
 
 # Switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -258,7 +265,8 @@ bindsym $mod+Shift+r restart
     #for_window [class="^.*"] border pixel 0
 
 # Window border, WIP
-default_border pixel 2
+#default_border pixel 1
+new_window pixel 2
 hide_edge_borders both
 smart_borders on
 
@@ -266,15 +274,15 @@ smart_borders on
 # Set colors from Xresources
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
-set_from_resource $fg i3wm.color3 #ffffff
+set_from_resource $fg i3wm.color1 #ffffff
 set_from_resource $bg i3wm.color0 #f0f0f0
-set_from_resource $al i3wm.color2 #ff0000
+set_from_resource $al i3wm.color4 #ff0000
 set_from_resource $c1 i3wm.color3 #f0f0f0
-set_From_resource $c2 i3wm.color1 #f0f0f0
+set_From_resource $c2 i3wm.color0 #f0f0f0
 
 
-# class                     border  backgr. text    indicator 
-client.focused          $fg     $fg     $fg     $fg       
+# class                 border  backgr. text    indicator 
+client.focused          ${fg}99 $fg     $fg     $fg       
 client.focused_inactive $c2     $c2     $c2     $c2       
 client.unfocused        $c2     $c2     $c2     $c2       
 client.urgent           $al     $al     $al     $al       
