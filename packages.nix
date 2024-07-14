@@ -30,7 +30,7 @@
 # Editors
     vim
     #inkscape
-    obs-studio
+    #obs-studio
     #davinci-resolve
 
 
@@ -52,16 +52,16 @@
     zsh
     rsync 
     starship
-    artem           #img-to-ascii
+    #artem           #img-to-ascii
     cava
-    porsmo          #pomodoro-timer
+    #porsmo          #pomodoro-timer
     #mop
-    duf             #storage-visualizer
+    #duf             #storage-visualizer
     #tgpt           #gpt chatbot
     du-dust         #better version of du
     tmux 
     zellij
-    ripgrep
+    #ripgrep
     #wiki-tui
     fzf 
     alacritty
@@ -70,7 +70,7 @@
     glances
     neofetch
     bunnyfetch 
-    nitch
+    #nitch
     cbonsai
     cmatrix
     ranger
@@ -81,10 +81,10 @@
     tickrs          #visual price tracker
     eza             #better ls
     ttyper          #typing excercises
-    dfrs            #df-replacement
+    #dfrs            #df-replacement
     pipes-rs        #rust-written replacement
     #gurk-rs
-    bat             #cat-replacement
+    #bat             #cat-replacement
     #ddgr
     #asciiquarium
 
@@ -93,13 +93,13 @@
     rofi
     picom
     #picom-pijulius
-    wpgtk
+    #wpgtk
     pywal
     wallust
-    pywalfox-native
+    #pywalfox-native
     #themechanger
     #theme-sh
-    imagemagick
+    #imagemagick
     feh
     #eww
     #conky
@@ -110,7 +110,7 @@
     #autorandr
 
 # Tools
-    dog             #replacecment for cat
+    #dog             #replacecment for cat
     catppuccinifier-cli     #modify wallpapers with a catppucin style
     #proxychains-ng
     bandwhich       #bandwith tracker
@@ -135,7 +135,7 @@
     #undervolt
     git
     gh              #git CLI tool
-    nmon            #top-like tool
+    #nmon            #top-like tool
     zathura         #pdf-reader
     xdotool
     killall 
@@ -156,7 +156,6 @@
     lazydocker
     #signal-cli
     whois
-    #remmina        #rdp-interface
     xrdp            #rdp-interface
     warpd           #click stuff without mouse input
     ollama          #run llms locally
@@ -168,129 +167,8 @@
     unzip           #zip-archiving tool 
     tealdeer        #alternative to man
     lynis           #security auditing tool
-    xrdp            #RDP-client
     udevil          #udisks replacement
 
-
-
-/*
-# Pentesting
-    
-    dirb            #web content scanner
-    whatweb         #web scanning tool
-    gobuster        #Web directory scanner        
-    monsoon         #HTTP-enumerator
-    #dirstalk
-    feroxbuster     #dirbuster-alike tool
-    
-    dalfox          #XSS-scanner
-    xsser           #XSS-scanner
-    snmpcheck       #SNMP-enumerator
-
-    enum4linux-ng   #SMB-scanner
-
-   
-    mitmproxy       #Man-in-the-middle Proxy
-    burpsuite
-    mitmproxy2swagger
-    #caido          #Burpsuite-like tool
-    #bettercap      #swiss army knife mitm-tool
-    websploit       #MITM-framework
-
-    
-    openldap
-    ldapdomaindump
-    #bloodhound-py
-    #bloodhound
-    #autobloody     #automatically explioit AD privesc paths
-    silenthound     #lightweight tool to enumerate AD enviroments
-
-    responder
-    #commix         #command injection exploitation tool
-    #webanalyze     #similar to wapalyzer
-    nikto           #scanner for website vulnerabilities
-    nmap            #network-scanner
-    rustscan        #nmap-alike tool written in rust
-    
-    #kismet         #wifi, bluetooth and RF-sniffer
-    wireshark       #packet analysis and sniffer tool
-    tcpdump         #network-sniffer
-    tshark          #WireShark from the terminal
-    #termshark
-    crackmapexec    #tool for pentesting networks
-    netexec
-   
-    uncover         #API wrapper to scan for exposed hosts(shodan-ish)
-    sherlock        #OSINT username tracker
-    theharvester    #OSINT recon tool
-    
-    dig             #domain name server 
-    
-    hydra-cli       #thc-hydra cli program
-    thc-hydra       #network-logon cracker
-    #medusa         #login brute-forcer
-   
-    hashcat         #password-cracker
-    john            #password/hash-cracker
-    seclists        #SecLists-implementation
-    crunch          #Wordlist-generator
-    #cewl           #wordlist-generation tool 
-    metasploit      #All-in-one exploit tool
-    sqlmap          #SQL Injection tool
-    evil-winrm      #WinRM shell generator 
-
-    ghost           #Android exploitation framework
-
-    rustcat         #netcat-replacement written in rust
-    #pwncat          #netcat with persistent shell
-    
-    bully           #WPA/WPA2 Password recovery from WPS-enabled access point
-    cowpatty        #offline dictionary attack tool against WPA/WPA2-networks
-    aircrack-ng
-    airgeddon       #All-in-one network hacking tool
-    wifite2         #TUI Wifi attack software
-    mdk4            #injection tool for wireless networks
-    hcxdumptool     #packet-capture tool from wlan devices
-    hcxtools
-    pixiewps        #ffline WPS Brute-forcing
-    
-    samba
-    #awscli2
-    exploitdb       #searchsploit
-    redis
-    mariadb
-    
-    
-    wprecon         #WordPress vulnerability scanner
-    wpscan
-    
-    routersploit    #embedded device exploitation framework
-    
-    #sleuthkit      #data recovery tool
-    foremost        #file recovery tool
-    testdisk        #data recovery tool
-
-    
-    dbmonster       #wifi-strength scanner
-    linux-router    #wifi-hotspot/Proxy using a single command
-    hostapd-mana    #rogue access point tool
-    
-    steghide        #extract data from images
-    stegseek
-
-    #parsero        #audit tool for robots.txt
-    reaverwps       #wifi brute-forcing tool
-    reaverwps-t6x
-    dnsrecon        #DNS enumeration tool
-    macchanger      #tool for spoofing MAC-address 
-    dnsenum         #DNS enumeration tool
-    fierce          #DNS enumeration tool
-    
-    wfuzz           #web fuzzing tool
-    ffuf
-*/
-    
-    
     
 # X11
     xorg.xinit
