@@ -1,9 +1,9 @@
 #!/run/current-system/sw/bin/bash
 
-current_host=$(neofetch --stdout | grep Host)
+current_host=$(hostnamectl | grep -i "Hardware Vendor")
 
 if echo "$current_host" | grep -q "Razer"; then
-    sudo nixos-rebuild switch --flake /etc/nixos#razer
+    sudo nixos-rebuild switch --show-trace --flake /etc/nixos#razer
 
 elif echo "$current_host" | grep -q "KVM/QEMU"; then
     sudo nixos-rebuild switch --flake /etc/nixos#WM
