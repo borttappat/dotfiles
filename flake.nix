@@ -12,7 +12,7 @@
             #nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
         };
 
-    outputs = { self, nixpkgs, nix-index-database, ... }@inputs: {
+    outputs = { self, nixpkgs, ... }@inputs: {
         nixosConfigurations = {
             
             "razer" = nixpkgs.lib.nixosSystem {
