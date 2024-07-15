@@ -3,8 +3,8 @@
 # Store the current working directory
 original_dir=$(pwd)
 
-# Change directory to /etc/nixos
-cd /etc/nixos || exit 1
+# Change directory to ~/dotfiles
+cd ~/dotfiles || exit 1
 
 # Update flake.nix in /etc/nixos
 sudo nix flake update
