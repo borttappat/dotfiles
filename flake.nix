@@ -8,8 +8,8 @@
             #nixpkgs.url = "nixpkgs/nixos-git";
             
             
-            nix-index-database.url = "github:Mic92/nix-index-database";
-            nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+            #nix-index-database.url = "github:Mic92/nix-index-database";
+            #nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
         };
 
     outputs = { self, nixpkgs, nix-index-database, ... }@inputs: {
@@ -27,7 +27,7 @@
                         ./users.nix
                         ./hosts.nix
                         ./razer.nix
-                        #./razerconf.nix
+                        ./razerconf.nix
                         ./colors.nix
                         #./nixbuild.nix
                         #./scripts.nix

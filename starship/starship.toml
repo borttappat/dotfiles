@@ -11,8 +11,8 @@ style_root = "bold red"
 show_always = true
 
 [character]
-success_symbol = " [└─><>](bold yellow)"
-error_symbol = " [└─>](bold yellow)"
+success_symbol = " [└─>](bold yellow)"
+error_symbol = " [└─x](bold yellow)"
 
 [hostname]
 format = "[ $hostname]($style) in "

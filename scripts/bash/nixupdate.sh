@@ -10,7 +10,9 @@ cd /etc/nixos || exit 1
 sudo nix flake update
 
 # Update the system
-sudo ~/dotfiles/scripts/bash/nixbuild.sh
+#sudo ~/dotfiles/scripts/bash/nixbuild.sh
+sh ~/dotfiles/scripts/bash/nixbuild.sh
+
 
 # Return to the original directory
 cd "$original_dir" || exit 1
