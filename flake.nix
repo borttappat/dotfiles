@@ -20,7 +20,7 @@
                     modules = [
                         #./hardware-configuration.nix
                         ./configuration.nix
-                        ./boot.nix
+                        #./boot.nix
                         ./packages.nix
                         ./services.nix
                         ./nixp.nix
