@@ -3,7 +3,7 @@ import os
 
 def main():
     input_file = os.path.expanduser("~/dotfiles/wal/nix-colors")
-    output_file = "/etc/nixos/colors.nix"
+    output_file = os.path.expanduser("~/dotfiles/modules/colors.nix")
 
     # Read the content of nix-colors
     with open(input_file, 'r') as f:
