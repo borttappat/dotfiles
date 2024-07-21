@@ -1,36 +1,51 @@
 #!/usr/bin/env bash
 
-# File to store the last window offset
-offset_file="/tmp/i3_float_offset"
+# File to store the current window count and position
+state_file="/tmp/i3_float_state"
 
-# Initial offset
-x_offset=20
-y_offset=20
+# Initial position (upper left corner with some margin)
+init_x=50
+init_y=50
 
-# Read the last offset if the file exists
-if [ -f "$offset_file" ]; then
-    read x_offset y_offset < "$offset_file"
+# Offset for each new window
+x_offset=75
+y_offset=75
+
+# Maximum number of windows before resetting position
+max_windows=5
+
+# Read the current state if the file exists
+if [ -f "$state_file" ]; then
+    read window_count current_x current_y < "$state_file"
+else
+    window_count=0
+    current_x=$init_x
+    current_y=$init_y
 fi
 
-# Get current mouse position
-eval $(xdotool getmouselocation --shell)
+# Check if there are any floating windows on the current workspace
+floating_windows=$(i3-msg -t get_tree | jq '.. | select(.type?) | select(.type=="workspace" and .focused==true) | ..  | select(.type?=="floating_con") | .nodes | length')
 
-# Calculate new position
-x=$((X + x_offset))
-y=$((Y + y_offset))
-
-# Increment offset for next window
-x_offset=$((x_offset + 20))
-y_offset=$((y_offset + 20))
-
-# Reset offset if it gets too large
-if [ $x_offset -gt 200 ] || [ $y_offset -gt 200 ]; then
-    x_offset=20
-    y_offset=20
+if [ "$floating_windows" -eq 0 ]; then
+    # Reset position if no floating windows
+    window_count=0
+    current_x=$init_x
+    current_y=$init_y
+else
+    # Increment window count and adjust position
+    window_count=$((window_count + 1))
+    if [ $window_count -gt $max_windows ]; then
+        window_count=1
+        current_x=$init_x
+        current_y=$init_y
+    else
+        current_x=$((current_x + x_offset))
+        current_y=$((current_y + y_offset))
+    fi
 fi
 
-# Save the new offset
-echo "$x_offset $y_offset" > "$offset_file"
+# Save the new state
+echo "$window_count $current_x $current_y" > "$state_file"
 
 # Launch Alacritty at the new position
-alacritty --class floating -o window.position.x=$x -o window.position.y=$y
+alacritty --class floating -o window.position.x=$current_x -o window.position.y=$current_y

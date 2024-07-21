@@ -138,6 +138,7 @@
     #nmon            #top-like tool
     zathura         #pdf-reader
     xdotool
+    jq
     killall 
     qemu 
     #kvmtool
