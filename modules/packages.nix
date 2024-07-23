@@ -39,7 +39,8 @@
     python3
 
 # Programs
-    librewolf
+    #librewolf
+    floorp
     firefox
     brave
     mullvad

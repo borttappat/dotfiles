@@ -40,7 +40,7 @@ alias polyconf='v ~/dotfiles/config.ini'
 alias aliases='v ~/dotfiles/config.fish'
 
 
-alias w='feh --bg-fill ~/Wallpapers/Dark.jpg'
+#alias w='feh --bg-fill ~/Wallpapers/Dark.jpg'
 alias rgb='openrgb --device 0 --mode static --color'
 alias walrgb='~/dotfiles/walrgb.sh '
 
