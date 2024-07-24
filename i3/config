@@ -287,17 +287,20 @@ client.urgent           $al     $al     $al     $al
 
 # Gaps
 
+
 # Set gaps for workspace 1
-    workspace 1 gaps inner 15px
-    workspace 1 gaps outer 30px
+#    workspace 1 gaps inner 15px
+#    workspace 1 gaps outer 30px
+#    workspace 1 gaps top 29px
+
 
 # Set gaps for workspace 3
     #workspace 3 gaps inner 30px
     #workspace 3 gaps outer 50px
 
-    gaps inner 10px
-    gaps outer 2px
-    gaps top 28px
+    gaps inner 5px
+    gaps outer 3px
+    gaps top 29px
 # Smart gaps
 # Only enable gaps on a workspace when there is at least one container
     smart_gaps off  
@@ -314,7 +317,7 @@ no_focus [class="Polybar"]
 
 # Activate smart borders (only when there are effectively no gaps)
 smart_borders no_gaps
-
+#
 
 # Controlling gap sizes
 bindsym $mod+Shift+Down gaps inner current plus 2
