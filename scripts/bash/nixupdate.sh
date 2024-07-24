@@ -6,7 +6,7 @@ original_dir=$(pwd)
 # Change directory to ~/dotfiles
 cd ~/dotfiles || exit 1
 
-# Update flake.nix in /etc/nixos
+# Update flake.nix in 
 sudo nix flake update
 
 # Update the system
