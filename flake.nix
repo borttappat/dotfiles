@@ -10,9 +10,10 @@
             
             #nix-index-database.url = "github:Mic92/nix-index-database";
             #nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-    outputs = { self, nixpkgs, ... }@inputs: {
+            };
+            
+          outputs = { self, nixpkgs, ... }@inputs:
+    {
         nixosConfigurations = {
             
             "razer" = nixpkgs.lib.nixosSystem {
@@ -29,12 +30,11 @@
                         ./modules/razer.nix
                         ./modules/razerconf.nix
                         ./modules/colors.nix
-                        #./modules/nixbuild.nix
-                        #./modules/scripts.nix
-                        #nix-index-database.nixosModules.nix-index
                         ./modules/steam.nix
                         ./modules/pentesting.nix
                         ./modules/dev.nix
+                        #./modules/scripts.nix
+                         
                     ];
             };
 
@@ -50,6 +50,7 @@
                         ./modules/nixp.nix
                         ./modules/users.nix
                         ./modules/colors.nix 
+                        "/etc/nixos/hardware-configuration.nix"
                     ];
             }; 
 
@@ -69,6 +70,7 @@
                         ./modules/steam.nix
                         ./modules/colors.nix 
                         ./modules/pentesting.nix
+                        "/etc/nixos/hardware-configuration.nix"
                     ];
             };
             
@@ -83,6 +85,7 @@
                         ./modules/nixp.nix
                         ./modules/users.nix
                         ./modules/colors.nix
+                        "/etc/nixos/hardware-configuration.nix"
                     ];
             };
 
