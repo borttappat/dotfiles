@@ -98,7 +98,7 @@ in
     users.users.traum = {
         isNormalUser = true;
         description = "A";
-        extraGroups = [ "networkmanager" "wheel" "libvirtd" "wireshark" "adbusers" "docker" ];
+        extraGroups = [ "audio" "networkmanager" "wheel" "libvirtd" "wireshark" "adbusers" "docker" ];
         packages = with pkgs; [
             ];
         };

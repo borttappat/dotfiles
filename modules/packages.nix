@@ -35,7 +35,7 @@
 
 
 # Compilers
-    #gcc
+    gcc
     python3
 
 # Programs
