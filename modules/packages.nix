@@ -96,6 +96,7 @@
     #picom-pijulius
     #wpgtk
     pywal
+    #pywal16
     wallust
     #pywalfox-native
     #themechanger
@@ -178,6 +179,7 @@
     xorg.xorgserver
     xorg.xmodmap
     xorg.xmessage
+    xorg.xcursorthemes
     
 # Uncategorized
         ];

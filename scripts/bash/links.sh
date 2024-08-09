@@ -4,6 +4,7 @@
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/ticker/.ticker.yaml --dir ~/
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/bash/.bashrc --dir ~/
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/vim/.vimrc --dir ~/
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/wallust/wallust.toml --dir ~/.config/wallust
 
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/zathura/zathurarc --dir ~/zathura
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/alacritty/alacritty.toml --dir ~/.config/alacritty
