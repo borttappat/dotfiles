@@ -71,7 +71,7 @@ A few useful ones include:
 
 ``np`` opens a vim-session in which you can edit ``packages.nix`` which determines the packages installed on the system
 
-``nb`` builds the system with the modules listed in ``flake.nix``in the ``"default"`` section(notably includes ``packages.nix``, the referenced script is a bit hacky and involves fething the name using ``neofetch`` in the background, keep that program around or set up new Configurations with other methos, Nix includes this by referencing the hostname, it's worth looking into.
+``nb`` builds the system with the modules listed in ``flake.nix``in the ``"default"`` section(notably includes ``packages.nix``, the referenced script is a bit hacky and involves fething the name using ``neofetch`` in the background, keep that program around or set up new Configurations with other methos, Nix includes this by referencing the hostname, it's worth looking into. Use ``nu`` to update the flake.lock file and rebuild(updates the kernel and unpins the installed packages, allowing for the most recent updates).
 
 ``pc`` opens up a vim-session in which you can edit Picom, the compositor responsible for the transparency
 

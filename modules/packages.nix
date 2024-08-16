@@ -66,6 +66,7 @@
     #wiki-tui
     fzf 
     alacritty
+    warp-terminal
     #kitty
     htop
     glances
@@ -96,6 +97,7 @@
     #picom-pijulius
     #wpgtk
     pywal
+    themix-gui
     #pywal16
     wallust
     #pywalfox-native
