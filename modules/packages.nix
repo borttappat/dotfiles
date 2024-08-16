@@ -20,7 +20,7 @@
 # Fonts
     fonts.packages = with pkgs; [
     cozette
-    hack-font
+    #hack-font
     creep
     ];
 
