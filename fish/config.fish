@@ -92,7 +92,7 @@ alias f='fishconf'
 
 
 alias rgb='openrgb --device 0 --mode static --color'
-alias walrgb='~/dotfiles/scripts/bash/walrgb.sh '
+#alias walrgb='~/dotfiles/scripts/bash/walrgb.sh '
 #alias w='~/dotfiles/scripts/bash/walrgb.sh ~/Wallpapers/'
 alias w='wal -Rn'
 

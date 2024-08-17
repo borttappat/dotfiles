@@ -33,7 +33,7 @@
                         ./modules/steam.nix
                         ./modules/pentesting.nix
                         ./modules/dev.nix
-                        #./modules/scripts.nix
+                        ./modules/scripts.nix
                          
                     ];
             };
