@@ -70,7 +70,8 @@
                         ./modules/steam.nix
                         ./modules/colors.nix 
                         ./modules/pentesting.nix
-                        "/etc/nixos/hardware-configuration.nix"
+                        #"/etc/nixos/hardware-configuration.nix"
+                        ./modules/scripts.nix
                     ];
             };
             
@@ -85,7 +86,8 @@
                         ./modules/nixp.nix
                         ./modules/users.nix
                         ./modules/colors.nix
-                        "/etc/nixos/hardware-configuration.nix"
+                        #"/etc/nixos/hardware-configuration.nix"
+                        ./modules/scripts.nix
                     ];
             };
 

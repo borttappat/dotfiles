@@ -14,6 +14,14 @@ y_offset=75
 # Maximum number of windows before resetting position
 max_windows=5
 
+# Function to get the primary display resolution
+get_primary_resolution() {
+    xrandr | grep primary | grep -oP '\d+x\d+' | head -n1
+}
+
+# Get the primary display resolution
+RESOLUTION=$(get_primary_resolution)
+
 # Read the current state if the file exists
 if [ -f "$state_file" ]; then
     read window_count current_x current_y < "$state_file"
@@ -47,5 +55,17 @@ fi
 # Save the new state
 echo "$window_count $current_x $current_y" > "$state_file"
 
-# Launch Alacritty at the new position
-alacritty --class floating -o window.position.x=$current_x -o window.position.y=$current_y
+# Determine which configuration to use based on resolution and cursor position
+if [ "$RESOLUTION" = "1920x1080" ]; then
+    # 1080p display
+    config_file="$HOME/.config/alacritty/alacritty1080p.toml"
+elif [ "$RESOLUTION" = "3840x2160" ] || [ $current_x -ge 1920 ]; then
+    # 4K display or position is on the 4K display
+    config_file="$HOME/.config/alacritty/alacritty4k.toml"
+else
+    # Default (likely internal display)
+    config_file="$HOME/.config/alacritty/alacritty.toml"
+fi
+
+# Launch Alacritty at the new position with the appropriate configuration
+alacritty --class floating -o window.position.x=$current_x -o window.position.y=$current_y --config-file "$config_file"
