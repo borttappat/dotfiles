@@ -65,4 +65,4 @@ sudo chmod +x ~/dotfiles/scripts/bash/*.sh
 # make every script in ~/.local/bin executeable
 sudo chmod +x ~/.local/bin/*
 
-
+echo "Files linked"
