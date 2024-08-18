@@ -13,7 +13,6 @@ services.asusd.enable = true;
 #services.pipewire.jack.enable = true;
 #services.jack.jackd.enable = false;
 
-services.asusd.enable = true;
 # Packages
 
 environment.systemPackages = with pkgs; [
