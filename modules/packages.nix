@@ -21,7 +21,7 @@
     fonts.packages = with pkgs; [
     cozette
     #hack-font
-    creep
+    #creep
     ];
 
 # Packages to install on a system-wide level
@@ -40,7 +40,6 @@
 
 # Programs
     #librewolf
-    floorp
     firefox
     brave
     mullvad
@@ -50,6 +49,7 @@
     mpv
 
 # Terminal stuff
+    tty-share       #
     zsh
     rsync 
     starship
@@ -61,7 +61,7 @@
     #tgpt           #gpt chatbot
     du-dust         #better version of du
     tmux 
-    zellij
+    #zellij
     #ripgrep
     #wiki-tui
     fzf 
@@ -79,8 +79,8 @@
     zoxide          #cd without amnesia
     joshuto         #ranger-like file manager written in rust
     figlet          #for outputting ascii-text in banners etc.
-    ticker          #text-based price tracker
-    tickrs          #visual price tracker
+    #ticker          #text-based price tracker
+    #tickrs          #visual price tracker
     eza             #better ls
     ttyper          #typing excercises
     #dfrs            #df-replacement
@@ -114,17 +114,17 @@
     #autorandr
 
 # Tools
-    #dog             #replacecment for cat
+    #dog                    #replacecment for cat
     catppuccinifier-cli     #modify wallpapers with a catppucin style
     #proxychains-ng
-    bandwhich       #bandwith tracker
+    bandwhich           #bandwith tracker
     iw
     wirelesstools
     iftop           #top for network interfaces
     #youtube-tui
     #mage           #make-build tool written i Go
     #poetry          #python dependency management
-    ngrok           #web server running on local machine
+    #ngrok           #web server running on local machine
     #pgrok          #similar to the above
     #tmate          #terminal-sharing
     #exiftool
@@ -142,7 +142,7 @@
     #nmon            #top-like tool
     zathura         #pdf-reader
     xdotool
-    jq
+    #jq
     killall 
     qemu 
     #kvmtool
@@ -172,7 +172,7 @@
     unzip           #zip-archiving tool 
     tealdeer        #alternative to man
     lynis           #security auditing tool
-    udevil          #udisks replacement
+    #udevil          #udisks replacement
 
     
 # X11
