@@ -49,7 +49,8 @@
     mpv
 
 # Terminal stuff
-    tty-share       #
+    #tty-share       #
+    tmate
     zsh
     rsync 
     starship
