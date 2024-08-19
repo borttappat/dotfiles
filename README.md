@@ -11,6 +11,10 @@ Managed through scripts in ``scripts/bash`` and ``scripts/python`` and configura
 ![Screenshot](https://github.com/borttappat/dotfiles/blob/main/misc/screenshot.png)
 
 
+## *Warning*
+The setup-scripts in this repo are work in progress. I update stuff weekly and I can't guarantee that nothing breaks. Setting up a user-friendly experience isn't my main priority, and the setup-scripts might break from time to time. Until I end up with a "stable" version, consider this very much work in progress.
+
+
 ## Installation
 Commands to run on an (not recommended)existing install or
 (recommended) fresh install
@@ -35,7 +39,8 @@ Run the script
 ```
 ./nixbuild.sh
 ```
-Your system will then reboot and you should boot into tty and the command ``x`` will start Xserver and i3(picom for transparency is started at launch, if you're running in a WM I run the following to make it more usable, transparency hasn't worked out well for me in virtual environments): ``killall picom`` 
+Your system will then, last time I checked, freee up. From here, reboot and you should then boot into tty and the command ``x`` will start Xserver and i3(picom for transparency is started at launch, if you're running in a WM I run the following to make it more usable, transparency hasn't worked out well for me in virtual environments): ``killall picom``
+I should probably just set up a script to look for WMs when launching i3, but alas, I have not.
 
 ### Usage
 
@@ -66,7 +71,7 @@ Bindings can be found in ``~/dotfiles/i3/config``, but often used ones include:
 
 
 #### Aliases
-``f`` is aliased to open your fish-config in which you can find every shortcut to every most scripts
+``f`` is aliased to open your fish-config in which you can find every shortcut to most scripts
 A few useful ones include:
 
 ``np`` opens a vim-session in which you can edit ``packages.nix`` which determines the packages installed on the system
@@ -77,7 +82,7 @@ A few useful ones include:
 
 ``ac`` opens up a vim-session for editing Alacrittys config file
 
-
+``nu`` updates your flake, unpinning from my set version, and updates the system along with the kerel.
 
 ## Scripts
 
