@@ -3,13 +3,14 @@
 unclutter -grab &
 wal -Rn &
 #mullvad connect & 
+#picom -b
 
 # Here i3 is kept as default
 session=${1:-i3}
 
 case $session in
-    i3           ) picom -b && wal -Rnq && exec i3;;
-    i3wm         ) exec i3;;
+    i3           ) wal -Rnq && exec i3;;
+    i3wm         ) wal -Rnq && exec i3;;
 
 # No known session, try to run it as command
     *                 ) exec $1;;
