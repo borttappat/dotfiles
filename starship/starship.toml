@@ -72,6 +72,11 @@ detect_extensions = ["py"]
 version_format = "v${raw}"
 disabled = true
 
+[battery]
+full_symbol = '🔋 '
+charging_symbol = '⚡️ '
+discharging_symbol = '💀 '
+
 [direnv]
 disabled = true
 
