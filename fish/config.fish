@@ -23,7 +23,7 @@ zoxide init fish | source
 # aliases
 alias reboot='systemctl reboot'
 alias rb='reboot'
-alias shutdown='shutdown now'
+alias shutdown='shutdown -h now'
 alias sd='shutdown'
 alias suspend='systemctl suspend'
 
