@@ -20,6 +20,12 @@ zoxide init fish | source
 
 #set -x EDITOR 'vim'
 
+function sudo!!
+    eval sudo $history[1]
+end
+
+abbr -a !! 'eval sudo $history[1]'
+
 # aliases
 alias reboot='systemctl reboot'
 alias rb='reboot'
