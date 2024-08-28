@@ -27,6 +27,10 @@ end
 abbr -a !! 'eval sudo $history[1]'
 
 # aliases
+
+
+
+
 alias reboot='systemctl reboot'
 alias rb='reboot'
 alias shutdown='shutdown -h now'
@@ -46,13 +50,31 @@ alias bw='sudo bandwhich'
 alias pc='picomconf'
 alias ai='aichat -H --save-session -s'
 alias vn='vim notes.txt'
-alias ls='eza -a'
-alias l='eza -a -l'
 
-alias sls='eza -a -l | grep -i'
+# Replace ls with eza
+alias ls 'eza -A --color=always --group-directories-first --icons' # preferred listing
+alias l 'eza -Al --color=always --group-directories-first --icons'  # all files and dirs
+alias lt 'eza -AT --color=always --group-directories-first --icons' # tree listing
+
+alias sls='ls | grep -i'
+
+alias .. 'cd ..'
+alias ... 'cd ../..'
+alias .... 'cd ../../..'
+alias ..... 'cd ../../../..'
+alias ...... 'cd ../../../../..'
+
+alias grep 'ugrep --color=auto'
+alias egrep 'ugrep -E --color=auto'
+alias fgrep 'ugrep -F --color=auto'
+alias grubup 'sudo update-grub'
+alias hw 'hwinfo --short'                          # Hardware Info
+alias ip 'ip -color'
 
 alias kali='docker start unruffled_edison && sudo docker attach unruffled_edison'
 alias sesp='searchsploit'
+
+
 
 # widescreen setup
 alias xrandrwide='xrandr --output HDMI-1 --mode 3440x1440 --output eDP-1 --off && wal -R && killall polybar &&  polybar -q &'
@@ -124,7 +146,7 @@ alias tds='sudo tailscale file cp'
 alias tdr='sudo tailscale file get'
 
 
-alias cf='clear && neofetch'
+alias cf='clear && fastfetch'
 
 
 # network-related

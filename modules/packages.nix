@@ -64,6 +64,7 @@
     tmux 
     #zellij
     #ripgrep
+    ugrep
     #wiki-tui
     fzf 
     alacritty
@@ -71,7 +72,8 @@
     #kitty
     htop
     glances
-    neofetch
+    #neofetch
+    fastfetch
     bunnyfetch 
     #nitch
     cbonsai
@@ -163,6 +165,7 @@
     #signal-cli
     whois
     xrdp            #rdp-interface
+    freerdp3
     warpd           #click stuff without mouse input
     ollama          #run llms locally
     #khoj
