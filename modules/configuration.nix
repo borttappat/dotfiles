@@ -28,7 +28,27 @@
     users.defaultUserShell = pkgs.fish;
     environment.shells = with pkgs; [ fish ];
 
+ qt = {
+    enable = true;
+    platformTheme = "gtk2";
+    style = "adwaita-dark";
+  };
 
+  environment.systemPackages = with pkgs; [
+    gnome.adwaita-icon-theme
+    gtk-engine-murrine
+    gtk_engines
+    gsettings-desktop-schemas
+  ];
+
+  environment.variables = {
+    GTK_THEME = "Adwaita:dark";
+  };
+
+  environment.etc."gtk-3.0/settings.ini".text = ''
+    [Settings]
+    gtk-application-prefer-dark-theme=1
+  '';
 
 # Setting up for zsh
 /*
