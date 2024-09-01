@@ -24,6 +24,8 @@
     #creep
     ];
 
+
+
 # Packages to install on a system-wide level
     environment.systemPackages = with pkgs; [
 
@@ -72,14 +74,15 @@
     #kitty
     htop
     glances
+    bottom          # visual process monitor
     #neofetch
     fastfetch
     bunnyfetch 
     #nitch
-    cbonsai
-    cmatrix
+    cbonsai         # cli-gardening
+    cmatrix         # follow the white rabbit
     ranger
-    zoxide          #cd without amnesia
+    zoxide          #cd without amnesia, sourced in config.fish
     joshuto         #ranger-like file manager written in rust
     figlet          #for outputting ascii-text in banners etc.
     #ticker          #text-based price tracker
@@ -117,7 +120,9 @@
     #autorandr
 
 # Tools
+    ntp
     #dog                    #replacecment for cat
+    alsa-utils
     catppuccinifier-cli     #modify wallpapers with a catppucin style
     #proxychains-ng
     bandwhich           #bandwith tracker
@@ -187,6 +192,8 @@
     xorg.xmessage
     xorg.xcursorthemes
     
+
+
 # Uncategorized
         ];
 }

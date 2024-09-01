@@ -28,6 +28,8 @@
     users.defaultUserShell = pkgs.fish;
     environment.shells = with pkgs; [ fish ];
 
+
+
 # Setting up for zsh
 /*
 programs = {
@@ -85,7 +87,7 @@ in
     networking.networkmanager.enable = true;
 
 # Enable sound with pipewire
-    sound.enable = true;
+    #sound.enable = true;
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {

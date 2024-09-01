@@ -48,6 +48,14 @@
     10.10.10.117 irked.htb
     10.10.11.25 greenhorn.htb
 
+    # GOAD
+    10.2.10.10   sevenkingdoms.local kingslanding.sevenkingdoms.local kingslanding
+    10.2.10.11   winterfell.north.sevenkingdoms.local north.sevenkingdoms.local winterfell
+    10.2.10.12   essos.local meereen.essos.local meereen
+    10.2.10.22   castelblack.north.sevenkingdoms.local castelblack
+    10.2.10.23   braavos.essos.local braavos
+
+
     '';
 }
 

@@ -12,6 +12,18 @@ cat /home/traum/.cache/wal/sequences
 
 end
 
+# enable vim mode for fish
+function toggle_vim_mode
+    if test "$fish_key_bindings" = "fish_vi_key_bindings"
+        fish_default_key_bindings
+        echo "Switched to default (emacs) key bindings"
+    else
+        fish_vi_key_bindings
+        echo "Switched to vi key bindings"
+    end
+end
+
+
 # Starship
 starship init fish | source
 
@@ -20,17 +32,19 @@ zoxide init fish | source
 
 #set -x EDITOR 'vim'
 
+# Replicate !! functionality in fish
 function sudo!!
     eval sudo $history[1]
 end
 
 abbr -a !! 'eval sudo $history[1]'
 
-# aliases
 
+# # # # # # 
+# ALIASES #
+# # # # # #
 
-
-
+alias msf='sudo msfconsole -q'
 alias reboot='systemctl reboot'
 alias rb='reboot'
 alias shutdown='shutdown -h now'
@@ -52,28 +66,28 @@ alias ai='aichat -H --save-session -s'
 alias vn='vim notes.txt'
 
 # Replace ls with eza
-alias ls 'eza -A --color=always --group-directories-first --icons' # preferred listing
-alias l 'eza -Al --color=always --group-directories-first --icons'  # all files and dirs
-alias lt 'eza -AT --color=always --group-directories-first --icons' # tree listing
+alias ls='eza -A --color=always --group-directories-first --icons' # preferred listing
+alias l='eza -Al --color=always --group-directories-first --icons'  # all files and dirs
+alias lt='eza -AT --color=always --group-directories-first --icons' # tree listing
 
 alias sls='ls | grep -i'
+alias sl='eza -Al --color=always --group-directories-first --icons | grep -i' # preferred listing
 
-alias .. 'cd ..'
-alias ... 'cd ../..'
-alias .... 'cd ../../..'
-alias ..... 'cd ../../../..'
-alias ...... 'cd ../../../../..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
 
-alias grep 'ugrep --color=auto'
-alias egrep 'ugrep -E --color=auto'
-alias fgrep 'ugrep -F --color=auto'
-alias grubup 'sudo update-grub'
-alias hw 'hwinfo --short'                          # Hardware Info
-alias ip 'ip -color'
+alias grep='ugrep --color=auto'
+alias egrep='ugrep -E --color=auto'
+alias fgrep='ugrep -F --color=auto'
+alias grubup='sudo update-grub'
+alias hw='hwinfo --short'                          # Hardware Info
+alias ip='ip -color'
 
 alias kali='docker start unruffled_edison && sudo docker attach unruffled_edison'
 alias sesp='searchsploit'
-
 
 
 # widescreen setup
