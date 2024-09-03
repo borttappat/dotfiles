@@ -13,51 +13,64 @@ def replace_text_in_file(file_path, search_text, replace_text):
     with open(file_path, 'w') as file:
         file.write(modified_content)
 
-def change_ownership_recursive(path, uid, gid):
-    for root, dirs, files in os.walk(path):
-        for dir in dirs:
-            os.chown(os.path.join(root, dir), uid, gid)
-        for file in files:
-            os.chown(os.path.join(root, file), uid, gid)
+def get_real_user():
+    return os.environ.get('SUDO_USER') or os.getlogin()
 
-# Get the current user's name and ID
-current_user = os.getlogin()
-user_info = pwd.getpwnam(current_user)
+def get_user_home(username):
+    return pwd.getpwnam(username).pw_dir
+
+# Get the real user (even when run with sudo)
+real_user = get_real_user()
+user_home = get_user_home(real_user)
+
+# Get user and group IDs
+user_info = pwd.getpwnam(real_user)
 uid = user_info.pw_uid
 gid = user_info.pw_gid
 
-# Directory containing the files to process
-dotfiles_directory = os.path.expanduser("~/dotfiles")
+# Directories containing the files to process
+dotfiles_directory = os.path.join(user_home, "dotfiles")
+nixos_directory = "/etc/nixos"
 
 # List of files to process in dotfiles
-file_list = [
+dotfiles_list = [
     "modules/configuration.nix",
     "modules/users.nix",
-    # Add more file names as needed
+    # Add more dotfiles as needed
+]
+
+# List of files to process in /etc/nixos
+nixos_files = [
+    "configuration.nix",
+    "hardware-configuration.nix",
+    # Add more NixOS files as needed
 ]
 
 # Process dotfiles
-for file_name in file_list:
+for file_name in dotfiles_list:
     file_path = os.path.join(dotfiles_directory, file_name)
     if os.path.exists(file_path):
-        replace_text_in_file(file_path, "traum", current_user)
-        print(f"Replaced 'traum' with '{current_user}' in {file_name}")
+        replace_text_in_file(file_path, "traum", real_user)
+        print(f"Replaced 'traum' with '{real_user}' in {file_path}")
     else:
-        print(f"File not found: {file_name}")
+        print(f"File not found: {file_path}")
 
-print("Username updated in dotfiles.")
+# Process NixOS files
+for file_name in nixos_files:
+    file_path = os.path.join(nixos_directory, file_name)
+    if os.path.exists(file_path):
+        replace_text_in_file(file_path, "traum", real_user)
+        print(f"Replaced 'traum' with '{real_user}' in {file_path}")
+    else:
+        print(f"File not found: {file_path}")
 
-# Change ownership of all files in home directory
-home_directory = os.path.expanduser("~")
+print("Username updated in dotfiles and NixOS configuration.")
+
+# Change ownership of dotfiles to the real user
 try:
-    change_ownership_recursive(home_directory, uid, gid)
-    print(f"Changed ownership of all files in {home_directory} to {current_user}")
-except PermissionError:
-    print("Permission denied. Trying with sudo...")
-    try:
-        subprocess.run(['sudo', 'chown', '-R', f"{current_user}:{current_user}", home_directory], check=True)
-        print(f"Changed ownership of all files in {home_directory} to {current_user} using sudo")
-    except subprocess.CalledProcessError as e:
-        print(f"Error changing ownership: {e}")
+    subprocess.run(['chown', '-R', f"{real_user}:{real_user}", dotfiles_directory], check=True)
+    print(f"Changed ownership of all files in {dotfiles_directory} to {real_user}")
+except subprocess.CalledProcessError as e:
+    print(f"Error changing ownership: {e}")
 
 print("Process completed.")
