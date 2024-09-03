@@ -26,7 +26,7 @@ with open(configuration_nix, "r") as source:
 
 # Read hardware-configuration.nix content
 with open(hardware_configuration_nix, "r") as hardware_config:
-    hardware_lines = hardware_config.readlines()[8:]  # Start from line 9
+    hardware_lines = hardware_config.readlines()[9:]  # Start from line 10
     # Find the last occurrence of "}"
     last_brace_index = len(hardware_lines) - next(i for i, line in enumerate(reversed(hardware_lines)) if "}" in line) - 1
     hardware_lines = hardware_lines[:last_brace_index]
