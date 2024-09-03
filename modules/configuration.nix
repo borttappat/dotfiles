@@ -106,9 +106,9 @@ in
 #programs.dconf.enable = true;
 
 # Kernel
-    #boot.kernelPackages = pkgs.linuxPackages_latest;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    boot.kernelPackages = pkgs.linuxPackages_6_10; # Example for kernel version 6.10
+    #boot.kernelPackages = pkgs.linuxPackages_6_10; # Example for kernel version 6.10
 
 # Networking/Hostname, should be edited to conatin your hostname to build correctly with --flake/path/to/flake#hostname
     networking.hostName = "nix"; # Define your hostname.
@@ -117,7 +117,7 @@ in
     networking.networkmanager.enable = true;
 
 # Enable sound with pipewire
-    sound.enable = true;
+    #sound.enable = true;
     hardware.pulseaudio.enable = false; 
     security.rtkit.enable = true;
     services.pipewire = {

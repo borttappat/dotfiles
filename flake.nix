@@ -5,6 +5,7 @@
 
             #nixpkgs.url = "nixpkgs/nixos-unstable";
             nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+            #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
             #nixpkgs.url = "nixpkgs/nixos-git";
             
             
