@@ -49,6 +49,7 @@
     mullvad-vpn
     tor
     mpv
+    pipewire
 
 # Terminal stuff
     #tty-share       #
