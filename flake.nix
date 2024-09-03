@@ -43,7 +43,6 @@
            "WM" = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
                     modules = [
-                        ./modules/hardware-configuration.nix
                         ./modules/configuration.nix
                         ./modules/boot.nix
                         ./modules/packages.nix
@@ -51,7 +50,6 @@
                         ./modules/nixp.nix
                         ./modules/users.nix
                         ./modules/colors.nix 
-                        "/etc/nixos/hardware-configuration.nix"
                     ];
             }; 
 
