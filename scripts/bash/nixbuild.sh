@@ -7,7 +7,7 @@ if echo "$current_host" | grep -q "Razer"; then
     sudo nixos-rebuild switch --show-trace --flake ~/dotfiles#razer -v
 
 elif echo "$current_host" | grep -q "QEMU"; then
-    sudo nixos-rebuild switch --show-trace --flake /etc/nixos#WM -v 
+    sudo nixos-rebuild switch --show-trace --flake ~/dotfiles#WM -v 
 
 elif echo "$current_host" | grep -q "ASUS"; then
     #sudo nixos-rebuild switch --flake /etc/nixos#asus

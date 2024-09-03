@@ -34,7 +34,7 @@ if echo "$current_host" | grep -q "Razer"; then
     sudo nixos-rebuild boot --show-trace --flake ~/dotfiles#razer -v
     check_status "NixOS rebuild for Razer"
 elif echo "$current_host" | grep -q "QEMU"; then
-    sudo nixos-rebuild boot --show-trace --flake /etc/nixos#WM -v
+    sudo nixos-rebuild boot --show-trace --flake ~/dotfiles#WM -v
     check_status "NixOS rebuild for QEMU"
 elif echo "$current_host" | grep -q "ASUS"; then
     sudo nixos-rebuild boot --show-trace --flake ~/dotfiles#asus -v
