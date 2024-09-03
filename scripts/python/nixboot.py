@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 # File paths
-source_file = "/etc/nixos/configuration.nix.old"
-target_file = "/etc/nixos/boot.nix"
+source_file = "/etc/nixos/configuration.nix"
+target_file = "~/dotfiles/boot.nix"
 
 # Read lines starting with "boot.loader" from source file
 with open(source_file, "r") as source:

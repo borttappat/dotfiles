@@ -22,8 +22,8 @@ directory = os.path.expanduser(directory)
 
 # List of files to process (add more as needed)
 file_list = [
-    "configuration.nix",
-    "users.nix",
+    "modules/configuration.nix",
+    "modules/users.nix",
     # Add more file names as needed
 ]
 
