@@ -1,11 +1,24 @@
 #!/usr/bin/env python3
 
 import os
+import pwd
+
+def get_sudo_user_home():
+    sudo_user = os.environ.get('SUDO_USER')
+    if sudo_user:
+        return os.path.expanduser(f'~{sudo_user}')
+    return os.path.expanduser('~')
 
 # File paths
 configuration_nix = "/etc/nixos/configuration.nix"
 hardware_configuration_nix = "/etc/nixos/hardware-configuration.nix"
-target_file = os.path.expanduser("~/dotfiles/modules/boot.nix")
+user_home = get_sudo_user_home()
+target_file = os.path.join(user_home, "dotfiles/modules/boot.nix")
+
+# Check if target file exists
+if not os.path.exists(target_file):
+    print(f"Error: Target file {target_file} does not exist.")
+    exit(1)
 
 # Read lines starting with "boot.loader" from configuration.nix
 with open(configuration_nix, "r") as source:
@@ -41,6 +54,12 @@ if bootloader_index != -1:
     with open(target_file, "w") as target:
         target.writelines(target_lines)
 
-    print("Hardware configuration and boot loader lines copied and inserted successfully.")
+    print(f"Hardware configuration and boot loader lines copied and inserted successfully into {target_file}")
 else:
-    print("Error: '# Bootloader' line not found in the target file.")
+    print(f"Error: '# Bootloader' line not found in the target file {target_file}")
+
+# Set the ownership of the target file to the sudo user
+if 'SUDO_UID' in os.environ and 'SUDO_GID' in os.environ:
+    uid = int(os.environ['SUDO_UID'])
+    gid = int(os.environ['SUDO_GID'])
+    os.chown(target_file, uid, gid)
