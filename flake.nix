@@ -3,9 +3,8 @@
 
         inputs = {
 
-            #nixpkgs.url = "nixpkgs/nixos-unstable";
-            nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-            #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+            nixpkgs.url = "nixpkgs/nixos-unstable";
+            #nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
             #nixpkgs.url = "nixpkgs/nixos-git";
             
             
@@ -43,6 +42,7 @@
            "WM" = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
                     modules = [
+                        ./modules/hardware-configuration.nix
                         ./modules/configuration.nix
                         ./modules/boot.nix
                         ./modules/packages.nix
@@ -50,6 +50,7 @@
                         ./modules/nixp.nix
                         ./modules/users.nix
                         ./modules/colors.nix 
+                        "/etc/nixos/hardware-configuration.nix"
                     ];
             }; 
 

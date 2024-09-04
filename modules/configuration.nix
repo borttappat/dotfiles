@@ -22,41 +22,13 @@
     programs.nix-ld.libraries = with pkgs; [
     ];
 
-# workaround for the "too many open files" error
-/*
-security.pam.loginLimits = [{
-    domain = "*";
-    type = "soft";
-    item = "nofile";
-    value = "8192";
-  }];
-*/
+
 # Fish-shell
     programs.fish.enable=true;
     users.defaultUserShell = pkgs.fish;
     environment.shells = with pkgs; [ fish ];
 
- qt = {
-    enable = true;
-    platformTheme = "gtk2";
-    style = "adwaita-dark";
-  };
 
-  environment.systemPackages = with pkgs; [
-    gnome.adwaita-icon-theme
-    gtk-engine-murrine
-    gtk_engines
-    gsettings-desktop-schemas
-  ];
-
-  environment.variables = {
-    GTK_THEME = "Adwaita:dark";
-  };
-
-  environment.etc."gtk-3.0/settings.ini".text = ''
-    [Settings]
-    gtk-application-prefer-dark-theme=1
-  '';
 
 # Setting up for zsh
 /*
@@ -108,8 +80,6 @@ in
 # Kernel
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    #boot.kernelPackages = pkgs.linuxPackages_6_10; # Example for kernel version 6.10
-
 # Networking/Hostname, should be edited to conatin your hostname to build correctly with --flake/path/to/flake#hostname
     networking.hostName = "nix"; # Define your hostname.
 
@@ -118,20 +88,19 @@ in
 
 # Enable sound with pipewire
     #sound.enable = true;
-    hardware.pulseaudio.enable = false; 
+    hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {
         enable = true;
         alsa.enable = true;
         alsa.support32Bit = true;
-  };
-
+    };
 
 # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.traum = {
         isNormalUser = true;
         description = "A";
-        extraGroups = [ "pipewire" "audio" "networkmanager" "wheel" "libvirtd" "wireshark" "adbusers" "docker" ];
+        extraGroups = [ "audio" "networkmanager" "wheel" "libvirtd" "wireshark" "adbusers" "docker" ];
         packages = with pkgs; [
             ];
         };
