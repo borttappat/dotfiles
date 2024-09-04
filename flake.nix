@@ -15,13 +15,11 @@
           outputs = { self, nixpkgs, ... }@inputs:
     {
         nixosConfigurations = {
-            
+            # razer-machine, set up with most modules enabled. Considered to be "main" machine            
             "razer" = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
                     modules = [
-                        #./modules/hardware-configuration.nix
                         ./modules/configuration.nix
-                        #./modules/boot.nix
                         ./modules/packages.nix
                         ./modules/services.nix
                         ./modules/nixp.nix
@@ -38,7 +36,7 @@
                     ];
             };
 
-
+            # WM, set up as a slightly lighter version without pentesting tools, steam, etc.
            "WM" = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
                     modules = [
@@ -50,15 +48,13 @@
                         ./modules/nixp.nix
                         ./modules/users.nix
                         ./modules/colors.nix 
-                        "/etc/nixos/hardware-configuration.nix"
                     ];
             }; 
 
-
+            # Asus laptop, set up similar to razer or "main"machine
             "asus" = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
                     modules = [
-                        #./modules/hardware-configuration.nix
                         ./modules/configuration.nix
                         ./modules/packages.nix
                         ./modules/services.nix
@@ -70,11 +66,10 @@
                         ./modules/steam.nix
                         ./modules/colors.nix 
                         ./modules/pentesting.nix
-                        #"/etc/nixos/hardware-configuration.nix"
                         ./modules/scripts.nix
                     ];
             };
-            
+           # default or fall-back option for when the build script does not recognize KVM/QEMU, Razer or Asus hardware 
             "default" = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
                     modules = [
@@ -86,7 +81,6 @@
                         ./modules/nixp.nix
                         ./modules/users.nix
                         ./modules/colors.nix
-                        #"/etc/nixos/hardware-configuration.nix"
                         ./modules/scripts.nix
                     ];
             };

@@ -102,7 +102,7 @@
     rofi
     picom
     #picom-pijulius
-    #wpgtk
+    wpgtk
     pywal
     themix-gui
     #pywal16
