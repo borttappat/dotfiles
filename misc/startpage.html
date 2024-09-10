@@ -3,158 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Griefhound - home</title>
+    <title>FEAR IS THE MIND-KILLER</title>
     <style>
-        @font-face {
-            font-family: 'Cozette';
-            src: url('CozetteVector.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-
-        html {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        html::-webkit-scrollbar {
-            width: 0px;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        
         body {
-            background-color: black;
-            color: #00ff00;
-            font-family: 'Cozette', 'Courier New', monospace;
+            background-color: #0c0c0c;
+            color: #98D902;
+            font-family: 'Press Start 2P', monospace;
             margin: 0;
             padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            font-size: 16px;
-            line-height: 1.5;
-            -webkit-font-smoothing: none;
-            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            font-size: 12px;
+            line-height: 1.2;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(12, 12, 12, 0.1) 50%,
+                rgba(12, 12, 12, 0.1)
+            );
+            background-size: 100% 4px;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        .flicker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(152, 217, 2, 0.01);
+            z-index: 1001;
+            pointer-events: none;
+            animation: flicker 0.3s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; }
+            100% { opacity: 0.9; }
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            animation: buzz 0.1s infinite alternate;
+        }
+        @keyframes buzz {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(0.2px) translateY(0.2px); }
+        }
+        h1, h2 {
+            color: #9DE001;
         }
         h1 {
-            text-align: center;
-            font-size: 24px;
+            font-size: 18px;
             margin-bottom: 20px;
-            line-height: 1.2;
+            text-shadow: 1px 1px #0c0c0c;
+        }
+        h2 {
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        a {
+            color: #6E9B08;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #9DE001;
         }
         .modules {
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
         .section {
             flex: 1;
-            margin: 0 10px;
-            text-align: center;
-        }
-        .section h2 {
-            padding-bottom: 5px;
-            font-size: 20px;
-            margin-bottom: 10px;
+            min-width: 200px;
         }
         #clock {
-            font-size: 32px;
-            text-align: center;
+            font-size: 24px;
             margin-bottom: 20px;
+            color: #B3B3B3;
         }
         ul {
             list-style-type: none;
             padding-left: 0;
         }
         li {
-            margin-bottom: 15px;
+            margin-bottom: 4px;
         }
-        a {
-            color: #00ff00;
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.3s ease;
-            position: relative;
-            display: inline-block;
-        }
-        a:hover {
-            color: #66ff66;
-        }
-        a:hover::after {
-            content: '_';
-            position: absolute;
-            right: -12px;
-            bottom: -2px;
-            animation: blink 0.7s steps(2, start) infinite;
-        }
-        @keyframes blink {
-            to {
-                visibility: hidden;
-            }
-        }
-        #matrix-canvas {
-            margin: 20px auto 0;
-            display: block;
-            border-radius: 10px;
-            overflow: hidden;
+        pre {
+            color: #929292;
+            font-size: 14px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-family: 'VT323', monospace;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>FEAR IS THE MIND-KILLER</h1>
+    <div class="scanlines"></div>
+    <div class="flicker"></div>
+    <div class="content">
+        <pre>
+#!/run/current-system/sw/bin/bash
+if ! pgrep -f "python3 -m http.server 8000" > /dev/null; then
+    cd ~/dotfiles/misc
+    nohup python3 -m http.server 8000 --bind 127.0.0.1 > /dev/null 2>&1 &
+fi
+        </pre>
+        <h1>root# ./FEAR_IS_THE_MIND_KILLER.sh</h1>
         <div id="clock"></div>
-        <div class="modules">
-            <div class="section">
-                <h2>Hacktivity</h2>
-                <ul>
-                    <li><a href="https://academy.hackthebox.com/dashboard">HTB Academy</a></li>
-                    <li><a href="https://app.hackthebox.com/machines">HTB Labs</a></li>
-                    <li><a href="https://www.revshells.com/">RevShells</a></li>
-                    <li><a href="https://github.com/peass-ng/PEASS-ng">PEASS-ng</a></li>
-                    <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master">Payload all the things</a></li>
-                    <li><a href="https://gtfobins.github.io/#">GTFOBins</a></li>
-                    <li><a href="https://wadcoms.github.io"/>WADComs</a></li>
-                    <li><a href="https://amsi.fail/"/>AMSI.fail</a></li>
-                    <li><a href="https://lolbas-project.github.io/"/>LOLBAS</a></li>
-                    <li><a href="https://www.stationx.net/crackmapexec-cheat-sheet"/>CME cheat sheet</a></li>
-                    <li><a href="https://github.com/insidetrust/statistically-likely-usernames"/>SLUs</a></li>
- 
-                </ul>
-            </div>
-            <div class="section">
-                <h2>Creativity</h2>
-                <ul>
-                    <li><a href="https://www.reddit.com/r/unixporn/">Unixporn</a></li>
-                    <li><a href="https://wallhaven.cc/latest">WallHaven</a></li>
-                    <li><a href="https://music.youtube.com">Music</a></li>
-                    <li><a href="https://claude.ai/new">Claude</a></li>
-                    <li><a href="https://www.youtube.com/">YouTube</a></li>
-                    <li><a href="https://github.com/borttappat/dotfiles">Git</a></li>
-                    
-                </ul>
-            </div>
-            <div class="section">
-                <h2>Productivity</h2>
-                <ul>
-                    <li><a href="https://mail.proton.me/u/0/inbox">ProtonMail</a></li>
-                    <li><a href="https://mail.google.com/mail/u/0/#inbox">GMail</a></li>
-                    <li><a href="https://se.indeed.com/jobs?q=linux&l=Stockholm&from=searchOnHP">Indeed</a></li>
-                    <li><a href="https://vim.rtorr.com/">Vim Cheat Sheet</a></li>
-                    <li><a href="https://discord.com/channels/">Discord</a></li>
-                    <li><a href="https://app.diagrams.net/">draw.io</a></li>
-                </ul>
-            </div>
-        </div>
-        <canvas id="matrix-canvas" width="600" height="200"></canvas>
+         <div class="category">
+        <h2>Hacktivity</h2>
+        <ul>
+            <li><a href="https://academy.hackthebox.com/dashboard">HTB_Academy</a></li>
+            <li><a href="https://app.hackthebox.com/machines">HTB_Labs</a></li>
+            <li><a href="https://www.revshells.com/">RevShells</a></li>
+            <li><a href="https://github.com/peass-ng/PEASS-ng">PEASS</a></li>
+            <li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master">Payload_all_the_things</a></li>
+            <li><a href="https://gtfobins.github.io/#">GTFOBins</a></li>
+            <li><a href="https://wadcoms.github.io">WADComs</a></li>
+            <li><a href="https://amsi.fail/">AMSI.fail</a></li>
+            <li><a href="https://lolbas-project.github.io/">LOLBAS</a></li>
+            <li><a href="https://www.stationx.net/crackmapexec-cheat-sheet">CME_cheat_sheet</a></li>
+            <li><a href="https://book.hacktricks.xyz/">HackTricks</a></li>
+            <li><a href="https://vuldb.com/">VulDB</a></li>
+            <li><a href="https://github.com/insidetrust/statistically-likely-usernames">SLUs</a></li>
+            <li><a href="https://crt.sh/">crt.sh</a></li>
+        </ul>
     </div>
-     <script>
+
+    <div class="category">
+        <h2>Creativity</h2>
+        <ul>
+            <li><a href="https://www.reddit.com/r/unixporn/">Unixpr0n</a></li>
+            <li><a href="https://wallhaven.cc/latest">WallHaven</a></li>
+            <li><a href="https://music.youtube.com">Music</a></li>
+            <li><a href="https://claude.ai/new">Claude</a></li>
+            <li><a href="https://www.youtube.com/">YouTube</a></li>
+            <li><a href="https://github.com/borttappat/dotfiles">Git</a></li>
+        </ul>
+    </div>
+
+    <div class="category">
+        <h2>Productivity</h2>
+        <ul>
+            <li><a href="https://mail.proton.me/u/0/inbox">ProtonMail</a></li>
+            <li><a href="https://mail.google.com/mail/u/0/#inbox">GMail</a></li>
+            <li><a href="https://vim.rtorr.com/">Vim_Cheat_Sheet</a></li>
+            <li><a href="https://discord.com/channels/">Discord</a></li>
+            <li><a href="https://app.diagrams.net/">draw.io</a></li>
+        </ul>
+    </div>
+    </div>
+    <script>
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -164,71 +178,6 @@
         }
         setInterval(updateClock, 1000);
         updateClock();
-
-        // Matrix animation
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-
-        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
-        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const nums = '0123456789';
-        const alphabet = katakana + latin + nums;
-
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-
-        let rainDrops = [];
-
-        // Initialize raindrops with random delays
-        for (let i = 0; i < columns; i++) {
-            rainDrops[i] = {
-                y: 0,
-                speed: Math.random() * 0.5 + 0.5,
-                delay: Math.floor(Math.random() * 100)
-            };
-        }
-
-        // Create gradient for fading edges
-        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        gradient.addColorStop(0, "rgba(0, 0, 0, 1)");
-        gradient.addColorStop(0.1, "rgba(0, 0, 0, 0)");
-        gradient.addColorStop(0.9, "rgba(0, 0, 0, 0)");
-        gradient.addColorStop(1, "rgba(0, 0, 0, 1)");
-
-        function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#0F0';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < rainDrops.length; i++) {
-                if (rainDrops[i].delay > 0) {
-                    rainDrops[i].delay--;
-                    continue;
-                }
-
-                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                ctx.fillText(text, i * fontSize, rainDrops[i].y * fontSize);
-
-                rainDrops[i].y += rainDrops[i].speed;
-
-                if (rainDrops[i].y * fontSize > canvas.height && Math.random() > 0.975) {
-                    rainDrops[i].y = 0;
-                }
-            }
-
-            // Apply gradient for fading edges
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-        }
-
-        // Start the animation immediately
-        setInterval(draw, 100);
-
-        // Clear the canvas initially
-        ctx.fillStyle = 'black';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
     </script>
 </body>
 </html>

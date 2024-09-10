@@ -57,7 +57,8 @@
     zsh
     rsync 
     starship
-    #artem           #img-to-ascii
+    artem           #img-to-ascii
+    ascii-image-converter   #i mean why only run one?
     cava
     #porsmo          #pomodoro-timer
     #mop
@@ -156,6 +157,7 @@
     qemu 
     #kvmtool
     flameshot       #screenshot-tool
+    maim            #CLI screenshot tool
     rar             #RAR-archive tool
     pciutils
     curl
@@ -196,5 +198,6 @@
 
 
 # Uncategorized
+    pulseaudioFull
         ];
 }
