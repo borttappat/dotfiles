@@ -54,6 +54,8 @@
     10.2.10.12   essos.local meereen.essos.local meereen
     10.2.10.22   castelblack.north.sevenkingdoms.local castelblack
     10.2.10.23   braavos.essos.local braavos
+    10.10.11.19 app.blurry.htb
+    10.10.11.32 sightless.htb
 
 
     '';

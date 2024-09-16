@@ -13,6 +13,7 @@
     
 # I'm sorry, Stallman
     nixpkgs.config.allowUnfree = true;
+    
     nixpkgs.config.allowUnstable = true;
 
     nix.package = pkgs.nixVersions.git;
@@ -31,6 +32,8 @@
 
 # Editors
     vim
+    neovim
+    helix
     #inkscape
     #obs-studio
     #davinci-resolve
@@ -52,18 +55,13 @@
     pipewire
 
 # Terminal stuff
-    #tty-share       #
     tmate
     zsh
     rsync 
     starship
     artem           #img-to-ascii
-    ascii-image-converter   #i mean why only run one?
     cava
-    #porsmo          #pomodoro-timer
     #mop
-    #duf             #storage-visualizer
-    #tgpt           #gpt chatbot
     du-dust         #better version of du
     tmux 
     #zellij
@@ -91,12 +89,9 @@
     #tickrs          #visual price tracker
     eza             #better ls
     ttyper          #typing excercises
-    #dfrs            #df-replacement
     pipes-rs        #rust-written replacement
     #gurk-rs
-    #bat             #cat-replacement
     #ddgr
-    #asciiquarium
 
 # WM
     polybar
@@ -106,7 +101,6 @@
     wpgtk
     pywal
     themix-gui
-    #pywal16
     wallust
     #pywalfox-native
     #themechanger
@@ -122,26 +116,18 @@
     #autorandr
 
 # Tools
-    ntp
     #dog                    #replacecment for cat
     alsa-utils
     catppuccinifier-cli     #modify wallpapers with a catppucin style
-    #proxychains-ng
     bandwhich           #bandwith tracker
     iw
     wirelesstools
-    iftop           #top for network interfaces
     #youtube-tui
-    #mage           #make-build tool written i Go
-    #poetry          #python dependency management
     #ngrok           #web server running on local machine
     #pgrok          #similar to the above
-    #tmate          #terminal-sharing
-    #exiftool
     procs           #ps written in rust
     #bottles        #client for running windows-software
     gping           #graphical ping tool
-    #openconnect
     openvpn         #openvpn-client
     brightnessctl   #brightness-handler
     #obsidian       #note taking tool
@@ -149,7 +135,6 @@
     #undervolt
     git
     gh              #git CLI tool
-    #nmon            #top-like tool
     zathura         #pdf-reader
     xdotool
     #jq
@@ -172,8 +157,8 @@
     lazydocker
     #signal-cli
     whois
-    xrdp            #rdp-interface
-    freerdp3
+    #xrdp            #rdp-interface
+    #freerdp3
     warpd           #click stuff without mouse input
     ollama          #run llms locally
     #khoj
@@ -183,7 +168,7 @@
     unclutter       #hides mouse cursor when not in use
     unzip           #zip-archiving tool 
     tealdeer        #alternative to man
-    lynis           #security auditing tool
+    #lynis           #security auditing tool
     #udevil          #udisks replacement
 
     

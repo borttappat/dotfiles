@@ -1,6 +1,37 @@
-# colors
-set default-bg     "{color2}"
-set default-fg     "{foreground}"
-set statusbar-bg   "{color4}"
-set statusbar-fg   "{color6}"
-set inputbar-bg    "{color1}"
+# zathurarc-dark
+set notification-error-bg       "#0c0c0c" # Darkest color
+set notification-error-fg       "#9DE001" # Lightest green
+set notification-warning-bg     "#0c0c0c" # Darkest color
+set notification-warning-fg     "#9DE001" # Lightest green
+set notification-bg             "#0c0c0c" # Darkest color
+set notification-fg             "#98D902" # Bright green
+
+set completion-group-bg         "#0c0c0c" # Darkest color
+set completion-group-fg         "#98D902" # Bright green
+set completion-bg               "#6E9B08" # Dark green
+set completion-fg               "#dedede" # Lightest color
+set completion-highlight-bg     "#84BB05" # Medium green
+set completion-highlight-fg     "#dedede" # Lightest color
+
+# Define the color in index mode
+set index-bg                   "#0c0c0c" # Darkest color
+set index-fg                   "#98D902" # Bright green
+set index-active-bg             "#6E9B08" # Dark green
+set index-active-fg             "#dedede" # Lightest color
+
+set inputbar-bg                 "#6E9B08" # Dark green
+set inputbar-fg                 "#dedede" # Lightest color
+
+set statusbar-bg                "#84BB05" # Medium green
+set statusbar-fg                "#0c0c0c" # Darkest color
+
+set highlight-color             "#98D902" # Bright green
+set highlight-active-color      "#9DE001" # Lightest green
+
+set default-bg                  "#0c0c0c" # Darkest color
+set default-fg                  "#98D902" # Bright green
+
+# Recolor book content's color
+set recolor                     true
+set recolor-lightcolor          "#0c0c0c" # Darkest color
+set recolor-darkcolor           "#98D902" # Bright green
