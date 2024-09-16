@@ -32,7 +32,7 @@
 
 # Editors
     vim
-    neovim
+    #neovim
     helix
     #inkscape
     #obs-studio
