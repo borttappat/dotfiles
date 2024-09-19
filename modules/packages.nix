@@ -158,7 +158,7 @@
     #signal-cli
     whois
     #xrdp            #rdp-interface
-    #freerdp3
+    freerdp3
     warpd           #click stuff without mouse input
     ollama          #run llms locally
     #khoj

@@ -42,7 +42,20 @@
       # Update /etc/nixos/colors.nix with colors from ~/dotfiles/wal/nix-color
       ${python3}/bin/python ~/dotfiles/scripts/python/nixcolors.py
 
-      echo "Colors updated!"
+# Define file paths
+startpage="$HOME/dotfiles/misc/startpage.html"
+colors_css="$HOME/.cache/wal/colors.css"
+
+# Remove content from lines 12 to 28 in startpage.html
+sed -i '12,28d' "$startpage"
+
+# Extract lines 12 to 28 from colors.css and insert them into startpage.html at line 12
+sed -n '12,28p' "$colors_css" | sed -i '11r /dev/stdin' "$startpage"
+
+# Add a single empty line after the inserted content
+#sed -i '28a\\' "$startpage"
+
+        echo "Colors updated!"
     '')
   ];
 }

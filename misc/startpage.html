@@ -8,9 +8,29 @@
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
         
+         :root {
+    --color0: #0E121D;
+    --color1: #264E69;
+    --color2: #534463;
+    --color3: #A1316D;
+    --color4: #2B5E8E;
+    --color5: #49668F;
+    --color6: #9D5C8C;
+    --color7: #a0cdd7;
+    --color8: #708f96;
+    --color9: #264E69;
+    --color10: #534463;
+    --color11: #A1316D;
+    --color12: #2B5E8E;
+    --color13: #49668F;
+    --color14: #9D5C8C;
+    --color15: #a0cdd7;
+}
+
+
         body {
-            background-color: #0c0c0c;
-            color: #98D902;
+            background-color: var(--color0);
+            color: var(--color1);
             font-family: 'Press Start 2P', monospace;
             margin: 0;
             padding: 20px;
@@ -61,26 +81,25 @@
             0% { transform: translateX(0) translateY(0); }
             100% { transform: translateX(0.2px) translateY(0.2px); }
         }
-        h1, h2 {
-            color: #9DE001;
-        }
         h1 {
+            color: var(--color2);
             font-size: 18px;
             margin-bottom: 20px;
             text-shadow: 1px 1px #0c0c0c;
         }
         h2 {
+            color: var(--color3);
             font-size: 14px;
             margin-top: 20px;
             margin-bottom: 10px;
         }
         a {
-            color: #6E9B08;
+            color: var(--color1);
             text-decoration: none;
             transition: color 0.3s ease;
         }
         a:hover {
-            color: #9DE001;
+            color: var(--color5);
         }
         .modules {
             display: flex;
@@ -94,7 +113,7 @@
         #clock {
             font-size: 24px;
             margin-bottom: 20px;
-            color: #B3B3B3;
+            color: var(--color6);
         }
         ul {
             list-style-type: none;
@@ -104,7 +123,7 @@
             margin-bottom: 4px;
         }
         pre {
-            color: #929292;
+            color: var(--color7);
             font-size: 14px;
             line-height: 1.2;
             margin-bottom: 20px;
