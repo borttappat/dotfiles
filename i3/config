@@ -31,7 +31,7 @@ bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -Rnq && htop"
 bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/.config/i3/config"
 
 # nix-packages
-bindsym $mod+Shift+n exec alacritty -e /bin/sh -c "wal -Rnq && sudo -E vim /etc/nixos/packages.nix"
+bindsym $mod+Shift+n exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/modules/packages.nix"
 
 # file-manager
 bindsym $mod+Shift+f exec alacritty -e /bin/sh -c "wal -Rnq && joshuto"

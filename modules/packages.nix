@@ -102,8 +102,8 @@
     pywal
     themix-gui
     wallust
-    #pywalfox-native
-    #themechanger
+    pywalfox-native
+    themechanger
     #theme-sh
     #imagemagick
     feh
