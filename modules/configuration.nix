@@ -134,7 +134,7 @@ in
      networking.firewall.allowedTCPPorts = [ 1234 8080 4444 4445 8000 53 3389];
      networking.firewall.allowedUDPPorts = [ 5355 5453 ];
     # Or disable the firewall altogether.
-     networking.firewall.enable = false;
+     #networking.firewall.enable = false;
 
 # Time zone
     time.timeZone = "Europe/Stockholm";
