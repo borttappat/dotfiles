@@ -43,6 +43,9 @@
     gcc
     python3
 
+# Python-libraries
+    python312Packages.python-nmap
+
 # Programs
     #librewolf
     firefox
