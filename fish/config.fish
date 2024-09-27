@@ -44,7 +44,7 @@ abbr -a !! 'eval sudo $history[1]'
 # ALIASES #
 # # # # # #
 
-alias msf='sudo msfconsole -q'
+alias msf='figlet -f cricket "msf" && sudo msfconsole -q'
 alias reboot='systemctl reboot'
 alias rb='reboot'
 alias shutdown='shutdown -h now'
@@ -96,8 +96,8 @@ alias xrandrwide='xrandr --output HDMI-1 --mode 3440x1440 --output eDP-1 --off &
 alias xrandrrestore='xrandr --output eDP-1 --mode 1920x1200 --output HDMI-1 --off && wal -R && killall polybar && polybar -q &'
 
 
-alias x='startx'
-alias v='sudo -E vim'
+alias x='figlet -f cricket "booting i3" && startx'
+alias v='vim'
 alias h='htop'
 alias ka='killall'
 
@@ -138,7 +138,7 @@ alias rgb='openrgb --device 0 --mode static --color'
 #alias w='~/dotfiles/scripts/bash/walrgb.sh ~/Wallpapers/'
 alias w='wal -Rn'
 
-alias dots='figlet -f slant Git && echo && cd ~/dotfiles && git status'
+alias dots='figlet -f cricket git && echo && cd ~/dotfiles && git status'
 alias gs='git status'
 alias ga='git add'
 alias gd='git diff'
