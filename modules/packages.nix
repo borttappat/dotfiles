@@ -45,6 +45,7 @@
 
 # Python-libraries
     python312Packages.python-nmap
+    python312Packages.prompt-toolkit
 
 # Programs
     #librewolf

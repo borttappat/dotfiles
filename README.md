@@ -11,13 +11,15 @@ Managed through scripts in ``scripts/bash`` and ``scripts/python`` and configura
 ![Screenshot](https://github.com/borttappat/dotfiles/blob/main/misc/screenshot.png)
 
 
-## *Warning*
+## *W a r n i n g*
 The setup-scripts in this repo are work in progress. I update stuff weekly and I can't guarantee that nothing breaks. Setting up a user-friendly experience isn't my main priority, and the setup-scripts might break from time to time. Until I end up with a "stable" version, consider this very much work in progress.
+
+As of 01/10/2024, the nixsetup.sh in ``scripts/bash`` works on testing VMs; give it a go!
 
 
 ## Installation
-Commands to run on an (not recommended)existing install or
-(recommended) fresh install
+Commands to run on an ``(not recommended)``existing install or
+``(recommended`` fresh install
 
 Temp-install git and python for cloning repo and running scripts
 ```
