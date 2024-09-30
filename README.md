@@ -19,7 +19,7 @@ As of 01/10/2024, the nixsetup.sh in ``scripts/bash`` works on testing VMs; give
 
 ## Installation
 Commands to run on an ``(not recommended)``existing install or
-``(recommended`` fresh install
+``(recommended)`` fresh install.
 
 Temp-install git and python for cloning repo and running scripts
 ```
@@ -41,9 +41,10 @@ Run the script
 ```
 ./nixbuild.sh
 ```
-Your system will then, last time I checked, freee up. From here, reboot and you should then boot into tty and the command ``x`` will start Xserver and i3(picom for transparency is started at launch, if you're running in a WM I run the following to make it more usable, transparency hasn't worked out well for me in virtual environments): ``killall picom``
+Your system will then, last time I checked, freeze up. From here, reboot and you should then boot into tty and the command ``x`` will start Xserver and i3(picom for transparency is started at launch, if you're running in a WM I run the following to make it more usable, transparency hasn't worked out well for me in virtual environments): ``killall picom``
 I should probably just set up a script to look for WMs when launching i3, but alas, I have not.
-EDIT: Picom has been disabled on boot for now, ignore the above paragraph.
+
+#### EDIT: Picom has been disabled on boot for now, ignore the above paragraph.
 
 ### Usage
 
