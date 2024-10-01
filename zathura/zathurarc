@@ -1,37 +1,54 @@
-# zathurarc-dark
-set notification-error-bg       "#0c0c0c" # Darkest color
-set notification-error-fg       "#9DE001" # Lightest green
-set notification-warning-bg     "#0c0c0c" # Darkest color
-set notification-warning-fg     "#9DE001" # Lightest green
-set notification-bg             "#0c0c0c" # Darkest color
-set notification-fg             "#98D902" # Bright green
+# zathurarc-dark                                       __   __
+set notification-error-bg "#0A0A0B"     # .-----.---.-|  |_|  |--.--.--.----.---.-.----.----.
+set notification-error-fg "#725986"     # |-- __|  _  |   _|     |  |  |   _|  _  |   _|  __|
+set notification-warning-bg "#0A0A0B"   # |_____|___._|____|__|__|_____|__| |___._|__| |____|
+set notification-warning-fg "#725986"
+set notification-bg "#0A0A0B"
+set notification-fg "#725986"
 
-set completion-group-bg         "#0c0c0c" # Darkest color
-set completion-group-fg         "#98D902" # Bright green
-set completion-bg               "#6E9B08" # Dark green
-set completion-fg               "#dedede" # Lightest color
-set completion-highlight-bg     "#84BB05" # Medium green
-set completion-highlight-fg     "#dedede" # Lightest color
+set completion-group-bg "#0A0A0B"
+set completion-group-fg "#725986"
+set completion-bg "#685077"
+set completion-fg "#bbafc8"
+set completion-highlight-bg "#7C6A93"
+set completion-highlight-fg "#bbafc8"
 
 # Define the color in index mode
-set index-bg                   "#0c0c0c" # Darkest color
-set index-fg                   "#98D902" # Bright green
-set index-active-bg             "#6E9B08" # Dark green
-set index-active-fg             "#dedede" # Lightest color
+set index-bg "#0A0A0B"
+set index-fg "#725986"
+set index-active-bg "#685077"
+set index-active-fg "#bbafc8"
 
-set inputbar-bg                 "#6E9B08" # Dark green
-set inputbar-fg                 "#dedede" # Lightest color
+set inputbar-bg "#685077"
+set inputbar-fg "#bbafc8"
 
-set statusbar-bg                "#84BB05" # Medium green
-set statusbar-fg                "#0c0c0c" # Darkest color
+set statusbar-bg "#7C6A93"
+set statusbar-fg "#0A0A0B"
 
-set highlight-color             "#98D902" # Bright green
-set highlight-active-color      "#9DE001" # Lightest green
+set highlight-color "#725986"
+set highlight-active-color "#7C6A93"
 
-set default-bg                  "#0c0c0c" # Darkest color
-set default-fg                  "#98D902" # Bright green
+set default-bg "#0A0A0B"
+set default-fg "#725986"
 
 # Recolor book content's color
 set recolor                     true
-set recolor-lightcolor          "#0c0c0c" # Darkest color
-set recolor-darkcolor           "#98D902" # Bright green
+set recolor-lightcolor "#0A0A0B"
+set recolor-darkcolor "#725986"
+
+# Recolor book content's color
+set recolor "true"
+set recolor-lightcolor "#0A0A0B"
+set recolor-darkcolor "#725986"
+set recolor-reverse-video "true"
+set recolor-keephue "true"
+
+map r reload
+map p print
+map i recolor
+map J zoom out
+map K zoom in
+map R rotate
+unmap f
+map f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen

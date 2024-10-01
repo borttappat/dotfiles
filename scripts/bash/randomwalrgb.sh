@@ -25,5 +25,7 @@ sed -i '12,28d' "$startpage"
 # Extract lines 12 to 28 from colors.css and insert them into startpage.html at line 12
 sed -n '12,28p' "$colors_css" | sed -i '11r /dev/stdin' "$startpage"
 
+sh ~/dotfiles/scripts/bash/zathuracolors.sh
+
 # restart polybar
 polybar-msg cmd restart

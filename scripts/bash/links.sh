@@ -6,7 +6,7 @@ sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/bash/.bashrc --d
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/vim/.vimrc --dir ~/
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/wallust/wallust.toml --dir ~/.config/wallust
 
-sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/zathura/zathurarc --dir ~/zathura
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/zathura/zathurarc --dir ~/.config/zathura
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/alacritty/alacritty.toml --dir ~/.config/alacritty
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/alacritty/alacritty4k.toml --dir ~/.config/alacritty
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/alacritty/alacritty1080p.toml --dir ~/.config/alacritty
