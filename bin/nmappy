@@ -1,0 +1,20 @@
+#!/run/current-system/sw/bin/bash
+
+# Expand tilde in paths
+SHELL_NIX_PATH="${HOME}/dotfiles/scripts/python/shell.nix"
+NMAPPY_PATH="${HOME}/dotfiles/scripts/python/nmappy.py"
+
+# Check if the shell.nix file exists
+if [ ! -f "$SHELL_NIX_PATH" ]; then
+    echo "Error: shell.nix file not found at $SHELL_NIX_PATH"
+    exit 1
+fi
+
+# Check if the nmappy script exists
+if [ ! -f "$NMAPPY_PATH" ]; then
+    echo "Error: nmappy script not found at $NMAPPY_PATH"
+    exit 1
+fi
+
+# Run nmappy in the nix-shell environment
+nix-shell "$SHELL_NIX_PATH" --run "python $NMAPPY_PATH $*"
