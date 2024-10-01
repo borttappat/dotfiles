@@ -44,8 +44,11 @@
     python3
 
 # Python-libraries
-    python312Packages.python-nmap
-    python312Packages.prompt-toolkit
+
+    (python3.withPackages (ps: with ps; [
+      prompt-toolkit
+      python-nmap
+    ]))
 
 # Programs
     #librewolf
