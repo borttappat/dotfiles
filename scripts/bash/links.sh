@@ -24,6 +24,7 @@ sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/starship/starshi
 
 # ~/.local/bin
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/bin/pomo --dir ~/.local/bin
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/bin/nmappy --dir ~/.local/bin
 
 # fish
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/fish/config.fish --dir ~/.config/fish

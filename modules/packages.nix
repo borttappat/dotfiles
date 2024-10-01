@@ -1,9 +1,8 @@
-#                        __                                 _
-#      ____  ____ ______/ /______ _____ ____  _____  ____  (_)  __
-#     / __ \/ __ `/ ___/ //_/ __ `/ __ `/ _ \/ ___/ / __ \/ / |/_/
-#    / /_/ / /_/ / /__/ ,< / /_/ / /_/ /  __(__  ) / / / / />  <
-#   / .___/\__,_/\___/_/|_|\__,_/\__, /\___/____(_)_/ /_/_/_/|_|
-#  /_/                          /____/
+#                    __                                     __
+#  .-----.---.-.----|  |--.---.-.-----.-----.-----.  .-----|__.--.--.
+#  |  _  |  _  |  __|    <|  _  |  _  |  -__|__ --|__|     |  |_   _|
+#  |   __|___._|____|__|__|___._|___  |_____|_____|__|__|__|__|__.__|
+#  |__|                         |_____|
 
 { config, pkgs, ... }:
 
@@ -33,7 +32,7 @@
 # Editors
     vim
     #neovim
-    helix
+    #helix
     #inkscape
     #obs-studio
     #davinci-resolve
@@ -50,11 +49,11 @@
     firefox
     brave
     mullvad
-    mullvad-browser
+    #mullvad-browser
     mullvad-vpn
-    tor
+    #tor
     mpv
-    pipewire
+    #pipewire
 
 # Terminal stuff
     tmate
@@ -75,11 +74,11 @@
     warp-terminal
     #kitty
     htop
-    glances
+    #glances
     bottom          # visual process monitor
     #neofetch
     fastfetch
-    bunnyfetch 
+    #bunnyfetch 
     #nitch
     cbonsai         # cli-gardening
     cmatrix         # follow the white rabbit
@@ -94,6 +93,7 @@
     pipes-rs        #rust-written replacement
     #gurk-rs
     #ddgr
+    bat
 
 # WM
     polybar
@@ -112,15 +112,15 @@
     #eww
     #conky
     #dunst
-    i3lock
-    i3lock-fancy-rapid
-    i3wsr
+    #i3lock
+    #i3lock-fancy-rapid
+    #i3wsr
     #autorandr
 
 # Tools
     #dog                    #replacecment for cat
     alsa-utils
-    catppuccinifier-cli     #modify wallpapers with a catppucin style
+    #catppuccinifier-cli     #modify wallpapers with a catppucin style
     bandwhich           #bandwith tracker
     iw
     wirelesstools
@@ -144,7 +144,7 @@
     qemu 
     #kvmtool
     flameshot       #screenshot-tool
-    maim            #CLI screenshot tool
+    #maim            #CLI screenshot tool
     rar             #RAR-archive tool
     pciutils
     curl
@@ -157,7 +157,7 @@
     udisks
     docker          #added with virt.enable = true in services.nix
     lazydocker
-    #signal-cli
+    signal-cli
     whois
     #xrdp            #rdp-interface
     freerdp3

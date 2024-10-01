@@ -9,6 +9,9 @@
 
 {   
 
+environment.variables = {
+  BAT_THEME = "ansi";
+};
 
 # WIP Sound settings
     hardware.enableAllFirmware = true;

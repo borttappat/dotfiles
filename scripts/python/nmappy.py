@@ -8,10 +8,12 @@ import curses
 from curses import wrapper
 from prompt_toolkit import prompt
 
-
+# program is intended to run nmap as root, check for sudo privs(if user, False if euid != 0
 def is_root():
     return os.geteuid() == 0
 
+
+# define the ascii-art accompanying the programs console or curses screen
 def display_ascii_art(stdscr=None):
     ascii_art = """
 .-----.--------.---.-.-----.-----.--.--.
@@ -25,6 +27,8 @@ def display_ascii_art(stdscr=None):
     else:
         print(ascii_art)
 
+
+
 def is_valid_ip(ip):
     pattern = r'^(\d{1,3}\.){3}\d{1,3}$'
     
@@ -35,6 +39,8 @@ def is_valid_ip(ip):
                 return False
         return True
     return False
+
+
 
 def read_ip_list(file_path):
     valid_ips = []
@@ -55,6 +61,8 @@ def read_ip_list(file_path):
     
     return valid_ips, invalid_ips
 
+
+
 def display_ip_lists(valid_ips, invalid_ips):
     print("Valid IP addresses:")
     for ip in valid_ips:
@@ -64,6 +72,8 @@ def display_ip_lists(valid_ips, invalid_ips):
         print("\nInvalid IP addresses found:")
         for ip in invalid_ips:
             print(f"  {ip}")
+
+            
 
 def display_menu(stdscr, options, selected_idx):
     stdscr.clear()
@@ -81,6 +91,8 @@ def display_menu(stdscr, options, selected_idx):
             stdscr.attroff(curses.A_REVERSE)
     stdscr.addstr(h-1, 0, "Use arrow keys to navigate, Space to select/deselect, Enter to confirm")
     stdscr.refresh()
+
+
 
 def get_scan_options_tui(stdscr):
     global selected_options
@@ -113,6 +125,8 @@ def get_scan_options_tui(stdscr):
 
     return selected_options
 
+
+
 def get_aggression_level():
     while True:
         level = input('Enter aggression level (1-5, default is 3): ')
@@ -126,6 +140,8 @@ def get_aggression_level():
                 print("Please enter a number between 1 and 5.")
         except ValueError:
             print("Please enter a valid number.")
+
+
 
 # prompt user for port selection
 def get_port_option():
@@ -146,6 +162,8 @@ def get_port_option():
             return f"-p{start_port}-{end_port}"
         else:
             print("Invalid choice. Please try again.")
+
+
 
 # Construct the command based on selection
 def construct_nmap_command(ips, options, aggression, ports, output_file=None):
@@ -170,6 +188,8 @@ def construct_nmap_command(ips, options, aggression, ports, output_file=None):
 # Add ip-addresses to command
     command.extend(ips)
     return command
+
+
 
 # Run the constructed comand
 def run_nmap_scan(command):
@@ -233,6 +253,8 @@ def run_nmap_scan(command):
                 print(f"Error: Nmap command failed with return code {process.returncode}")
         except FileNotFoundError:
             print("Error: nmap not found. Please ensure nmap is installed and in your PATH.")
+
+
 
 def run_tui(stdscr, file_path):
     curses.curs_set(0)  # Hide the cursor

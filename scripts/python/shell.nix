@@ -10,8 +10,6 @@ pkgs.mkShell {
     nmap  # Include the nmap package itself
   ];
 
-  shellHook = ''
-    echo "Python environment with prompt-toolkit and python-nmap is ready!"
-    echo "Nmap is also available in this shell."
-  '';
+  #shellHook = ''
+  #'';
 }

@@ -1,12 +1,13 @@
-#       _ _____
-#      (_)__  /
-#     / / /_ <
-#    / /___/ /
-#   /_//____/
+#    __ _______                          ___ __
+#   |__|   _   |______.----.-----.-----.'  _|__.-----.
+#   |  |___|   |______|  __|  _  |     |   _|  |  _  |
+#   |__|_(__   |      |____|_____|__|__|__| |__|___  |
+#      |:  1   |                               |_____|
+#      |::.. . |
+#      `-------'
 
 # Modifier-settings
 set $mod Mod4
-
 
 # Autostart #
 exec_always --no-startup-id polybar -q main 
@@ -43,6 +44,10 @@ bindsym $mod+Shift+g exec alacritty -e /bin/sh -c "wal -Rnq && clear && figlet -
 
 # Zathura
 bindsym $mod+z exec zathura
+
+# cmatrix
+bindsym $mod+Shift+m exec alacritty -e /bin/sh -c "wal -Rnq && cmatrix -u 10"
+
 
 # Scratchpad
 # Make the currently focused window a scratchpad

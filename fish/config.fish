@@ -1,8 +1,7 @@
-#      _______      __
-#     / ____(_)____/ /_
-#    / /_  / / ___/ __ \
-#   / __/ / (__  ) / / /
-#  /_/   /_/____/_/ /_/
+#     ___ __       __
+#   .'  _|__.-----|  |--.
+#   |   _|  |__ --|     |
+#   |__| |__|_____|__|__|
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -51,6 +50,7 @@ alias shutdown='shutdown -h now'
 alias sd='shutdown'
 alias suspend='systemctl suspend'
 
+alias bat='bat --theme=ansi'
 alias wp='cd ~/Wallpapers && ranger'
 alias j='joshuto'
 alias cb='cbonsai -l -t 1'
