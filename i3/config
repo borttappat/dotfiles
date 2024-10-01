@@ -38,6 +38,8 @@ bindsym $mod+Shift+f exec alacritty -e /bin/sh -c "wal -Rnq && joshuto"
 
 bindsym $mod+Shift+g exec alacritty -e /bin/sh -c "wal -Rnq && clear && figlet -f slant Git && echo && cd ~/dotfiles && git status"
 
+# Zathura
+bindsym $mod+z exec zathura
 
 # Scratchpad
 # Make the currently focused window a scratchpad
