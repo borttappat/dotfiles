@@ -43,12 +43,7 @@
     gcc
     python3
 
-# Python-libraries
 
-    (python3.withPackages (ps: with ps; [
-      prompt-toolkit
-      python-nmap
-    ]))
 
 # Programs
     #librewolf
