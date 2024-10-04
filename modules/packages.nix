@@ -84,6 +84,7 @@
     cmatrix         # follow the white rabbit
     ranger
     zoxide          #cd without amnesia, sourced in config.fish
+    blesh           #Bash Line Editor
     joshuto         #ranger-like file manager written in rust
     figlet          #for outputting ascii-text in banners etc.
     #ticker          #text-based price tracker
