@@ -4,8 +4,10 @@
 |__|__|__|__|__|___._|   __|   __|_____|__|
                      |__|  |__|
 ```
-Simple python script to run nmap scans. 
+### Simple python script to run nmap scans. 
+
 run the scan with ``sudo`` or as ``root`` to use the OS detection scan 
+
 Developed using Nix, shell.nix is the only tested and verified way of running the script.
 
 See requirements.txt
