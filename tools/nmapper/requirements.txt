@@ -1,0 +1,8 @@
+python-nmap 0.7.1
+
+To run associated python-code, install the nix package manager and type 'nix-shell' from the current directory.
+Alternatively, install python-nmap using pip.
+
+The script has been tested on NixOS 24.11
+Python3.12 was used at the time of writing.
+
