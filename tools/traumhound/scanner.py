@@ -1,36 +1,28 @@
 #!/usr/bin/env python3
 
 import os
-import argparse
 import re
 import subprocess
 import curses
-import nmap
 from curses import wrapper
 from prompt_toolkit import prompt
-# program is intended to run nmap as root, check for sudo privs(if user, False if euid != 0
+from datetime import datetime
+
 def is_root():
     return os.geteuid() == 0
 
-
-# define the ascii-art accompanying the programs console or curses screen
 def display_ascii_art(stdscr=None):
     ascii_art = """
- _______                           ___ ___                      __
-|       .----.---.-.--.--.--------|   Y   .-----.--.--.-----.--|  |
-|.|   | |   _|  _  |  |  |        |.  1   |  _  |  |  |     |  _  |
-`-|.  |-|__| |___._|_____|__|__|__|.  _   |_____|_____|__|__|_____|
-  |:  |                        by |:  |   | griefhound
-  |::.|                           |::.|:. |
-  `---'                           `--- ---'
+ __                             __                         __
+|  |_.----.---.-.--.--.--------|  |--.-----.--.--.-----.--|  |
+|   _|   _|  _  |  |  |        |     |  _  |  |  |     |  _  |
+|____|__| |___._|_____|__|__|__|__|__|_____|_____|__|__|_____|
     """
     if stdscr:
         for i, line in enumerate(ascii_art.split('\n')):
             stdscr.addstr(i, 0, line)
     else:
         print(ascii_art)
-
-
 
 def is_valid_ip(ip):
     pattern = r'^(\d{1,3}\.){3}\d{1,3}$'
@@ -43,60 +35,19 @@ def is_valid_ip(ip):
         return True
     return False
 
-
-
-def read_ip_list(file_path):
-    valid_ips = []
-    invalid_ips = []
-    
-    try:
-        with open(file_path, 'r') as file:
-            for line in file:
-                ip = line.strip()
-                if is_valid_ip(ip):
-                    valid_ips.append(ip)
-                else:
-                    invalid_ips.append(ip)
-    except FileNotFoundError:
-        print(f"Error: File '{file_path}' not found.")
-    
-    return valid_ips, invalid_ips
-
-
-
-def display_ip_lists(valid_ips, invalid_ips):
-    print("Valid IP addresses:")
-    for ip in valid_ips:
-        print(f"  {ip}")
-    
-    if invalid_ips:
-        print("\nInvalid IP addresses found:")
-        for ip in invalid_ips:
-            print(f"  {ip}")
-
-
-def get_scan_method():
-    print("\nSelect Scan Method:")
-    print("1. System Nmap(only tested on Linux)")
-    print("2. Python nmap(install via pip)")
-    
+def get_ip_input():
     while True:
-        choice = input("Enter your choice (1-2): ")
-        if choice == '1':
-            return "system"
-        elif choice == '2':
-            return "python"
+        ip = input("Enter an IP address: ").strip()
+        if is_valid_ip(ip):
+            return ip
         else:
-            print("Invalid choice. Please try again.")            
-
-
-
+            print("Invalid IP address. Please try again.")
 
 def display_menu(stdscr, options, selected_idx):
     stdscr.clear()
     h, w = stdscr.getmaxyx()
     display_ascii_art(stdscr)
-    stdscr.addstr(6, 0, "PyNmap - Python wrapper for Nmap", curses.A_BOLD)
+    stdscr.addstr(6, 0, "TraumHound - Nmap wrapper and reconnaissance tool", curses.A_BOLD)
     stdscr.addstr(8, 0, "Select Nmap Scan Options:")
     for idx, (key, (option, description)) in enumerate(options.items()):
         y = 10 + idx
@@ -108,8 +59,6 @@ def display_menu(stdscr, options, selected_idx):
             stdscr.attroff(curses.A_REVERSE)
     stdscr.addstr(h-1, 0, "Use arrow keys to navigate, Space to select/deselect, Enter to confirm")
     stdscr.refresh()
-
-
 
 def get_scan_options_tui(stdscr):
     global selected_options
@@ -142,8 +91,6 @@ def get_scan_options_tui(stdscr):
 
     return selected_options
 
-
-
 def get_aggression_level():
     while True:
         level = input('Enter aggression level (1-5, default is 3): ')
@@ -158,9 +105,6 @@ def get_aggression_level():
         except ValueError:
             print("Please enter a valid number.")
 
-
-
-# prompt user for port selection
 def get_port_option():
     print("\nSelect Port Scan Option:")
     print("1. Top 100 ports (-F)")
@@ -180,14 +124,11 @@ def get_port_option():
         else:
             print("Invalid choice. Please try again.")
 
-
-
-# Construct the command based on selection
-def construct_nmap_command(ips, options, aggression, ports, output_file=None):
-    command = ["nmap", f"-T{aggression}", ports]
-
-    if output_file:
-        command.extend(["-oN", output_file])
+def construct_nmap_command(ip, options, aggression, ports):
+    timestamp = datetime.now().strftime("%H:%M")
+    output_file = f"nmap_scan_{timestamp}.txt"
+    
+    command = ["nmap", f"-T{aggression}", ports, "-oN", output_file]
 
     if "sC" in options:
         command.append("-sC")
@@ -202,72 +143,31 @@ def construct_nmap_command(ips, options, aggression, ports, output_file=None):
     if "packet_trace" in options:
         command.append("--packet-trace")
 
-# Add ip-addresses to command
-    command.extend(ips)
-    return command
+    command.append(ip)
+    return command, output_file
 
-def run_python_nmap_scan(ips, options, aggression, ports):
-    nm = nmap.PortScanner()
-    args = f"-T{aggression} {ports}"
-    
-    if "sC" in options:
-        args += " -sC"
-    if "sV" in options:
-        args += " -sV"
-    if "O" in options:
-        args += " -O"
-    if "vuln" in options:
-        args += " -sV --script vuln"
-    if "banners" in options:
-        args += " --script banner"
-    if "packet_trace" in options:
-        args += " --packet-trace"
-    
-    for ip in ips:
-        print(f"Scanning {ip}...")
-        nm.scan(ip, arguments=args)
-        
-        for host in nm.all_hosts():
-            print(f"Host : {host} ({nm[host].hostname()})")
-            print(f"State : {nm[host].state()}")
-            
-            for proto in nm[host].all_protocols():
-                print(f"Protocol : {proto}")
-                
-                lport = nm[host][proto].keys()
-                for port in lport:
-                    print(f"port : {port}\tstate : {nm[host][proto][port]['state']}")
-
-
-# Run the constructed comand
-def run_nmap_scan(command):
+def run_nmap_scan(command, output_file):
     if not is_root():
         sudo_command = ["sudo", "-S"] + command
         print("Running nmap scan with sudo.")
         try:
-            # Prompt for sudo password
             sudo_password = prompt("Enter sudo password: ", is_password=True)
             
-            # Run the command with sudo
             process = subprocess.Popen(sudo_command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             
-            # Use communicate to send the password and get real-time output
             def print_output(pipe):
                 for line in iter(pipe.readline, ''):
                     print(line, end='')
             
-            # Start threads to print output in real-time
             import threading
             stdout_thread = threading.Thread(target=print_output, args=(process.stdout,))
             stderr_thread = threading.Thread(target=print_output, args=(process.stderr,))
             stdout_thread.start()
             stderr_thread.start()
             
-            # Send the password
             process.stdin.write(sudo_password + '\n')
             process.stdin.flush()
             
-            # Wait for the process to complete
             process.wait()
             stdout_thread.join()
             stderr_thread.join()
@@ -283,7 +183,6 @@ def run_nmap_scan(command):
         try:
             process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             
-            # Use the same print_output function for real-time output
             def print_output(pipe):
                 for line in iter(pipe.readline, ''):
                     print(line, end='')
@@ -301,156 +200,31 @@ def run_nmap_scan(command):
                 print(f"Error: Nmap command failed with return code {process.returncode}")
         except FileNotFoundError:
             print("Error: nmap not found. Please ensure nmap is installed and in your PATH.")
-
-def run_tui(stdscr, file_path):
-    curses.curs_set(0)  # Hide the cursor
     
-    # Initial screen
-    stdscr.clear()
-    display_ascii_art(stdscr)
-    stdscr.addstr(6, 0, "Press any key to continue...")
-    stdscr.refresh()
-    stdscr.getch()
+    return output_file
 
-    # Read IP addresses
-    valid_ips, invalid_ips = read_ip_list(file_path)
-    
-    # Display IP lists
-    stdscr.clear()
-    display_ascii_art(stdscr)
-    stdscr.addstr(6, 0, f"Reading IP addresses from: {file_path}")
-    stdscr.addstr(8, 0, "Valid IP addresses:")
-    for idx, ip in enumerate(valid_ips):
-        stdscr.addstr(9 + idx, 2, ip)
-    if invalid_ips:
-        stdscr.addstr(10 + len(valid_ips), 0, "Invalid IP addresses found:")
-        for idx, ip in enumerate(invalid_ips):
-            stdscr.addstr(11 + len(valid_ips) + idx, 2, ip)
-    stdscr.addstr(12 + len(valid_ips) + len(invalid_ips), 0, "Press any key to continue...")
-    stdscr.refresh()
-    stdscr.getch()
-
-    if not valid_ips:
-        stdscr.addstr(14 + len(valid_ips) + len(invalid_ips), 0, "No valid IP addresses found. Exiting.")
-        stdscr.refresh()
-        stdscr.getch()
-        return
-
-    # Get scan method
-    stdscr.clear()
-    display_ascii_art(stdscr)
-    stdscr.addstr(6, 0, "Select Scan Method:")
-    stdscr.addstr(8, 0, "1. System Nmap")
-    stdscr.addstr(9, 0, "2. Python nmap")
-    stdscr.refresh()
-    while True:
-        choice = stdscr.getch()
-        if choice == ord('1'):
-            scan_method = "system"
-            break
-        elif choice == ord('2'):
-            scan_method = "python"
-            break
-
-    # Get scan options
-    options = get_scan_options_tui(stdscr)
-
-    # Get aggression level
-    stdscr.clear()
-    display_ascii_art(stdscr)
-    stdscr.addstr(6, 0, "Enter aggression level (1-5, default is 3): ")
-    stdscr.refresh()
-    curses.echo()
-    aggression_level = stdscr.getstr().decode('utf-8')
-    curses.noecho()
-    aggression_level = int(aggression_level) if aggression_level else 3
-
-    # Get port option
-    stdscr.clear()
-    display_ascii_art(stdscr)
-    stdscr.addstr(6, 0, "Select Port Scan Option:")
-    stdscr.addstr(8, 0, "1. Top 100 ports (-F)")
-    stdscr.addstr(9, 0, "2. All ports (-p-)")
-    stdscr.addstr(10, 0, "3. Custom range")
-    stdscr.refresh()
-    while True:
-        choice = stdscr.getch()
-        if choice == ord('1'):
-            port_option = "-F"
-            break
-        elif choice == ord('2'):
-            port_option = "-p-"
-            break
-        elif choice == ord('3'):
-            stdscr.addstr(12, 0, "Enter start port: ")
-            stdscr.refresh()
-            curses.echo()
-            start_port = stdscr.getstr().decode('utf-8')
-            stdscr.addstr(13, 0, "Enter end port: ")
-            stdscr.refresh()
-            end_port = stdscr.getstr().decode('utf-8')
-            curses.noecho()
-            port_option = f"-p{start_port}-{end_port}"
-            break
-
-    # Ask about saving output
-    stdscr.clear()
-    display_ascii_art(stdscr)
-    stdscr.addstr(6, 0, "Do you want to save the output to a file? (y/n): ")
-    stdscr.refresh()
-    save_output = stdscr.getch() == ord('y')
-    output_file = None
-    if save_output:
-        stdscr.addstr(8, 0, "Enter the filename to save the output: ")
-        stdscr.refresh()
-        curses.echo()
-        output_file = stdscr.getstr().decode('utf-8').strip()
-        curses.noecho()
-
-    # Construct and display nmap command
-    nmap_command = construct_nmap_command(valid_ips, options, aggression_level, port_option, output_file)
-    stdscr.clear()
-    display_ascii_art(stdscr)
-    stdscr.addstr(6, 0, "Constructed nmap command:")
-    stdscr.addstr(8, 0, " ".join(nmap_command))
-    stdscr.addstr(10, 0, "Press any key to start the scan...")
-    stdscr.refresh()
-    stdscr.getch()
-
-    # Run nmap scan
-    stdscr.clear()
-    display_ascii_art(stdscr)
-    stdscr.addstr(6, 0, "Running nmap scan...")
-    stdscr.refresh()
-    curses.endwin()  # Temporarily end curses mode
-    if scan_method == "system":
-        run_nmap_scan(nmap_command)
-    else:
-        run_python_nmap_scan(valid_ips, options, aggression_level, port_option)
-    stdscr = curses.initscr()  # Reinitialize curses
-
-    # Final message
-    stdscr.clear()
-    display_ascii_art(stdscr)
-    stdscr.addstr(6, 0, "Scan completed.")
-    if save_output:
-        stdscr.addstr(8, 0, f"Scan results have been saved to {output_file}")
-    stdscr.addstr(10, 0, "Press any key to exit...")
-    stdscr.refresh()
-    stdscr.getch()
+def run_hunter(nmap_output_file, wordlist_path):
+    command = f"python3 hunter.py {nmap_output_file} {wordlist_path}"
+    try:
+        subprocess.run(command, shell=True, check=True)
+        print("Hunter completed successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error running Hunter: {e}")
 
 def main():
-    parser = argparse.ArgumentParser(description='nmappy- Python wrapper for Nmap')
-    parser.add_argument('file_path', nargs='?', help='Path to the IP list file')
-    args = parser.parse_args()
-
-    if args.file_path:
-        file_path = args.file_path
-    else:
-        display_ascii_art()
-        file_path = prompt('Enter the path to the IP list file: ')
-
-    wrapper(run_tui, file_path)
+    display_ascii_art()
+    
+    ip = get_ip_input()
+    
+    options = wrapper(get_scan_options_tui)
+    aggression = get_aggression_level()
+    ports = get_port_option()
+    
+    command, output_file = construct_nmap_command(ip, options, aggression, ports)
+    output_file = run_nmap_scan(command, output_file)
+    
+    wordlist_path = input("Enter the path to the wordlist for ffuf: ")
+    run_hunter(output_file, wordlist_path)
 
 if __name__ == '__main__':
     main()

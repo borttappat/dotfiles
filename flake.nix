@@ -53,6 +53,7 @@
                         ./modules/nixp.nix
                         ./modules/users.nix
                         ./modules/colors.nix 
+                        ./modules/scripts.nix
                     ];
             }; 
 
