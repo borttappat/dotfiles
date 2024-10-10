@@ -5,9 +5,9 @@ pkgs.mkShell {
     (python3.withPackages(ps: with ps; [
       prompt-toolkit
       python-nmap
+      pycryptodome
       # Add any other Python packages you need here
     ]))
-    nmap  # Include the nmap package itself
   ];
 
   #shellHook = ''

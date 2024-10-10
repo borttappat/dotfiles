@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 import nmap
 from datetime import datetime
@@ -10,15 +11,15 @@ ascii_art = """
     """
 print(ascii_art)
 
-def ip_choice():
+def ip_choice(): #a menu for user to select between manual input or parsing a list
     while True:
-        ip_method = input("\nDo you want to:\n1) Enter an IP directly or\n2) Use a list?\nChoice(1/2): ")
+        ip_method = input("\nDo you want to:\n1) Enter an IP directly \nOr\n2) Use a list?\nChoice(1/2): ")
         if ip_method in ['1', '2']:
             return int(ip_method)
         else:
             print("Invalid input, please enter 1 or 2")
 
-def get_ip():
+def get_ip(): #menu for parsing an ip address to scan
     choice = ip_choice()
     if choice == 1:
         return [input("What IP address do you want to scan? ")]
@@ -27,12 +28,11 @@ def get_ip():
         with open(file_path, 'r') as file:
             return [line.strip() for line in file]
 
-def get_scan_flags():
+def get_scan_flags(): #menu to list what flags to use in the scan
     flag_options = {
         1: "-sV",
         2: "-sC",
-        3: "-O",
-        4: "--script vuln"
+        3: "-O"
     }
     
     print("\nSelect scan flags (you can choose multiple):")
@@ -40,18 +40,18 @@ def get_scan_flags():
         print(f"{key}) {value}")
     
     while True:
-        choices = input("\nEnter the numbers of the flags you want to use, separated by spaces (e.g., 1 3 4): ").split()
+        choices = input("\n-sV = show service versions\n-sC = standard scripts\n-O = OS discovery\nEnter the numbers of the flags you want to use, separated by spaces (e.g., 1 3): ").split()
         
         try:
             selected_numbers = [int(choice) for choice in choices]
-            if all(1 <= num <= 4 for num in selected_numbers):
+            if all(1 <= num <= 3 for num in selected_numbers):
                 return [flag_options[num] for num in selected_numbers]
             else:
-                print("Invalid input. Please enter numbers between 1 and 4.")
+                print("Invalid input. Please enter numbers between 1 and 3.")
         except ValueError:
             print("Invalid input. Please enter numbers only.")
 
-def get_port_option():
+def get_port_option(): #menu to select what ports to scan against, using the options in the next code block
     port_options = {
         1: "-p-",
         2: "-p",
@@ -73,13 +73,13 @@ def get_port_option():
         else:
             print("Invalid input. Please enter a number between 1 and 3.")
 
-def get_scan_aggression():
+def get_scan_aggression(): #get the aggression level of the scan
     print("\nSelect scan aggression level (1-5):")
-    print("1: Slowest (most stealthy)")
-    print("2: Sneaky")
-    print("3: Normal")
-    print("4: Aggressive")
-    print("5: Fastest (may overwhelm targets)")
+    print("1) Slowest (most stealthy)")
+    print("2) Sneaky")
+    print("3) Normal")
+    print("4) Aggressive")
+    print("5) Fastest (may overwhelm targets)")
     
     while True:
         choice = input("Enter your choice (1-5): ")
@@ -88,7 +88,7 @@ def get_scan_aggression():
         else:
             print("Invalid input. Please enter a number between 1 and 5.")
 
-def save_to_file(scan_results):
+def save_to_file(scan_results): #select between saving the scan output or not, if yes, parse the current hour and minutes to "scan_result" to distiguish between scans
     save_option = input("Do you want to save the scan results to a file? (y/n): ")
     if save_option.lower() == 'y':
         timestamp = datetime.now().strftime("%H:%M")
