@@ -37,6 +37,9 @@
     #obs-studio
     #davinci-resolve
 
+#Intel runtime
+    intel-compute-runtime
+
 
 # Compilers
     gcc
