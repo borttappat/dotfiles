@@ -8,10 +8,13 @@
 { config, pkgs, ... }:
 
 {   
+# allow impure builds, don't enable i guess
+    nixpkgs.config.allowUnsupportedSystem = true;
 
-environment.variables = {
-  BAT_THEME = "ansi";
-};
+# can't remember what this actually does but it has to do with colorschemes :)
+    environment.variables = {
+        BAT_THEME = "ansi";
+    };
 
 # WIP Sound settings
     hardware.enableAllFirmware = true;
@@ -23,12 +26,12 @@ environment.variables = {
         "flakes" 
         ];
 
-#services.xserver.videoDrivers = [ "intel" ];
-#boot.kernelParams = [ "i915.force_probe=9a49" ];
-
+# nix-ld, currently not used
+    /*
     programs.nix-ld.enable = true;
     programs.nix-ld.libraries = with pkgs; [
     ];
+    */
 
 
 # Fish-shell
@@ -36,27 +39,28 @@ environment.variables = {
     users.defaultUserShell = pkgs.fish;
     environment.shells = with pkgs; [ fish ];
 
-qt = {
-    enable = true;
-    platformTheme = "gtk2";
-    style = "adwaita-dark";
-  };
+#qt and gtk support
+    qt = {
+        enable = true;
+        platformTheme = "gtk2";
+        style = "adwaita-dark";
+      };
 
-  environment.systemPackages = with pkgs; [
-    gnome.adwaita-icon-theme
-    gtk-engine-murrine
-    gtk_engines
-    gsettings-desktop-schemas
-  ];
+      environment.systemPackages = with pkgs; [
+        gnome.adwaita-icon-theme
+        gtk-engine-murrine
+        gtk_engines
+        gsettings-desktop-schemas
+      ];
 
-  environment.variables = {
-    GTK_THEME = "Adwaita:dark";
-  };
+      environment.variables = {
+        GTK_THEME = "Adwaita:dark";
+      };
 
-  environment.etc."gtk-3.0/settings.ini".text = ''
-    [Settings]
-    gtk-application-prefer-dark-theme=1
-  '';
+      environment.etc."gtk-3.0/settings.ini".text = ''
+        [Settings]
+        gtk-application-prefer-dark-theme=1
+      '';
 
 # Setting up for zsh
 /*
@@ -81,29 +85,6 @@ programs = {
   users.defaultUserShell = pkgs.zsh;
 */
 
-
-# Nix-scripts, WIP
-
-/*
-environment.systemPackages = [
-    (import /.nixbuild.nix { inherit pkgs; })
-    ];
-*/
-
-/*
-let
-    nixbuild = import ./nixbuild.nix { inherit pkgs; };
-in
-{
-    environment.systemPackagess = [
-        nixbuild
-    ];
-};
-
-
-
-*/
-#programs.dconf.enable = true;
 
 # Kernel
     boot.kernelPackages = pkgs.linuxPackages_latest;
