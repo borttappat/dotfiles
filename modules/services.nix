@@ -8,6 +8,9 @@
 
 {
 
+# avoid issues with #/bin/bash scripts and alike
+    services.envfs.enable = true;
+
 # Sound-settings
     services.pipewire.pulse.enable = true;
 
