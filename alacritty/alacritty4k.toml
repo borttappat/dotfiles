@@ -37,7 +37,7 @@ family = "CozetteVector"
 style = "Regular"
 
 [font.offset]
-x = 1
+x = 1 
 y = 1
 
 [[keyboard.bindings]]
@@ -80,5 +80,5 @@ general = "Alacritty"
 instance = "Alacritty"
 
 [window.padding]
-x = 8
-y = 6
+x = 20
+y = 8

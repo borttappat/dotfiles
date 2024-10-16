@@ -17,6 +17,7 @@ hardware.graphics.extraPackages = [ pkgs.intel-compute-runtime ];
 environment.systemPackages = with pkgs; [
 
 ocl-icd
+intel-ocl
 
 ];
 
