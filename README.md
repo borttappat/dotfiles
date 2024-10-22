@@ -14,8 +14,9 @@ Managed through scripts in ``scripts/bash`` and ``scripts/python`` and configura
 ## *W a r n i n g*
 The setup-scripts in this repo are work in progress. I update stuff weekly and I can't guarantee that nothing breaks. Setting up a user-friendly experience isn't my main priority, and the setup-scripts might break from time to time. Until I end up with a "stable" version, consider this very much work in progress.
 
-As of 01/10/2024, nixsetup.sh in ``scripts/bash`` works on testing VMs; give it a go!
-
+As of 01/10/2024, ```nixsetup.sh``` in ``scripts/bash`` works on testing VMs; give it a go!
+### w a r n i n g
+If you perform a git pull to later down the line, run the ```nixsetup.sh``` again before building, and take note of and/or merge your personal changes before pulling down the latest changes.
 
 ## Installation
 Commands to run on an ``(not recommended)``existing install or
