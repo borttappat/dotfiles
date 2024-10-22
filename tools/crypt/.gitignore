@@ -1,0 +1,5 @@
+*.txt
+*.key
+*.txt.decrypted
+*.txt.encrypted
+generate_requirements.py
