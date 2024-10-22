@@ -1,7 +1,7 @@
 # Crypt.py - Simple keygen, encrypting and decrypting tool
 
 ## About
-Simple python toolkit with the functionality to generate a key using ```keygen.py``` and then encode/decode files with ```endecrypt.py```
+Simple python toolkit with the functionality to generate a key using ```keygen.py``` and then encode/decode files with ```crypt.py```
 
 
 ## Usage
