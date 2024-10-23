@@ -3,7 +3,6 @@ import argparse
 import os
 from cryptography.fernet import Fernet
 
-# take in the key as an argument
 def load_key(key_path):
     try:
         return open(key_path, "rb").read()
@@ -12,10 +11,10 @@ def load_key(key_path):
 
 def encrypt_file(filename, key_path):
     try:
-        # Check for key first
+        # check for key first
         key = load_key(key_path)
         
-        # Check for input file
+        # check for input file
         if not os.path.exists(filename):
             print(f"Error: File '{filename}' not found.")
             return
@@ -24,6 +23,7 @@ def encrypt_file(filename, key_path):
         with open(filename, "rb") as file:
             file_data = file.read()
         encrypted_data = f.encrypt(file_data)
+        # add .encrypted extension for the output file
         encrypted_filename = filename + ".encrypted"
         with open(encrypted_filename, "wb") as file:
             file.write(encrypted_data)
@@ -33,17 +33,16 @@ def encrypt_file(filename, key_path):
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
-# Modified to accept key path
 def decrypt_file(filename, key_path):
     try:
-        # Check for key first
+        # check for key first
         key = load_key(key_path)
         
-        # Check for input file 
+        # check for input file 
         if not os.path.exists(filename):
             print(f"Error: File '{filename}' not found.")
             return
-            
+        # only accept .encrypted files
         if not filename.endswith('.encrypted'):
             print(f"Error: File '{filename}' does not have .encrypted extension")
             return
@@ -52,8 +51,7 @@ def decrypt_file(filename, key_path):
         with open(filename, "rb") as file:
             encrypted_data = file.read()
         decrypted_data = f.decrypt(encrypted_data)
-        
-        # Remove .encrypted extension for the output file
+        # Remove .encrypted extension for the output file and add .decrypted 
         decrypted_filename = filename[:-10] + ".decrypted"  
 
         with open(decrypted_filename, "wb") as file:
@@ -66,11 +64,15 @@ def decrypt_file(filename, key_path):
 
 def main():
     parser = argparse.ArgumentParser(description="File encryption/decryption tool")
+    
+    #mutually exclusive choice in group, accepting either encryption or decryption
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-e", "--encrypt", action="store_true", help="Encrypt the file")
     group.add_argument("-d", "--decrypt", action="store_true", help="Decrypt the file")
+    
     parser.add_argument("filename", help="Name of the file to process")
     parser.add_argument("-k", "--key", required=True, help="Path to the key file")
+    
     args = parser.parse_args()
 
     if args.encrypt:
