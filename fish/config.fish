@@ -29,7 +29,8 @@ starship init fish | source
 # Zoxide
 zoxide init fish | source
 
-#set -x EDITOR 'vim'
+# thefuck
+thefuck --alias | source
 
 # Replicate !! functionality in fish
 function sudo!!

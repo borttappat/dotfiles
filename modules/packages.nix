@@ -75,6 +75,7 @@
     fzf 
     alacritty
     warp-terminal
+    thefuck         #Magnificent app which corrects your previous console command
     #kitty
     htop
     #glances
@@ -165,6 +166,7 @@
     whois
     #xrdp            #rdp-interface
     freerdp3
+    rdesktop
     warpd           #click stuff without mouse input
     ollama          #run llms locally
     #khoj
@@ -176,6 +178,7 @@
     tealdeer        #alternative to man
     #lynis           #security auditing tool
     #udevil          #udisks replacement
+    jq              #JSON processor
 
     
 # X11

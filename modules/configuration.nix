@@ -9,12 +9,29 @@
 
 {   
 # allow impure builds, don't enable i guess
-    nixpkgs.config.allowUnsupportedSystem = true;
+    #nixpkgs.config.allowUnsupportedSystem = true;
 
 # can't remember what this actually does but it has to do with colorschemes :)
     environment.variables = {
         BAT_THEME = "ansi";
     };
+
+# set PAM limits to allow avoid NixOS error with too many open files
+security.pam.loginLimits = [
+  {
+    domain = "*";
+    type = "soft";
+    item = "nofile";
+    value = "4096";
+  }
+  {
+    domain = "*";
+    type = "hard";
+    item = "nofile";
+    value = "8192";
+  }
+];
+
 
 # WIP Sound settings
     hardware.enableAllFirmware = true;
@@ -47,7 +64,7 @@
       };
 
       environment.systemPackages = with pkgs; [
-        gnome.adwaita-icon-theme
+        adwaita-icon-theme
         gtk-engine-murrine
         gtk_engines
         gsettings-desktop-schemas
@@ -115,10 +132,11 @@ programs = {
         };
 
 # Open ports in the firewall.
-     networking.firewall.allowedTCPPorts = [ 1234 8080 4444 4445 8000 53 3389];
-     networking.firewall.allowedUDPPorts = [ 5355 5453 ];
+     networking.firewall.allowedTCPPorts = [ 21 25 80 110 135 139 389 445 587 1234 1433 3128 3141 8080 4444 4445 8000 53 3389 ];
+     networking.firewall.allowedUDPPorts = [ 137 138 53 389 1434 5353 5355 5453 ];
     # Or disable the firewall altogether.
-     #networking.firewall.enable = false;
+     networking.firewall.enable = false;
+     networking.nftables.enable = false;
 
 # Time zone
     time.timeZone = "Europe/Stockholm";
