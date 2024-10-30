@@ -38,6 +38,8 @@ Uses Nix for dependency management. Required packages:
   - paramiko
   - prompt-toolkit
 
+Tested on NixOS 24.11
+
 ## Setup
 
 1. Install Nix package manager
