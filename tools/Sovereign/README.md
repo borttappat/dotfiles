@@ -9,6 +9,7 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 - Network and web service reconnaissance tool
 - Combines nmap, whatweb, and searchsploit
 - Creates a vulnerability report based on discovered services by nmap and whatweb
+
 [To do]
 - Filter the output of nmap and make sure they match the expected format of the searchsploit-scan
 - Perform further tests
