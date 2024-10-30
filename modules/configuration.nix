@@ -113,7 +113,6 @@ programs = {
     networking.networkmanager.enable = true;
 
 # Enable sound with pipewire
-    #sound.enable = true;
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {
@@ -176,11 +175,12 @@ programs = {
     };
     
 # Automatic gargabe collection
-    nix.gc = {
+/*    nix.gc = {
         automatic = true;
         dates = "weekly";
         options = "--delete-older-than 10d";
     };
+*/
 
 # Automatic nix-store optimizing
     nix.settings.auto-optimise-store = true;
