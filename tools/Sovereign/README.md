@@ -28,9 +28,9 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 
 ### Wordlist Trimmer (trim.py)
 - Filter wordlists based on complexity rules(static for now, might update further down the line)
-- Minimum requirements:
+- Running a list through the script will ensure the output list has:
   - At least one number
-  - At least one special character
+  - At least one special character 
   - Longer than 7 characters
 
 ## Requirements
@@ -58,7 +58,7 @@ nix-shell
 The provided ```requirements.txt``` should be enough to get the scripts running without using Nix
 
 ## Usage Examples
-The -h flag can be used for each script to output it's proper usage
+The ```-h``` flag can be used for each script to output it's proper usage
 
 ### Scanner
 ```bash
