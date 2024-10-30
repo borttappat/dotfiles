@@ -1,0 +1,90 @@
+# Nmap 7.95 scan initiated Tue Oct 29 21:01:32 2024 as: nmap -A -p- -T4 -oN scan_results/nmap_scan_20241029_210132.txt 10.10.11.25
+Nmap scan report for greenhorn.htb (10.10.11.25)
+Host is up (0.033s latency).
+Not shown: 65532 closed tcp ports (conn-refused)
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   256 57:d6:92:8a:72:44:84:17:29:eb:5c:c9:63:6a:fe:fd (ECDSA)
+|_  256 40:ea:17:b1:b6:c5:3f:42:56:67:4a:3c:ee:75:23:2f (ED25519)
+80/tcp   open  http    nginx 1.18.0 (Ubuntu)
+| http-robots.txt: 2 disallowed entries 
+|_/data/ /docs/
+| http-cookie-flags: 
+|   /: 
+|     PHPSESSID: 
+|_      httponly flag not set
+|_http-generator: pluck 4.7.18
+| http-title: Welcome to GreenHorn ! - GreenHorn
+|_Requested resource was http://greenhorn.htb/?file=welcome-to-greenhorn
+|_http-server-header: nginx/1.18.0 (Ubuntu)
+|_http-trane-info: Problem with XML parsing of /evox/about
+3000/tcp open  http    Golang net/http server
+|_http-title: GreenHorn
+| fingerprint-strings: 
+|   GenericLines, Help, RTSPRequest: 
+|     HTTP/1.1 400 Bad Request
+|     Content-Type: text/plain; charset=utf-8
+|     Connection: close
+|     Request
+|   GetRequest: 
+|     HTTP/1.0 200 OK
+|     Cache-Control: max-age=0, private, must-revalidate, no-transform
+|     Content-Type: text/html; charset=utf-8
+|     Set-Cookie: i_like_gitea=6d730e43db76bda8; Path=/; HttpOnly; SameSite=Lax
+|     Set-Cookie: _csrf=tRuQuI_hjvBgiJta-Cag2n8abkE6MTczMDIzNTcwOTU1Njk0OTM5OQ; Path=/; Max-Age=86400; HttpOnly; SameSite=Lax
+|     X-Frame-Options: SAMEORIGIN
+|     Date: Tue, 29 Oct 2024 21:01:49 GMT
+|     <!DOCTYPE html>
+|     <html lang="en-US" class="theme-auto">
+|     <head>
+|     <meta name="viewport" content="width=device-width, initial-scale=1">
+|     <title>GreenHorn</title>
+|     <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiR3JlZW5Ib3JuIiwic2hvcnRfbmFtZSI6IkdyZWVuSG9ybiIsInN0YXJ0X3VybCI6Imh0dHA6Ly9ncmVlbmhvcm4uaHRiOjMwMDAvIiwiaWNvbnMiOlt7InNyYyI6Imh0dHA6Ly9ncmVlbmhvcm4uaHRiOjMwMDAvYXNzZXRzL2ltZy9sb2dvLnBuZyIsInR5cGUiOiJpbWFnZS9wbmciLCJzaXplcyI6IjUxMng1MTIifSx7InNyYyI6Imh0dHA6Ly9ncmVlbmhvcm4uaHRiOjMwMDAvYX
+|   HTTPOptions: 
+|     HTTP/1.0 405 Method Not Allowed
+|     Allow: HEAD
+|     Allow: HEAD
+|     Allow: GET
+|     Cache-Control: max-age=0, private, must-revalidate, no-transform
+|     Set-Cookie: i_like_gitea=0672d1f836e4a845; Path=/; HttpOnly; SameSite=Lax
+|     Set-Cookie: _csrf=57DQmUZ1FmKUh72xQ5su7Nb60Vg6MTczMDIzNTcwOTk5Mjc0Mjg3OQ; Path=/; Max-Age=86400; HttpOnly; SameSite=Lax
+|     X-Frame-Options: SAMEORIGIN
+|     Date: Tue, 29 Oct 2024 21:01:49 GMT
+|_    Content-Length: 0
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port3000-TCP:V=7.95%I=7%D=10/29%Time=67214D3C%P=x86_64-pc-linux-gnu%r(G
+SF:enericLines,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20
+SF:text/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\
+SF:x20Request")%r(GetRequest,252E,"HTTP/1\.0\x20200\x20OK\r\nCache-Control
+SF::\x20max-age=0,\x20private,\x20must-revalidate,\x20no-transform\r\nCont
+SF:ent-Type:\x20text/html;\x20charset=utf-8\r\nSet-Cookie:\x20i_like_gitea
+SF:=6d730e43db76bda8;\x20Path=/;\x20HttpOnly;\x20SameSite=Lax\r\nSet-Cooki
+SF:e:\x20_csrf=tRuQuI_hjvBgiJta-Cag2n8abkE6MTczMDIzNTcwOTU1Njk0OTM5OQ;\x20
+SF:Path=/;\x20Max-Age=86400;\x20HttpOnly;\x20SameSite=Lax\r\nX-Frame-Optio
+SF:ns:\x20SAMEORIGIN\r\nDate:\x20Tue,\x2029\x20Oct\x202024\x2021:01:49\x20
+SF:GMT\r\n\r\n<!DOCTYPE\x20html>\n<html\x20lang=\"en-US\"\x20class=\"theme
+SF:-auto\">\n<head>\n\t<meta\x20name=\"viewport\"\x20content=\"width=devic
+SF:e-width,\x20initial-scale=1\">\n\t<title>GreenHorn</title>\n\t<link\x20
+SF:rel=\"manifest\"\x20href=\"data:application/json;base64,eyJuYW1lIjoiR3J
+SF:lZW5Ib3JuIiwic2hvcnRfbmFtZSI6IkdyZWVuSG9ybiIsInN0YXJ0X3VybCI6Imh0dHA6Ly
+SF:9ncmVlbmhvcm4uaHRiOjMwMDAvIiwiaWNvbnMiOlt7InNyYyI6Imh0dHA6Ly9ncmVlbmhvc
+SF:m4uaHRiOjMwMDAvYXNzZXRzL2ltZy9sb2dvLnBuZyIsInR5cGUiOiJpbWFnZS9wbmciLCJz
+SF:aXplcyI6IjUxMng1MTIifSx7InNyYyI6Imh0dHA6Ly9ncmVlbmhvcm4uaHRiOjMwMDAvYX"
+SF:)%r(Help,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20tex
+SF:t/plain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20
+SF:Request")%r(HTTPOptions,1A4,"HTTP/1\.0\x20405\x20Method\x20Not\x20Allow
+SF:ed\r\nAllow:\x20HEAD\r\nAllow:\x20HEAD\r\nAllow:\x20GET\r\nCache-Contro
+SF:l:\x20max-age=0,\x20private,\x20must-revalidate,\x20no-transform\r\nSet
+SF:-Cookie:\x20i_like_gitea=0672d1f836e4a845;\x20Path=/;\x20HttpOnly;\x20S
+SF:ameSite=Lax\r\nSet-Cookie:\x20_csrf=57DQmUZ1FmKUh72xQ5su7Nb60Vg6MTczMDI
+SF:zNTcwOTk5Mjc0Mjg3OQ;\x20Path=/;\x20Max-Age=86400;\x20HttpOnly;\x20SameS
+SF:ite=Lax\r\nX-Frame-Options:\x20SAMEORIGIN\r\nDate:\x20Tue,\x2029\x20Oct
+SF:\x202024\x2021:01:49\x20GMT\r\nContent-Length:\x200\r\n\r\n")%r(RTSPReq
+SF:uest,67,"HTTP/1\.1\x20400\x20Bad\x20Request\r\nContent-Type:\x20text/pl
+SF:ain;\x20charset=utf-8\r\nConnection:\x20close\r\n\r\n400\x20Bad\x20Requ
+SF:est");
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Tue Oct 29 21:02:14 2024 -- 1 IP address (1 host up) scanned in 41.45 seconds
