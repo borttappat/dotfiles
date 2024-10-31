@@ -11,11 +11,11 @@ Managed through scripts in ``scripts/bash`` and ``scripts/python`` and configura
 ![Screenshot](https://github.com/borttappat/dotfiles/blob/main/misc/screenshot.png)
 
 
-## *W a r n i n g*
+## *Warning #1*
 The setup-scripts in this repo are work in progress. I update stuff weekly and I can't guarantee that nothing breaks. Setting up a user-friendly experience isn't my main priority, and the setup-scripts might break from time to time. Until I end up with a "stable" version, consider this very much work in progress.
 
 As of 01/10/2024, ```nixsetup.sh``` in ``scripts/bash`` works on testing VMs; give it a go!
-### *W a r n i n g*
+### *Warning #2*
 If you perform a git pull(I kind of recommend against doing this as Flakes builds using ONLY Git-tracked files that are generated in the setup-script, and thusly will be reset to a bare state upon pulling), run the ```nixsetup.sh``` again before building, and take note of and/or merge your personal changes before pulling down the latest changes as they will be overwritten otherwise.
 
 ## Installation
