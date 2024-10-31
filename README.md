@@ -81,6 +81,8 @@ A few useful ones include:
 
 ``np`` opens a vim-session in which you can edit ``packages.nix`` which determines the packages installed on the system
 
+``npp`` opens a vim-session in which you can edit ``pentesting.nix`` which determines what packages with a pentesting slant are installed on the system
+
 ``nb`` builds the system with the modules listed in ``flake.nix``in the ``"default"`` section(notably includes ``packages.nix``, the referenced script is a bit hacky and involves fething the name using ``neofetch`` in the background, keep that program around or set up new Configurations with other methos, Nix includes this by referencing the hostname, it's worth looking into. Use ``nu`` to update the flake.lock file and rebuild(updates the kernel and unpins the installed packages, allowing for the most recent updates).
 
 ``pc`` opens up a vim-session in which you can edit Picom, the compositor responsible for the transparency
@@ -93,16 +95,16 @@ A few useful ones include:
 
 ### scripts/python/link.py
 ```
-python link_file.py --file [FILE] --dir [DIRECTORY]
+python link.py --file [FILE] --dir [DIRECTORY]
 ```
 
-[scripts/python/link.py] checks for parsed directories and creates it if it's missing, deletes file(s) with the name of the parsed file and then creates a link to the specified directory. 
+``scripts/python/link.py`` checks for parsed directories and creates it if it's missing, deletes file(s) with the name of the parsed file and then creates a link to the specified directory. 
 
 TODO: back up any existing file instead of deleting, or similar.
 
-[scripts/bash/links.sh] runs through a list of files and directories to link files to in order to ensure that things work correctly.
+``scripts/bash/links.sh`` runs through a list of files and directories to link files to in order to ensure that things work correctly.
 
-
+~~
 ### Nixp.sh
 Nixp.nix along with the scripts nixp.sh and nixpsort.py along with related aliases in config.fish allows you to install packages with prompts like:
 ```
@@ -116,7 +118,7 @@ to install neofetch and htop
 
 You'll then be given a (Y/N) to rebuild your system after the inputs have been parsed.
 nixp.nix is left empty for any user to modify locally
-
+~~
 ### scripts/bash/walrgb.sh
 Simple combination of wal and openrgb. Accepts the path of an image file like 
 ```
