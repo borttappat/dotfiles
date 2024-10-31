@@ -15,11 +15,11 @@ Managed through scripts in ``scripts/bash`` and ``scripts/python`` and configura
 The setup-scripts in this repo are work in progress. I update stuff weekly and I can't guarantee that nothing breaks. Setting up a user-friendly experience isn't my main priority, and the setup-scripts might break from time to time. Until I end up with a "stable" version, consider this very much work in progress.
 
 As of 01/10/2024, ```nixsetup.sh``` in ``scripts/bash`` works on testing VMs; give it a go!
-### w a r n i n g
-If you perform a git pull to later down the line, run the ```nixsetup.sh``` again before building, and take note of and/or merge your personal changes before pulling down the latest changes.
+### *W a r n i n g*
+If you perform a git pull(I kind of recommend against doing this as Flakes builds using ONLY Git-tracked files that are generated in the setup-script, and thusly will be reset to a bare state upon pulling), run the ```nixsetup.sh``` again before building, and take note of and/or merge your personal changes before pulling down the latest changes as they will be overwritten otherwise.
 
 ## Installation
-Commands to run on an ``(not recommended)``existing install or
+Commands to run on an ``(not recommended)`` existing install or
 ``(recommended)`` fresh install.
 
 Temp-install git and python for cloning repo and running scripts
@@ -28,7 +28,7 @@ nix-shell -p git python3
 ```
 Clone the repo
 ```
-git clone https://github.com/borttappat/dotfiles
+cd && git clone https://github.com/borttappat/dotfiles
 ```
 Navigate to the scripts-directory
 ```
@@ -45,7 +45,7 @@ Run the script
 Your system will then, last time I checked, freeze up. From here, reboot and you should then boot into tty and the command ``x`` will start Xserver and i3(picom for transparency is started at launch, if you're running in a WM I run the following to make it more usable, transparency hasn't worked out well for me in virtual environments): ``killall picom``
 I should probably just set up a script to look for WMs when launching i3, but alas, I have not.
 
-#### EDIT: Picom has been disabled on boot for now, ignore the above paragraph.
+#### EDIT: Picom has been disabled on boot for now across the system.
 
 ### Usage
 

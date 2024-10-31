@@ -16,6 +16,7 @@ pkgs.mkShell {
     nmap
     whatweb
     exploitdb  # for searchsploit
+    ffuf
   ];
 
   shellHook = ''
