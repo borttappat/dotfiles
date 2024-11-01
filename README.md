@@ -4,7 +4,7 @@ My personal repo where I put stuff I want to use on multiple machines.
 Currently setting up a NixOS system and will do so for the foreseeable future.
 
 ### TL;DR
-Flakey Nix-configuration with modules split into (mainly) ``configuration.nix`` ``hosts.nix`` ``nixp.nix`` ``packages.nix`` ``services.nix`` ``pentesting.nix``  and ``user.nix``. 
+Flakey Nix-configuration with modules split into (mainly) ``configuration.nix`` ``hosts.nix``  ``packages.nix`` ``services.nix`` ``pentesting.nix``  and ``user.nix``. 
 
 Managed through scripts in ``scripts/bash`` and ``scripts/python`` and configuration files for among others;``i3wm`` ``alaritty`` ``fish`` ``polybar`` and ``picom``.
 
@@ -121,7 +121,7 @@ Script to be used on any system to an environment like my own with
 i3, alacritty, fish, picom
 ``
 
-and programs listed in packages.nix and nixp.nix along with services in services.nix.
+and programs listed in packages.nix along with services in services.nix.
 
 Currently set up to backup any existing configuration.nix and implement everything in this repo while preserving usernames and bootloader settings along with hardware-configuration.nix as it is set during installation(left as is for now).
 
