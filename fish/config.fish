@@ -107,8 +107,6 @@ alias asusconf='vim ~/dotfiles/asus.nix'
 
 alias hosts='v ~/dotfiles/modules/hosts.nix'
 alias nixhosts='v ~/dotfiles/modules/hosts.nix'
-alias nixp='sudo ~/dotfiles/scripts/bash/nixp.sh'
-alias nixpsort='sudo python ~/dotfiles/scripts/python/nixpsort.py'
 alias nu='sh ~/dotfiles/scripts/bash/nixupdate.sh'
 alias ncg='sudo nix-collect-garbage -d'
 alias nixbuild='~/dotfiles/scripts/bash/nixbuild.sh'

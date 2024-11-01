@@ -104,21 +104,6 @@ TODO: back up any existing file instead of deleting, or similar.
 
 ``scripts/bash/links.sh`` runs through a list of files and directories to link files to in order to ensure that things work correctly.
 
-
-~~### Nixp.sh
-~~Nixp.nix along with the scripts nixp.sh and nixpsort.py along with related aliases in config.fish allows you to install packages with prompts like:
-```
-~~nixp neofetch
-```
-~~to install neofetch, or
-```
-~~nixp neofetch htop
-```
-~~to install neofetch and htop
-
-~~You'll then be given a (Y/N) to rebuild your system after the inputs have been parsed.
-~~nixp.nix is left empty for any user to modify locally
-
 ### scripts/bash/walrgb.sh
 Simple combination of wal and openrgb. Accepts the path of an image file like 
 ```

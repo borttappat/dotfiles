@@ -27,7 +27,6 @@
                         ./modules/configuration.nix
                         ./modules/packages.nix
                         ./modules/services.nix
-                        ./modules/nixp.nix
                         ./modules/users.nix
                         ./modules/hosts.nix
                         ./modules/razer.nix
@@ -50,7 +49,6 @@
                         ./modules/boot.nix
                         ./modules/packages.nix
                         ./modules/services.nix
-                        ./modules/nixp.nix
                         ./modules/users.nix
                         ./modules/colors.nix 
                         ./modules/scripts.nix
@@ -64,7 +62,6 @@
                         ./modules/configuration.nix
                         ./modules/packages.nix
                         ./modules/services.nix
-                        ./modules/nixp.nix
                         ./modules/hosts.nix
                         ./modules/users.nix
                         ./modules/asus.nix
@@ -84,7 +81,6 @@
                         ./modules/boot.nix
                         ./modules/packages.nix
                         ./modules/services.nix
-                        ./modules/nixp.nix
                         ./modules/users.nix
                         ./modules/colors.nix
                         ./modules/scripts.nix
