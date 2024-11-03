@@ -160,8 +160,11 @@
     busybox
     inetutils
     udisks
+    
+    ansible         #we be devs now
     docker          #added with virt.enable = true in services.nix
     lazydocker
+    
     signal-cli
     whois
     #xrdp            #rdp-interface

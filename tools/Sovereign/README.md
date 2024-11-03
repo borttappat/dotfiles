@@ -59,9 +59,9 @@ Uses Nix for dependency management. Required packages(included in shell.nix):
 
 ## Setup
 
-1. Install Nix package manager
+1. Install Nix package manager [optional]
 2. Clone repository
-3. Enter development shell:
+3. Enter development shell(or just run ```pip install -r requirements.txt```)
 ```bash
 nix-shell
 ```
@@ -72,8 +72,8 @@ The ```-h``` flag can be used for each script to output it's proper usage
 
 ### Scanner [Broken, don't run]
 ```bash
-./scanner.py target.com
-./scanner.py IPADDR
+sudo python scanner.py target.com
+sudo python scanner.py IPADDR
 ```
 
 ### SSH Runner

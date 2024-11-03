@@ -3,69 +3,10 @@ import re
 import subprocess
 from pathlib import Path
 from typing import List, Set, Tuple, Dict
-
-def clean_service_string(service: str) -> str:
-    """
-    Clean service strings by removing brackets and extra info
-    Example: 'Apache[2.4.52]' -> 'apache 2.4.52'
-    """
-    # Skip if service string is too short
-    if len(service) < 3:
-        return ""
-        
-    # Remove ANSI color codes
-    service = re.sub(r'\x1b\[[0-9;]*[mK]', '', service)
-    
-    # List of terms to ignore (too generic)
-    ignore_terms = {
-        'ip', 'tcp', 'udp', 'the', 'and', 'for', 'web', 'api',
-        'com', 'org', 'net', 'www', 'http', 'https', 'ftp'
-    }
-    
-    # Remove common Linux/Ubuntu references
-    service = re.sub(r'\(Ubuntu\)', '', service)
-    service = re.sub(r'\(Debian\)', '', service)
-    service = re.sub(r'\(Linux\)', '', service)
-    
-    # Extract service name and version from brackets/parentheses
-    match = re.search(r'([a-zA-Z0-9_-]+)[\[\(]([0-9][0-9a-z._-]+)[\]\)]', service)
-    if match:
-        service_name = match.group(1).lower()
-        version = match.group(2)
-        
-        # Skip if service name is in ignore list
-        if service_name in ignore_terms:
-            return ""
-            
-        # Skip if version doesn't start with a number
-        if not version[0].isdigit():
-            return ""
-            
-        return f"{service_name} {version}"
-    
-    # Try to match service names with versions without brackets
-    match = re.search(r'([a-zA-Z0-9_-]+)[\/\s]([0-9][0-9a-z._-]+)', service)
-    if match:
-        service_name = match.group(1).lower()
-        version = match.group(2)
-        
-        # Skip if service name is in ignore list
-        if service_name in ignore_terms:
-            return ""
-            
-        # Skip if version doesn't start with a number
-        if not version[0].isdigit():
-            return ""
-            
-        return f"{service_name} {version}"
-    
-    return ""
+import json
 
 def parse_whatweb_output(whatweb_file: str) -> Tuple[Set[str], Set[str]]:
-    """
-    Parse whatweb output file and extract service versions and redirects.
-    Returns (services, redirect_locations)
-    """
+    """Parse whatweb output file and extract service versions and redirects"""
     services = set()
     redirect_locations = set()
     
@@ -85,13 +26,21 @@ def parse_whatweb_output(whatweb_file: str) -> Tuple[Set[str], Set[str]]:
                 if redirect_match:
                     redirect_locations.add(redirect_match.group(1))
                 
-                # Find all service[version] patterns
-                service_matches = re.finditer(r'([a-zA-Z0-9-]+)\[([^\]]+)\]', entry)
+                # Find all patterns of Service[Version]
+                service_matches = re.finditer(r'([A-Za-z][A-Za-z0-9_-]+)\[([^\]]+)\]', entry)
                 for match in service_matches:
-                    service = f"{match.group(1)}[{match.group(2)}]"
-                    cleaned = clean_service_string(service)
-                    if cleaned:
-                        services.add(cleaned)
+                    service_name = match.group(1)
+                    version = match.group(2)
+                    
+                    # Skip if version doesn't contain any numbers
+                    if not any(c.isdigit() for c in version):
+                        continue
+                    
+                    # Extract version number if mixed with other text (like "Ubuntu Linux")
+                    version_match = re.search(r'([0-9]+(?:\.[0-9]+)+)', version)
+                    if version_match:
+                        version = version_match.group(1)
+                        services.add(f"{service_name.lower()} {version}")
     
     except FileNotFoundError:
         print(f"[-] Error: Whatweb output file {whatweb_file} not found")
@@ -107,14 +56,14 @@ def parse_nmap_output(nmap_file: str) -> Set[str]:
     try:
         with open(nmap_file, 'r') as f:
             for line in f:
-                # Look for port lines with version information
+                # Look for version information in service lines
                 if 'open' in line and ('tcp' in line or 'udp' in line):
-                    parts = line.split()
-                    if len(parts) >= 5:
-                        service = ' '.join(parts[3:])  # Join all parts after service name
-                        cleaned = clean_service_string(service)
-                        if cleaned:
-                            services.add(cleaned)
+                    # Try to find service and version patterns
+                    version_match = re.search(r'([A-Za-z][A-Za-z0-9_-]+)[/ ]([0-9][0-9a-z._-]+)', line)
+                    if version_match:
+                        service = version_match.group(1)
+                        version = version_match.group(2)
+                        services.add(f"{service.lower()} {version}")
     
     except FileNotFoundError:
         print(f"[-] Error: Nmap output file {nmap_file} not found")
@@ -124,47 +73,58 @@ def parse_nmap_output(nmap_file: str) -> Set[str]:
     return services
 
 def run_searchsploit(service: str, output_file: str) -> bool:
-    """
-    Run searchsploit against a service and append results to output file
-    Returns True if any valid results were found and written
-    """
+    """Run searchsploit against a service and append results"""
     try:
-        command = ["searchsploit", service]
-        process = subprocess.run(
-            command,
-            capture_output=True,
-            text=True
-        )
+        # Run searchsploit with JSON output for better parsing
+        command = ["searchsploit", "--json", service]
+        process = subprocess.run(command, capture_output=True, text=True)
         
         if process.stdout.strip():
-            # Clean and filter the output
-            output_lines = []
-            
-            # Extract service name for exact matching
-            service_name = service.split()[0].lower()
-            
-            for line in process.stdout.splitlines():
-                # Remove ANSI color codes
-                line = re.sub(r'\x1b\[[0-9;]*[mK]', '', line)
-                
-                # Skip separator lines and empty lines
-                if not line.strip() or all(c in '-|_' for c in line.strip()):
-                    continue
+            try:
+                results = json.loads(process.stdout)
+                if results.get('RESULTS_EXPLOIT'):
+                    with open(output_file, 'a') as f:
+                        f.write(f"\n{'='*50}\n")
+                        f.write(f"Potential exploits for {service}:\n")
+                        f.write(f"{'='*50}\n")
+                        
+                        for exploit in results['RESULTS_EXPLOIT']:
+                            # Filter out false positives by checking if service name is in title
+                            title = exploit.get('Title', '').lower()
+                            service_name = service.split()[0].lower()
+                            if service_name in title:
+                                f.write(f"Title: {exploit['Title']}\n")
+                                f.write(f"Path: {exploit['Path']}\n")
+                                if exploit.get('Author'):
+                                    f.write(f"Author: {exploit['Author']}\n")
+                                f.write("\n")
+                        
+                        return True
+            except json.JSONDecodeError:
+                # Fallback to text output if JSON fails
+                output_lines = []
+                for line in process.stdout.splitlines():
+                    line = re.sub(r'\x1b\[[0-9;]*[mK]', '', line)  # Remove color codes
                     
-                # Check for exact service name match
-                if re.search(rf'\b{re.escape(service_name)}\b', line.lower()):
-                    output_lines.append(line)
-            
-            # Only write if we have filtered results
-            if output_lines:
-                with open(output_file, 'a') as f:
-                    f.write(f"\n{'='*50}\n")
-                    f.write(f"Potential exploits for {service}:\n")
-                    f.write(f"{'='*50}\n")
-                    f.write('\n'.join(output_lines))
-                    f.write("\n\n")
-                return True
-            
+                    # Skip separator lines and empty lines
+                    if not line.strip() or all(c in '-|_' for c in line.strip()):
+                        continue
+                        
+                    # Check for exact service name match
+                    service_name = service.split()[0].lower()
+                    if re.search(rf'\b{re.escape(service_name)}\b', line.lower()):
+                        output_lines.append(line)
+                
+                # Only write if we have filtered results
+                if output_lines:
+                    with open(output_file, 'a') as f:
+                        f.write(f"\n{'='*50}\n")
+                        f.write(f"Potential exploits for {service}:\n")
+                        f.write(f"{'='*50}\n")
+                        f.write('\n'.join(output_lines))
+                        f.write("\n\n")
+                    return True
+                
         return False
         
     except Exception as e:
@@ -172,10 +132,7 @@ def run_searchsploit(service: str, output_file: str) -> bool:
         return False
 
 def scan_for_vulnerabilities(nmap_file: str, whatweb_file: str, output_dir: Path) -> Tuple[str, Set[str]]:
-    """
-    Main function to coordinate vulnerability scanning
-    Returns (vulnerability_report_path, redirect_locations)
-    """
+    """Main function to coordinate vulnerability scanning"""
     # Create output file for vulnerability report
     timestamp = nmap_file.split('_')[-1].split('.')[0]  # Extract timestamp from nmap filename
     vuln_file = output_dir / f"potential_vulns_{timestamp}.txt"
