@@ -12,7 +12,7 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 ## Tools
 
 ### Scanner (scanner.py + vulnscan.py) 
-[Still work in progress]
+[Still work in progress, currently broken - don't run]
 - Network and web service reconnaissance tool
 - Combines nmap, whatweb, and searchsploit
 - Creates a vulnerability report based on discovered services by nmap and whatweb
@@ -22,8 +22,8 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 - Perform further tests
 
 ### SSH Runner (ssh.py) 
-[Tested with a linpeas-script on a Hack The Box lab host]
-- Uploads and executes a script on remote systems
+[Tested with a linpeas-script(provided in this repo, original at https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS)  on a Hack The Box lab host]
+- Uploads and executes a script on remote systems using ssh
 - Supports password and key-based authentication
 - Output capture and local/remote saving
 
@@ -39,6 +39,9 @@ A collection of Python scripts to aid in pentesting/CTF tasks
   - At least one number
   - At least one special character 
   - Longer than 7 characters
+
+[To do]
+- Make the trimming modular instead of static
 
 ## Requirements
 
@@ -67,7 +70,7 @@ The provided ```requirements.txt``` should be enough to get the scripts running 
 ## Usage Examples
 The ```-h``` flag can be used for each script to output it's proper usage
 
-### Scanner
+### Scanner [Broken, don't run]
 ```bash
 ./scanner.py target.com
 ./scanner.py IPADDR
