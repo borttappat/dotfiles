@@ -71,12 +71,6 @@ The provided ```requirements.txt``` should be enough to get the scripts running 
 ## Usage Examples
 The ```-h``` flag can be used for each script to output it's proper usage
 
-### Scanner [Broken, don't run]
-```bash
-sudo python scanner.py target.com
-sudo python scanner.py IPADDR
-```
-
 ### SSH Runner
 ```bash
 ./ssh.py target.com -u username -s script.sh
@@ -98,4 +92,10 @@ sudo python scanner.py IPADDR
 ### Wordlist Trimmer
 ```bash
 ./trim.py input_wordlist.txt -o filtered_wordlist.txt
+```
+
+### Scanner [Broken, don't run]
+```bash
+sudo python scanner.py target.com
+sudo python scanner.py IPADDR
 ```
