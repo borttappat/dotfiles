@@ -11,16 +11,6 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 
 ## Tools
 
-### Scanner (scanner.py + vulnscan.py) 
-[Still work in progress, currently broken - don't run]
-- Network and web service reconnaissance tool
-- Combines nmap, whatweb, and searchsploit
-- Creates a vulnerability report based on discovered services by nmap and whatweb
-
-[To do]
-- Filter the output of nmap and make sure they match the expected format of the searchsploit-scan
-- Perform further tests
-
 ### SSH Runner (ssh.py) 
 [Tested with a linpeas-script(provided in this repo, original at https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS)  on a Hack The Box lab host]
 - Uploads and executes a script on remote systems using ssh
@@ -42,6 +32,17 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 
 [To do]
 - Make the trimming modular instead of static
+
+## Work in progress
+### Scanner (scanner.py + vulnscan.py) 
+[Still work in progress, currently broken - don't run]
+- Network and web service reconnaissance tool
+- Combines nmap, whatweb, and searchsploit
+- Creates a vulnerability report based on discovered services by nmap and whatweb
+
+[To do]
+- Filter the output of nmap and make sure they match the expected format of the searchsploit-scan
+- Perform further tests
 
 ## Requirements
 
