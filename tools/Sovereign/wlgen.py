@@ -11,7 +11,7 @@ from pathlib import Path
 def generate_variations(word, leet_level="basic"):
     variations = set()
 
-    # list of common replacements for 13375p34k in basic mode
+    # List of common replacements for leetspeak in basic mode
     basic_leet = {
         "a": ["@", "4"],
         "e": ["3"],
@@ -21,7 +21,7 @@ def generate_variations(word, leet_level="basic"):
         "s": ["$"],
         "t": ["7"],
     }
-    # list of more "advanced" replacements for 13375p34k in advanced mode
+    # List of more "advanced" replacements for leetspeak in advanced mode
     advanced_leet = {
         **basic_leet,
         "b": ["8"],
@@ -86,11 +86,6 @@ def add_common_suffixes(
         "-",
         "+",
         "=",
-        "007",
-        "777",
-        "666",
-        "111",
-        "000",
     ]
 
     special_chars = advanced_special if complexity == "advanced" else basic_special
