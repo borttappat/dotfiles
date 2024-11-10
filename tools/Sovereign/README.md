@@ -28,10 +28,8 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 - Running a list through the script will ensure the output list has:
   - At least one number
   - At least one special character 
-  - Longer than 7 characters
-
-[To do]
-- Make the trimming modular instead of static
+- Allows for minimum and maximum word lengths
+- Prints the changes made to the list in terms of word-count
 
 ## Work in progress
 ### Scanner (scanner.py + vulnscan.py) 
