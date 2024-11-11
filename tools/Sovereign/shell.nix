@@ -6,6 +6,9 @@ pkgs.mkShell {
       python-nmap
       paramiko
       prompt-toolkit
+      cryptography
+      #requests
+      #urllib3
 
       # Testing and linting
       pylint

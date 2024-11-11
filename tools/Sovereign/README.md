@@ -31,6 +31,11 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 - Allows for minimum and maximum word lengths
 - Prints the changes made to the list in terms of word-count
 
+### Simple keygen, encrypting and derypting suite(crypt.py + keygen.py)
+- Generate encryption keys with keygen.py
+- Encrypt/decrypt parsed files with crypt.py and a key
+- Add file extension based on encrypting or decrypting mode
+
 ## Work in progress
 ### Scanner (scanner.py + vulnscan.py) 
 [Still work in progress, currently broken - don't run]
@@ -59,7 +64,7 @@ Uses Nix for dependency management. Required packages(included in shell.nix):
 ## Setup
 
 1. Install Nix package manager [optional]
-2. Clone repository
+2. Clone repository ```git clone https://github.com/borttappat/dotfiles/tree/main/tools/Sovereign```
 3. Enter development shell(or just run ```pip install -r requirements.txt```)
 ```bash
 nix-shell
@@ -90,6 +95,17 @@ The ```-h``` flag can be used for each script to output it's proper usage
 ### Wordlist Trimmer
 ```bash
 ./trim.py input_wordlist.txt -o filtered_wordlist.txt
+```
+
+### Decrypting Tool
+```bash
+./crypt.py -k KEY -e file
+./crypt.py -k keY -d file_encrypted
+```
+
+### Keygen
+```bash
+./keygen.py
 ```
 
 ### Scanner [Broken, don't run]
