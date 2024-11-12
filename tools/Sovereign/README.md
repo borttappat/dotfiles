@@ -67,7 +67,7 @@ Uses Nix for dependency management. Required packages(included in shell.nix):
 ```bash 
 git clone https://github.com/borttappat/dotfiles/tree/main/tools/Sovereign
 ```
-3. Enter development shell(or just run ```pip install -r requirements.txt```)
+3. Enter development shell or skip to step 4 if just using ```pip```
 ```bash
 nix-shell
 ```
