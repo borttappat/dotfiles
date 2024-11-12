@@ -90,12 +90,12 @@ The ```-h``` flag can be used for each script to output it's proper usage
 ```
 
 ### Wordlist Generator
-#### From comma-separated words
+From comma-separated words
 ```bash
 ./wlgen.py -w password,admin,secret -o wordlist.txt
 ```
 
-#### From input file
+From input file
 ```bash
 ./wlgen.py -l base_words.txt -o wordlist.txt --complexity advanced
 ```
