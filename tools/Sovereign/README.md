@@ -63,7 +63,8 @@ Uses Nix for dependency management. Required packages(included in shell.nix):
 ## Setup
 
 1. Install Nix package manager [optional]
-2. Clone repository ```bash 
+2. Clone repository 
+```bash 
 git clone https://github.com/borttappat/dotfiles/tree/main/tools/Sovereign
 ```
 3. Enter development shell(or just run ```pip install -r requirements.txt```)
