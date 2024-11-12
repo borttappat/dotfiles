@@ -97,17 +97,17 @@ From comma-separated words
 
 From input file
 ```bash
-./wlgen.py -l base_words.txt -o wordlist.txt --complexity advanced
+./wlgen.py -l /path/to/base_words_list.txt -o output_wordlist.txt --complexity advanced
 ```
 
 ```bash
-./wlgen.py -l griefhound_pass.txt -o griefhound_pass_mut.txt --stream
+./wlgen.py -l /path/to/base_words_list.txt -o output_wordlist.txt --stream
 
 ```
 
 ### Wordlist Trimmer
 ```bash
-./trim.py input_wordlist.txt -o filtered_wordlist.txt
+./trim.py /path/to/wordlist -o output_wordlist.txt
 ```
 
 ### Keygen
@@ -117,14 +117,20 @@ From input file
 
 ### Decrypting Tool
 ```bash
-./crypt.py -k KEY -e file
-./crypt.py -k keY -d file_encrypted
+./crypt.py -k /path/to/key -e /path/to/file
+```
+
+```bash
+./crypt.py -k /path/to/key -d /path/to/file 
 ```
 
 ### Subdomain Enumeration
 ```bash
-./subenum.py google.com -o google_subdomains.txt
-./subenum.py hackerone.com -w /path/to/wordlist -o hackerone_subdomains.txt
+./subenum.py google.com -o output_file
+```
+
+```bash
+./subenum.py hackerone.com -w /path/to/wordlist -o output_file
 ```
 
 
