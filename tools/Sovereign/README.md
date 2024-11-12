@@ -32,7 +32,7 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 - Example: password -> rejected, passw0rd! -> acepted
 
 ### Subdomain scanner (subenum.py)
-[Tested against hackerone.com and inlanefreight.com as well as boxes on Hack The Box; Stocker]
+[Tested against hackerone.com and inlanefreight.com]
 - Scans the target for subdomains using wordlists and/or sublist3r
 - Accepts wordlists for wordlist-based enumeration
 - Only perfoms passive scans using sublist3r if no wordlist is provided
