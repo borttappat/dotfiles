@@ -1,1 +1,5 @@
 *.txt
+.venv
+__pycache__
+requirements.py
+*.key
