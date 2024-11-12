@@ -107,7 +107,7 @@ From input file
 
 ### Wordlist Trimmer
 ```bash
-./trim.py /path/to/wordlist -o output_wordlist.txt
+./trim.py /path/to/wordlist -o output_wordlist.txt --min X --max Y
 ```
 
 ### Keygen
