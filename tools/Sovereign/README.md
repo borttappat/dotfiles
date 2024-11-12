@@ -31,33 +31,30 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 - Allows for minimum and maximum word lengths
 - Prints the changes made to the list in terms of word-count
 
+### Subdomain scanner (subenum.py)
+- Scans the target for subdomains using wordlists and/or sublist3r
+- Accepts wordlists for wordlist-based enumeration
+- Only perfoms passive scans using sublist3r if no wordlist is provided
+
 ### Simple keygen, encrypting and derypting suite(crypt.py + keygen.py)
 - Generate encryption keys with keygen.py
 - Encrypt/decrypt parsed files with crypt.py and a key
-- Add file extension based on encrypting or decrypting mode
+- Adds file extension based on encrypting or decrypting mode
 
-## Work in progress
-### Scanner (scanner.py + vulnscan.py) 
-[Still work in progress, currently broken - don't run]
-- Network and web service reconnaissance tool
-- Combines nmap, whatweb, and searchsploit
-- Creates a vulnerability report based on discovered services by nmap and whatweb
-
-[To do]
-- Filter the output of nmap and make sure they match the expected format of the searchsploit-scan
-- Perform further tests
 
 ## Requirements
 
 Uses Nix for dependency management. Required packages(included in shell.nix):
 - Python 3.8+
-- nmap
-- whatweb
-- exploitdb (searchsploit)
 - Python packages:
-  - python-nmap
   - paramiko
   - prompt-toolkit
+  - sublist3r
+  - cryptography
+  - requests
+  - urllib3
+  - dnspython
+
 
 ### Tested on NixOS 24.11
 
@@ -108,8 +105,10 @@ The ```-h``` flag can be used for each script to output it's proper usage
 ./keygen.py
 ```
 
-### Scanner [Broken, don't run]
+### Subdomain Enumeration
 ```bash
-sudo python scanner.py target.com
-sudo python scanner.py IPADDR
+./subenum.py google.com -o google_subdomains.txt
+./subenum.py hackerone.com -w /path/to/wordlist -o hackerone_subdomains.txt
 ```
+
+
