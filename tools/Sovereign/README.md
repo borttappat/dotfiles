@@ -38,6 +38,9 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 - Only perfoms passive scans using sublist3r if no wordlist is provided
 - Outputs the findings with color codes depending on the result
 
+[To do]
+- Combine add in vhost discovery
+
 ### Simple keygen, encrypting and derypting suite(crypt.py + keygen.py)
 - Generate encryption keys with keygen.py
 - Encrypt/decrypt parsed files with crypt.py and a key(remember to use the same key for encryption and deryption)
