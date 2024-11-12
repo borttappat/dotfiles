@@ -18,7 +18,6 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 - Output capture and local/remote saving
 
 ### Wordlist Generator (wlgen.py)
-[Tested with sample words]
 - Generate password variations from base words
 - Supports basic/advanced complexity levels
 - Memory-efficient streaming mode for large lists(AI assisted, ngl)
@@ -30,15 +29,17 @@ A collection of Python scripts to aid in pentesting/CTF tasks
   - At least one special character 
 - Allows for minimum and maximum word lengths
 - Prints the changes made to the list in terms of word-count
+- Example: password -> rejected, passw0rd! -> acepted
 
 ### Subdomain scanner (subenum.py)
+[Tested against hackerone.com and inlanefreight.com as well as boxes on Hack The Box]
 - Scans the target for subdomains using wordlists and/or sublist3r
 - Accepts wordlists for wordlist-based enumeration
 - Only perfoms passive scans using sublist3r if no wordlist is provided
 
 ### Simple keygen, encrypting and derypting suite(crypt.py + keygen.py)
 - Generate encryption keys with keygen.py
-- Encrypt/decrypt parsed files with crypt.py and a key
+- Encrypt/decrypt parsed files with crypt.py and a key(remember to use the same key for encryption and deryption)
 - Adds file extension based on encrypting or decrypting mode
 
 
@@ -94,15 +95,15 @@ The ```-h``` flag can be used for each script to output it's proper usage
 ./trim.py input_wordlist.txt -o filtered_wordlist.txt
 ```
 
+### Keygen
+```bash
+./keygen.py
+```
+
 ### Decrypting Tool
 ```bash
 ./crypt.py -k KEY -e file
 ./crypt.py -k keY -d file_encrypted
-```
-
-### Keygen
-```bash
-./keygen.py
 ```
 
 ### Subdomain Enumeration

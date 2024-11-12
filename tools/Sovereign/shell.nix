@@ -7,8 +7,6 @@ pkgs.mkShell {
       virtualenv
     ]))
     
-    # System dependencies
-    openssl
   ];
 
   shellHook = ''
@@ -19,7 +17,7 @@ pkgs.mkShell {
       
       # Install all required packages via pip
       pip install --upgrade pip
-      pip install paramiko prompt-toolkit cryptography requests urllib3 dnspython sublist3r
+      pip install paramiko prompt-toolkit cryptography requests dnspython sublist3r
     else
       source .venv/bin/activate
     fi
