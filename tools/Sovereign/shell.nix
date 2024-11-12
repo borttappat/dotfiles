@@ -17,7 +17,7 @@ pkgs.mkShell {
       
       # Install all required packages via pip
       pip install --upgrade pip
-      pip install paramiko prompt-toolkit cryptography requests dnspython sublist3r
+      pip install paramiko prompt-toolkit cryptography requests dnspython sublist3r tqdm
     else
       source .venv/bin/activate
     fi
