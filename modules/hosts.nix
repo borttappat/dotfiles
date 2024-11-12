@@ -49,6 +49,8 @@
     10.10.11.25 greenhorn.htb
     10.10.11.19 app.blurry.htb
     10.10.11.32 sightless.htb
+    #10.10.11.32 sqlpad.sightless.htb
+    10.10.11.196 stocker.htb
 
 
     # GOAD
