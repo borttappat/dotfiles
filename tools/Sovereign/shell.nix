@@ -3,41 +3,30 @@
 pkgs.mkShell {
   buildInputs = with pkgs; [
     (python3.withPackages(ps: with ps; [
-      python-nmap
-      paramiko
-      prompt-toolkit
-      cryptography
-      requests
-      urllib3
-      #sublist3r
-      dnspython
-
-      # Testing and linting
-      pylint
-      black
+      pip
+      virtualenv
     ]))
     
-    # Required system tools
-    nmap
-    whatweb
-    exploitdb  # for searchsploit
-    ffuf
+    # System dependencies
+    openssl
   ];
 
   shellHook = ''
-
-   # Create virtual environment if it doesn't exist
+    # Create and activate virtual environment
     if [ ! -d .venv ]; then
       python -m venv .venv
+      source .venv/bin/activate
+      
+      # Install all required packages via pip
+      pip install --upgrade pip
+      pip install paramiko prompt-toolkit cryptography requests urllib3 dnspython sublist3r
+    else
+      source .venv/bin/activate
     fi
 
-    # Activate virtual environment
-    source .venv/bin/activate
-
-    # Install Sublist3r if not already installed
-    if ! python -c "import sublist3r" 2>/dev/null; then
-      pip install sublist3r
-    fi
+    # Make sure we're using the virtual environment
+    export VIRTUAL_ENV=$(pwd)/.venv
+    export PATH="$VIRTUAL_ENV/bin:$PATH"
 
     if [ -n "${toString shellOverride}" ]; then
       exec ${toString shellOverride}
@@ -46,5 +35,7 @@ pkgs.mkShell {
     else
       echo "Fish is not installed. Using default shell."
     fi
+
+    echo "Virtual environment is active. All required packages should be available."
   '';
 }
