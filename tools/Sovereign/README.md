@@ -29,7 +29,7 @@ A collection of Python scripts to aid in pentesting/CTF tasks
   - At least one special character 
 - Allows for minimum and maximum word lengths
 - Prints the changes made to the list in terms of word-count
-- Example: password -> rejected, passw0rd! -> acepted
+- Example: password -> rejected, passw0rd! -> accepted
 
 ### Subdomain scanner (subenum.py)
 [Tested against hackerone.com and inlanefreight.com]
