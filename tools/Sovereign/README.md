@@ -35,7 +35,7 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 [Tested against hackerone.com and inlanefreight.com]
 - Scans the target for subdomains using wordlists and/or sublist3r
 - Accepts wordlists for wordlist-based enumeration
-- Only perfoms passive scans using sublist3r if no wordlist is provided
+- Perfoms passive scans using sublist3r if no wordlist is provided
 - Outputs the findings with color codes depending on the result
 
 [To do]
