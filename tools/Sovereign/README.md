@@ -128,7 +128,7 @@ Encrypting using the ```-e``` or ```--encrypt``` flag
 ./crypt.py -k /path/to/key -e /path/to/file
 ```
 
-Decrypting using the ```-d``` or ```--decrypt``` flag```
+Decrypting using the ```-d``` or ```--decrypt``` flag
 ```bash
 ./crypt.py -k /path/to/key -d /path/to/file 
 ```
