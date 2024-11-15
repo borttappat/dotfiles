@@ -13,6 +13,7 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 
 ### SSH Runner (ssh.py) 
 [Tested with a linpeas-script(provided in this repo, original at https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS)  on a Hack The Box lab host]
+[Edit: added testscript.sh to repo to test with instead of linpeas.sh(has been somewhat unreliable)]
 - Uploads and executes a script on remote systems using ssh
 - Supports password and key-based authentication
 - Output capture and local/remote saving
@@ -23,13 +24,14 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 - Memory-efficient streaming mode for large lists(AI assisted, ngl)
 
 ### Wordlist Trimmer (trim.py)
-- Filter wordlists based on complexity rules(static for now, might update further down the line)
+- Filter wordlists based on complexity rules along with minimum and maximum length
 - Running a list through the script will ensure the output list has:
   - At least one number
   - At least one special character 
-- Allows for minimum and maximum word lengths
+  - Is of minimum length as inputted with ```--min flag```
+  - Is of maximum length as inputted with ```--max flag```
 - Prints the changes made to the list in terms of word-count
-- Example: password -> rejected, passw0rd! -> accepted
+- Example handling: password -> rejected, passw0rd! -> accepted
 
 ### Subdomain scanner (subenum.py)
 [Tested against hackerone.com and inlanefreight.com]
@@ -39,7 +41,7 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 - Outputs the findings with color codes depending on the result
 
 [To do]
-- Combine add in vhost discovery
+- Combine subdomain enumeration with added vhost enumeration when scanning against targets accessed over VPN 
 
 ### Simple keygen, encrypting and derypting suite(crypt.py + keygen.py)
 - Generate encryption keys with keygen.py
