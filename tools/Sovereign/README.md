@@ -85,10 +85,11 @@ pip install -r requirements.txt
 The ```-h``` flag can be used for each script to output it's proper usage
 
 ### SSH Runner
+Running a script using just a username(will prompt for a password during execution) and a script
 ```bash
 ./ssh.py IPADDR -u username -s linpeas.sh
 ```
-
+Running a script using a key
 ```bash
 ./ssh.py IPADDR -u root -s /path/to/script -k id_rsa -n
 
@@ -100,11 +101,11 @@ From comma-separated words
 ./wlgen.py -w password,admin,secret -o wordlist.txt
 ```
 
-From input file
+From input file, using the "advanced" complexity
 ```bash
 ./wlgen.py -l /path/to/base_words_list.txt -o output_wordlist.txt --complexity advanced
 ```
-
+Using ```--stream``` to store the results to a file instead of storing in memory
 ```bash
 ./wlgen.py -l /path/to/base_words_list.txt -o output_wordlist.txt --stream
 
@@ -116,24 +117,27 @@ From input file
 ```
 
 ### Keygen
+Generate a key(will remove the old key beforehand)
 ```bash
 ./keygen.py
 ```
 
 ### Decrypting Tool
+Encrypting using the ```-e``` or ```--encrypt``` flag
 ```bash
 ./crypt.py -k /path/to/key -e /path/to/file
-```
+Decrypting using the ```-d``` or ```--decrypt``` flag```
 
 ```bash
 ./crypt.py -k /path/to/key -d /path/to/file 
 ```
 
 ### Subdomain Enumeration
+Enumerating using just sublist3r, without a wordlist
 ```bash
 ./subenum.py google.com -o output_file
 ```
-
+Enumerating with sublister and a wordlist
 ```bash
 ./subenum.py hackerone.com -w /path/to/wordlist -o output_file
 ```
