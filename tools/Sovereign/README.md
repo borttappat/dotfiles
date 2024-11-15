@@ -81,6 +81,8 @@ The provided ```requirements.txt``` should be enough to get the scripts running 
 pip install -r requirements.txt
 ```
 
+
+
 ## Usage Examples
 The ```-h``` flag can be used for each script to output it's proper usage
 
@@ -94,6 +96,7 @@ Running a script using a key
 ./ssh.py IPADDR -u root -s /path/to/script -k id_rsa -n
 
 ```
+
 
 ### Wordlist Generator
 From comma-separated words
@@ -111,16 +114,19 @@ Using ```--stream``` to store the results to a file instead of storing in memory
 
 ```
 
+
 ### Wordlist Trimmer
 ```bash
 ./trim.py /path/to/wordlist -o output_wordlist.txt --min X --max Y
 ```
+
 
 ### Keygen
 Generate a key(will remove the old key beforehand)
 ```bash
 ./keygen.py
 ```
+
 
 ### Decrypting Tool
 Encrypting using the ```-e``` or ```--encrypt``` flag
@@ -132,6 +138,7 @@ Decrypting using the ```-d``` or ```--decrypt``` flag
 ```bash
 ./crypt.py -k /path/to/key -d /path/to/file 
 ```
+
 
 ### Subdomain Enumeration
 Enumerating using just sublist3r, without a wordlist
