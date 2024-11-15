@@ -76,7 +76,7 @@ git clone https://github.com/borttappat/dotfiles/tree/main/tools/Sovereign
 ```bash
 nix-shell
 ```
-The provided ```requirements.txt``` should be enough to get the scripts running without using Nix by installing required files with pip
+The provided ```requirements.txt``` should be enough to get the scripts running without using Nix by installing required packages with pip
 ```bash
 pip install -r requirements.txt
 ```
