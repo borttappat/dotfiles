@@ -157,6 +157,7 @@ Enumerating with sublister and a wordlist
 
 ### Vhost Enumeration(not to be graded)
 ```-c``` is for ```--concurrent```
+
 ```-d``` is for ```--delay```
 ```bash
 ./vhostenum.py 10.10.11.23 permx.htb -w /path/to/wordlist -c 100 -d 0.05
