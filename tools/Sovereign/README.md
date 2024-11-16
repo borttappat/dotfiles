@@ -35,13 +35,7 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 
 ### Subdomain scanner (subenum.py)
 [Tested against hackerone.com and inlanefreight.com]
-- Scans the target for subdomains using wordlists and/or sublist3r
-- Accepts wordlists for wordlist-based enumeration
-- Perfoms passive scans using sublist3r if no wordlist is provided
-- Outputs the findings with color codes depending on the result
-
-[To do]
-- Combine subdomain enumeration with added vhost enumeration when scanning against targets accessed over VPN 
+- Scans the target for subdomains using wordlists 
 
 ### Simple keygen, encrypting and derypting suite(crypt.py + keygen.py)
 - Generate encryption keys with keygen.py
@@ -56,11 +50,11 @@ Uses Nix for dependency management. Required packages(included in shell.nix):
 - Python packages:
   - paramiko
   - prompt-toolkit
-  - sublist3r
   - cryptography
   - requests
   - urllib3
   - dnspython
+  - tqdm (for ```vhostenum.py```)
 
 
 ### Tested on NixOS 24.11
