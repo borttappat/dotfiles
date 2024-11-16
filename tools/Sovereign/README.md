@@ -1,4 +1,4 @@
-```text
+```bash
                                     __
 .-----.-----.--.--.-----.----.-----|__.-----.-----.
 |__ --|  _  |  |  |  -__|   _|  -__|  |  _  |     |
@@ -33,6 +33,11 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 - Prints the changes made to the list in terms of word-count
 - Example handling: password -> rejected, passw0rd! -> accepted
 
+### Simple keygen, encrypting and derypting suite(crypt.py + keygen.py)
+- Generate encryption keys with keygen.py
+- Encrypt/decrypt parsed files with crypt.py and a key(remember to use the same key for encryption and deryption)
+- Adds file extension based on encrypting or decrypting mode
+
 ### Subdomain scanner (subenum.py)
 [Tested against hackerone.com and inlanefreight.com]
 - Scans the target for subdomains using wordlists 
@@ -43,12 +48,9 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 - Uses a wordlist along with an IP address and a domain to scan for virtual hosts
 - Very much a tool for personal use. Heavily AI assisted, not neccesarily to be used in grading, ```Björn``` :)
 - Base version was slow af and is still slower than ```ffuf``` even with added concurrent requests with ```asyncio```
-- I should probably just stick to using ffuf but I keep forgetting the Host-parts
+- I should probably just stick to using ffuf but I keep forgetting the Host-parts of the command
 
-### Simple keygen, encrypting and derypting suite(crypt.py + keygen.py)
-- Generate encryption keys with keygen.py
-- Encrypt/decrypt parsed files with crypt.py and a key(remember to use the same key for encryption and deryption)
-- Adds file extension based on encrypting or decrypting mode
+
 
 
 ## Requirements
