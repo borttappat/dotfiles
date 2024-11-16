@@ -45,6 +45,7 @@
     10.129.219.41 dev.inlanefreight.local
     10.10.11.20 editorial.htb
     10.10.11.23 permx.htb
+    10.10.11.23 lms.permx.htb
     10.10.10.117 irked.htb
     10.10.11.25 greenhorn.htb
     10.10.11.19 app.blurry.htb

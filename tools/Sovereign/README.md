@@ -37,6 +37,14 @@ A collection of Python scripts to aid in pentesting/CTF tasks
 [Tested against hackerone.com and inlanefreight.com]
 - Scans the target for subdomains using wordlists 
 
+### Vhost-enumerator (vhostenum.py, not to be graded) 
+[Tested against the box "PermX" 10.10.11.23 on Hack The Box]
+- vhost scanner similar to ```ffuf``` in "Host-mode"
+- Uses a wordlist along with an IP address and a domain to scan for virtual hosts
+- Very much a tool for personal use. Heavily AI assisted, not neccesarily to be used in grading, ```Björn``` :)
+- Base version was slow af and is still slower than ```ffuf``` even with added concurrent requests with ```asyncio```
+- I should probably just stick to using ffuf but I keep forgetting the Host-parts
+
 ### Simple keygen, encrypting and derypting suite(crypt.py + keygen.py)
 - Generate encryption keys with keygen.py
 - Encrypt/decrypt parsed files with crypt.py and a key(remember to use the same key for encryption and deryption)
@@ -143,5 +151,14 @@ Enumerating with sublister and a wordlist
 ```bash
 ./subenum.py hackerone.com -w /path/to/wordlist -o output_file
 ```
+
+
+### Vhost Enumeration(not to be graded)
+```-c``` is for ```--concurrent```
+```-d``` is for ```--delay```
+```bash
+./vhostenum.py 10.10.11.23 permx.htb -w /path/to/wordlist -c 100 -d 0.05
+```
+
 
 
