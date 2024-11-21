@@ -124,7 +124,7 @@ alias polyconf='v ~/dotfiles/polybar/config.ini'
 alias poc='polyconf'
 alias fishconf='v ~/dotfiles/fish/config.fish'
 alias f='fishconf'
-
+alias pyserver='sudo python -m http.server 8002'
 
 # maybe deprecated, only used with asus hardware
 # to be replaced with non-platform specific syntax
