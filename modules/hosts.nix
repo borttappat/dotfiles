@@ -53,6 +53,7 @@
     10.10.11.32 sqlpad.sightless.htb
     #10.10.11.32 admin.sightless.htb
     10.10.11.196 stocker.htb
+    10.10.11.44 alert.htb
 
 
     # GOAD

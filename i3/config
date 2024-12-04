@@ -9,17 +9,21 @@
 # Modifier-settings
 set $mod Mod4
 
+#############
 # Autostart #
+#############
+
 exec_always --no-startup-id polybar -q main 
 exec_always --no-startup-id polybar -q main2 
 exec_always --no-startup-id ~/.fehbg &
 exec_always --no-startup-id xmodmap ~/.Xmodmap
-#exec --no-startup-id alacritty -e /bin/sh -c "wal -Rnq && neofetch"
+exec --no-startup-id alacritty -e /bin/sh -c "wal -Rnq && neofetch"
 exec_always --no-startup-id warpd
 exec_always --no-startup-id ~/dotfiles/scripts/bash/python_server.sh
 
-# Binds #
-
+#########
+# BINDS #
+#########
 # amixer
 bindsym $mod+F1 exec "amixer set Master 0%"
 bindsym $mod+F2 exec "amixer set Master 5%-"
@@ -74,17 +78,15 @@ bindsym $mod+Shift+s exec systemctl suspend
 # Cycle wallpapers and apply new colorscheme.
 bindsym $mod+w exec ~/dotfiles/scripts/bash/randomwalrgb.sh 
 
-# Launch Librewolf
-#bindsym $mod+b exec librewolf
-#bindsym $mod+b exec librewolf https://github.com/borttappat/nixos
-#bindsym $mod+p exec librewolf https://search.nixos.org/packages
+# Launch browser
+#set $browser brave
+set $browser firefox
 
-# Launch Brave
-bindsym $mod+b exec brave
-bindsym $mod+g exec brave https://github.com/borttappat/dotfiles
-bindsym $mod+Shift+v exec brave https://vim.rtorr.com/
-bindsym $mod+p exec brave https://search.nixos.org/packages?channel=unstable
-bindsym $mod+a exec brave https://chat.openai.com/
+bindsym $mod+b exec $browser
+bindsym $mod+a exec $browser https://claude.ai/new 
+bindsym $mod+g exec $browser https://github.com/borttappat/dotfiles
+bindsym $mod+Shift+v exec $browser https://vim.rtorr.com/
+bindsym $mod+p exec $browser https://search.nixos.org/packages?channel=unstable
 
 
 # Set keyboard backlight to 100
@@ -124,8 +126,9 @@ bindsym $mod+d exec --no-startup-id rofi -show drun -font "cozette 8"
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run -font "cozette 8"
 
 
-# Window management #
-
+#####################
+# WINDOW MANAGEMENT #
+#####################
 
 # Window focus keys
 bindsym $mod+Left focus left
@@ -191,13 +194,6 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-
-
-# Enable floating windows on workspace 3
-#assign [class="^.*"] $ws3
-#for_window [workspace=$ws3] floating enable
-
-
 # Switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
@@ -226,6 +222,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # Resizing
     bindsym $mod+r mode "resize"
 
+
 # Resize window (you can also use the mouse for that)
 mode "resize" {
 
@@ -246,7 +243,6 @@ bindsym $mod+r mode "default"
 
 }
 
-
 # Binds for resizing without entering resize mode
 bindsym $mod+ctrl+k i3-msg resize shrink height 5 ppt
 bindsym $mod+ctrl+j i3-msg resize grow height 5 ppt
@@ -255,7 +251,7 @@ bindsym $mod+ctrl+l i3-msg resize width grow 5 ppt
 
 
 #######################
-# i3-related commands #
+# I3-RELATED COMMANDS #
 #######################
 
 # Reload the configuration file
@@ -267,7 +263,7 @@ bindsym $mod+Shift+r restart
 
 
 ###################
-# Visual settings #
+# VIUAL SETTINGS  #
 ###################
 
 # Hiding window title
@@ -296,19 +292,19 @@ client.focused_inactive $c2     $c2     $c2     $c2
 client.unfocused        $c2     $c2     $c2     $c2       
 client.urgent           $al     $al     $al     $al       
 
-# Gaps
-
+###########
+#   GAPS  #
+###########
 
 # Set gaps for workspace 1
 #    workspace 1 gaps inner 15px
 #    workspace 1 gaps outer 30px
 #    workspace 1 gaps top 29px
 
-# Set gaps for workspace 2
-    workspace 2 gaps inner 10px
-    workspace 2 gaps outer 10px
-    workspace 2 gaps top 60px
-
+# Set gaps for workspace 2 
+    workspace 3 gaps inner 10px
+    workspace 3 gaps outer 10px
+    workspace 3 gaps top 60px
 
 # Set gaps for workspace 3
     #workspace 3 gaps inner 30px

@@ -43,6 +43,7 @@ abbr -a !! 'eval sudo $history[1]'
 # # # # # # 
 # ALIASES #
 # # # # # #
+alias htblabs='sudo openvpn ~/Downloads/lab_griefhoundTCP.ovpn'
 
 alias msf='figlet -f cricket "msf" && sudo msfconsole -q'
 alias reboot='systemctl reboot'
@@ -84,7 +85,6 @@ alias grep='ugrep --color=auto'
 alias egrep='ugrep -E --color=auto'
 alias fgrep='ugrep -F --color=auto'
 alias grubup='sudo update-grub'
-alias hw='hwinfo --short'                          # Hardware Info
 alias ip='ip -color'
 
 alias kali='docker start unruffled_edison && sudo docker attach unruffled_edison'
@@ -97,7 +97,7 @@ alias xrandrwide='xrandr --output HDMI-1 --mode 3440x1440 --output eDP-1 --off &
 alias xrandrrestore='xrandr --output eDP-1 --mode 1920x1200 --output HDMI-1 --off && wal -R && killall polybar && polybar -q &'
 
 
-alias x='figlet -f cricket "booting i3" && startx'
+alias x='startx'
 alias v='vim'
 alias h='htop'
 alias ka='killall'
