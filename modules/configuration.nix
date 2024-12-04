@@ -8,15 +8,81 @@
 { config, pkgs, ... }:
 
 {   
-# allow impure builds, don't enable i guess
-    #nixpkgs.config.allowUnsupportedSystem = true;
 
-# can't remember what this actually does but it has to do with colorschemes :)
+ # Enable hardware acceleration
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
+
+# Enable parallel startup of systemd services
+ systemd = {
+    services.nix-daemon.enable = true;
+    extraConfig = ''
+      DefaultTimeoutStopSec=10s
+    '';
+  };
+
+# Enable earlyoom to prevent system freezes
+services.earlyoom = {
+    enable = true;
+    freeMemThreshold = 5;
+    freeSwapThreshold = 10;
+    enableNotifications = true;
+  };
+
+boot = {
+    # Reduce system shutdown timeout
+    kernel.sysctl = {
+      "kernel.sysrq" = 1;
+      "vm.swappiness" = 10;
+      "vm.vfs_cache_pressure" = 50;
+    };
+    
+    # Enable CPU microcode updates
+    loader.systemd-boot.enable = true;
+    initrd.systemd.enable = true;
+  };
+
+
+# Enable zram for better memory management
+    zramSwap = {
+        enable = true;
+        algorithm = "zstd";
+        memoryPercent = 50;
+    };
+
+# CPU Frequency scaling
+    services.thermald.enable = true;
+        powerManagement = {
+        enable = true;
+        powertop.enable = true;
+        cpuFreqGovernor = "ondemand";
+    };
+
+# Use binary cache for faster downloads
+ nix.settings = {
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
+
+# Can't remember what this actually does but it has to do with colorschemes :)
     environment.variables = {
         BAT_THEME = "ansi";
     };
 
-# set PAM limits to allow avoid NixOS error with too many open files
+# Set PAM limits to allow avoid NixOS error with too many open files
 security.pam.loginLimits = [
   {
     domain = "*";
