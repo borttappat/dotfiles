@@ -37,4 +37,6 @@ echo "Polybar updated"
 # Update /etc/nixos/colors.nix with colors from ~/dotfiles/wal/nix-color
 python ~/dotfiles/scripts/python/nixcolors.py
 
+pywalfox update
+
 echo "Colors updated!"

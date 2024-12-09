@@ -30,7 +30,7 @@ starship init fish | source
 zoxide init fish | source
 
 # thefuck
-thefuck --alias | source
+#thefuck --alias | source
 
 # Replicate !! functionality in fish
 function sudo!!
@@ -43,6 +43,7 @@ abbr -a !! 'eval sudo $history[1]'
 # # # # # # 
 # ALIASES #
 # # # # # #
+
 alias htblabs='sudo openvpn ~/Downloads/lab_griefhoundTCP.ovpn'
 
 alias msf='figlet -f cricket "msf" && sudo msfconsole -q'

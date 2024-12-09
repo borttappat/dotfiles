@@ -29,3 +29,5 @@ sh ~/dotfiles/scripts/bash/zathuracolors.sh
 
 # restart polybar
 polybar-msg cmd restart
+
+pywalfox update

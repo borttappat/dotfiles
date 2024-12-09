@@ -12,12 +12,12 @@ set $mod Mod4
 #############
 # Autostart #
 #############
+exec_always --no-startup-id wal -Rnq
+exec_always --no-startup-id sleep 0.5 && polybar -q main &
+exec_always --no-startup-id sleep 0.5 && polybar -q main2 &
 
-exec_always --no-startup-id polybar -q main 
-exec_always --no-startup-id polybar -q main2 
 exec_always --no-startup-id ~/.fehbg &
 exec_always --no-startup-id xmodmap ~/.Xmodmap
-exec --no-startup-id alacritty -e /bin/sh -c "wal -Rnq && neofetch"
 exec_always --no-startup-id warpd
 exec_always --no-startup-id ~/dotfiles/scripts/bash/python_server.sh
 
@@ -35,11 +35,17 @@ bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -Rnq && htop"
 # btm
 bindsym $mod+Shift+b exec alacritty -e /bin/sh -c "wal -Rnq && btm"
 
-# i3config
+# i3-config
 bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/.config/i3/config"
+
+# polybar-config
+bindsym $mod+Shift+p exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/polybar/config.ini"
 
 # nix-packages
 bindsym $mod+Shift+n exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/modules/packages.nix"
+
+# nix-config
+bindsym $mod+Shift+c exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/modules/configuration.nix"
 
 # file-manager
 bindsym $mod+Shift+f exec alacritty -e /bin/sh -c "wal -Rnq && joshuto"
@@ -52,7 +58,6 @@ bindsym $mod+z exec zathura
 # cmatrix
 bindsym $mod+Shift+m exec alacritty -e /bin/sh -c "wal -Rnq && cmatrix -u 10"
 
-
 # Scratchpad
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -60,10 +65,8 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
 
-
 # Polybar restart
-#bindsym $mod+Shift+p exec killall polybar && polybar
-bindsym $mod+Shift+p exec polybar-msg cmd restart
+bindsym $mod+p exec polybar-msg cmd restart
 
 # B/W Wallpaper 
 bindsym $mod+Shift+w exec feh --bg-fill ~/dotfiles/wallpapers/Black.jpg
@@ -79,6 +82,7 @@ bindsym $mod+Shift+s exec systemctl suspend
 bindsym $mod+w exec ~/dotfiles/scripts/bash/randomwalrgb.sh 
 
 # Launch browser
+#set $browser librewolf
 #set $browser brave
 set $browser firefox
 
@@ -86,18 +90,14 @@ bindsym $mod+b exec $browser
 bindsym $mod+a exec $browser https://claude.ai/new 
 bindsym $mod+g exec $browser https://github.com/borttappat/dotfiles
 bindsym $mod+Shift+v exec $browser https://vim.rtorr.com/
-bindsym $mod+p exec $browser https://search.nixos.org/packages?channel=unstable
-
+bindsym $mod+n exec $browser https://search.nixos.org/packages?channel=unstable
 
 # Set keyboard backlight to 100
 #bindsym $mod+F8 exec "sudo light -Srs "sysfs/leds/asus::kbd_backlight" 100" 
-bindsym $mod+F8 exec "sudo light -A 10"
-bindsym $mod+Shift+F8 exec "sudo light -A 1"
-
-# Set keyboard backlight to 20
-bindsym $mod+F7 exec "sudo light -U 10"
-bindsym $mod+Shift+F7 exec "sudo light -U 1"
-
+bindsym $mod+F8 exec brightnessctl set +10%
+bindsym $mod+Shift+F8 exec brightnessctl set +1%
+bindsym $mod+F7 exec brightnessctl set 10%-
+bindsym $mod+Shift+F7 exec brightnessctl set 1%-
 
 # Bind for launching terminals   
 #bindsym $mod+Return exec alacritty
@@ -255,9 +255,9 @@ bindsym $mod+ctrl+l i3-msg resize width grow 5 ppt
 #######################
 
 # Reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+#bindsym $mod+Shift+r restart
 
 
 

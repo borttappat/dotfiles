@@ -41,6 +41,8 @@
 
       # Update /etc/nixos/colors.nix with colors from ~/dotfiles/wal/nix-color
       ${python3}/bin/python ~/dotfiles/scripts/python/nixcolors.py
+        
+        # Change colors for startpage
 
         # Define file paths
         startpage="$HOME/dotfiles/misc/startpage.html"
@@ -57,7 +59,6 @@
 
 
         #Zathura-colors
-
         colors_file="$HOME/.cache/wal/colors.sh"
 
         # Path to your zathurarc file
@@ -103,6 +104,8 @@
 
         echo "Zathura colors updated successfully."
 
+        pywalfox update
+        echo "Pywalfox updated successfully"
 
         echo "Colors updated!"
     '')

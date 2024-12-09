@@ -9,7 +9,16 @@
 {
 
 # Allowing unfree and unstable packages
-    
+
+ nixpkgs.config.packageOverrides = pkgs: {
+    librewolf = pkgs.librewolf.override {
+      extraPrefs = ''
+        pref("browser.startup.homepage", "http://127.0.0.1:8000/startpage.html");
+        pref("browser.newtab.url", "http://127.0.0.1:8000/startpage.html");
+      '';
+    };
+  };
+
 # I'm sorry, Stallman
     nixpkgs.config.allowUnfree = true;
     
@@ -47,8 +56,10 @@
 
 
 
+
+
 # Programs
-    #librewolf
+    librewolf
     firefox
     brave
     mullvad
@@ -138,7 +149,7 @@
     openvpn         #openvpn-client
     brightnessctl   #brightness-handler
     #obsidian       #note taking tool
-    light           #backlight-controller
+    #light           #backlight-controller
     #undervolt
     git
     gh              #git CLI tool
