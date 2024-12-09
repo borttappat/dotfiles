@@ -54,6 +54,7 @@
     #10.10.11.32 admin.sightless.htb
     10.10.11.196 stocker.htb
     10.10.11.44 alert.htb
+    10.10.11.47 linkvortex.htb
 
 
     # GOAD

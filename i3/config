@@ -12,6 +12,8 @@ set $mod Mod4
 #############
 # Autostart #
 #############
+exec_always --no-startup-id ~/dotfiles/scripts/bash/autostart.sh
+
 exec_always --no-startup-id wal -Rnq
 exec_always --no-startup-id sleep 0.5 && polybar -q main &
 exec_always --no-startup-id sleep 0.5 && polybar -q main2 &
