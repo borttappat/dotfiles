@@ -8,17 +8,25 @@
 
 {
 
+# Defining user 'traum'
+users.users.traum = {
+    isNormalUser = true;
+    description = "A";
+    extraGroups = [ "audio" "networkmanager" "wheel" "libvirtd" "wireshark" "adbusers" "docker" ];
+};
+
+
 # Removing need for user "traum" to type password after sudo
 # Add your username here in place of "traum"
-    security.sudo.extraRules= [
+security.sudo.extraRules= [
     {users = [ "traum" ];
         commands = [
             { command = "ALL" ;
-          options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea
+                options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea
             }
-            ];
+        ];
     }
-    ];
+];
 
 # The following could maybe replace the above settings?
 #   security.sudo.wheelNeedsPassword = false;

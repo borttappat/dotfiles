@@ -9,62 +9,64 @@
 {
 
 # avoid issues with #/bin/bash scripts and alike
-    services.envfs.enable = true;
+services.envfs.enable = true;
 
 # Sound-settings
-    services.pipewire.pulse.enable = true;
+services.pipewire.pulse.enable = true;
 
 # ollama, LLM
-    services.ollama.enable = true;
+services.ollama.enable = true;
 
 # udisksctl
-    services.udisks2.enable = true; #added with udisks in packages.nix
+services.udisks2.enable = true; #added with udisks in packages.nix
 
 # Docker-support
-    virtualisation.docker.enable = true; #added with docker pkg in packages.nix
+virtualisation.docker.enable = true; #added with docker pkg in packages.nix
 
 # Mullvad-vpn
-    services.mullvad-vpn.enable = true;
-    services.resolved.enable = true;
+services.mullvad-vpn.enable = true;
+services.resolved.enable = true;
 
 # Behaviour settings for closing lid on external power
-    services.logind.lidSwitchExternalPower = "ignore";
+services.logind.lidSwitchExternalPower = "ignore";
 
 # Rsync
-    services.rsyncd.enable = true;
+services.rsyncd.enable = true;
 
 # Enable touchpad support
-    services.libinput.enable = true;
+services.libinput.enable = true;
 
 # Virtualisation
-    virtualisation.libvirtd.enable = true;
-    programs.dconf.enable = true;
-    environment.systemPackages = with pkgs; [ virt-manager ];
+virtualisation.libvirtd.enable = true;
+programs.dconf.enable = true;
+environment.systemPackages = with pkgs; [ virt-manager ];
 
 # MySQL
-/*    services.mysql = {
-        enable = true;
-        package = pkgs.mariadb;
-        };
+/*    
+services.mysql = {
+    enable = true;
+    package = pkgs.mariadb;
+};
 */
+
 # Window-manager
-    services.xserver.windowManager.i3.package = pkgs.i3-gaps; 	
-    #services.xserver.windowManager.i3.package = pkgs.i3-rounded;
+services.xserver.windowManager.i3.package = pkgs.i3-gaps; 	
+#services.xserver.windowManager.i3.package = pkgs.i3-rounded;
 
 # Enabling auto-cpufreq
-    services.auto-cpufreq.enable = true;
+services.auto-cpufreq.enable = true;
 
 # Intel-undervolt
-    #services.undervolt.enable = true;
+#services.undervolt.enable = true;
 
 # Enable the OpenSSH daemon.
-    services.openssh.enable = true;
+services.openssh.enable = true;
 
 # Enabling tailscale VPN
-    services.tailscale.enable = true;
+services.tailscale.enable = true;
 
 # Enable i2c-bus
-    hardware.i2c.enable = true;
+hardware.i2c.enable = true;
 
 
 

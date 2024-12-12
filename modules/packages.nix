@@ -8,8 +8,7 @@
 
 {
 
-# Allowing unfree and unstable packages
-
+# Librewolf-settings
  nixpkgs.config.packageOverrides = pkgs: {
     librewolf = pkgs.librewolf.override {
       extraPrefs = ''
@@ -19,9 +18,9 @@
     };
   };
 
+# Allowing unfree and unstable packages
 # I'm sorry, Stallman
     nixpkgs.config.allowUnfree = true;
-    
     nixpkgs.config.allowUnstable = true;
 
     nix.package = pkgs.nixVersions.git;

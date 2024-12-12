@@ -139,7 +139,7 @@ alias rgb='openrgb --device 0 --mode static --color'
 #alias w='~/dotfiles/scripts/bash/walrgb.sh ~/Wallpapers/'
 alias w='wal -Rn'
 
-alias dots='figlet -f cricket git && echo && cd ~/dotfiles && git status'
+alias dots='cd ~/dotfiles && git status'
 alias gs='git status'
 alias ga='git add'
 alias gd='git diff'

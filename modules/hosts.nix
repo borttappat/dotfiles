@@ -54,6 +54,8 @@
     #10.10.11.32 admin.sightless.htb
     10.10.11.196 stocker.htb
     10.10.11.44 alert.htb
+    10.10.11.47 extras.linkvortex.htb
+    10.10.11.47 dev.linkvortex.htb
     10.10.11.47 linkvortex.htb
 
 

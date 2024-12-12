@@ -1,7 +1,8 @@
 { config, pkgs, lib, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
+  
+environment.systemPackages = with pkgs; [
     python312
     python312Packages.flask
     python312Packages.pip
@@ -13,12 +14,13 @@
     #vscode
     curl
     wget
-  ];
+];
 
-  networking.firewall = {
+networking.firewall = {
     allowedTCPPorts = [ 
-      5000  # Flask backend
-      5173  # Vue.js development server (default port)
+        5000  # Flask backend
+        5173  # Vue.js development server (default port)
     ];
-  };
+};
+
 }
