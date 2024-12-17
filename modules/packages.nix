@@ -14,6 +14,11 @@
       extraPrefs = ''
         pref("browser.startup.homepage", "http://127.0.0.1:8000/startpage.html");
         pref("browser.newtab.url", "http://127.0.0.1:8000/startpage.html");
+        pref("browser.newtabpage.enabled", true);
+        pref("browser.newtab.preload", true);
+        pref("browser.newtabpage.enhanced", true);
+        pref("browser.newtabpage.activity-stream.showSearch", true);
+        pref("browser.newtabpage.activity-stream.default.sites", "");
       '';
     };
   };
@@ -122,7 +127,7 @@
     pywalfox-native
     themechanger
     #theme-sh
-    #imagemagick
+    imagemagick
     feh
     #eww
     #conky
@@ -140,7 +145,7 @@
     iw
     wirelesstools
     #youtube-tui
-    #ngrok           #web server running on local machine
+    ngrok           #web server running on local machine
     #pgrok          #similar to the above
     procs           #ps written in rust
     #bottles        #client for running windows-software
