@@ -1,4 +1,3 @@
-# Add this to your configuration.nix or create a new module like shell.nix
 { config, pkgs, ... }:
 
 {
@@ -10,11 +9,6 @@
 
     # Your custom zsh configuration
     initExtra = ''
-      # ASCII Art Header
-      echo '    ___ __       __
-      .'  _|__.-----|  |--.
-      |   _|  |__ --|     |
-      |__| |__|_____|__|__|'
 
       # Basic ZSH Configuration
       HISTFILE=~/.zsh_history

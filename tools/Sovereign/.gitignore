@@ -5,3 +5,5 @@ requirements.py
 *.key
 scanner.py
 vulnscan.py
+subdomains
+subenum_improved.py
