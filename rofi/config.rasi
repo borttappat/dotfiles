@@ -5,12 +5,12 @@
 
 configuration{
     modi: "run,drun,window";
-    lines: 5;
+    lines: 10;
     font: "CozetteVector 10";
     terminal: "alacritty";
     location: 0;
     disable-history: false;
-    hide-scrollbar: true;
+    scrollbar: false;
 }
 
 window {

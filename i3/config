@@ -124,9 +124,10 @@ bindsym $mod+q kill
 
 # Start rofi
 #bindsym $mod+d exec --no-startup-id "rofi -modi drun,run -show drun -font"
-bindsym $mod+d exec --no-startup-id rofi -show drun -font "cozette 8"
-bindsym $mod+Shift+d exec --no-startup-id rofi -show run -font "cozette 8"
-
+#bindsym $mod+d exec --no-startup-id rofi -show drun -font "cozette 8"
+#bindsym $mod+Shift+d exec --no-startup-id rofi -show run -font "cozette 8"
+bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 
 #####################
 # WINDOW MANAGEMENT #
