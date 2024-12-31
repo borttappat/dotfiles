@@ -79,7 +79,7 @@
     rsync 
     starship
     artem           #img-to-ascii
-    #cava
+    cava
     #mop
     du-dust         #better version of du
     tmux 

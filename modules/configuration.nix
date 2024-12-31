@@ -186,7 +186,7 @@ hardware.pulseaudio.enable = false;
     users.users.traum = {
         isNormalUser = true;
         description = "A";
-        extraGroups = [ "audio" "networkmanager" "wheel" "libvirtd" "wireshark" "adbusers" "docker" ];
+        extraGroups = [ "audio" "networkmanager" "wheel" "libvirtd" "tshark" "wireshark" "adbusers" "docker" ];
         packages = with pkgs; [
             ];
         };
