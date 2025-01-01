@@ -45,6 +45,7 @@ abbr -a !! 'eval sudo $history[1]'
 # # # # # #
 
 alias htblabs='sudo openvpn ~/Downloads/lab_griefhoundTCP.ovpn'
+alias esp='vim ~/dotfiles/misc/startpage.html'
 
 alias msf='figlet -f cricket "msf" && sudo msfconsole -q'
 alias reboot='systemctl reboot'
