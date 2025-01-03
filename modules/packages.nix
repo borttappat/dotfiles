@@ -133,7 +133,9 @@
     #eww
     #conky
     #dunst
-    #i3lock
+    scrot
+    i3lock-color
+    i3lock-fancy
     #i3lock-fancy-rapid
     #i3wsr
     #autorandr

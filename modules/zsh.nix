@@ -12,11 +12,12 @@
   environment.etc."zshrc".text = ''
     # History Configuration
     HISTFILE=~/.zsh_history
-    HISTSIZE=10000
-    SAVEHIST=10000
-    setopt appendhistory
-    setopt HIST_IGNORE_ALL_DUPS
-    setopt HIST_SAVE_NO_DUPS
+    HISTSIZE=1000000
+    SAVEHIST=1000000
+    setopt HIST_FIND_NO_DUPS
+    setopt HIST_IGNORE_SPACE
+    setopt SHARE_HISTORY          # Share history between sessions
+    setopt EXTENDED_HISTORY       # Add timestamps to history
     
     # Remove greeting
     PROMPT_EOL_MARK=""
@@ -25,21 +26,51 @@
     path+=("$HOME/.local/bin")
     export PATH
 
-    # Vi mode
+    # Enhanced Vi mode
     bindkey -v
     export KEYTIMEOUT=1
+    
+    # Better searching in vi mode
+    bindkey '^R' history-incremental-search-backward
+    bindkey '^S' history-incremental-search-forward
+    bindkey '^P' up-line-or-search
+    bindkey '^N' down-line-or-search
+    
+    # Add text objects for brackets, quotes, etc.
+    autoload -Uz select-bracketed select-quoted
+    zle -N select-quoted
+    zle -N select-bracketed
+    for km in viopp visual; do
+        bindkey -M $km -- '-' vi-up-line-or-history
+        bindkey -M $km -- '+' vi-down-line-or-history
+    done
 
-    # Function to toggle between vi and emacs mode
-    function toggle_vim_mode() {
-        if [[ $KEYMAP == vicmd ]]; then
-            bindkey -e
-            echo "Switched to default (emacs) key bindings"
-        else
-            bindkey -v
-            echo "Switched to vi key bindings"
-        fi
-    }
+    # Better directory navigation
+    setopt AUTO_CD              # Just type directory name to cd
+    setopt AUTO_PUSHD          # Push directories to stack
+    setopt PUSHD_IGNORE_DUPS   # Don't push duplicates
+    setopt PUSHD_MINUS         # Use +/- instead of left/right for pushd/popd
 
+    # Better completion
+    setopt COMPLETE_IN_WORD    # Complete from both ends of word
+    setopt ALWAYS_TO_END       # Move cursor to end if word had one match
+    setopt PATH_DIRS           # Perform path search even on command names with /
+    setopt AUTO_LIST          # Automatically list choices on ambiguous completion
+    setopt AUTO_MENU          # Show completion menu on second tab
+    
+    # Path expansion and other improvements
+    setopt NO_CASE_GLOB       # Case insensitive globbing
+    setopt EXTENDED_GLOB      # Use extended globbing syntax
+    setopt GLOB_DOTS          # Include dotfiles in globbing
+    setopt NUMERIC_GLOB_SORT  # Sort numerically when globbing
+    setopt INTERACTIVE_COMMENTS # Allow comments in interactive mode
+    setopt NO_BEEP            # Don't beep on errors
+    
+    # Fish-like path expansion
+    autoload -U compinit && compinit
+    zstyle ':completion:*' menu select
+    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+    
     # Load pywal colors
     (cat ~/.cache/wal/sequences &)
 
@@ -57,6 +88,17 @@
     zle -N sudo-command-line
     bindkey "^[s" sudo-command-line
 
+    # Function to toggle between vi and emacs mode
+    function toggle_vim_mode() {
+        if [[ $KEYMAP == vicmd ]]; then
+            bindkey -e
+            echo "Switched to default (emacs) key bindings"
+        else
+            bindkey -v
+            echo "Switched to vi key bindings"
+        fi
+    }
+
     # thefuck integration
     eval $(thefuck --alias)
 
@@ -67,7 +109,7 @@
     # GPG configuration
     export GPG_TTY=$(tty)
 
-    # Aliases
+    # All your existing aliases
     alias htblabs='sudo openvpn ~/Downloads/lab_griefhoundTCP.ovpn'
     alias msf='figlet -f cricket "msf" && sudo msfconsole -q'
     alias sesp='searchsploit'
@@ -130,8 +172,8 @@
     alias picomconf='v ~/dotfiles/picom/picom.conf'
     alias polyconf='v ~/dotfiles/polybar/config.ini'
     alias poc='polyconf'
-    alias fishconf='v ~/dotfiles/fish/config.fish'
-    alias f='fishconf'
+    alias zshconf='v ~/dotfiles/modules/zsh.nix'
+    alias s='zshconf'
     alias pyserver='sudo python -m http.server 8002'
     alias rgb='openrgb --device 0 --mode static --color'
     alias w='wal -Rn'
