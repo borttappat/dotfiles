@@ -44,7 +44,7 @@ description = "Griefhounds NixOS Flake for multiple devices";
                         ./modules/steam.nix
                         ./modules/pentesting.nix
                         #./modules/dev.nix
-                        #./modules/zsh.nix
+                        ./modules/zsh.nix
                         ./modules/proxychains.nix
                         ./modules/scripts.nix
                          

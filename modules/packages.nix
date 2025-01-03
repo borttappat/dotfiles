@@ -89,6 +89,7 @@
     #wiki-tui
     fzf 
     alacritty
+    #ghostty
     warp-terminal
     thefuck         #Magnificent app which corrects your previous console command
     #kitty

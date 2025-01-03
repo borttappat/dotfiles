@@ -11,6 +11,7 @@ cat /home/traum/.cache/wal/sequences
 
 end
 
+
 # enable vim mode for fish
 function toggle_vim_mode
     if test "$fish_key_bindings" = "fish_vi_key_bindings"

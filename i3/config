@@ -311,7 +311,7 @@ client.urgent           $al     $al     $al     $al
     #workspace 3 gaps inner 30px
     #workspace 3 gaps outer 50px
 
-    gaps inner 10px
+    gaps inner 15px
     #gaps outer 10px
     gaps top 32px
 # Smart gaps
