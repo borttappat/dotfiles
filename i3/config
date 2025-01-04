@@ -71,8 +71,8 @@ bindsym $mod+p exec polybar-msg cmd restart
 bindsym $mod+Shift+w exec feh --bg-fill ~/dotfiles/wallpapers/Black.jpg
 
 # Lockscreen
-bindsym $mod+Shift+e exec --no-startup-id sh $HOME/dotfiles/scripts/bash/lock-fancy.sh
-#bindsym $mod+Shift+e exec --no-startup-id sh $HOME/dotfiles/scripts/bash/lock.sh
+#bindsym $mod+Shift+e exec --no-startup-id sh $HOME/dotfiles/scripts/bash/lock-fancy.sh
+bindsym $mod+Shift+e exec --no-startup-id sh $HOME/dotfiles/scripts/bash/lock.sh
 
 # Suspend
 bindsym $mod+Shift+s exec systemctl suspend

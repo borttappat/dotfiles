@@ -22,8 +22,8 @@ i3lock \
     --clock \
     --time-str="%H:%M:%S" \
     --date-str="%A, %Y-%m-%d" \
-    --time-size=48 \
-    --date-size=18 \
+    --time-size=104 \
+    --date-size=39 \
     --time-font="CozetteVector" \
     --date-font="CozetteVector" \
     --time-color="${color7:1}" \
@@ -38,8 +38,7 @@ i3lock \
     --separator-color="${color0:1}00" \
     --keyhl-color="${color2:1}ff" \
     --bshl-color="${color1:1}ff" \
-    --radius=120 \
-    --ring-width=4 \
+    --radius=1 \
     --indicator \
     --ignore-empty-password
 
