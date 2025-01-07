@@ -302,10 +302,12 @@ client.urgent           $al     $al     $al     $al
 #    workspace 1 gaps outer 30px
 #    workspace 1 gaps top 29px
 
-# Set gaps for workspace 2 
-    workspace 3 gaps inner 10px
-    workspace 3 gaps outer 10px
-    workspace 3 gaps top 60px
+
+# SETUP FOR EXTERNAL DISPLAYS
+# Set gaps for workspace 3 
+   # workspace 3 gaps inner 10px
+   # workspace 3 gaps outer 10px
+   # workspace 3 gaps top 60px
 
 # Set gaps for workspace 3
     #workspace 3 gaps inner 30px

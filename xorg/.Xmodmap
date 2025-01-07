@@ -1,2 +1,3 @@
 keycode 49 = asciitilde
-
+keycode 94 = asciitilde asciitilde
+keycode 94 = less greater

@@ -67,6 +67,8 @@
     firefox
     brave
     mullvad
+    #nyxt
+    #qutebrowser
     #mullvad-browser
     mullvad-vpn
     #tor
@@ -166,7 +168,6 @@
     killall 
     qemu 
     #kvmtool
-    flameshot       #screenshot-tool
     #maim            #CLI screenshot tool
     rar             #RAR-archive tool
     pciutils
