@@ -9,6 +9,15 @@
     enableCompletion = true;
   };
 
+  # Add this section
+  programs.bash = {
+    interactiveShellInit = ''
+      if [ -n "$IN_NIX_SHELL" ]; then
+        exec ${pkgs.zsh}/bin/zsh
+      fi
+    '';
+  };
+
   environment.etc."zshrc".text = ''
     # History Configuration
     HISTFILE=~/.zsh_history
@@ -100,7 +109,7 @@
     }
 
     # thefuck integration
-    eval $(thefuck --alias)
+    #eval $(thefuck --alias)
 
     # Starship and zoxide
     eval "$(starship init zsh)"
@@ -212,6 +221,6 @@
     figlet
     openrgb
     pywal
-    thefuck
+    #thefuck
   ];
 }
