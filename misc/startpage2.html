@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEAR IS THE MIND-KILLER</title>
+    <style>
+        :root {
+            --color0: #0D0D0D;
+            --color1: #226E1B;
+            --color2: #264D23;
+            --color3: #296A23;
+            --color4: #1A8E0F;
+            --color5: #1EA312;
+            --color6: #1FD00F;
+            --color7: #83f579;
+        }
+
+        body {
+            background-color: var(--color0);
+            color: var(--color1);
+            font-family: monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-shadow: 0 0 2px var(--color1);
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(12, 12, 12, 0.1) 50%,
+                rgba(12, 12, 12, 0.1)
+            );
+            background-size: 100% 4px;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .flicker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(152, 217, 2, 0.01);
+            z-index: 1001;
+            pointer-events: none;
+            animation: flicker 0.2s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; }
+            100% { opacity: 0.9; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            animation: buzz 0.1s infinite alternate;
+            text-align: center;
+            max-width: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes buzz {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(0.2px) translateY(0.2px); }
+        }
+
+        .ascii-art {
+            color: var(--color1);
+            font-size: 14px;
+            line-height: 1;
+            text-align: left;
+            white-space: pre;
+            margin-bottom: 2em;
+            font-family: monospace;
+            transform: translateX(-50px); /* Adjust this value as needed */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .links {
+            display: flex;
+            gap: 2em;
+            justify-content: center;
+            margin-top: 2em;
+        }
+
+        a {
+            color: var(--color1);
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            text-transform: lowercase;
+        }
+
+        a:hover {
+            color: var(--color6);
+            text-shadow: 0 0 8px var(--color6);
+        }
+
+        @media (max-width: 768px) {
+            .ascii-art {
+                font-size: 10px;
+            }
+            
+            .links {
+                flex-direction: column;
+                gap: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="flicker"></div>
+    <div class="container">
+        <pre class="ascii-art">                                                                                           
+                                               ..              .       .
+                                        .      .,              .      .'
+                                         .     .,             ..     .'.
+                             ;xl..       ..    ''             .      ''          .'d:'
+                            dKMO,c       ..   ...             ..     ,.         '.;WMdc
+                            KMMMdOc      ..   '.               ..   .,.         klXMMMk
+                          .kMMMNk,O      .'   ..               ..   .,.        .0:KWMMNc
+                          x'lkM0.xO      ..   '.               ..    ..       .,No,MMkloo
+                         ..   Nx  ..         .,.                .   '.        ''. ,WO   ..
+                        .''.  K0 .''      .   ...              ..  ...      .'''. :Mc  ''.
+                        .''. oM: '''       .. .,,'            ..  .'.       '.... .XK. .'.
+                       .'.  kNl  ..'.      ..'.....  ..;.:..     .'.       ..    . ,XX, ..
+                       .. :NX,  ''.'.        . .:xokldcocooxkkOx:          ..  ...  .OWd
+                      ..;KMNl   .'.'        ,xOkc.            .,OXl       .'' .'     ,0MX:
+                      ' 0MNk:'.  ..'.     lkk'                   dMx .xo.  ....''.. .;dXWMc
+                     ...kMWdokx::c,:.',d0xl        c' .    .. occkMX  .:Oko, .;;;..;dllKMW:.
+                      ..'lXNXMMMMXKOXKO:.      'O0KWKc.  .  ;kWK0WXl     .c0KK0O0WMMMNNM0d..
+                        ..  ';clll;,           .cWWWNOOc...'ck0WWx'         .';odkxxdl'.. ...
+                     .  .'.... .'.:,c,':;lclco:. ..oc0KMW0xl:c:::cl,c;c,c.:',c.;..      . .
+                      ..;lod;odO0ONON0KKOKkOxkdx,      .:dxXkK00Kxkdooldcxcc:clllck;l;lc, .
+                    .o0NNWXXWO0;l .                         ,:x00N0N0KO0kOkOO0XXNkOd0KW0XXKk;
+                  .kWMMMXcl.'                      ll;,,loXKKNNx:.. .          ,,0NWWxcxdNMMMNo
+                 'NMMMMd'.   .;'                ' oxXXMMWXNXOc                   .xXMMX'.'oMMMMN,
+                 KMMMMMx. .K0c,.              .cKWMMWKdo,.   ,ox00;'          ..  .,oKMO..:MMMMMW.
+                 XWMMMMOd.dWk  .           ,lkXWMWOc;   .    :l0MMNXx:'        .  .. ;M0. lWMMMMWc
+                 l0WMMMMMKxOO'           ,xNNMWOl'  ........    ;dKMMNXo'     ..     KMo cMMMMMN0
+                  ;dOMMMMMKOdc:'.. ''ll,ONMWx:.  .'''''  .'' ..... .oOMMXo ..     'kNWx.:NMMMWOo;
+                  ..',c0KNWKXK0OOK0XWMNNkl,.      .,      .,.;;l,o.'            oOXNk 'OWWWOx;,.
+                  . .    ...c'llxxod',   ;;c:olxdOdkodld:klkodlodxOXKlocko0k0d0kkc.  ,llc   .
+                    ..                    .'.      .. ........      ;KK:
+                                         ;XX.     ',..''..,''',...   ;WN,
+                           ;lxkkxkxdxxkkx:KK.    .,'.'''.''.  .'',   .l;ldkkxxdxxdkd:'
+                        lddl;.            lK0.   .'..'.....''.      :OOd;.         ,lodxo;
+                       .                  .;oKd     ..,,'''...    :do.                   ,.
+                                             .x0c     ....     .cdc.
+                                              .ck0do:'. ...;coxO:. .
+                                                  .;loxdkoxc:.</pre>
+        <div class="links">
+            <a href="links.html">links</a>
+            <a href="resume.html">resume</a>
+            <a href="dotfiles.html">dotfiles</a>
+            <a href="repo.html">repo</a>
+        </div>
+    </div>
+</body>
+</html>
