@@ -27,6 +27,7 @@ environment.systemPackages = with pkgs; [
 
 ocl-icd
 intel-ocl
+intel-compute-runtime
 
 bluez
 blueman

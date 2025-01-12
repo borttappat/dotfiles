@@ -37,8 +37,6 @@
     #creep
     ];
 
-
-
 # Packages to install on a system-wide level
     environment.systemPackages = with pkgs; [
 
@@ -50,17 +48,9 @@
     #obs-studio
     #davinci-resolve
 
-#Intel runtime
-    intel-compute-runtime
-
-
 # Compilers
     gcc
     python3
-
-
-
-
 
 # Programs
     librewolf
@@ -91,7 +81,7 @@
     #wiki-tui
     fzf 
     alacritty
-    #ghostty
+    ghostty
     warp-terminal
     thefuck         #Magnificent app which corrects your previous console command
     #kitty

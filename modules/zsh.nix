@@ -9,14 +9,14 @@
     enableCompletion = true;
   };
 
-  # Add this section
-  programs.bash = {
-    interactiveShellInit = ''
-      if [ -n "$IN_NIX_SHELL" ]; then
-        exec ${pkgs.zsh}/bin/zsh
-      fi
-    '';
-  };
+  # nix-shell settings
+  #programs.bash = {
+  #  interactiveShellInit = ''
+  #    if [ -n "$IN_NIX_SHELL" ]; then
+  #      exec ${pkgs.zsh}/bin/zsh
+  #    fi
+  #  '';
+  #};
 
   environment.etc."zshrc".text = ''
     # History Configuration

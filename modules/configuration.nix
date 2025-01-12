@@ -1,8 +1,7 @@
-#       _   ___      ____  _____
-#      / | / (_)  __/ __ \/ ___/
-#     /  |/ / / |/_/ / / /\__ \
-#    / /|  / />  </ /_/ /___/ /
-#   /_/ |_/_/_/|_|\____//____/
+# _______ __         _______ _______
+#|    |  |__|.--.--.|       |     __|
+#|       |  ||_   _||   -   |__     |
+#|__|____|__||__.__||_______|_______|
 
 { config, pkgs, ... }:
 
@@ -179,14 +178,16 @@ networking.hostName = "nix"; # Define your hostname.
 # Enable networking
 networking.networkmanager.enable = true;
 
-# Enable sound with pipewire
-hardware.pulseaudio.enable = false;
-    security.rtkit.enable = true;
-    services.pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-    };
+# Sound settings
+#sound.enable = true;
+security.rtkit.enable = true;
+services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;  # For PulseAudio compatibility
+    jack.enable = true;   # For JACK applications
+};
 
 /* Moved to users.nix
 # Define a user account. Don't forget to set a password with ‘passwd’.
