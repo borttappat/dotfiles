@@ -42,72 +42,92 @@
       # Update /etc/nixos/colors.nix with colors from ~/dotfiles/wal/nix-color
       ${python3}/bin/python ~/dotfiles/scripts/python/nixcolors.py
         
-        # Change colors for startpage
+      # Change colors for startpage
+      # define file paths
+      startpage="$HOME/dotfiles/misc/startpage.html"
+      colors_css="$HOME/.cache/wal/colors.css"
 
-        # Define file paths
-        startpage="$HOME/dotfiles/misc/startpage.html"
-        colors_css="$HOME/.cache/wal/colors.css"
+      # Remove content from lines 12 to 28 in startpage.html
+      ${gnused}/bin/sed -i '12,28d' "$startpage"
 
-        # Remove content from lines 12 to 28 in startpage.html
-        sed -i '12,28d' "$startpage"
+      # Extract lines 12 to 28 from colors.css and insert them into startpage.html at line 12
+      ${gnused}/bin/sed -n '12,28p' "$colors_css" | ${gnused}/bin/sed -i '11r /dev/stdin' "$startpage"
 
-        # Extract lines 12 to 28 from colors.css and insert them into startpage.html at line 12
-        sed -n '12,28p' "$colors_css" | sed -i '11r /dev/stdin' "$startpage"
+      # Update GitHub Pages colors.css
+      echo "Starting GitHub Pages color update..."
 
+      # Define file paths
+      site_colors="$HOME/borttappat.github.io/assets/css/colors.css"
+      colors_css="$HOME/.cache/wal/colors.css"
 
-        # Path to your colors.sh file
+      # Ensure the css directory exists
+      mkdir -p "$(dirname "$site_colors")"
 
+      # Create or update colors.css
+      {
+          echo "/* Theme colors - automatically generated */"
+          echo ":root {"
+          echo "    /* Colors extracted from pywal */"
+          # Extract color definitions from pywal
+          ${gnused}/bin/sed -n '12,28p' "$colors_css"
+          echo ""
+          echo "    /* Additional theme variables */"
+          echo "    --scanline-color: rgba(12, 12, 12, 0.1);"
+          echo "    --flicker-color: rgba(152, 217, 2, 0.01);"
+          echo "    --text-shadow-color: var(--color1);"
+          echo "    --header-shadow-color: var(--color0);"
+          echo "}"
+      } > "$site_colors"
+      echo "Updated GitHub Pages colors"
 
-        #Zathura-colors
-        colors_file="$HOME/.cache/wal/colors.sh"
+      #Zathura-colors
+      colors_file="$HOME/.cache/wal/colors.sh"
+      zathura_config="$HOME/.config/zathura/zathurarc"
 
-        # Path to your zathurarc file
-        zathura_config="$HOME/.config/zathura/zathurarc"
+      # Read color values from colors.sh
+      source "$colors_file"
 
-        # Read color values from colors.sh
-        source "$colors_file"
+      # Update zathurarc with new color values
+      ${gnused}/bin/sed -i "s/^set notification-error-bg.*/set notification-error-bg \"$background\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set notification-error-fg.*/set notification-error-fg \"$color2\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set notification-warning-bg.*/set notification-warning-bg \"$background\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set notification-warning-fg.*/set notification-warning-fg \"$color2\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set notification-bg.*/set notification-bg \"$background\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set notification-fg.*/set notification-fg \"$color2\"/" "$zathura_config"
 
-        # Update zathurarc with new color values
-        sed -i "s/^set notification-error-bg.*/set notification-error-bg \"$background\"/" "$zathura_config"
-        sed -i "s/^set notification-error-fg.*/set notification-error-fg \"$color2\"/" "$zathura_config"
-        sed -i "s/^set notification-warning-bg.*/set notification-warning-bg \"$background\"/" "$zathura_config"
-        sed -i "s/^set notification-warning-fg.*/set notification-warning-fg \"$color2\"/" "$zathura_config"
-        sed -i "s/^set notification-bg.*/set notification-bg \"$background\"/" "$zathura_config"
-        sed -i "s/^set notification-fg.*/set notification-fg \"$color2\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set completion-group-bg.*/set completion-group-bg \"$background\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set completion-group-fg.*/set completion-group-fg \"$color2\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set completion-bg.*/set completion-bg \"$color1\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set completion-fg.*/set completion-fg \"$foreground\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set completion-highlight-bg.*/set completion-highlight-bg \"$color3\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set completion-highlight-fg.*/set completion-highlight-fg \"$foreground\"/" "$zathura_config"
 
-        sed -i "s/^set completion-group-bg.*/set completion-group-bg \"$background\"/" "$zathura_config"
-        sed -i "s/^set completion-group-fg.*/set completion-group-fg \"$color2\"/" "$zathura_config"
-        sed -i "s/^set completion-bg.*/set completion-bg \"$color1\"/" "$zathura_config"
-        sed -i "s/^set completion-fg.*/set completion-fg \"$foreground\"/" "$zathura_config"
-        sed -i "s/^set completion-highlight-bg.*/set completion-highlight-bg \"$color3\"/" "$zathura_config"
-        sed -i "s/^set completion-highlight-fg.*/set completion-highlight-fg \"$foreground\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set index-bg.*/set index-bg \"$background\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set index-fg.*/set index-fg \"$color2\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set index-active-bg.*/set index-active-bg \"$color1\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set index-active-fg.*/set index-active-fg \"$foreground\"/" "$zathura_config"
 
-        sed -i "s/^set index-bg.*/set index-bg \"$background\"/" "$zathura_config"
-        sed -i "s/^set index-fg.*/set index-fg \"$color2\"/" "$zathura_config"
-        sed -i "s/^set index-active-bg.*/set index-active-bg \"$color1\"/" "$zathura_config"
-        sed -i "s/^set index-active-fg.*/set index-active-fg \"$foreground\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set inputbar-bg.*/set inputbar-bg \"$color1\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set inputbar-fg.*/set inputbar-fg \"$foreground\"/" "$zathura_config"
 
-        sed -i "s/^set inputbar-bg.*/set inputbar-bg \"$color1\"/" "$zathura_config"
-        sed -i "s/^set inputbar-fg.*/set inputbar-fg \"$foreground\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set statusbar-bg.*/set statusbar-bg \"$color3\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set statusbar-fg.*/set statusbar-fg \"$background\"/" "$zathura_config"
 
-        sed -i "s/^set statusbar-bg.*/set statusbar-bg \"$color3\"/" "$zathura_config"
-        sed -i "s/^set statusbar-fg.*/set statusbar-fg \"$background\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set highlight-color.*/set highlight-color \"$color2\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set highlight-active-color.*/set highlight-active-color \"$color3\"/" "$zathura_config"
 
-        sed -i "s/^set highlight-color.*/set highlight-color \"$color2\"/" "$zathura_config"
-        sed -i "s/^set highlight-active-color.*/set highlight-active-color \"$color3\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set default-bg.*/set default-bg \"$background\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set default-fg.*/set default-fg \"$color2\"/" "$zathura_config"
 
-        sed -i "s/^set default-bg.*/set default-bg \"$background\"/" "$zathura_config"
-        sed -i "s/^set default-fg.*/set default-fg \"$color2\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set recolor-lightcolor.*/set recolor-lightcolor \"$background\"/" "$zathura_config"
+      ${gnused}/bin/sed -i "s/^set recolor-darkcolor.*/set recolor-darkcolor \"$color2\"/" "$zathura_config"
 
-        sed -i "s/^set recolor-lightcolor.*/set recolor-lightcolor \"$background\"/" "$zathura_config"
-        sed -i "s/^set recolor-darkcolor.*/set recolor-darkcolor \"$color2\"/" "$zathura_config"
+      echo "Zathura colors updated successfully."
 
-        echo "Zathura colors updated successfully."
+      pywalfox update
+      echo "Pywalfox updated successfully"
 
-        pywalfox update
-        echo "Pywalfox updated successfully"
-
-        echo "Colors updated!"
+      echo "Colors updated!"
     '')
   ];
 }

@@ -88,6 +88,7 @@ set $browser firefox
 bindsym $mod+b exec $browser
 bindsym $mod+a exec $browser https://claude.ai/new 
 bindsym $mod+shift+m exec $browser https://music.youtube.com/
+bindsym $mod+t exec $browser https://borttappat.github.io
 bindsym $mod+g exec $browser https://github.com/borttappat/dotfiles
 bindsym $mod+Shift+v exec $browser https://vim.rtorr.com/
 bindsym $mod+n exec $browser https://search.nixos.org/packages?channel=unstable

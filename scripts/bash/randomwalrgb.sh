@@ -1,5 +1,7 @@
 #!/run/current-system/sw/bin/bash
 
+echo "Starting wallpaper and color update..."
+
 #set a random wallpaper
 wal -q -i ~/Wallpapers -o wal-set
 
@@ -26,6 +28,8 @@ sed -i '12,28d' "$startpage"
 sed -n '12,28p' "$colors_css" | sed -i '11r /dev/stdin' "$startpage"
 
 # Update GitHub Pages colors.css
+echo "Starting GitHub Pages color update..."
+
 # Define file paths
 site_colors="$HOME/borttappat.github.io/assets/css/colors.css"
 colors_css="$HOME/.cache/wal/colors.css"
@@ -49,19 +53,15 @@ mkdir -p "$(dirname "$site_colors")"
     echo "}"
 } > "$site_colors"
 
-# Stage changes if in git repository
-if git -C "$(dirname "$site_colors")" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    cd "$(dirname "$site_colors")"
-    git add "$(basename "$site_colors")"
-    git commit -m "Update color scheme"
-    git push
-    echo "Changes to colors.css have been committed and pushed"
-fi
-
 # Update other configurations
+echo "Updating other configurations..."
 sh ~/dotfiles/scripts/bash/zathuracolors.sh
 
 # restart polybar
+echo "Restarting polybar..."
 polybar-msg cmd restart
 
+echo "Updating pywalfox..."
 pywalfox update
+
+echo "Script completed!"
