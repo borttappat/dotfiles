@@ -7,16 +7,15 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-  };
+    
+    # Enable autosuggestions and syntax highlighting
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
 
-  # nix-shell settings
-  #programs.bash = {
-  #  interactiveShellInit = ''
-  #    if [ -n "$IN_NIX_SHELL" ]; then
-  #      exec ${pkgs.zsh}/bin/zsh
-  #    fi
-  #  '';
-  #};
+    # Configure autosuggestions
+    autosuggestions.async = true;  # Enable async mode
+    autosuggestions.strategy = ["history"];  # Use history-based suggestions
+  };
 
   environment.etc."zshrc".text = ''
     # History Configuration
@@ -25,8 +24,8 @@
     SAVEHIST=1000000
     setopt HIST_FIND_NO_DUPS
     setopt HIST_IGNORE_SPACE
-    setopt SHARE_HISTORY          # Share history between sessions
-    setopt EXTENDED_HISTORY       # Add timestamps to history
+    setopt SHARE_HISTORY          
+    setopt EXTENDED_HISTORY       
     
     # Remove greeting
     PROMPT_EOL_MARK=""
@@ -34,6 +33,17 @@
     # PATH configuration
     path+=("$HOME/.local/bin")
     export PATH
+
+    # Optimize compinit to run once a day
+    autoload -Uz compinit
+    if [[ -n $HOME/.zcompdump(#qN.mh+24) ]]; then
+        compinit
+    else
+        compinit -C
+    fi
+
+    # Configure autosuggestions style
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 
     # Enhanced Vi mode
     bindkey -v
@@ -55,28 +65,27 @@
     done
 
     # Better directory navigation
-    setopt AUTO_CD              # Just type directory name to cd
-    setopt AUTO_PUSHD          # Push directories to stack
-    setopt PUSHD_IGNORE_DUPS   # Don't push duplicates
-    setopt PUSHD_MINUS         # Use +/- instead of left/right for pushd/popd
+    setopt AUTO_CD              
+    setopt AUTO_PUSHD          
+    setopt PUSHD_IGNORE_DUPS   
+    setopt PUSHD_MINUS         
 
-    # Better completion
-    setopt COMPLETE_IN_WORD    # Complete from both ends of word
-    setopt ALWAYS_TO_END       # Move cursor to end if word had one match
-    setopt PATH_DIRS           # Perform path search even on command names with /
-    setopt AUTO_LIST          # Automatically list choices on ambiguous completion
-    setopt AUTO_MENU          # Show completion menu on second tab
+    # Fast completion settings
+    setopt COMPLETE_IN_WORD    
+    setopt ALWAYS_TO_END       
+    setopt PATH_DIRS           
+    setopt AUTO_LIST          
+    setopt AUTO_MENU          
     
     # Path expansion and other improvements
-    setopt NO_CASE_GLOB       # Case insensitive globbing
-    setopt EXTENDED_GLOB      # Use extended globbing syntax
-    setopt GLOB_DOTS          # Include dotfiles in globbing
-    setopt NUMERIC_GLOB_SORT  # Sort numerically when globbing
-    setopt INTERACTIVE_COMMENTS # Allow comments in interactive mode
-    setopt NO_BEEP            # Don't beep on errors
+    setopt NO_CASE_GLOB       
+    setopt EXTENDED_GLOB      
+    setopt GLOB_DOTS          
+    setopt NUMERIC_GLOB_SORT  
+    setopt INTERACTIVE_COMMENTS 
+    setopt NO_BEEP            
     
-    # Fish-like path expansion
-    autoload -U compinit && compinit
+    # Optimized completion styles
     zstyle ':completion:*' menu select
     zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
     
@@ -108,9 +117,6 @@
         fi
     }
 
-    # thefuck integration
-    #eval $(thefuck --alias)
-
     # Starship and zoxide
     eval "$(starship init zsh)"
     eval "$(zoxide init zsh)"
@@ -118,7 +124,7 @@
     # GPG configuration
     export GPG_TTY=$(tty)
 
-    # All your existing aliases
+    # Your existing aliases here...
     alias htblabs='sudo openvpn ~/Downloads/lab_griefhoundTCP.ovpn'
     alias msf='figlet -f cricket "msf" && sudo msfconsole -q'
     alias sesp='searchsploit'
@@ -221,6 +227,5 @@
     figlet
     openrgb
     pywal
-    #thefuck
   ];
 }
