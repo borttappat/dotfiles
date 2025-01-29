@@ -57,6 +57,7 @@
     #10.10.11.47 extras.linkvortex.htb
     10.10.11.47 dev.linkvortex.htb
     10.10.11.47 linkvortex.htb
+    10.10.11.51 sequel.htb
 
 
     # GOAD

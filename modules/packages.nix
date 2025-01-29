@@ -126,6 +126,7 @@
     #conky
     #dunst
     scrot
+    flameshot
     i3lock-color
     i3lock-fancy
     #i3lock-fancy-rapid
