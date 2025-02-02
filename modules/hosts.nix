@@ -58,6 +58,8 @@
     10.10.11.47 dev.linkvortex.htb
     10.10.11.47 linkvortex.htb
     10.10.11.51 sequel.htb
+    10.10.11.48 underpass.htb
+    10.10.11.41 certified.htb dc01.certified.htb
 
 
     # GOAD

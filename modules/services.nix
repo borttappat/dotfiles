@@ -1,13 +1,23 @@
-#                          _                        _
-#    ________  ______   __(_)_______  _____  ____  (_)  __
-#   / ___/ _ \/ ___/ | / / / ___/ _ \/ ___/ / __ \/ / |/_/
-#  (__  )  __/ /   | |/ / / /__/  __(__  ) / / / / />  <
-# /____/\___/_/    |___/_/\___/\___/____(_)_/ /_/_/_/|_|
+#                        __                           __
+#.-----.-----.----.--.--|__.----.-----.-----.  .-----|__.--.--.
+#|__ --|  -__|   _|  |  |  |  __|  -__|__ --|__|     |  |_   _|
+#|_____|_____|__|  \___/|__|____|_____|_____|__|__|__|__|__.__|
 
 { config, pkgs, ... }:
 
 {
 
+# NetworkManager configuration
+systemd.services.NetworkManager-wait-online = {
+    enable = false;
+};
+
+networking = {
+    networkmanager = {
+        enable = true;  # You already have this
+    };
+};
+    
 # avoid issues with #/bin/bash scripts and alike
 services.envfs.enable = true;
 
@@ -31,7 +41,7 @@ services.resolved.enable = true;
 services.logind.lidSwitchExternalPower = "ignore";
 
 # Rsync
-services.rsyncd.enable = true;
+# services.rsyncd.enable = true;
 
 # Enable touchpad support
 services.libinput.enable = true;
