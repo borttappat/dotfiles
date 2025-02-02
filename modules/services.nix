@@ -14,7 +14,7 @@ systemd.services.NetworkManager-wait-online = {
 
 networking = {
     networkmanager = {
-        enable = true;  # You already have this
+        enable = true;  
     };
 };
     
