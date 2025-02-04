@@ -57,6 +57,7 @@
             ./modules/boot.nix
             ./modules/zsh.nix
             ./modules/scripts.nix
+            ./modules/nixi.nix
             
             # Additional feature modules
             ./modules/pentesting.nix

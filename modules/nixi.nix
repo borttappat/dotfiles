@@ -2,34 +2,44 @@
 { config, pkgs, lib, ... }:
 
 let
-  nixi = pkgs.python3Packages.buildPythonApplication {
+  nixi = pkgs.stdenv.mkDerivation {
     pname = "nixi";
     version = "0.1.0";
     
-    src = ../tools/nixi;  # Points to the directory containing nixi.py
+    src = ../tools/nixi;  # Directory containing nixi.py
     
-    propagatedBuildInputs = with pkgs.python3Packages; [
-      requests
-      configparser
+    # Specify the runtime dependencies that nixi needs
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    
+    buildInputs = with pkgs; [
+      python3
+      python3Packages.requests
+      python3Packages.configparser
     ];
     
-    doCheck = false;
-    
+    # Simple installation phase that copies our script and sets up dependencies
     installPhase = ''
+      # Create the bin directory
       mkdir -p $out/bin
+      
+      # Copy our script
       cp nixi.py $out/bin/nixi
+      
+      # Make it executable
       chmod +x $out/bin/nixi
+      
+      # Wrap the script with its Python dependencies
+      wrapProgram $out/bin/nixi \
+        --prefix PYTHONPATH : "${pkgs.python3.withPackages (ps: with ps; [
+          requests
+          configparser
+        ])}/lib/python${pkgs.python3.pythonVersion}/site-packages"
     '';
   };
 in
 {
-  environment.systemPackages = [ nixi ];
-  
-  # Ensure required dependencies are available
   environment.systemPackages = with pkgs; [
-    ollama  # For local model support
-    python3
-    python3Packages.requests
-    python3Packages.configparser
+    nixi
+    ollama
   ];
 }
