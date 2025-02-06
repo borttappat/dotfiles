@@ -1,138 +1,157 @@
-## Dotfiles!
+# NixOS Dotfiles
 
-My personal repo where I put stuff I want to use on multiple machines.
-Currently setting up a NixOS system and will do so for the foreseeable future.
+Personal dotfiles repository for managing multiple NixOS systems with a focus on pentesting tools, customization, and efficient workflow.
 
-### TL;DR
-Flakey Nix-configuration with modules split into (mainly) ``configuration.nix`` ``hosts.nix``  ``packages.nix`` ``services.nix`` ``pentesting.nix``  and ``user.nix``. 
+## Features
 
-Managed through scripts in ``scripts/bash`` and ``scripts/python`` and configuration files for among others;``i3wm`` ``alaritty`` ``fish`` ``polybar`` and ``picom``.
+- Flake-based NixOS configuration split into focused modules
+- Automated color scheme management with pywal
+- Multi-monitor support with semi-automatic resolution detection
+- Integrated pentesting tools and environment
+- Custom lockscreen with blur effect
+- Polybar with dynamic workspace handling
+- Zathura PDF reader with theme integration
+- Custom startpage for browser homepage
+- Tailscale VPN integration
+- Multi-device support (Razer, ASUS, VM configurations)
+- OpenRGB integration for device lighting
 
-![Screenshot](https://github.com/borttappat/dotfiles/blob/main/misc/screenshot.png)
+## Key Components
 
-
-## *Warning #1*
-The setup-scripts in this repo are work in progress. I update stuff weekly and I can't guarantee that nothing breaks. Setting up a user-friendly experience isn't my main priority, and the setup-scripts might break from time to time. Until I end up with a "stable" version, consider this very much work in progress.
-
-As of 01/10/2024, ```nixsetup.sh``` in ``scripts/bash`` works on testing VMs; give it a go!
-### *Warning #2*
-If you perform a git pull(I kind of recommend against doing this as Flakes builds using ONLY Git-tracked files that are generated in the setup-script, and thusly will be reset to a bare state upon pulling), run the ```nixsetup.sh``` again before building, and take note of and/or merge your personal changes before pulling down the latest changes as they will be overwritten otherwise.
+- **Window Manager**: i3-gaps with custom keybindings
+- **Terminal**: Alacritty with adaptive config based on resolution
+- **Shell**: ZSH with custom configuration
+- **Bar**: Polybar with dynamic modules
+- **Compositor**: Picom for transparency and effects
+- **Browser**: Firefox/Librewolf with custom startpage
 
 ## Installation
-Commands to run on an ``(not recommended)`` existing install or
-``(recommended)`` fresh install.
 
-Temp-install git and python for cloning repo and running scripts
-```
+1. Enter a temporary environment with required tools:
+```bash
 nix-shell -p git python3
 ```
-Clone the repo
-```
+
+2. Clone the repository:
+```bash
 cd && git clone https://github.com/borttappat/dotfiles
 ```
-Navigate to the scripts-directory
-```
+
+3. Run the setup script:
+```bash
 cd dotfiles/scripts/bash
-```
-Make the build-script executable
-```
-chmod +x nixbuild.sh
-```
-Run the script
-```
-./nixbuild.sh
-```
-Your system will then, last time I checked, freeze up. From here, reboot and you should then boot into tty and the command ``x`` will start Xserver and i3(picom for transparency is started at launch, if you're running in a WM I run the following to make it more usable, transparency hasn't worked out well for me in virtual environments): ``killall picom``
-I should probably just set up a script to look for WMs when launching i3, but alas, I have not.
-
-#### EDIT: Picom has been disabled on boot for now across the system.
-
-### Usage
-
-#### Info
-Keyboard layout is set to Swedish, edit by adjusting the following in ``configuration.nix``
-```
-141     services.xserver.xkb = {
-  1         layout = "se";
-  2         variant = "";
-  3     };
-```
-```
-128     console.keyMap = "sv-latin1";
+chmod +x nixsetup.sh
+./nixsetup.sh
 ```
 
-Bindings can be found in ``~/dotfiles/i3/config``, but often used ones include:
+The script will:
+- Back up your current configuration
+- Configure system settings while preserving hardware configuration
+- Set up necessary symlinks
+- Build and activate the new configuration
 
+## Important Usage Notes
 
+- Initial login is to TTY; use `x` to start X server
+- Default keyboard layout is Swedish (configurable in configuration.nix)
+- System detects hardware and applies appropriate configuration (Razer/ASUS/VM)
+- Color schemes automatically adapt based on wallpaper
+
+## Key Scripts
+
+- `nixsetup.sh`: Initial system configuration and setup
+- `nixbuild.sh`: Hardware-aware system rebuild
+- `nixupdate.sh`: Update flake and rebuild system
+- `lock.sh`: Blur-effect screen locker
+- `randomwalrgb.sh`: Random wallpaper with RGB sync
+- `walrgb.sh`: Set wallpaper and sync RGB lighting
+- `zathuracolors.sh`: Update PDF reader theme
+
+## Keybindings
+
+### Terminal & Applications
 | Keybind | Function |
 |---------|----------|
 | Super + Return | Launch Alacritty |
-| Super + s | Launch Alacritty in floating mode |
-| Super + v | Set window splitting to vertical |
-| Super + s | Set window splitting to horizontal |
+| Super + S | Launch floating Alacritty |
+| Super + b | Launch default browser |
+| Super + a | Launch Claude AI in browser |
+| Super + Shift + m | Launch YouTube Music |
+| Super + z | Launch Zathura |
 | Super + d | Launch Rofi |
-| Super + Shift + i | Open the i3 configuration file using Vim |
+| Super + Shift + d | Launch Rofi run prompt |
+
+### Window Management
+| Keybind | Function |
+|---------|----------|
+| Super + h/j/k/l | Focus left/down/up/right |
+| Super + Shift + h/j/k/l | Move window left/down/up/right |
+| Super + c | Split horizontal |
+| Super + v | Split vertical |
+| Super + f | Toggle fullscreen |
+| Super + q | Kill focused window |
+| Super + space | Toggle floating |
+| Super + Shift + space | Toggle focus between tiling/floating |
+| Super + r | Enter resize mode |
+| Super + m | Enter move mode for floating windows |
+
+### Workspace Control
+| Keybind | Function |
+|---------|----------|
+| Super + (1-0) | Switch to workspace 1-10 |
+| Super + Shift + (1-0) | Move container to workspace 1-10 |
+
+### System Controls
+| Keybind | Function |
+|---------|----------|
+| Super + F1 | Mute audio |
+| Super + F2 | Volume down |
+| Super + F3 | Volume up |
+| Super + F7 | Brightness down |
+| Super + F8 | Brightness up |
+| Super + Shift + e | Lock screen |
+| Super + Shift + s | System suspend |
+
+### Configuration & Monitoring
+| Keybind | Function |
+|---------|----------|
+| Super + Shift + i | Edit i3 config |
+| Super + Shift + p | Edit polybar config |
+| Super + Shift + n | Edit NixOS packages |
+| Super + Shift + c | Edit NixOS config |
 | Super + Shift + u | Launch htop |
+| Super + Shift + b | Launch bottom |
+| Super + p | Restart polybar |
 
+## Useful Aliases
 
-#### Aliases
-``f`` is aliased to open your fish-config in which you can find every shortcut to most scripts
-A few useful ones include:
+- `nb`: Build system with hardware detection
+- `nu`: Update flake and rebuild system
+- `np`: Edit package configuration
+- `npp`: Edit pentesting tools configuration
+- `pc`: Edit Picom config
+- `ac`: Edit Alacritty config
 
-``np`` opens a vim-session in which you can edit ``packages.nix`` which determines the packages installed on the system
+## Important Notes
 
-``npp`` opens a vim-session in which you can edit ``pentesting.nix`` which determines what packages with a pentesting slant are installed on the system
+- System builds using only git-tracked files
+- After updates, run `nixsetup.sh` before rebuilding
+- Back up personal changes before pulling updates
+- VM environments may need to disable Picom (`killall picom`)
 
-``nb`` builds the system with the modules listed in ``flake.nix``in the ``"default"`` section(notably includes ``packages.nix``, the referenced script is a bit hacky and involves fething the name using ``neofetch`` in the background, keep that program around or set up new Configurations with other methos, Nix includes this by referencing the hostname, it's worth looking into. Use ``nu`` to update the flake.lock file and rebuild(updates the kernel and unpins the installed packages, allowing for the most recent updates).
+## Structure
 
-``pc`` opens up a vim-session in which you can edit Picom, the compositor responsible for the transparency
-
-``ac`` opens up a vim-session for editing Alacrittys config file
-
-``nu`` updates your flake, unpinning from my set version, and updates the system along with the kerel.
-
-## Scripts
-
-### scripts/python/link.py
 ```
-python link.py --file [FILE] --dir [DIRECTORY]
+dotfiles/
+├── modules/         # NixOS configuration modules
+├── scripts/
+│   ├── bash/       # System management scripts
+│   └── python/     # Configuration tooling
+├── config/         # Application configs
+└── misc/          # Additional resources
 ```
 
-``scripts/python/link.py`` checks for parsed directories and creates it if it's missing, deletes file(s) with the name of the parsed file and then creates a link to the specified directory. 
+## Contributing
 
-TODO: back up any existing file instead of deleting, or similar.
-
-``scripts/bash/links.sh`` runs through a list of files and directories to link files to in order to ensure that things work correctly.
-
-### scripts/bash/walrgb.sh
-Simple combination of wal and openrgb. Accepts the path of an image file like 
-```
-walrgb [PATH/TO/IMAGE]
-```
-and then reads the color codes from the cache provided by pywal, converts them to a format OpenRGB then can read and sets the backlight color to the device specified in the script.
-
-### scripts/bash/randomwalrgb.sh
-Similar to the above script but picks a random .jpg or .png from ~/Wallpapers
-
-### scripts/bash/nixsetup.sh
-Script to be used on any system to an environment like my own with 
-
-``
-i3, alacritty, fish, picom
-``
-
-and programs listed in packages.nix along with services in services.nix.
-
-Currently set up to backup any existing configuration.nix and implement everything in this repo while preserving usernames and bootloader settings along with hardware-configuration.nix as it is set during installation(left as is for now).
-
-### scripts/bash/nixbuild.sh
-Script set up to read the current machine-name and build accordingly, modify the contents of flake.nix to match any desired setup per device if used with multiple devices. Will run as the "default" option if host-name is not any expected setup of mine from this repo.
-
-### scripts/bash/nixupdate.sh
-Script set up to update the current flake to the latest version and then rebuilds the system. Used to update kernel, mostly.
-
-# TODO
-[ 1 ] Use writeShellScriptBin to avoid having to link to the above scripts via fish, WIP in configuration.nix
-
-[ 2 ] Build from this directory using flake and avoid linking to /etc/nixos in order to preserve previous Nix-configuration.
+Feel free to submit issues and pull requests for improvements or bug fixes.
 
