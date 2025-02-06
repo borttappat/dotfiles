@@ -29,7 +29,15 @@
       };
 
     in {
-      nixosConfigurations = {
+      
+    devShells.${system} =
+        let
+            pkgs = pkgsForSystem system;
+        in {
+            bloodhound = import ./modules/bloodhound.nix { inherit pkgs; };
+        };
+
+    nixosConfigurations = {
         
         # Razer configuration
         razer = nixpkgs.lib.nixosSystem {
