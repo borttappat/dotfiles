@@ -60,6 +60,7 @@
     10.10.11.51 sequel.htb
     10.10.11.48 underpass.htb
     10.10.11.41 certified.htb dc01.certified.htb
+    10.10.10.239 love.htb staging.love.htb
 
 
     # GOAD
