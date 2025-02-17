@@ -42,9 +42,6 @@ boot = {
         "vm.vfs_cache_pressure" = 50;
     };
     
-    # Enable CPU microcode updates
-    loader.systemd-boot.enable = true;
-    initrd.systemd.enable = true;
 };
 
 

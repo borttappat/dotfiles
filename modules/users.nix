@@ -13,6 +13,8 @@ users.users.traum = {
     isNormalUser = true;
     description = "A";
     extraGroups = [ "audio" "networkmanager" "wheel" "libvirtd" "wireshark" "adbusers" "docker" ];
+    createHome = true;
+    useDefaultShell = true;
 };
 
 
