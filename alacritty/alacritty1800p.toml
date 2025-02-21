@@ -4,7 +4,6 @@ TERM = "xterm"
 #WINIT_X11_SCALE_FACTOR = "2"
 
 [font]
-# For external display
 size = 7.5
 
 [font.bold]
