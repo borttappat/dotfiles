@@ -1,0 +1,15 @@
+# Resolution-specific settings for 2880x1800
+
+# Font size adjusted for HiDPI
+font CozetteVector 12
+
+# Window borders
+new_window pixel 3
+hide_edge_borders both
+smart_borders on
+
+# Gaps settings
+gaps inner 20
+gaps top 60 
+smart_gaps off
+
