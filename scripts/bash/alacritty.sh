@@ -1,24 +1,28 @@
 #!/run/current-system/sw/bin/bash
 
-# Function to get the primary display resolution
-get_primary_resolution() {
-    xrandr | grep primary | grep -oP '\d+x\d+' | head -n1
+# Function to get all connected display resolutions
+get_display_resolutions() {
+    xrandr | grep " connected" | grep -oP '\d+x\d+'
 }
 
-# Get the primary display resolution
-RESOLUTION=$(get_primary_resolution)
+# Get all connected display resolutions
+RESOLUTIONS=$(get_display_resolutions)
 
-# Get the position of the mouse cursor
-eval $(xdotool getmouselocation --shell)
-
-# Determine which configuration to use based on resolution and cursor position
-if [ "$RESOLUTION" = "1920x1080" ]; then
+# Check if 1800p display is connected (2880x1800)
+if echo "$RESOLUTIONS" | grep -q "2880x1800"; then
+    # 1800p display
+    echo "Detected 1800p display - using 1800p config"
+    alacritty --config-file ~/dotfiles/alacritty/alacritty1800p.toml
+elif echo "$RESOLUTIONS" | grep -q "3840x2160"; then
+    # 4K display
+    echo "Detected 4K display - using 4K config"
+    alacritty --config-file ~/dotfiles/alacritty/alacritty4k.toml
+elif echo "$RESOLUTIONS" | grep -q "1920x1080"; then
     # 1080p display
-    alacritty --config-file ~/.config/alacritty/alacritty1080p.toml
-elif [ "$RESOLUTION" = "3840x2160" ] || [ $X -ge 1920 ]; then
-    # 4K display or mouse is on the 4K display (DP-4)
-    alacritty --config-file ~/.config/alacritty/alacritty4k.toml
+    echo "Detected 1080p display - using 1080p config"
+    alacritty --config-file ~/dotfiles/alacritty/alacritty1080p.toml
 else
-    # Default (likely internal display)
-    alacritty --config-file ~/.config/alacritty/alacritty.toml
+    # Default fallback
+    echo "Using default config"
+    alacritty --config-file ~/dotfiles/alacritty/alacritty.toml
 fi

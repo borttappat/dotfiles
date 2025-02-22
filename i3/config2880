@@ -9,7 +9,7 @@ hide_edge_borders both
 smart_borders on
 
 # Gaps settings
-gaps inner 20
-gaps top 60 
+gaps inner 15
+gaps top 50 
 smart_gaps off
 

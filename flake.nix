@@ -64,6 +64,7 @@
             ./modules/hosts.nix
             ./modules/boot.nix
             ./modules/zsh.nix
+            ./modules/virt.nix
             ./modules/scripts.nix
             ./modules/nixi.nix
             
@@ -76,7 +77,7 @@
         };
 
         # XMG Configuration
-        razer = nixpkgs.lib.nixosSystem {
+        xmg = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
             # Make unfree packages allowable
@@ -99,6 +100,7 @@
             ./modules/colors.nix
             ./modules/hosts.nix
             ./modules/zsh.nix
+            ./modules/virt.nix
             ./modules/scripts.nix
             
             # Additional feature modules
@@ -129,6 +131,7 @@
             ./modules/colors.nix
             ./modules/hosts.nix
             ./modules/zsh.nix
+            ./modules/virt.nix
             ./modules/boot.nix
             
             # Additional feature modules
