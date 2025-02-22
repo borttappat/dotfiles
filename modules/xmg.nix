@@ -1,37 +1,61 @@
+# AMD configuration with OpenCL support for hashcat
 { config, pkgs, ... }:
 
 {
+  # Basic AMD kernel module
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.kernelModules = [ "kvm-amd" ];
 
-boot.initrd.kernelModules = [ "amdgpu" ];
-services.xserver.videoDrivers = [ "amdgpu" ];
-hardware.opengl = {
-	# Mesa
-	enable = true;
+  # Graphics configuration with OpenCL support
+  hardware = {
+    graphics.enable = true;
+    graphics.extraPackages = with pkgs; [
+      amdvlk
+      mesa.drivers
+    ];
+    
+    # Enable AMD OpenCL
+    amdgpu.opencl.enable = true;
+    
+    cpu.amd.updateMicrocode = true;
+    enableRedistributableFirmware = true;
 
-	# Vulkan
-	driSupport = true;
-};
+    # Bluetooth configuration
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+  };
 
-# Services
+  # Video driver setup
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "amdgpu" ];
+  };
 
-# Enable bluetooth
-hardware.bluetooth = {
-  enable = true;
-  powerOnBoot = true;  # Optional: automatically power-on Bluetooth at boot
-};
+  # Basic power management
+  powerManagement.enable = true;
 
-# Enable blueman applet
-services.blueman.enable = true;
+  # Services
+  services = {
+    blueman.enable = true;
+  };
 
-# AMD Drivers and settings
-
-# Packages
-
-environment.systemPackages = with pkgs; [
-
-bluez
-blueman
-
-];
-
+  # Required packages
+  environment.systemPackages = with pkgs; [
+    # OpenCL and tools
+    clinfo
+    hashcat
+    
+    # GPU utilities
+    radeontop
+    glxinfo
+    
+    # System tools
+    mesa-demos
+    
+    # Bluetooth
+    bluez
+    blueman
+  ];
 }

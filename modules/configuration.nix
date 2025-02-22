@@ -57,7 +57,9 @@ services.thermald.enable = true;
     powerManagement = {
     enable = true;
     powertop.enable = true;
-    cpuFreqGovernor = "ondemand";
+    
+    # Should be moved to individual configs like xmg.nix
+    #cpuFreqGovernor = "ondemand";
 };
 
 # Use binary cache for faster downloads

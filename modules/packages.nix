@@ -157,9 +157,6 @@
     xdotool
     #jq
     killall 
-    qemu 
-    #kvmtool
-    #maim            #CLI screenshot tool
     rar             #RAR-archive tool
     pciutils
     curl
@@ -172,14 +169,9 @@
     udisks
     
     ansible         #we be devs now
-    docker          #added with virt.enable = true in services.nix
-    lazydocker
     
     signal-cli
     whois
-    #xrdp            #rdp-interface
-    freerdp3
-    rdesktop
     warpd           #click stuff without mouse input
     ollama          #run llms locally
     #khoj

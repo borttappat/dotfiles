@@ -12,10 +12,12 @@
 users.users.traum = {
     isNormalUser = true;
     description = "A";
-    extraGroups = [ "audio" "networkmanager" "wheel" "libvirtd" "wireshark" "adbusers" "docker" ];
+    extraGroups = [ "audio" "networkmanager" "wheel" "wireshark" "adbusers" ];
     createHome = true;
     useDefaultShell = true;
 };
+
+services.getty.autologinUser = "traum";
 
 
 # Removing need for user "traum" to type password after sudo

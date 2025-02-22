@@ -30,8 +30,6 @@ services.ollama.enable = true;
 # udisksctl
 services.udisks2.enable = true; #added with udisks in packages.nix
 
-# Docker-support
-virtualisation.docker.enable = true; #added with docker pkg in packages.nix
 
 # Mullvad-vpn
 services.mullvad-vpn.enable = true;
@@ -45,11 +43,6 @@ services.logind.lidSwitchExternalPower = "ignore";
 
 # Enable touchpad support
 services.libinput.enable = true;
-
-# Virtualisation
-virtualisation.libvirtd.enable = true;
-programs.dconf.enable = true;
-environment.systemPackages = with pkgs; [ virt-manager ];
 
 # MySQL
 /*    

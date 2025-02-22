@@ -67,33 +67,6 @@ in
     };
   };
 
-  # Virtualization and VFIO Configuration
-  virtualisation = {
-    libvirtd = {
-      enable = true;
-      qemu = {
-        ovmf = {
-          enable = true;
-          packages = [(pkgs.OVMF.override {
-            secureBoot = true;
-            tpmSupport = true;
-          })];
-        };
-        swtpm.enable = true;
-        verbatimConfig = ''
-          user = "traum"
-          group = "kvm"
-          memory_backing_dir = "/var/lib/libvirt/qemu/ram"
-          nvram = [ "${pkgs.OVMF}/FV/OVMF.fd:${pkgs.OVMF}/FV/OVMF_VARS.fd" ]
-        '';
-      };
-      onBoot = "ignore";
-      onShutdown = "shutdown";
-    };
-  };
-
-  # Enable dconf (needed for virt-manager settings)
-  programs.dconf.enable = true;
 
   # Networking configuration
   networking = {
