@@ -75,6 +75,39 @@
           ];
         };
 
+        # XMG Configuration
+        razer = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            # Make unfree packages allowable
+            { nixpkgs.config.allowUnfree = true; }
+            
+            # Add overlay to the system
+            { nixpkgs.overlays = [ overlay-unstable ]; }
+
+            # Base system configuration
+            ./modules/configuration.nix
+            
+            # Device specific configurations
+            ./modules/xmg.nix
+            ./modules/xmgconf.nix
+            
+            # Core functionality modules
+            ./modules/packages.nix
+            ./modules/services.nix
+            ./modules/users.nix
+            ./modules/colors.nix
+            ./modules/hosts.nix
+            ./modules/zsh.nix
+            ./modules/scripts.nix
+            
+            # Additional feature modules
+            ./modules/pentesting.nix
+            ./modules/proxychains.nix
+            ./modules/steam.nix
+          ];
+        };
+        
         # ASUS configuration
         asus = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -150,6 +183,7 @@
             ./modules/hosts.nix
             ./modules/boot.nix
             ./modules/zsh.nix
+            ./modules/scripts.nix
           ];
         };
       };

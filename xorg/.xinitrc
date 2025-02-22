@@ -5,8 +5,8 @@ wal -Rn &
 #mullvad connect & 
 #picom -b
 
-exec i3
-
+#exec i3
+exec ~/dotfiles/scripts/bash/i3launch.sh
 
 # Here i3 is kept as default
 #session=${1:-i3}

@@ -11,6 +11,10 @@ elif echo "$current_host" | grep -q "QEMU"; then
 elif echo "$current_host" | grep -q "ASUS"; then
     sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#asus
 
+elif echo "$current_host" | grep -q "Schenker"; then
+    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#xmg
+
+
 else
     echo "Unknown host: $current_host, building default version. Modify flake.nix to adjust according to preferences"
     sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#default
