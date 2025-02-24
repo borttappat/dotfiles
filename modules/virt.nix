@@ -2,183 +2,59 @@
 #.--.--|__.----|  |_   .-----|__.--.--.
 #|  |  |  |   _|   _|__|     |  |_   _|
 # \___/|__|__| |____|__|__|__|__|__.__|
+{ config, pkgs, lib, ... }:
 
- { config, pkgs, lib, ... }:
-
-let
-  isIntel = pkgs.stdenv.hostPlatform.isx86_64 && config.hardware.cpu.intel.updateMicrocode;
-  isAMD = pkgs.stdenv.hostPlatform.isx86_64 && config.hardware.cpu.amd.updateMicrocode;
-in
 {
-  options.virtualisation = {
-    useDocker = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Whether to use Docker instead of Podman";
+  options = {
+    virtualisation = {
+      useDocker = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Whether to use Docker instead of Podman";
+      };
+      mainUser = lib.mkOption {
+        type = lib.types.str;
+        default = "traum";
+        description = "Main user for virtualization permissions";
+      };
     };
   };
 
   config = {
-    # Enable virtualization services
+    # Virtualization services
     virtualisation = {
-      # QEMU/KVM configuration
       libvirtd = {
         enable = true;
         qemu = {
           package = pkgs.qemu;
           ovmf = {
             enable = true;
-            packages = [pkgs.OVMFFull];  # For UEFI support
+            packages = [pkgs.OVMFFull];
           };
-          swtpm.enable = true;  # For TPM support
-          verbatimConfig = ''
-            user = "traum"
-            group = "kvm"
-            memory_backing_dir = "/var/lib/libvirt/qemu/ram"
-            nvram = [ "${pkgs.OVMF}/FV/OVMF.fd:${pkgs.OVMF}/FV/OVMF_VARS.fd" ]
-          '';
+          swtpm.enable = true;
         };
-        onBoot = "ignore";
-        onShutdown = "shutdown";
       };
 
-      # Choose between Docker and Podman based on useDocker option
       docker = lib.mkIf config.virtualisation.useDocker {
         enable = true;
         autoPrune = {
           enable = true;
           dates = "weekly";
         };
-        daemon.settings = {
-          ipv6 = true;
-          "fixed-cidr-v6" = "fd00::/80";
-        };
       };
 
       podman = lib.mkIf (!config.virtualisation.useDocker) {
         enable = true;
-        dockerCompat = true;  # Only enabled when Docker is disabled
+        dockerCompat = true;
         defaultNetwork.settings = {
           dns_enabled = true;
         };
       };
-
-      # LXD container support
-      lxd.enable = true;
-
-      # Waydroid for Android app support
-      waydroid.enable = true;
     };
 
-    # System-level configurations
-    boot = {
-      # Basic KVM configuration
-      kernelModules = [ "kvm" "kvm-intel" "kvm-amd" ];
-      
-      # Basic IOMMU parameters
-      kernelParams = [ "iommu=pt" ];
-    };
-
-    # Security settings for virtualization
-    security = {
-      # TPM support
-      tpm2 = {
-        enable = true;
-        pkcs11.enable = true;  # For PKCS#11 support
-      };
-    };
-
-    # Enable dconf (needed for virt-manager settings)
-    programs.dconf.enable = true;
-
-    # System packages for virtualization
-    environment.systemPackages = with pkgs; [
-      # QEMU/KVM tools
-      virt-manager
-      virt-viewer
-      spice-gtk
-      win-virtio  # Windows virtio drivers
-      swtpm  # TPM emulator
-      OVMF  # UEFI firmware
-      virtiofsd  # For shared folders
-
-      # Container tools
-      docker-compose
-      lazydocker  # TUI for Docker
-      ctop  # Container metrics
-      dive  # Analyze Docker images
-      distrobox  # For running other distros in containers
-
-      # Network tools for VMs
-      bridge-utils
-      dnsmasq
-      iptables
-      netcat
-
-      # Storage tools
-      qemu-utils  # For qcow2 management
-      libguestfs  # For VM disk manipulation
-      libguestfs-with-appliance
-
-      # Misc tools
-      quickemu  # Quick QEMU VMs
-      gnome-boxes  # Simple VM manager
-    ];
-
-    # Add users to virtualization groups
-    users.groups = {
-      libvirtd = {};
-      kvm = {};
-    } // lib.mkIf config.virtualisation.useDocker {
-      docker = {};
-    };
-
-    # System services
-    systemd.services = {
-      # Auto-start libvirt default network
-      "libvirtd-default-net" = {
-        requires = [ "libvirtd.service" ];
-        after = [ "libvirtd.service" ];
-        wantedBy = [ "multi-user.target" ];
-        path = [ pkgs.libvirt ];
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = "yes";
-        };
-        script = ''
-          # Check if network exists
-          if ! virsh net-info default >/dev/null 2>&1; then
-            virsh net-define ${pkgs.writeText "libvirt-default-network.xml" ''
-              <network>
-                <name>default</name>
-                <bridge name="virbr0"/>
-                <forward mode="nat"/>
-                <ip address="192.168.122.1" netmask="255.255.255.0">
-                  <dhcp>
-                    <range start="192.168.122.2" end="192.168.122.254"/>
-                  </dhcp>
-                </ip>
-              </network>
-            ''}
-          fi
-
-          # Enable autostart if not already enabled
-          if ! virsh net-info default | grep -q "Autostart.*yes"; then
-            virsh net-autostart default
-          fi
-
-          # Start network if not already active
-          if ! virsh net-info default | grep -q "Active.*yes"; then
-            virsh net-start default
-          fi
-        '';
-      };
-    };
-
-    # Network configuration for VMs
+    # Libvirt networks
     networking = {
       firewall = {
-        # Open ports for VM networking
         allowedTCPPorts = [ 
           16509  # libvirt
           5900 5901  # VNC
@@ -187,28 +63,146 @@ in
         allowedUDPPorts = [ 
           8472  # Flannel overlay
         ];
-        # Allow traffic from virtual networks
-        extraCommands = ''
-          # Allow traffic from libvirt default network
-          iptables -I nixos-fw -i virbr0 -j ACCEPT
-          iptables -I nixos-fw -o virbr0 -j ACCEPT
-          # Allow traffic from VMs to reach the internet through Mullvad
-          iptables -I FORWARD -i virbr0 -j ACCEPT
-          iptables -I FORWARD -o virbr0 -j ACCEPT
-          iptables -t nat -A POSTROUTING -s 192.168.122.0/24 -j MASQUERADE
-        '';
+        checkReversePath = "loose";
+        trustedInterfaces = [ "virbr0" ];
       };
-      
-      # Bridge support for VMs
-      bridges = {
-        "br0" = {
-          interfaces = [ ];  # Add your network interface here if needed
-        };
+
+      nat = {
+        enable = true;
+        internalInterfaces = ["virbr0"];
+        externalInterface = "wlo1";  # Adjust this to your network interface
       };
     };
 
-    # Add groups to user "traum"
-    users.users.traum.extraGroups = [ "libvirtd" "kvm" ] 
+    # Enable IP forwarding
+    boot.kernel.sysctl = {
+      "net.ipv4.ip_forward" = 1;
+      "net.ipv4.conf.all.forwarding" = 1;
+    };
+
+    # Default network configuration for libvirt
+    environment.etc."libvirt/qemu/networks/default.xml" = {
+      text = ''
+        <?xml version="1.0" encoding="UTF-8"?>
+        <network>
+          <name>default</name>
+          <forward mode="nat">
+            <nat>
+              <port start='1024' end='65535'/>
+            </nat>
+          </forward>
+          <bridge name="virbr0" stp='on' delay='0'/>
+          <dns>
+            <forwarder addr="194.242.2.2"/>
+          </dns>
+          <ip address="192.168.122.1" netmask="255.255.255.0">
+            <dhcp>
+              <range start="192.168.122.2" end="192.168.122.254"/>
+            </dhcp>
+          </ip>
+        </network>
+      '';
+      user = "root";
+      group = "root";
+      mode = "0644";
+    };
+
+    # System packages and configuration
+    environment.systemPackages = with pkgs; [
+      virt-manager
+      virt-viewer
+      spice-gtk
+      win-virtio
+      swtpm
+      OVMF
+      virtiofsd
+      bridge-utils
+      dnsmasq  # needed for libvirt but will be managed by libvirt
+      iptables
+    ] ++ lib.optionals config.virtualisation.useDocker [
+      docker-compose
+      lazydocker
+    ];
+
+    # Do NOT enable the system dnsmasq service as libvirt manages its own instance
+    services.dnsmasq.enable = false;
+
+    # User groups
+    users.groups = {
+      libvirtd = {};
+      kvm = {};
+    } // lib.mkIf config.virtualisation.useDocker {
+      docker = {};
+    };
+
+    # Add current user to virtualization groups
+    users.users.${config.virtualisation.mainUser}.extraGroups = [ "libvirtd" "kvm" ] 
       ++ lib.optional config.virtualisation.useDocker "docker";
+
+    # Required services
+    systemd.services.libvirtd = {
+      path = [ pkgs.bridge-utils ];
+      preStart = ''
+        mkdir -p /var/lib/libvirt/qemu/networks/autostart
+        mkdir -p /etc/libvirt/qemu/networks/
+        chmod 755 /var/lib/libvirt/qemu/networks/autostart
+        chmod 755 /etc/libvirt/qemu/networks/
+      '';
+    };
+
+    # Ensure default network is started
+    systemd.services.libvirt-default-network = {
+      description = "Libvirt Default Network";
+      wantedBy = [ "multi-user.target" ];
+      requires = [ "libvirtd.service" ];
+      after = [ "libvirtd.service" "network.target" ];
+      path = with pkgs; [ libvirt dnsmasq ];
+      environment = {
+        LC_ALL = "C";
+      };
+      preStart = ''
+        mkdir -p /var/lib/libvirt/qemu/networks/
+        mkdir -p /var/lib/libvirt/qemu/networks/autostart/
+        chmod 755 /var/lib/libvirt/qemu/networks{,/autostart}
+      '';
+      script = ''
+        set -x
+
+        # Make sure libvirtd is ready
+        timeout=30
+        while [ $timeout -gt 0 ]; do
+          if virsh connect "qemu:///system" >/dev/null 2>&1; then
+            break
+          fi
+          sleep 1
+          timeout=$((timeout - 1))
+        done
+
+        if [ $timeout -eq 0 ]; then
+          echo "Timeout waiting for libvirtd"
+          exit 1
+        fi
+
+        # Clean up any existing network
+        virsh net-destroy default >/dev/null 2>&1 || true
+        virsh net-undefine default >/dev/null 2>&1 || true
+
+        echo "Creating network from: /etc/libvirt/qemu/networks/default.xml"
+        virsh net-define /etc/libvirt/qemu/networks/default.xml
+        
+        virsh net-autostart default
+        virsh net-start default
+
+        echo "Current networks:"
+        virsh net-list --all
+      '';
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = "yes";
+        Restart = "on-failure";
+        RestartSec = "1s";
+      };
+    };
   };
 }
+

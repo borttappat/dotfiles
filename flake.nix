@@ -100,7 +100,7 @@
             ./modules/colors.nix
             ./modules/hosts.nix
             ./modules/zsh.nix
-            ./modules/virt.nix
+            #./modules/virt.nix
             ./modules/scripts.nix
             
             # Additional feature modules

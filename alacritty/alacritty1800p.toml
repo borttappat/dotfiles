@@ -5,7 +5,7 @@ TERM = "xterm"
 #WINIT_X11_SCALE_FACTOR = "1.0"
 
 [font]
-size = 6.0
+size = 7.75
 
 [window]
 dynamic_padding = true

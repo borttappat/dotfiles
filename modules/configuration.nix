@@ -260,3 +260,4 @@ nix.settings.auto-optimise-store = true;
 system.stateVersion = "22.11"; 
 
 }
+
