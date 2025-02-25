@@ -63,14 +63,15 @@
         allowedUDPPorts = [ 
           8472  # Flannel overlay
         ];
-        checkReversePath = "loose";
+        checkReversePath = "loose";  # Important for VPN compatibility
         trustedInterfaces = [ "virbr0" ];
       };
 
+      # NAT configuration that doesn't require specifying the external interface
       nat = {
         enable = true;
         internalInterfaces = ["virbr0"];
-        externalInterface = "wlo1";  # Adjust this to your network interface
+        # No externalInterface specified - system will determine automatically
       };
     };
 
@@ -78,9 +79,12 @@
     boot.kernel.sysctl = {
       "net.ipv4.ip_forward" = 1;
       "net.ipv4.conf.all.forwarding" = 1;
+      # Additional settings for better VPN compatibility
+      "net.ipv4.conf.all.rp_filter" = 0;
+      "net.ipv4.conf.default.rp_filter" = 0;
     };
 
-    # Default network configuration for libvirt
+    # Default network configuration for libvirt with more reliable DNS settings
     environment.etc."libvirt/qemu/networks/default.xml" = {
       text = ''
         <?xml version="1.0" encoding="UTF-8"?>
@@ -93,7 +97,8 @@
           </forward>
           <bridge name="virbr0" stp='on' delay='0'/>
           <dns>
-            <forwarder addr="194.242.2.2"/>
+            <forwarder addr="1.1.1.1"/>
+            <forwarder addr="8.8.8.8"/>
           </dns>
           <ip address="192.168.122.1" netmask="255.255.255.0">
             <dhcp>
@@ -119,6 +124,8 @@
       bridge-utils
       dnsmasq  # needed for libvirt but will be managed by libvirt
       iptables
+      iproute2  # For network troubleshooting
+      bind.dnsutils  # For DNS troubleshooting (dig, nslookup)
     ] ++ lib.optionals config.virtualisation.useDocker [
       docker-compose
       lazydocker
@@ -150,13 +157,13 @@
       '';
     };
 
-    # Ensure default network is started
+    # Ensure default network is started and configured for VPN compatibility
     systemd.services.libvirt-default-network = {
       description = "Libvirt Default Network";
       wantedBy = [ "multi-user.target" ];
       requires = [ "libvirtd.service" ];
       after = [ "libvirtd.service" "network.target" ];
-      path = with pkgs; [ libvirt dnsmasq ];
+      path = with pkgs; [ libvirt dnsmasq iptables iproute2 ];
       environment = {
         LC_ALL = "C";
       };
@@ -193,6 +200,10 @@
         virsh net-autostart default
         virsh net-start default
 
+        # Fix iptables rules for VPN compatibility
+        # This helps when the host is using a VPN by ensuring masquerading works properly
+        iptables -t nat -I POSTROUTING -s 192.168.122.0/24 -j MASQUERADE
+
         echo "Current networks:"
         virsh net-list --all
       '';
@@ -205,4 +216,3 @@
     };
   };
 }
-
