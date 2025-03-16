@@ -26,10 +26,22 @@
       ${pywal}/bin/wal -q -i "''${file_path}"
       echo "Colorscheme set"
 
-      # Convert line 2 of the wal colors cache to a hex code 
-      # for openrgb to read and then runs openrgb with said code
+      # Convert line 2 of the wal colors cache to a hex code
       HEX_CODE=$(${gnused}/bin/sed -n '2p' ~/.cache/wal/colors | ${gnused}/bin/sed 's/#//')
-      ${openrgb}/bin/openrgb --device 0 --mode static --color "''${HEX_CODE/#/}"
+
+      # Check if this is an ASUS machine (by checking if asusctl exists and works)
+      if command -v asusctl >/dev/null 2>&1 && asusctl -v >/dev/null 2>&1; then
+        echo "ASUS hardware detected, using asusctl"
+        # Use asusctl to set LED color
+        asusctl led-mode static -c $HEX_CODE
+      elif command -v openrgb >/dev/null 2>&1; then
+        echo "Using OpenRGB to set device lighting"
+        # Use OpenRGB to set device color
+        ${openrgb}/bin/openrgb --device 0 --mode static --color "''${HEX_CODE/#/}"
+      else
+        echo "No compatible RGB control tool found. Skipping RGB lighting control."
+      fi
+
       echo "Backlight set"
 
       # refresh polybar
