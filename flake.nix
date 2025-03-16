@@ -31,11 +31,11 @@
     in {
       
     devShells.${system} =
-        let
-            pkgs = pkgsForSystem system;
-        in {
-            bloodhound = import ./modules/bloodhound.nix { inherit pkgs; };
-        };
+    let
+        pkgs = pkgsForSystem system;
+    in {
+        bloodhound = (import ./modules/bloodhound.nix { inherit pkgs; }).devShells.bloodhound;
+    };
 
     nixosConfigurations = {
         
@@ -131,7 +131,7 @@
             ./modules/colors.nix
             ./modules/hosts.nix
             ./modules/zsh.nix
-            ./modules/virt.nix
+            #./modules/virt.nix
             ./modules/boot.nix
             
             # Additional feature modules

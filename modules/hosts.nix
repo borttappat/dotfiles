@@ -61,6 +61,8 @@
     10.10.11.48 underpass.htb
     10.10.11.41 certified.htb dc01.certified.htb
     10.10.10.239 love.htb staging.love.htb
+    10.10.11.57 cypher.htb
+    10.10.11.59 strutted.htb
 
 
     # GOAD

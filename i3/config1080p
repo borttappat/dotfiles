@@ -1,4 +1,4 @@
-# Resolution-specific settings for 2880x1800
+# Resolution-specific settings for 1920x1080
 
 # Font size adjusted for HiDPI
 font CozetteVector 12
@@ -10,8 +10,6 @@ smart_borders on
 
 # Gaps settings
 gaps inner 20
-gaps top 40
+gaps top 25
 smart_gaps off
 
-# Launch appropriate polybar config
-exec_always --no-startup-id sleep 0.5 && polybar -q --config=$HOME/.config/polybar/config2880.ini main &

@@ -134,9 +134,10 @@
       export GPG_TTY=$(tty)
 
       # ALIASES
-      alias bloodhound='nix develop ~/dotfiles/modules/bloodhound.nix'
-      alias bh='bloodhound'
-      
+        alias bloodhound='nix develop ~/dotfiles\#bloodhound'
+        alias bh='bloodhound'
+
+
       alias htblabs='sudo openvpn ~/Downloads/lab_griefhoundTCP.ovpn'
       alias msf='figlet -f cricket "msf" && sudo msfconsole -q'
       alias sesp='searchsploit'

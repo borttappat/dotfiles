@@ -10,6 +10,12 @@
     shellHook = ''
       export NEO4J_HOME=$PWD/neo4j_data
       
+      # Additional environment variables to fix display issues
+      export ELECTRON_FORCE_WINDOW_MENU_BAR=1
+      export ELECTRON_NO_ATTACH_CONSOLE=1
+      export ELECTRON_ENABLE_LOGGING=1
+      export GDK_BACKEND=x11
+      
       # Kill any existing neo4j processes
       pkill -f "neo4j" || true
       sleep 2
@@ -52,9 +58,9 @@
       
       sleep 5
       
-      # Start BloodHound
+      # Start BloodHound with extensive flags to fix white screen
       echo "Starting BloodHound..."
-      BloodHound &
+      BloodHound --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-software-rasterizer &
       BLOODHOUND_PID=$!
       
       # Print credentials
