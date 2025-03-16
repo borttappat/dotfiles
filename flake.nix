@@ -133,6 +133,7 @@
             ./modules/zsh.nix
             #./modules/virt.nix
             ./modules/boot.nix
+            ./modules/scripts.nix
             
             # Additional feature modules
             ./modules/pentesting.nix

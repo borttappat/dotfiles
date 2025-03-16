@@ -3,6 +3,7 @@
 # misc
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/ticker/.ticker.yaml --dir ~/
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/bash/.bashrc --dir ~/
+sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/zsh/.zshrc --dir ~/
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/vim/.vimrc --dir ~/
 sudo python ~/dotfiles/scripts/python/link.py --file ~/dotfiles/wallust/wallust.toml --dir ~/.config/wallust
 
