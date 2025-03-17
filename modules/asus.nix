@@ -212,6 +212,7 @@ in
     '';
   };
 
+/*
   # Virtualization Configuration
   virtualisation = {
     libvirtd = {
@@ -245,7 +246,7 @@ in
       };
     };
   };
-
+*/
   # Disable unnecessary services when on battery
   powerManagement.powerDownCommands = ''
     systemctl stop docker.service || true
@@ -260,6 +261,24 @@ in
   # Enable dconf (needed for virt-manager settings)
   programs.dconf.enable = true;
 
+
+# Networking configuration
+networking = {
+  # Use standard DHCP configuration
+  useDHCP = lib.mkDefault true;
+  networkmanager.enable = true;
+  
+  # Keep firewall settings but remove vmnet0 from trusted interfaces
+  firewall = {
+    enable = true;
+    # Remove the trusted interface for vmnet0
+    # trustedInterfaces = [ "vmnet0" ];
+    allowedTCPPorts = [ 22 5900 5901 5902 ];
+  };
+};
+
+
+/*
   # Networking configuration
 networking = {
   nameservers = [ "192.168.100.1" ];
@@ -282,6 +301,8 @@ networking = {
     allowedTCPPorts = [ 22 5900 5901 5902 ];
   };
 };
+*/
+
 
   # Bootloader Configuration
   boot.loader = {
