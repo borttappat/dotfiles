@@ -31,27 +31,27 @@ bindsym $mod+F3 exec "amixer set Master 5%+"
 bindsym $mod+F12 exec "flameshot gui"
 
 # htop
-bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -Rnq && htop"
+bindsym $mod+Shift+u exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && htop"
 
 # btm
-bindsym $mod+Shift+b exec alacritty -e /bin/sh -c "wal -Rnq && btm"
+bindsym $mod+Shift+b exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && btm"
 
 # i3-config
-bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/.config/i3/config"
+bindsym $mod+Shift+i exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && vim ~/.config/i3/config"
 
 # polybar-config
-bindsym $mod+Shift+p exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/polybar/config.ini"
+bindsym $mod+Shift+p exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/polybar/config.ini"
 
 # nix-packages
-bindsym $mod+Shift+n exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/modules/packages.nix"
+bindsym $mod+Shift+n exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/modules/packages.nix"
 
 # nix-config
-bindsym $mod+Shift+c exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/modules/configuration.nix"
+bindsym $mod+Shift+c exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/modules/configuration.nix"
 
 # file-manager
-bindsym $mod+Shift+f exec alacritty -e /bin/sh -c "wal -Rnq && joshuto"
+bindsym $mod+Shift+f exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && joshuto"
 
-bindsym $mod+Shift+g exec alacritty -e /bin/sh -c "wal -Rnq && clear && figlet -f slant Git && echo && cd ~/dotfiles && git status"
+bindsym $mod+Shift+g exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && clear && figlet -f slant Git && echo && cd ~/dotfiles && git status"
 
 # Zathura
 bindsym $mod+z exec zathura
