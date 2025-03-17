@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# link.py - Creates hard links while preserving existing files as .old backups
 import os
 import argparse
 import sys
@@ -8,6 +7,7 @@ from pathlib import Path
 def backup_existing_file(target_path):
     """
     Handles backing up of existing files by renaming to .old
+    Only creates a backup if no .old backup already exists
     Returns True if backup was needed/performed, False otherwise
     """
     if not target_path.exists():
@@ -16,11 +16,12 @@ def backup_existing_file(target_path):
     backup_path = target_path.with_suffix(target_path.suffix + '.old')
     
     # If a .old backup already exists, just remove the current file
+    # This preserves the original backup
     if backup_path.exists():
         target_path.unlink()
-        print(f"Removed existing file {target_path}, preserved {backup_path}")
+        print(f"Removed current file: {target_path} (preserved existing backup {backup_path})")
     else:
-        # Rename current file to .old
+        # No backup exists yet, so create one
         target_path.rename(backup_path)
         print(f"Backed up existing file to {backup_path}")
     

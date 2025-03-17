@@ -50,9 +50,6 @@
 
       # Paste colors from wal-cache ~/dotfiles/wal/nix-colors
       ~/dotfiles/scripts/bash/nixwal.sh
-
-      # Update /etc/nixos/colors.nix with colors from ~/dotfiles/wal/nix-color
-      ${python3}/bin/python ~/dotfiles/scripts/python/nixcolors.py
         
       # Change colors for startpage
       # define file paths

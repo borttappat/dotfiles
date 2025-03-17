@@ -2,7 +2,7 @@
 
 # Define paths to files
 nix_colors_file="$HOME/dotfiles/wal/nix-colors"
-nixos_colors_file="/etc/nixos/colors.nix"
+nixos_colors_file="$HOME/dotfiles/modules/colors.nix"
 temp_colors_file="/tmp/colors_temp.nix"
 
 # Read lines from nix-colors file
