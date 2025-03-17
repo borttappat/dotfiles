@@ -1,109 +1,126 @@
-#!/run/current-system/sw/bin/bash
+#!/usr/bin/env bash
 
-# Exit on error
-set -e
-
-# Store the path to the link script
+# Links script with progress indication and ownership control
 LINK_SCRIPT="$HOME/dotfiles/scripts/python/link.py"
-DOTFILES="$HOME/dotfiles"
 
-# Function to create a link with proper error handling
-create_link() {
-    local source_file="$1"
-    local target_dir="$2"
+echo "Starting to link dotfiles..."
+echo "-----------------------------------------"
+
+# Check if verbose mode was requested
+VERBOSE=false
+if [[ "$1" == "-v" || "$1" == "--verbose" ]]; then
+    VERBOSE=true
+fi
+
+# Array of files to link and their target directories
+# Format: "source_file:target_dir"
+FILES=(
+    "$HOME/dotfiles/vim/.vimrc:$HOME"
+
+    "$HOME/dotfiles/i3/config:$HOME/.config/i3"
+    "$HOME/dotfiles/i3/config.base:$HOME/.config/i3"
+    "$HOME/dotfiles/i3/config1080p:$HOME/.config/i3"
+    "$HOME/dotfiles/i3/config2880:$HOME/.config/i3"
+    "$HOME/dotfiles/i3/config4k:$HOME/.config/i3"
     
-    echo "Linking: $(basename "$source_file") → $target_dir"
-    if ! sudo python "$LINK_SCRIPT" --file "$source_file" --dir "$target_dir"; then
-        echo "Failed to link $source_file"
-        return 1
-    fi
-}
-
-# Define mappings of source files to target directories
-declare -A file_mappings=(
-    # Configuration groups
-    ["zathura"]="$HOME/.config/zathura"
-    ["alacritty"]="$HOME/.config/alacritty"
-    ["i3"]="$HOME/.config/i3"
-    ["polybar"]="$HOME/.config/polybar"
-    ["joshuto"]="$HOME/.config/joshuto"
-    ["htop"]="$HOME/.config/htop"
-    ["picom"]="$HOME/.config/picom"
-    ["ranger"]="$HOME/.config/ranger"
-    ["fish"]="$HOME/.config/fish"
-    ["rofi"]="$HOME/.config/rofi"
-    ["misc"]="$HOME"
-    ["xorg"]="$HOME"
-    ["bin"]="$HOME/.local/bin"
-    ["zsh"]="$HOME"
-    ["vim"]="$HOME"
+    "$HOME/dotfiles/polybar/config.ini:$HOME/.config/polybar"
+    
+    "$HOME/dotfiles/zathura/zathurarc:$HOME/.config/zathura"
+    
+    "$HOME/dotfiles/ranger/rifle.conf:$HOME/.config/ranger"
+    "$HOME/dotfiles/ranger/rc.conf:$HOME/.config/ranger"
+    "$HOME/dotfiles/ranger/scope.sh:$HOME/.config/ranger"
+    
+    "$HOME/dotfiles/htop/htoprc:$HOME/.config/htop"
+    
+    "$HOME/dotfiles/joshuto/joshuto.toml:$HOME/.config/joshuto"
+    "$HOME/dotfiles/joshuto/mimetype.toml:$HOME/.config/joshuto"
+    "$HOME/dotfiles/joshuto/preview_file.sh:$HOME/.config/joshuto"
+    
+    "$HOME/dotfiles/rofi/config.rasi:$HOME/.config/rofi"
+    
+    "$HOME/dotfiles/bin/pomo:$HOME/.local/bin"
+    "$HOME/dotfiles/bin/traumhound:$HOME/.local/bin"
+    
+    "$HOME/dotfiles/alacritty/alacritty.toml:$HOME/.config/alacritty"
+    "$HOME/dotfiles/alacritty/alacritty4k.toml:$HOME/.config/alacritty"
+    "$HOME/dotfiles/alacritty/alacritty1080p.toml:$HOME/.config/alacritty"
+    
+    "$HOME/dotfiles/fish/config.fish:$HOME/.config/fish"
+    "$HOME/dotfiles/fish/fish_variables:$HOME/.config/fish"
+    
+    "$HOME/dotfiles/zsh/.zshrc:$HOME"
+    
+    "$HOME/dotfiles/picom/picom.conf:$HOME/.config/picom"
+    
+    "$HOME/dotfiles/xorg/.xinitrc:$HOME"
+    "$HOME/dotfiles/xorg/.Xmodmap:$HOME"
+    "$HOME/dotfiles/xorg/.xsessionrc:$HOME"
+    # Add more files as needed
 )
 
-# Define specific files within each group
-declare -A group_files=(
-    ["zathura"]="zathurarc"
-    ["alacritty"]="alacritty.toml alacritty4k.toml alacritty1080p.toml"
-    ["i3"]="config config.base config1080p config2880 config4k"
-    ["polybar"]="config.ini"
-    ["joshuto"]="joshuto.toml mimetype.toml preview_file.sh"
-    ["htop"]="htoprc"
-    ["picom"]="picom.conf"
-    ["rofi"]="config.rasi"
-    ["ranger"]="rifle.conf rc.conf scope.sh"
-    ["fish"]="config.fish fish_variables"
-    ["xorg"]=".xinitrc .Xmodmap .xsessionrc"
-    ["bin"]="pomo traumhound"
-    ["zsh"]=".zshrc"
-    ["vim"]=".vimrc"
-)
+# Total number of files
+TOTAL=${#FILES[@]}
+SUCCESS=0
 
-# Print header
-echo "Starting to create links..."
-echo "------------------------"
-
-# Create links for each group
-for group in "${!group_files[@]}"; do
-    target_dir="${file_mappings[$group]}"
-    files="${group_files[$group]}"
+# Process each file
+for i in "${!FILES[@]}"; do
+    # Split the entry into source and target
+    entry="${FILES[$i]}"
+    source_file="${entry%%:*}"
+    target_dir="${entry##*:}"
+    
+    # Display progress
+    file_name=$(basename "$source_file")
+    echo -n "[$((i+1))/$TOTAL] Linking $file_name... "
     
     # Create target directory if it doesn't exist
-    if [ ! -d "$target_dir" ]; then
-        mkdir -p "$target_dir"
-        echo "Created directory: $target_dir"
+    mkdir -p "$target_dir" 2>/dev/null
+    
+    # Run the link script
+    if $VERBOSE; then
+        sudo python "$LINK_SCRIPT" --file "$source_file" --dir "$target_dir" --verbose
+    else
+        sudo python "$LINK_SCRIPT" --file "$source_file" --dir "$target_dir" --quiet
     fi
     
-    # Create links for each file in the group
-    for file in $files; do
-        if [[ "$file" == *"/"* ]]; then
-            # Handle files in subdirectories (like ticker/.ticker.yaml)
-            create_link "$DOTFILES/$file" "$target_dir"
-        else
-            create_link "$DOTFILES/$group/$file" "$target_dir"
-        fi
-    done
-done
-
-# Make scripts executable
-echo "------------------------"
-echo "Making scripts executable..."
-find "$DOTFILES/scripts/bash" -name "*.sh" -type f -exec sudo chmod +x {} \;
-find "$HOME/.local/bin" -type f -exec sudo chmod +x {} \;
-
-# Ensure proper ownership
-echo "------------------------"
-echo "Setting proper ownership..."
-# Get the primary group of the current user
-PRIMARY_GROUP=$(id -gn)
-echo "Using primary group: $PRIMARY_GROUP for user $(whoami)"
-
-for dir in "${file_mappings[@]}"; do
-    if [ -d "$dir" ]; then
-        sudo chown -R $(whoami):$PRIMARY_GROUP "$dir"
-        echo "Set ownership for $dir"
+    # Check if linking was successful
+    if [ $? -eq 0 ]; then
+        echo "Done"
+        ((SUCCESS++))
+    else
+        echo "Failed"
     fi
 done
 
-# Print summary
-echo "------------------------"
-echo "Link creation complete!"
-echo "All files properly linked and owned."
+echo "-----------------------------------------"
+echo "Making scripts executable..."
+sudo chmod +x "$HOME/dotfiles/scripts/bash/"*.sh
+sudo chmod +x "$HOME/.local/bin/"* 2>/dev/null || true
+
+# Set proper ownership
+echo "-----------------------------------------"
+echo "Setting proper ownership..."
+
+# Get user's primary group
+PRIMARY_GROUP=$(id -gn)
+echo "Using primary group: $PRIMARY_GROUP for user $USER"
+
+# Collect unique target directories
+declare -A TARGET_DIRS
+for entry in "${FILES[@]}"; do
+    target_dir="${entry##*:}"
+    TARGET_DIRS["$target_dir"]=1
+done
+
+# Set ownership for all target directories
+for dir in "${!TARGET_DIRS[@]}"; do
+    if $VERBOSE; then
+        echo "Setting ownership for $dir..."
+    fi
+    sudo chown -R "$USER:$PRIMARY_GROUP" "$dir"
+done
+
+echo "-----------------------------------------"
+echo "Linking complete!"
+echo "Successfully linked $SUCCESS of $TOTAL files"
