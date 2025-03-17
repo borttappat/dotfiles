@@ -37,7 +37,7 @@ bindsym $mod+Shift+u exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wa
 bindsym $mod+Shift+b exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && btm"
 
 # i3-config
-bindsym $mod+Shift+i exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && vim ~/.config/i3/config"
+bindsym $mod+Shift+i exec ~/dotfiles/scripts/bash/alacritty.sh -e vim ~/.config/i3/config.base
 
 # polybar-config
 bindsym $mod+Shift+p exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/polybar/config.ini"
@@ -100,6 +100,21 @@ bindsym $mod+q kill
 # Start rofi
 bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run
+
+# Gap adjustment bindings
+# Increase/decrease inner gaps
+bindsym $mod+Shift+Right gaps inner current plus 5
+bindsym $mod+Shift+Left gaps inner current minus 5
+
+# Increase/decrease outer gaps
+bindsym $mod+Shift+Up gaps outer current plus 5
+bindsym $mod+Shift+Down gaps outer current minus 5
+
+# Reset gaps
+#bindsym $mod+Shift+g gaps inner current set 15; gaps outer current set 0
+
+# Toggle gaps
+#bindsym $mod+Shift+t gaps inner current toggle 15; gaps outer current toggle 5
 
 # Window focus keys
 bindsym $mod+Left focus left
