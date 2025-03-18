@@ -100,10 +100,7 @@ function toggle_vim_mode() {
     fi
 }
 
-# Initialize starship and zoxide
-if [ -x "$(command -v starship)" ]; then
-    eval "$(starship init zsh)"
-fi
+# Initialize zoxide only - Starship is handled by NixOS module
 if [ -x "$(command -v zoxide)" ]; then
     eval "$(zoxide init zsh)"
 fi
