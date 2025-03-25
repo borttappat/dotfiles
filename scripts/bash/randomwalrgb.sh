@@ -57,6 +57,12 @@ mkdir -p "$(dirname "$site_colors")"
 echo "Updating other configurations..."
 sh ~/dotfiles/scripts/bash/zathuracolors.sh
 
+# makse sure the pywal colors are merged with xrdb
+xrdb -merge "${HOME}/.cache/wal/colors.Xresources"
+
+#reload i3
+i3-msg reload
+
 # restart polybar
 echo "Restarting polybar..."
 polybar-msg cmd restart

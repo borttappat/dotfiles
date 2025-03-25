@@ -175,6 +175,7 @@ alias ncg='sudo nix-collect-garbage -d'
 alias nixbuild='~/dotfiles/scripts/bash/nixbuild.sh'
 alias nb='nixbuild'
 
+alias flake='v ~/dotfiles/flake.nix'
 alias nixconf='v ~/dotfiles/modules/configuration.nix'
 alias nixpkgs='v ~/dotfiles/modules/packages.nix'
 alias np='nixpkgs'
@@ -193,6 +194,7 @@ alias s='zshconf'
 alias pyserver='sudo python -m http.server 8002'
 alias rgb='openrgb --device 0 --mode static --color'
 alias w='wal -Rn'
+alias walrgb='~/dotfiles/scripts/bash/walrgb.sh'
 
 alias dots='cd ~/dotfiles && git status'
 

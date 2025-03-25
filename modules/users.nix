@@ -12,7 +12,7 @@
 users.users.traum = {
     isNormalUser = true;
     description = "A";
-    extraGroups = [ "audio" "networkmanager" "wheel" "wireshark" "adbusers" ];
+    extraGroups = [ "docker" "audio" "networkmanager" "wheel" "wireshark" "adbusers" ];
     createHome = true;
     useDefaultShell = true;
 };

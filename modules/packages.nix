@@ -148,7 +148,7 @@
     gping           #graphical ping tool
     openvpn         #openvpn-client
     brightnessctl   #brightness-handler
-    #obsidian       #note taking tool
+    obsidian       #note taking tool
     #light           #backlight-controller
     #undervolt
     git

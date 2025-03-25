@@ -4,7 +4,7 @@ font CozetteVector:12
 
 # Window borders
 new_window pixel 2 
-#hide_edge_borders both
+hide_edge_borders both
 smart_borders on
 
 # Gaps settings

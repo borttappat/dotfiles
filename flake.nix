@@ -3,14 +3,18 @@
 #   |   _|  |  _  |    <|  -__|__|     |  |_   _|
 #   |__| |__|___._|__|__|_____|__|__|__|__|__.__|
 {
-  description = "NixOS configuration";
+  description = "griefhounds NixOS configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixvim = { 
+        url = "github:nix-community/nixvim";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixvim, ... }@inputs:
     let
       system = "x86_64-linux";
       
@@ -131,9 +135,11 @@
             ./modules/colors.nix
             ./modules/hosts.nix
             ./modules/zsh.nix
-            #./modules/virt.nix
+            ./modules/virt.nix
             ./modules/boot.nix
-            ./modules/scripts.nix
+            #./modules/scripts.nix
+            #nixvim.nixosModules.nixvim
+            #./modules/nixvim.nix
             
             # Additional feature modules
             ./modules/pentesting.nix

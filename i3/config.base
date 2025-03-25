@@ -87,7 +87,7 @@ bindsym $mod+Shift+F7 exec brightnessctl set 1%-
 
 # Terminal bindings
 bindsym $mod+Return exec ~/dotfiles/scripts/bash/alacritty.sh
-bindsym $mod+Shift+Return exec alacritty; split toggle
+bindsym $mod+Shift+Return exec ~/dotfiles/scripts/bash/alacritty.sh; split toggle
 bindsym $mod+S exec ~/dotfiles/scripts/bash/float_window.sh
 
 # Floating window settings

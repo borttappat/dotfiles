@@ -27,28 +27,31 @@ bindsym $mod+F1 exec "amixer set Master 0%"
 bindsym $mod+F2 exec "amixer set Master 5%-"
 bindsym $mod+F3 exec "amixer set Master 5%+"
 
+# flameshot
+bindsym $mod+F12 exec "flameshot gui"
+
 # htop
-bindsym $mod+Shift+u exec alacritty -e /bin/sh -c "wal -Rnq && htop"
+bindsym $mod+Shift+u exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && htop"
 
 # btm
-bindsym $mod+Shift+b exec alacritty -e /bin/sh -c "wal -Rnq && btm"
+bindsym $mod+Shift+b exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && btm"
 
 # i3-config
-bindsym $mod+Shift+i exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/.config/i3/config"
+bindsym $mod+Shift+i exec ~/dotfiles/scripts/bash/alacritty.sh -e vim ~/.config/i3/config.base
 
 # polybar-config
-bindsym $mod+Shift+p exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/polybar/config.ini"
+bindsym $mod+Shift+p exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/polybar/config.ini"
 
 # nix-packages
-bindsym $mod+Shift+n exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/modules/packages.nix"
+bindsym $mod+Shift+n exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/modules/packages.nix"
 
 # nix-config
-bindsym $mod+Shift+c exec alacritty -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/modules/configuration.nix"
+bindsym $mod+Shift+c exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && vim ~/dotfiles/modules/configuration.nix"
 
 # file-manager
-bindsym $mod+Shift+f exec alacritty -e /bin/sh -c "wal -Rnq && joshuto"
+bindsym $mod+Shift+f exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && joshuto"
 
-bindsym $mod+Shift+g exec alacritty -e /bin/sh -c "wal -Rnq && clear && figlet -f slant Git && echo && cd ~/dotfiles && git status"
+bindsym $mod+Shift+g exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && clear && figlet -f slant Git && echo && cd ~/dotfiles && git status"
 
 # Zathura
 bindsym $mod+z exec zathura
@@ -97,6 +100,21 @@ bindsym $mod+q kill
 # Start rofi
 bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run
+
+# Gap adjustment bindings
+# Increase/decrease inner gaps
+bindsym $mod+Shift+Right gaps inner current plus 5
+bindsym $mod+Shift+Left gaps inner current minus 5
+
+# Increase/decrease outer gaps
+bindsym $mod+Shift+Up gaps outer current plus 5
+bindsym $mod+Shift+Down gaps outer current minus 5
+
+# Reset gaps
+#bindsym $mod+Shift+g gaps inner current set 15; gaps outer current set 0
+
+# Toggle gaps
+#bindsym $mod+Shift+t gaps inner current toggle 15; gaps outer current toggle 5
 
 # Window focus keys
 bindsym $mod+Left focus left
@@ -228,7 +246,7 @@ floating_modifier $mod
 # Resolution-specific settings for 1920x1080
 # Resolution-specific settings for 1920x1080
 
-font CozetteVector 12
+font CozetteVector:12
 
 # Window borders
 new_window pixel 2 
