@@ -2,9 +2,9 @@
 
 let
   pythonEnv = pkgs.python311.withPackages (ps: with ps; [
-    anthropic
-    prompt-toolkit
+    requests
     rich
+    # No longer need anthropic, but we need requests instead
   ]);
 
   nixllm = pkgs.writeScriptBin "nixllm" ''

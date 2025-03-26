@@ -10,12 +10,12 @@ from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 
 try:
-    import anthropic
+    import requests
     from rich.console import Console
     from rich.panel import Panel
     from rich.markdown import Markdown
 except ImportError:
-    print("Missing required packages. Please install: anthropic, rich")
+    print("Missing required packages. Please install: requests, rich")
     sys.exit(1)
 
 # Initialize rich console
@@ -31,9 +31,11 @@ DOTFILES_PATH = Path.home() / "dotfiles"
 
 # Default configuration
 DEFAULT_CONFIG = {
-    "model": "claude-3-5-sonnet-20240229",
+    "model": "mistral-medium",
     "max_commands": 5,
     "safe_mode": True,
+    "max_tokens": 2000,
+    "temperature": 0.2,
     "system_prompt": """
     You are NixLLM, a shell command assistant for NixOS systems. When the user asks a question:
     1. Interpret what they want to accomplish on their NixOS system
@@ -60,7 +62,9 @@ class NixLLM:
         self.config = self.load_config()
         self.api_key = self.load_api_key()
         self.history = self.load_history()
-        self.client = anthropic.Anthropic(api_key=self.api_key)
+        
+        # Add home directory indexing capabilities
+        self.file_index = None
     
     def load_config(self) -> Dict:
         """Load configuration file or create a default one if not exists"""
@@ -126,10 +130,136 @@ class NixLLM:
         })
         self.save_history()
     
-    def get_command_suggestions(self, query: str) -> Dict:
-        """Get command suggestions from Claude"""
+    def index_home_directory(self):
+        """Index files in the user's home directory for reference"""
+        console.print("Indexing home directory...", style="bold yellow")
+        
+        index = {"files": {}}
+        ignored_dirs = {".git", "node_modules", "__pycache__", ".venv", "venv", ".cache", "seclists"}
+        ignored_exts = {".pyc", ".pyo", ".o", ".so", ".dll", ".exe", ".bin", ".dat", ".bak", ".tmp", ".swp"}
+        max_file_size = 1024 * 1024  # 1 MB
+        
+        home_dir = Path.home()
+        for root, dirs, files in os.walk(home_dir, topdown=True, followlinks=False):  # Don't follow symlinks
+            # Skip ignored directories
+            dirs[:] = [d for d in dirs if d not in ignored_dirs]
+            
+            for file in files:
+                try:
+                    file_path = Path(root) / file
+                    
+                    # Skip symlinks to avoid loops
+                    if file_path.is_symlink():
+                        continue
+                    
+                    # Skip binary files and those too large
+                    try:
+                        if (file_path.suffix in ignored_exts or 
+                                file_path.stat().st_size > max_file_size):
+                            continue
+                    except (FileNotFoundError, PermissionError, OSError):
+                        continue
+                    
+                    # Skip hidden files and directories
+                    if file.startswith('.') or any(part.startswith('.') for part in file_path.parts):
+                        continue
+                        
+                    try:
+                        # Store file information
+                        rel_path = str(file_path.relative_to(home_dir))
+                        abs_path = str(file_path)
+                        
+                        # Read a sample of the file for better context
+                        content_preview = ""
+                        try:
+                            with open(file_path, 'r', errors='ignore') as f:
+                                content_preview = f.read(1000)  # First 1000 chars
+                        except (UnicodeDecodeError, IsADirectoryError, PermissionError, OSError):
+                            continue  # Skip binary files
+                        
+                        index["files"][rel_path] = {
+                            "path": abs_path,
+                            "modified": file_path.stat().st_mtime,
+                            "size": file_path.stat().st_size,
+                            "preview": content_preview
+                        }
+                        
+                    except Exception as e:
+                        # Skip any problematic files
+                        continue
+                except Exception as e:
+                    # Skip any file that causes errors
+                    continue
+        
+        # Save extra info about dotfiles structure if it exists
+        if DOTFILES_PATH.exists():
+            index["dotfiles_path"] = str(DOTFILES_PATH)
+            
+            # Add directory structure information for dotfiles
+            index["dotfiles_structure"] = {}
+            for dir_path in ["modules", "scripts/bash", "scripts/python"]:
+                full_path = DOTFILES_PATH / dir_path
+                if full_path.exists():
+                    index["dotfiles_structure"][dir_path] = [
+                        f.name for f in full_path.glob("*") if f.is_file()
+                    ]
+        
+        self.file_index = index
+        console.print(f"Indexed {len(index['files'])} files in home directory", style="green")
+        
+        return index
+    
+    def send_to_mistral(self, query: str, system_prompt: str) -> Dict:
+        """Send a request to the Mistral API"""
         console.print("Thinking...", style="bold yellow")
         
+        url = "https://api.mistral.ai/v1/chat/completions"
+        
+        payload = {
+            "model": self.config["model"],
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": query}
+            ],
+            "temperature": self.config.get("temperature", 0.2),
+            "max_tokens": self.config.get("max_tokens", 2000)
+        }
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": f"Bearer {self.api_key}"
+        }
+        
+        try:
+            response = requests.post(url, json=payload, headers=headers)
+            response.raise_for_status()
+            
+            result = response.json()
+            content = result["choices"][0]["message"]["content"]
+            
+            # Parse the JSON response
+            try:
+                # Try to parse the entire response as JSON
+                return json.loads(content)
+            except json.JSONDecodeError:
+                # Try to extract JSON part using simple heuristic
+                json_start = content.find('{')
+                json_end = content.rfind('}') + 1
+                if json_start >= 0 and json_end > json_start:
+                    json_str = content[json_start:json_end]
+                    return json.loads(json_str)
+                raise ValueError("Could not extract valid JSON from response")
+                
+        except Exception as e:
+            console.print(f"API Error: {e}", style="bold red")
+            return {
+                "commands": [],
+                "explanation": f"Error communicating with Mistral API: {str(e)}"
+            }
+    
+    def get_command_suggestions(self, query: str) -> Dict:
+        """Get command suggestions from Mistral"""        
         system_prompt = self.config["system_prompt"].format(
             max_commands=self.config["max_commands"]
         )
@@ -154,46 +284,25 @@ class NixLLM:
         When suggesting filesystem operations, be aware of this structure and suggest specific paths when possible.
         """
         
+        # Add information about detected files if indexed
+        if self.file_index:
+            system_context += "\n\nInformation about user files:\n"
+            
+            # Add dotfiles structure
+            if "dotfiles_structure" in self.file_index:
+                system_context += "Dotfiles structure:\n"
+                for dir_name, files in self.file_index["dotfiles_structure"].items():
+                    system_context += f"- {dir_name}/: {', '.join(files[:10])}{' and more' if len(files) > 10 else ''}\n"
+        
         system_prompt = system_prompt + system_context
         
         try:
-            response = self.client.messages.create(
-                model=self.config["model"],
-                system=system_prompt,
-                max_tokens=2000,
-                temperature=0.2,
-                messages=[{"role": "user", "content": query}],
-            )
-            
-            # Extract JSON from the response
-            try:
-                content = response.content[0].text
-                # Try to parse the entire response as JSON
-                try:
-                    return json.loads(content)
-                except json.JSONDecodeError:
-                    # Try to extract JSON part using simple heuristic
-                    json_start = content.find('{')
-                    json_end = content.rfind('}') + 1
-                    if json_start >= 0 and json_end > json_start:
-                        json_str = content[json_start:json_end]
-                        return json.loads(json_str)
-                    raise ValueError("Could not extract valid JSON from response")
-                    
-            except (json.JSONDecodeError, ValueError) as e:
-                console.print(f"Error parsing LLM response: {e}", style="bold red")
-                console.print("Raw response:", style="dim")
-                console.print(response.content[0].text)
-                return {
-                    "commands": [],
-                    "explanation": "Failed to parse response from Claude. Please try again."
-                }
-            
+            return self.send_to_mistral(query, system_prompt)
         except Exception as e:
-            console.print(f"API Error: {e}", style="bold red")
+            console.print(f"Error: {e}", style="bold red")
             return {
                 "commands": [],
-                "explanation": f"Error communicating with Claude API: {str(e)}"
+                "explanation": "Failed to get suggestions. Please try again."
             }
     
     def display_commands(self, suggestions: Dict) -> Optional[str]:
@@ -283,10 +392,14 @@ class NixLLM:
     def main_loop(self):
         """Main interaction loop"""
         console.print(Panel.fit(
-            "[bold]NixLLM[/bold] - LLM-powered shell assistant for NixOS",
+            "[bold]NixLLM[/bold] - Mistral-powered shell assistant for NixOS",
             title="Welcome",
             border_style="green"
         ))
+        
+        # Index home directory on first run
+        if not self.file_index:
+            self.index_home_directory()
         
         while True:
             # Get query from user
@@ -299,8 +412,13 @@ class NixLLM:
                 
             if not query.strip():
                 continue
+            
+            # Special commands
+            if query.lower() == "reindex":
+                self.index_home_directory()
+                continue
                 
-            # Get command suggestions from Claude
+            # Get command suggestions from Mistral
             suggestions = self.get_command_suggestions(query)
             
             # Display commands and let user choose
@@ -341,9 +459,10 @@ class NixLLM:
             self.add_to_history(query, selected_cmd)
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="NixLLM - LLM-powered shell assistant for NixOS")
+    parser = argparse.ArgumentParser(description="NixLLM - Mistral-powered shell assistant for NixOS")
     parser.add_argument("--config", action="store_true", help="Edit configuration")
     parser.add_argument("--setup", action="store_true", help="Run first-time setup")
+    parser.add_argument("--reindex", action="store_true", help="Reindex home directory")
     return parser.parse_args()
 
 def edit_config():
@@ -367,7 +486,7 @@ def setup_wizard():
     config = DEFAULT_CONFIG.copy()
     
     # Ask for API key and save to separate file
-    api_key = input("Enter your Anthropic API key: ").strip()
+    api_key = input("Enter your Mistral API key: ").strip()
     if api_key:
         with open(API_KEY_FILE, 'w') as f:
             f.write(api_key)
@@ -376,7 +495,7 @@ def setup_wizard():
         console.print(f"API key saved to {API_KEY_FILE} with restricted permissions", style="green")
     
     # Ask for model
-    models = ["claude-3-5-sonnet-20240229", "claude-3-opus-20240229", "claude-3-haiku-20240307"]
+    models = ["mistral-medium", "mistral-large-latest", "mistral-small-latest"]
     console.print("Available models:")
     for i, model in enumerate(models):
         console.print(f"{i+1}. {model}")
@@ -386,6 +505,15 @@ def setup_wizard():
         model_idx = int(model_choice) - 1
         if 0 <= model_idx < len(models):
             config["model"] = models[model_idx]
+    except (ValueError, IndexError):
+        pass  # Keep default
+    
+    # Ask for temperature
+    temp = input(f"Temperature (0.0-1.0, default={config['temperature']}): ").strip()
+    try:
+        temp_val = float(temp)
+        if 0.0 <= temp_val <= 1.0:
+            config["temperature"] = temp_val
     except (ValueError, IndexError):
         pass  # Keep default
     
@@ -408,6 +536,11 @@ def main():
         return
     
     app = NixLLM()
+    
+    if args.reindex:
+        app.index_home_directory()
+        return
+    
     app.main_loop()
 
 if __name__ == "__main__":
