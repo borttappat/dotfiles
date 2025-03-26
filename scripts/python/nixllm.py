@@ -3,21 +3,20 @@
 import os
 import sys
 import json
-import asyncio
 import argparse
 import subprocess
-import textwrap
+import time
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 
-import anthropic
-from prompt_toolkit import PromptSession
-from prompt_toolkit.shortcuts import radiolist_dialog, yes_no_dialog
-from prompt_toolkit.styles import Style
-from rich.console import Console
-from rich.panel import Panel
-from rich.syntax import Syntax
-from rich.markdown import Markdown
+try:
+    import anthropic
+    from rich.console import Console
+    from rich.panel import Panel
+    from rich.markdown import Markdown
+except ImportError:
+    print("Missing required packages. Please install: anthropic, rich")
+    sys.exit(1)
 
 # Initialize rich console
 console = Console()
@@ -56,24 +55,12 @@ DEFAULT_CONFIG = {
     """
 }
 
-styles = Style.from_dict({
-    'dialog': 'bg:#323232',
-    'dialog.body': 'bg:#323232 #ffffff',
-    'dialog.border': 'bg:#323232 #888888',
-    'button': 'bg:#456ebc #ffffff',
-    'button.focused': 'bg:#789efc #ffffff',
-    'checkbox': 'bg:#323232 #ffffff',
-    'checkbox.checked': 'bg:#323232 #ffffff',
-    'checkbox.selected': 'bg:#789efc #ffffff',
-})
-
 class NixLLM:
     def __init__(self):
         self.config = self.load_config()
         self.api_key = self.load_api_key()
         self.history = self.load_history()
         self.client = anthropic.Anthropic(api_key=self.api_key)
-        self.session = PromptSession()
     
     def load_config(self) -> Dict:
         """Load configuration file or create a default one if not exists"""
@@ -94,7 +81,7 @@ class NixLLM:
         """Load API key from separate file"""
         if not API_KEY_FILE.exists():
             console.print(f"API key file not found at {API_KEY_FILE}", style="bold red")
-            console.print("Please run 'nixllm --setup' to configure your API key.")
+            console.print("Please run with --setup to configure your API key.")
             sys.exit(1)
         
         with open(API_KEY_FILE, 'r') as f:
@@ -113,19 +100,17 @@ class NixLLM:
             f.write(api_key)
         # Set restricted permissions (read/write only for the owner)
         API_KEY_FILE.chmod(0o600)
-            
-    def save_config(self):
-        """Save configuration to file"""
-        with open(CONFIG_FILE, 'w') as f:
-            json.dump(self.config, f, indent=2)
     
     def load_history(self) -> List[Dict]:
         """Load command history from file"""
         if not HISTORY_FILE.exists():
             return []
         
-        with open(HISTORY_FILE, 'r') as f:
-            return json.load(f)
+        try:
+            with open(HISTORY_FILE, 'r') as f:
+                return json.load(f)
+        except json.JSONDecodeError:
+            return []
     
     def save_history(self):
         """Save command history to file"""
@@ -137,11 +122,11 @@ class NixLLM:
         self.history.append({
             "query": query,
             "command": command,
-            "timestamp": asyncio.get_event_loop().time()
+            "timestamp": time.time()
         })
         self.save_history()
     
-    async def get_command_suggestions(self, query: str) -> Dict:
+    def get_command_suggestions(self, query: str) -> Dict:
         """Get command suggestions from Claude"""
         console.print("Thinking...", style="bold yellow")
         
@@ -172,8 +157,7 @@ class NixLLM:
         system_prompt = system_prompt + system_context
         
         try:
-            response = await asyncio.to_thread(
-                self.client.messages.create,
+            response = self.client.messages.create(
                 model=self.config["model"],
                 system=system_prompt,
                 max_tokens=2000,
@@ -223,25 +207,25 @@ class NixLLM:
             console.print("\n[bold green]Approach:[/bold green]")
             console.print(Panel(suggestions["explanation"], expand=False))
         
-        # Prepare command options for the radio list
-        values = [(cmd["command"], f"{cmd['command']} - {cmd['description']}") 
-                 for cmd in suggestions["commands"]]
+        # Format the command choices for console display
+        console.print("\n[bold]Command options:[/bold]")
+        for i, cmd in enumerate(suggestions["commands"]):
+            console.print(f"{i+1}. [cyan]{cmd['command']}[/cyan] - {cmd['description']}")
+        console.print(f"{len(suggestions['commands'])+1}. None of these - try a different query")
         
-        # Add "None of these" option
-        values.append(("none", "None of these - let me try a different query"))
-        
-        # Display radio list dialog
-        result = radiolist_dialog(
-            title="Select a command to execute",
-            text="Choose one of the following commands:",
-            values=values,
-            style=styles
-        ).run()
-        
-        if result == "none" or result is None:
-            return None
-            
-        return result
+        # Simple command selection
+        while True:
+            choice = input("\nEnter choice number: ").strip()
+            try:
+                choice_num = int(choice)
+                if 1 <= choice_num <= len(suggestions["commands"]):
+                    return suggestions["commands"][choice_num-1]["command"]
+                elif choice_num == len(suggestions["commands"])+1:
+                    return None
+                else:
+                    console.print("Invalid selection. Please try again.", style="yellow")
+            except ValueError:
+                console.print("Please enter a number.", style="yellow")
     
     def get_command_explanation(self, cmd: str, suggestions: Dict) -> str:
         """Get detailed explanation for a command"""
@@ -296,7 +280,7 @@ class NixLLM:
         stdout, stderr = process.communicate()
         return process.returncode, stdout, stderr
     
-    async def main_loop(self):
+    def main_loop(self):
         """Main interaction loop"""
         console.print(Panel.fit(
             "[bold]NixLLM[/bold] - LLM-powered shell assistant for NixOS",
@@ -307,7 +291,8 @@ class NixLLM:
         while True:
             # Get query from user
             try:
-                query = self.session.prompt("\n[nixllm] What would you like to do? (Ctrl+D to quit): ")
+                console.print("\n[nixllm] What would you like to do? (Ctrl+D to quit): ", end="")
+                query = input()
             except (KeyboardInterrupt, EOFError):
                 console.print("\nGoodbye!", style="bold green")
                 break
@@ -316,7 +301,7 @@ class NixLLM:
                 continue
                 
             # Get command suggestions from Claude
-            suggestions = await self.get_command_suggestions(query)
+            suggestions = self.get_command_suggestions(query)
             
             # Display commands and let user choose
             selected_cmd = self.display_commands(suggestions)
@@ -328,11 +313,10 @@ class NixLLM:
             explanation = self.get_command_explanation(selected_cmd, suggestions)
             console.print(Markdown(explanation))
             
-            should_execute = yes_no_dialog(
-                title="Execute command?",
-                text=f"Do you want to execute: {selected_cmd}",
-                style=styles
-            ).run()
+            # Simple confirmation prompt
+            console.print(f"\nDo you want to execute: [bold cyan]{selected_cmd}[/bold cyan]? (y/n): ", end="")
+            confirmation = input().strip().lower()
+            should_execute = confirmation in ('y', 'yes')
             
             if not should_execute:
                 console.print("Command execution cancelled.", style="yellow")
@@ -351,7 +335,7 @@ class NixLLM:
                 console.print(stderr, style="red")
             
             console.print(f"\n[bold]Exit code:[/bold] {exit_code}", 
-                         style="green" if exit_code == 0 else "red")
+                          style="green" if exit_code == 0 else "red")
             
             # Add to history
             self.add_to_history(query, selected_cmd)
@@ -412,7 +396,7 @@ def setup_wizard():
     console.print(f"Configuration saved to {CONFIG_FILE}", style="green")
     console.print("Setup complete! You can now run nixllm to get started.")
 
-async def main():
+def main():
     args = parse_args()
     
     if args.setup:
@@ -424,7 +408,7 @@ async def main():
         return
     
     app = NixLLM()
-    await app.main_loop()
+    app.main_loop()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

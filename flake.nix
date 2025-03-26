@@ -140,6 +140,7 @@
             #./modules/scripts.nix
             #nixvim.nixosModules.nixvim
             #./modules/nixvim.nix
+            ./modules/nixllm.nix
             
             # Additional feature modules
             ./modules/pentesting.nix
