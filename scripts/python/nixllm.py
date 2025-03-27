@@ -6,6 +6,7 @@ import json
 import argparse
 import subprocess
 import time
+import gc
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 
@@ -14,18 +15,29 @@ try:
     from rich.console import Console
     from rich.panel import Panel
     from rich.markdown import Markdown
+    from rich.theme import Theme
 except ImportError:
     print("Missing required packages. Please install: requests, rich")
     sys.exit(1)
 
-# Initialize rich console
-console = Console()
+# Define custom theme to ensure formatting works correctly
+custom_theme = Theme({
+    "info": "cyan",
+    "warning": "yellow",
+    "danger": "bold red",
+    "success": "bold green",
+})
+
+# Initialize rich console with appropriate settings
+console = Console(theme=custom_theme, highlight=False)
 
 # Constants
 CONFIG_DIR = Path.home() / ".config" / "nixllm"
 CONFIG_FILE = CONFIG_DIR / "config.json"
 API_KEY_FILE = CONFIG_DIR / "api_key"
 HISTORY_FILE = CONFIG_DIR / "history.json"
+INDEX_FILE = CONFIG_DIR / "file_index.json"
+INDEX_DECISIONS_FILE = CONFIG_DIR / "index_decisions.json"
 MAX_HISTORY_ENTRIES = 100
 DOTFILES_PATH = Path.home() / "dotfiles"
 
@@ -36,6 +48,8 @@ DEFAULT_CONFIG = {
     "safe_mode": True,
     "max_tokens": 2000,
     "temperature": 0.2,
+    "index_max_file_size_mb": 2,  # 2MB default
+    "index_max_dir_size_mb": 10,  # 10MB default
     "system_prompt": """
     You are NixLLM, a shell command assistant for NixOS systems. When the user asks a question:
     1. Interpret what they want to accomplish on their NixOS system
@@ -54,6 +68,7 @@ DEFAULT_CONFIG = {
     }}
     
     Focus on commands that are compatible with NixOS and are safe to execute. Avoid destructive commands unless clearly requested.
+    Important: Never suggest 'nix run' or similar commands for packages that are likely already installed, like common utilities.
     """
 }
 
@@ -63,8 +78,11 @@ class NixLLM:
         self.api_key = self.load_api_key()
         self.history = self.load_history()
         
-        # Add home directory indexing capabilities
-        self.file_index = None
+        # Load file index from disk if available
+        self.file_index = self.load_file_index()
+        
+        # Get installed packages
+        self.installed_packages = self.get_installed_packages()
     
     def load_config(self) -> Dict:
         """Load configuration file or create a default one if not exists"""
@@ -84,7 +102,7 @@ class NixLLM:
     def load_api_key(self) -> str:
         """Load API key from separate file"""
         if not API_KEY_FILE.exists():
-            console.print(f"API key file not found at {API_KEY_FILE}", style="bold red")
+            console.print(f"API key file not found at {API_KEY_FILE}", style="danger")
             console.print("Please run with --setup to configure your API key.")
             sys.exit(1)
         
@@ -92,7 +110,7 @@ class NixLLM:
             api_key = f.read().strip()
             
         if not api_key:
-            console.print("API key is empty.", style="bold red")
+            console.print("API key is empty.", style="danger")
             console.print(f"Please add your API key to {API_KEY_FILE}.")
             sys.exit(1)
             
@@ -130,68 +148,212 @@ class NixLLM:
         })
         self.save_history()
     
-    def index_home_directory(self):
-        """Index files in the user's home directory for reference"""
-        console.print("Indexing home directory...", style="bold yellow")
+    def load_file_index(self) -> Optional[Dict]:
+        """Load file index from disk if available"""
+        if INDEX_FILE.exists():
+            try:
+                with open(INDEX_FILE, 'r') as f:
+                    return json.load(f)
+            except json.JSONDecodeError:
+                return None
+        return None
+    
+    def save_file_index(self, index: Dict):
+        """Save file index to disk"""
+        with open(INDEX_FILE, 'w') as f:
+            json.dump(index, f, indent=2)
+    
+    def load_indexing_decisions(self) -> Dict:
+        """Load saved user decisions about what to index"""
+        if INDEX_DECISIONS_FILE.exists():
+            try:
+                with open(INDEX_DECISIONS_FILE, 'r') as f:
+                    return json.load(f)
+            except json.JSONDecodeError:
+                return {}
+        return {}
+    
+    def save_indexing_decisions(self, decisions: Dict):
+        """Save user decisions about what to index"""
+        with open(INDEX_DECISIONS_FILE, 'w') as f:
+            json.dump(decisions, f, indent=2)
+    
+    def should_index_path(self, path, size_threshold=None):
+        """Ask user whether to index a large directory/file"""
+        if size_threshold is None:
+            # Convert MB to bytes
+            if path.is_dir():
+                size_threshold = self.config.get("index_max_dir_size_mb", 10) * 1024 * 1024
+            else:
+                size_threshold = self.config.get("index_max_file_size_mb", 2) * 1024 * 1024
         
-        index = {"files": {}}
+        # Check saved decisions
+        decisions = self.load_indexing_decisions()
+        path_str = str(path)
+        
+        if path_str in decisions:
+            return decisions[path_str]
+        
+        # Check directory size (approximately)
+        if path.is_dir():
+            # Just check the first level for speed
+            size = sum(f.stat().st_size for f in path.glob('*') if f.is_file())
+            if size > size_threshold:
+                console.print(f"Large directory detected: {path}", style="warning")
+                choice = input(f"Index this directory? (y/n/always/never): ").lower()
+                if choice in ('always', 'never'):
+                    decisions[path_str] = choice == 'always'
+                    self.save_indexing_decisions(decisions)
+                return choice in ('y', 'yes', 'always')
+        
+        # Check file size
+        elif path.is_file():
+            try:
+                if path.stat().st_size > size_threshold:
+                    console.print(f"Large file detected: {path}", style="warning")
+                    choice = input(f"Index this file? (y/n/always/never): ").lower()
+                    if choice in ('always', 'never'):
+                        decisions[path_str] = choice == 'always'
+                        self.save_indexing_decisions(decisions)
+                    return choice in ('y', 'yes', 'always')
+            except (OSError, PermissionError):
+                return False
+        
+        return True
+    
+    def get_installed_packages(self) -> List[str]:
+        """Get a list of installed packages"""
+        packages = []
+        
+        # Try nix-env first
+        try:
+            result = subprocess.run(['nix-env', '-q'], capture_output=True, text=True, check=False)
+            if result.returncode == 0:
+                packages.extend(result.stdout.strip().splitlines())
+        except:
+            pass
+        
+        # Also try common programs that are likely installed
+        common_programs = ["feh", "vim", "git", "firefox", "curl", "wget"]
+        for program in common_programs:
+            try:
+                result = subprocess.run(['which', program], capture_output=True, text=True, check=False)
+                if result.returncode == 0:
+                    packages.append(program)
+            except:
+                pass
+        
+        return packages
+    
+    def index_home_directory(self, force_reindex=False, update_only=False):
+        """Index files in the user's home directory for reference"""
+        console.print("Indexing home directory...", style="info")
+        
+        # Start with empty or existing index
+        if force_reindex:
+            index = {"files": {}, "indexed_at": time.time()}
+        elif update_only and self.file_index:
+            index = self.file_index
+        else:
+            index = {"files": {}, "indexed_at": time.time()}
+        
+        # Define filters
         ignored_dirs = {".git", "node_modules", "__pycache__", ".venv", "venv", ".cache", "seclists"}
         ignored_exts = {".pyc", ".pyo", ".o", ".so", ".dll", ".exe", ".bin", ".dat", ".bak", ".tmp", ".swp"}
-        max_file_size = 1024 * 1024  # 1 MB
+        max_file_size = self.config.get("index_max_file_size_mb", 2) * 1024 * 1024  # Convert MB to bytes
+        
+        # Track statistics for feedback
+        stats = {
+            "files_checked": 0,
+            "files_indexed": 0,
+            "files_skipped": 0,
+            "dirs_skipped": 0
+        }
         
         home_dir = Path.home()
-        for root, dirs, files in os.walk(home_dir, topdown=True, followlinks=False):  # Don't follow symlinks
+        
+        # Use os.walk for better memory efficiency
+        for root, dirs, files in os.walk(home_dir, topdown=True, followlinks=False):
             # Skip ignored directories
-            dirs[:] = [d for d in dirs if d not in ignored_dirs]
+            dirs[:] = [d for d in dirs if d not in ignored_dirs and not d.startswith('.')]
+            
+            # Check if we should index this directory at all
+            root_path = Path(root)
+            if not self.should_index_path(root_path):
+                stats["dirs_skipped"] += 1
+                dirs[:] = []  # Skip subdirectories
+                continue
             
             for file in files:
+                stats["files_checked"] += 1
+                
+                # Periodically report progress and release memory
+                if stats["files_checked"] % 100 == 0:
+                    console.print(f"Checked {stats['files_checked']} files, indexed {stats['files_indexed']}...", style="info")
+                    gc.collect()  # Release memory
+                
                 try:
                     file_path = Path(root) / file
                     
-                    # Skip symlinks to avoid loops
+                    # Skip symlinks
                     if file_path.is_symlink():
+                        stats["files_skipped"] += 1
                         continue
                     
-                    # Skip binary files and those too large
+                    # Skip files based on extension
+                    if any(file.endswith(ext) for ext in ignored_exts) or file.startswith('.'):
+                        stats["files_skipped"] += 1
+                        continue
+                    
+                    # Skip binary/large files
                     try:
-                        if (file_path.suffix in ignored_exts or 
-                                file_path.stat().st_size > max_file_size):
-                            continue
+                        if file_path.stat().st_size > max_file_size:
+                            if not self.should_index_path(file_path):
+                                stats["files_skipped"] += 1
+                                continue
                     except (FileNotFoundError, PermissionError, OSError):
+                        stats["files_skipped"] += 1
                         continue
                     
-                    # Skip hidden files and directories
-                    if file.startswith('.') or any(part.startswith('.') for part in file_path.parts):
-                        continue
-                        
-                    try:
-                        # Store file information
-                        rel_path = str(file_path.relative_to(home_dir))
-                        abs_path = str(file_path)
-                        
-                        # Read a sample of the file for better context
-                        content_preview = ""
+                    # Calculate relative path
+                    rel_path = str(file_path.relative_to(home_dir))
+                    abs_path = str(file_path)
+                    
+                    # Skip if already indexed and not forcing reindex
+                    if update_only and rel_path in index["files"]:
                         try:
-                            with open(file_path, 'r', errors='ignore') as f:
-                                content_preview = f.read(1000)  # First 1000 chars
-                        except (UnicodeDecodeError, IsADirectoryError, PermissionError, OSError):
-                            continue  # Skip binary files
-                        
-                        index["files"][rel_path] = {
-                            "path": abs_path,
-                            "modified": file_path.stat().st_mtime,
-                            "size": file_path.stat().st_size,
-                            "preview": content_preview
-                        }
-                        
-                    except Exception as e:
-                        # Skip any problematic files
+                            # Check if modified since last indexing
+                            if file_path.stat().st_mtime <= index["files"][rel_path].get("modified", 0):
+                                continue
+                        except (OSError, PermissionError):
+                            continue
+                    
+                    # Read file preview
+                    try:
+                        with open(file_path, 'r', errors='ignore') as f:
+                            preview = f.read(1000)  # First 1000 chars
+                            
+                            # Store file info with minimal data
+                            index["files"][rel_path] = {
+                                "path": abs_path,
+                                "modified": file_path.stat().st_mtime,
+                                "size": file_path.stat().st_size,
+                                "preview": preview[:1000]  # Limit preview size
+                            }
+                            
+                            stats["files_indexed"] += 1
+                    except (UnicodeDecodeError, IsADirectoryError, PermissionError, OSError):
+                        stats["files_skipped"] += 1
                         continue
+                        
                 except Exception as e:
-                    # Skip any file that causes errors
+                    stats["files_skipped"] += 1
                     continue
         
-        # Save extra info about dotfiles structure if it exists
+        # Add additional system information
+        index["system_info"] = self.get_system_info()
+        
+        # Add dotfiles structure if it exists
         if DOTFILES_PATH.exists():
             index["dotfiles_path"] = str(DOTFILES_PATH)
             
@@ -204,14 +366,63 @@ class NixLLM:
                         f.name for f in full_path.glob("*") if f.is_file()
                     ]
         
+        # Save the index to disk
+        self.save_file_index(index)
+        
+        # Update in-memory reference
         self.file_index = index
-        console.print(f"Indexed {len(index['files'])} files in home directory", style="green")
+        
+        console.print(f"Indexed {stats['files_indexed']} files in home directory", style="success")
+        console.print(f"Skipped {stats['files_skipped']} files and {stats['dirs_skipped']} directories", style="info")
+        
+        # Force garbage collection to reclaim memory
+        gc.collect()
         
         return index
     
+    def get_system_info(self) -> Dict:
+        """Get system information for context"""
+        info = {}
+        
+        # Get NixOS version
+        try:
+            with open("/etc/os-release", "r") as f:
+                for line in f:
+                    if line.startswith("VERSION="):
+                        info["nixos_version"] = line.split("=")[1].strip().strip('"')
+                        break
+        except:
+            info["nixos_version"] = "Unknown"
+        
+        # Get kernel version
+        try:
+            info["kernel"] = os.uname().release
+        except:
+            info["kernel"] = "Unknown"
+        
+        # Get installed packages
+        info["installed_packages"] = self.installed_packages
+        
+        return info
+    
+    def purge_index(self):
+        """Remove the file index"""
+        if INDEX_FILE.exists():
+            INDEX_FILE.unlink()
+            console.print("File index purged", style="success")
+        
+        if INDEX_DECISIONS_FILE.exists():
+            INDEX_DECISIONS_FILE.unlink()
+            console.print("Indexing decisions purged", style="success")
+        
+        self.file_index = None
+        
+        # Force garbage collection
+        gc.collect()
+    
     def send_to_mistral(self, query: str, system_prompt: str) -> Dict:
         """Send a request to the Mistral API"""
-        console.print("Thinking...", style="bold yellow")
+        console.print("Thinking...", style="info")
         
         url = "https://api.mistral.ai/v1/chat/completions"
         
@@ -252,7 +463,7 @@ class NixLLM:
                 raise ValueError("Could not extract valid JSON from response")
                 
         except Exception as e:
-            console.print(f"API Error: {e}", style="bold red")
+            console.print(f"API Error: {e}", style="danger")
             return {
                 "commands": [],
                 "explanation": f"Error communicating with Mistral API: {str(e)}"
@@ -281,6 +492,9 @@ class NixLLM:
         - Configuration editing with vim
         - Scripts like walrgb.sh for theme management
         
+        The following programs are already installed on the system:
+        {', '.join(self.installed_packages[:20])}
+        
         When suggesting filesystem operations, be aware of this structure and suggest specific paths when possible.
         """
         
@@ -299,7 +513,7 @@ class NixLLM:
         try:
             return self.send_to_mistral(query, system_prompt)
         except Exception as e:
-            console.print(f"Error: {e}", style="bold red")
+            console.print(f"Error: {e}", style="danger")
             return {
                 "commands": [],
                 "explanation": "Failed to get suggestions. Please try again."
@@ -308,18 +522,18 @@ class NixLLM:
     def display_commands(self, suggestions: Dict) -> Optional[str]:
         """Display command suggestions and let the user choose one"""
         if not suggestions.get("commands"):
-            console.print("No command suggestions were provided.", style="bold red")
+            console.print("No command suggestions were provided.", style="danger")
             return None
         
         # Display overall explanation
         if suggestions.get("explanation"):
-            console.print("\n[bold green]Approach:[/bold green]")
+            console.print("\nApproach:", style="success")
             console.print(Panel(suggestions["explanation"], expand=False))
         
         # Format the command choices for console display
-        console.print("\n[bold]Command options:[/bold]")
+        console.print("\nCommand options:")
         for i, cmd in enumerate(suggestions["commands"]):
-            console.print(f"{i+1}. [cyan]{cmd['command']}[/cyan] - {cmd['description']}")
+            console.print(f"{i+1}. {cmd['command']} - {cmd['description']}", style="info")
         console.print(f"{len(suggestions['commands'])+1}. None of these - try a different query")
         
         # Simple command selection
@@ -332,9 +546,9 @@ class NixLLM:
                 elif choice_num == len(suggestions["commands"])+1:
                     return None
                 else:
-                    console.print("Invalid selection. Please try again.", style="yellow")
+                    console.print("Invalid selection. Please try again.", style="warning")
             except ValueError:
-                console.print("Please enter a number.", style="yellow")
+                console.print("Please enter a number.", style="warning")
     
     def get_command_explanation(self, cmd: str, suggestions: Dict) -> str:
         """Get detailed explanation for a command"""
@@ -344,31 +558,23 @@ class NixLLM:
                 description = suggestion["description"]
                 
                 # Generate a more detailed explanation by using the previous context
-                detailed = f"""
-                [bold]Command:[/bold] {cmd}
-                
-                [bold]What it does:[/bold]
-                {description}
-                
-                [bold]Command breakdown:[/bold]
-                """
+                detailed = f"Command: {cmd}\n\nWhat it does:\n{description}\n\nCommand breakdown:\n"
                 
                 # Simple breakdown of command parts
                 parts = cmd.split()
                 if len(parts) > 1:
-                    detailed += "\n"
                     for i, part in enumerate(parts):
                         if i == 0:
-                            detailed += f"- [cyan]{part}[/cyan]: The main command/program\n"
+                            detailed += f"- {part}: The main command/program\n"
                         elif part.startswith("-"):
-                            detailed += f"- [yellow]{part}[/yellow]: An option/flag\n"
+                            detailed += f"- {part}: An option/flag\n"
                         else:
-                            detailed += f"- [green]{part}[/green]: An argument/parameter\n"
+                            detailed += f"- {part}: An argument/parameter\n"
                 
                 # Safety warnings for potentially dangerous commands
                 danger_keywords = ["rm", "sudo rm", "mkfs", "dd", "chmod", "chown", "echo >", ">", "nixos-rebuild"]
                 if any(keyword in cmd for keyword in danger_keywords):
-                    detailed += "\n[bold red]⚠️ Safety note:[/bold red] This command could modify system files or settings. Make sure you understand what it does before executing."
+                    detailed += "\n⚠️ Safety note: This command could modify system files or settings. Make sure you understand what it does before executing."
                 
                 return detailed
                 
@@ -376,7 +582,7 @@ class NixLLM:
     
     def execute_command(self, cmd: str) -> Tuple[int, str, str]:
         """Execute a shell command and return exit code, stdout, and stderr"""
-        console.print(f"\n[bold]Executing:[/bold] {cmd}")
+        console.print(f"\nExecuting: {cmd}")
         
         process = subprocess.Popen(
             cmd,
@@ -392,9 +598,9 @@ class NixLLM:
     def main_loop(self):
         """Main interaction loop"""
         console.print(Panel.fit(
-            "[bold]NixLLM[/bold] - Mistral-powered shell assistant for NixOS",
+            "NixLLM - Mistral-powered shell assistant for NixOS",
             title="Welcome",
-            border_style="green"
+            style="success"
         ))
         
         # Index home directory on first run
@@ -404,10 +610,9 @@ class NixLLM:
         while True:
             # Get query from user
             try:
-                console.print("\n[nixllm] What would you like to do? (Ctrl+D to quit): ", end="")
-                query = input()
+                query = input("\n[nixllm] What would you like to do? (Ctrl+D to quit): ")
             except (KeyboardInterrupt, EOFError):
-                console.print("\nGoodbye!", style="bold green")
+                console.print("\nGoodbye!", style="success")
                 break
                 
             if not query.strip():
@@ -415,7 +620,11 @@ class NixLLM:
             
             # Special commands
             if query.lower() == "reindex":
-                self.index_home_directory()
+                self.index_home_directory(force_reindex=True)
+                continue
+            
+            if query.lower() == "purge":
+                self.purge_index()
                 continue
                 
             # Get command suggestions from Mistral
@@ -424,20 +633,19 @@ class NixLLM:
             # Display commands and let user choose
             selected_cmd = self.display_commands(suggestions)
             if not selected_cmd:
-                console.print("No command selected. Try a different query.", style="yellow")
+                console.print("No command selected. Try a different query.", style="warning")
                 continue
             
             # Show explanation and ask for confirmation
             explanation = self.get_command_explanation(selected_cmd, suggestions)
-            console.print(Markdown(explanation))
+            console.print("\n" + explanation)
             
             # Simple confirmation prompt
-            console.print(f"\nDo you want to execute: [bold cyan]{selected_cmd}[/bold cyan]? (y/n): ", end="")
-            confirmation = input().strip().lower()
+            confirmation = input(f"\nDo you want to execute: {selected_cmd}? (y/n): ").strip().lower()
             should_execute = confirmation in ('y', 'yes')
             
             if not should_execute:
-                console.print("Command execution cancelled.", style="yellow")
+                console.print("Command execution cancelled.", style="warning")
                 continue
             
             # Execute the command
@@ -445,24 +653,29 @@ class NixLLM:
             
             # Display results
             if stdout:
-                console.print("\n[bold]Output:[/bold]")
+                console.print("\nOutput:")
                 console.print(stdout)
             
             if stderr:
-                console.print("\n[bold red]Error output:[/bold red]")
-                console.print(stderr, style="red")
+                console.print("\nError output:", style="danger")
+                console.print(stderr)
             
-            console.print(f"\n[bold]Exit code:[/bold] {exit_code}", 
-                          style="green" if exit_code == 0 else "red")
+            console.print(f"\nExit code: {exit_code}", 
+                          style="success" if exit_code == 0 else "danger")
             
             # Add to history
             self.add_to_history(query, selected_cmd)
+            
+            # Release memory
+            gc.collect()
 
 def parse_args():
     parser = argparse.ArgumentParser(description="NixLLM - Mistral-powered shell assistant for NixOS")
     parser.add_argument("--config", action="store_true", help="Edit configuration")
     parser.add_argument("--setup", action="store_true", help="Run first-time setup")
     parser.add_argument("--reindex", action="store_true", help="Reindex home directory")
+    parser.add_argument("--update", action="store_true", help="Update index (only new/changed files)")
+    parser.add_argument("--purge", action="store_true", help="Purge all index data")
     return parser.parse_args()
 
 def edit_config():
@@ -475,7 +688,7 @@ def setup_wizard():
     console.print(Panel.fit(
         "Welcome to NixLLM setup wizard",
         title="Setup",
-        border_style="green"
+        style="success"
     ))
     
     console.print("This wizard will help you configure NixLLM.")
@@ -492,7 +705,7 @@ def setup_wizard():
             f.write(api_key)
         # Set restricted permissions (read/write only for the owner)
         API_KEY_FILE.chmod(0o600)
-        console.print(f"API key saved to {API_KEY_FILE} with restricted permissions", style="green")
+        console.print(f"API key saved to {API_KEY_FILE} with restricted permissions", style="success")
     
     # Ask for model
     models = ["mistral-medium", "mistral-large-latest", "mistral-small-latest"]
@@ -517,11 +730,28 @@ def setup_wizard():
     except (ValueError, IndexError):
         pass  # Keep default
     
+    # Ask for file size limits
+    file_size = input(f"Maximum file size to index in MB (default={config['index_max_file_size_mb']}): ").strip()
+    try:
+        file_size_val = float(file_size)
+        if file_size_val > 0:
+            config["index_max_file_size_mb"] = file_size_val
+    except (ValueError, IndexError):
+        pass  # Keep default
+    
+    dir_size = input(f"Maximum directory size to index without confirmation in MB (default={config['index_max_dir_size_mb']}): ").strip()
+    try:
+        dir_size_val = float(dir_size)
+        if dir_size_val > 0:
+            config["index_max_dir_size_mb"] = dir_size_val
+    except (ValueError, IndexError):
+        pass  # Keep default
+    
     # Save config (without API key)
     with open(CONFIG_FILE, 'w') as f:
         json.dump(config, f, indent=2)
     
-    console.print(f"Configuration saved to {CONFIG_FILE}", style="green")
+    console.print(f"Configuration saved to {CONFIG_FILE}", style="success")
     console.print("Setup complete! You can now run nixllm to get started.")
 
 def main():
@@ -537,8 +767,16 @@ def main():
     
     app = NixLLM()
     
+    if args.purge:
+        app.purge_index()
+        return
+    
     if args.reindex:
-        app.index_home_directory()
+        app.index_home_directory(force_reindex=True)
+        return
+    
+    if args.update:
+        app.index_home_directory(update_only=True)
         return
     
     app.main_loop()
