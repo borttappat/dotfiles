@@ -56,7 +56,8 @@
             ./modules/configuration.nix
             
             # Core functionality modules
-            ./modules/packages.nix
+            #./modules/packages.nix
+            ./modules/arm.nix
             ./modules/services.nix
             ./modules/users.nix
             ./modules/colors.nix
@@ -66,8 +67,8 @@
             ./modules/scripts.nix
             
             # Additional feature modules
-            ./modules/proxychains.nix
-            ./modules/dev.nix
+            #./modules/proxychains.nix
+            #./modules/dev.nix
             
             # ARM-specific configurations
             {
