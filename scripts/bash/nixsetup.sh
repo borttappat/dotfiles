@@ -27,22 +27,42 @@ check_status "Run nixboot.py"
 sudo python ~/dotfiles/scripts/python/userswitch.py
 check_status "Run userswitch.py"
 
-# rebuilds the system using the nix-build script, defaulting to a wm setting if a KVM is detected, otherwise a default profile will be selected.
+# Get architecture
+ARCH=$(uname -m)
+# Get hardware information 
+VENDOR=$(hostnamectl | grep -i "Hardware Vendor" | awk -F': ' '{print $2}' | xargs)
+
+# Check if we're on ARM (including checking the vendor for Apple)
+if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ] || [[ "$VENDOR" == *"Apple"* && ("$ARCH" == *"arm"* || "$ARCH" == *"aarch"*) ]]; then
+    echo "Detected ARM architecture, building ARM configuration"
+    sudo nixos-rebuild boot --show-trace --flake ~/dotfiles#armVM -v
+    check_status "NixOS rebuild for ARM"
+    exit 0
+fi
+
+# For x86_64 systems, use the normal detection logic
 current_host=$(hostnamectl | grep -i "Hardware Vendor")
 
 if echo "$current_host" | grep -q "Razer"; then
     sudo nixos-rebuild boot --show-trace --flake ~/dotfiles#razer -v
     check_status "NixOS rebuild for Razer"
 elif echo "$current_host" | grep -q "QEMU"; then
-    sudo nixos-rebuild boot --show-trace --flake ~/dotfiles#WM -v
+    sudo nixos-rebuild boot --show-trace --flake ~/dotfiles#VM -v
     check_status "NixOS rebuild for QEMU"
 elif echo "$current_host" | grep -q "ASUS"; then
     sudo nixos-rebuild boot --show-trace --flake ~/dotfiles#asus -v
     check_status "NixOS rebuild for ASUS"
 else
-    echo "Unknown host: $current_host, building default version. Modify flake.nix to adjust according to preferences"
-    sudo nixos-rebuild boot --show-trace --flake ~/dotfiles#default -v
-    check_status "NixOS rebuild for unknown host"
+    # Check again for Apple vendor as fallback ARM detection
+    if [[ "$VENDOR" == *"Apple"* ]]; then
+        echo "Detected Apple hardware, assuming ARM architecture"
+        sudo nixos-rebuild boot --show-trace --flake ~/dotfiles#armVM -v
+        check_status "NixOS rebuild for Apple ARM"
+    else
+        echo "Unknown host: $current_host, building default version. Modify flake.nix to adjust according to preferences"
+        sudo nixos-rebuild boot --show-trace --flake ~/dotfiles#default -v
+        check_status "NixOS rebuild for unknown host"
+    fi
 fi
 
 echo "Success: All steps completed successfully"
