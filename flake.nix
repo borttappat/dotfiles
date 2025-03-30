@@ -189,7 +189,7 @@
             ./modules/colors.nix
             ./modules/hosts.nix
             ./modules/zsh.nix
-            #./modules/virt.nix
+            ./modules/virt.nix
             ./modules/boot.nix
             ./modules/scripts.nix
             
