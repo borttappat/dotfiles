@@ -58,6 +58,7 @@
             # Core functionality modules
             #./modules/packages.nix
             ./modules/arm.nix
+            ./modules/armpkgs.nix
             ./modules/services.nix
             ./modules/users.nix
             ./modules/colors.nix
@@ -106,6 +107,7 @@
 
             # Base system configuration
             ./modules/configuration.nix
+            ./modules/x86.nix
             
             # Device specific configurations
             ./modules/razer.nix
@@ -174,6 +176,7 @@
             
             # Base system configuration
             ./modules/configuration.nix
+            ./modules/x86.nix
             
             # Device specific configurations
             ./modules/asus.nix
@@ -207,6 +210,7 @@
             
             # Base system configuration
             ./modules/configuration.nix
+            ./modules/x86.nix
             
             # Core functionality modules
             ./modules/packages.nix
@@ -233,6 +237,7 @@
             
             # Base system configuration
             ./modules/configuration.nix
+            ./modules/x86.nix
             
             # Core functionality modules
             ./modules/packages.nix
