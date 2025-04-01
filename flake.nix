@@ -46,6 +46,7 @@ armVM = nixpkgs.lib.nixosSystem {
     
     # ARM VM specific configuration
     ./modules/arm-vm.nix
+    ./modules/vm-input.nix
     
     # Core functionality modules (non-hardware specific)
     ./modules/packages.nix
