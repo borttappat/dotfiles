@@ -83,6 +83,7 @@
     dunst
     pywal
     pywalfox-native
+    jq
     
     # Terminal and tools
     alacritty
@@ -99,7 +100,6 @@
     zoxide
     eza
     bat
-    jq
     tmux
 
     xorg.xev
@@ -107,9 +107,9 @@
     # Development tools
     vim
     git
-    gh
     curl
     wget
+    python3
     
     # Applications
     zathura
@@ -122,10 +122,13 @@
     brightnessctl
     
     # Media
-    #mpv
+    mpv
     
     # Networking tools
     networkmanager
+    
+    # Fonts
+    cozette
     
     # Additional utilities
     ugrep
