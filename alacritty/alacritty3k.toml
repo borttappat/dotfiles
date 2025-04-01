@@ -1,0 +1,16 @@
+general.import = ["~/dotfiles/alacritty/alacritty.toml"]
+
+[env]
+TERM = "xterm"
+#WINIT_X11_SCALE_FACTOR = "1.0"
+
+[font]
+size = 16
+
+[window]
+dynamic_padding = true
+opacity = 1.0
+
+[window.padding]
+x = 15
+y = 6 

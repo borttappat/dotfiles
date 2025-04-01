@@ -1,0 +1,15 @@
+# Resolution-specific settings for 3024x1890
+
+font CozetteVector:16
+
+# Window borders
+new_window pixel 2 
+hide_edge_borders both
+smart_borders on
+
+# Gaps settings
+gaps inner 20
+gaps top 120
+smart_gaps off
+
+exec_always --no-startup-id killall polybar && sleep 0.5 && polybar -q 3k
