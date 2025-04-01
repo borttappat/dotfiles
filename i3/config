@@ -243,18 +243,4 @@ focus_follows_mouse no
 tiling_drag modifier
 floating_modifier $mod
 
-# Resolution-specific settings for 1920x1080
-# Resolution-specific settings for 1920x1080
-
-font CozetteVector:12
-
-# Window borders
-new_window pixel 2 
-hide_edge_borders both
-smart_borders on
-
-# Gaps settings
-gaps inner 10
-gaps top 30
-smart_gaps off
-
+# Using default settings (no specific config for 3024x1890)
