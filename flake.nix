@@ -31,31 +31,36 @@
     in {
       nixosConfigurations = {
         # ARM-specific VM configuration
-        armVM = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          modules = [
-            { nixpkgs.config.allowUnfree = true; }
-            { nixpkgs.overlays = [ overlay-unstable ]; }
-            
-            # Base system configuration - with architecture awareness
-            ./modules/configuration-common.nix
-            
-            # ARM-specific modules
-            ./modules/arm-specific.nix
-            
-            # Core functionality modules (architecture agnostic)
-            ./modules/users.nix
-            ./modules/colors.nix
-            ./modules/hosts.nix
-            ./modules/zsh.nix 
-            ./modules/services-minimal.nix
-            
-            # VM-specific settings
-            ./modules/vm-common.nix
-          ];
-        };
-
-        # Existing configurations with system specific to architecture
+         # Add to your flake.nix outputs
+armVM = nixpkgs.lib.nixosSystem {
+  system = "aarch64-linux";
+  modules = [
+    # Make unfree packages allowable
+    { nixpkgs.config.allowUnfree = true; }
+    
+    # Add overlay to the system
+    { nixpkgs.overlays = [ overlay-unstable ]; }
+    
+    # Base system configuration
+    ./modules/configuration.nix
+    
+    # ARM VM specific configuration
+    ./modules/arm-vm.nix
+    
+    # Core functionality modules (non-hardware specific)
+    ./modules/packages.nix
+    ./modules/services.nix
+    ./modules/users.nix
+    ./modules/colors.nix
+    ./modules/hosts.nix
+    ./modules/zsh.nix
+    ./modules/scripts.nix
+    
+    # Additional feature modules
+    ./modules/proxychains.nix
+    ./modules/dev.nix
+  ];
+};       # Existing configurations with system specific to architecture
         razer = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
