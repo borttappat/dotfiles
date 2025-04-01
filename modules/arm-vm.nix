@@ -1,65 +1,150 @@
-# modules/arm-vm.nix
-{ config, lib, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-  # Override hardware-specific settings that might conflict with ARM VM
-  
-  # Disable any Intel/AMD specific settings
-  hardware.cpu.intel.updateMicrocode = lib.mkForce false;
-  hardware.cpu.amd.updateMicrocode = lib.mkForce false;
-  
-  # Ensure proper keyboard settings
-  console.keyMap = lib.mkForce "sv-latin1";
-  services.xserver.xkb = {
-    layout = lib.mkForce "se";
-    variant = lib.mkForce "";
+  # Import your existing boot.nix (which will be populated by nixsetup.sh)
+  imports = [ 
+    ./modules/boot.nix
+  ];
+
+  # Basic networking
+  networking.hostName = "nixos-arm";
+  networking.networkmanager.enable = true;
+
+  # Set your time zone
+  time.timeZone = "Europe/Stockholm";
+
+  # Locale settings
+  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "sv_SE.UTF-8";
+    LC_IDENTIFICATION = "sv_SE.UTF-8";
+    LC_MEASUREMENT = "sv_SE.UTF-8";
+    LC_MONETARY = "sv_SE.UTF-8";
+    LC_NAME = "sv_SE.UTF-8";
+    LC_NUMERIC = "sv_SE.UTF-8";
+    LC_PAPER = "sv_SE.UTF-8";
+    LC_TELEPHONE = "sv_SE.UTF-8";
+    LC_TIME = "sv_SE.UTF-8";
   };
-  
-  # VM-specific settings for better performance
-  services.qemuGuest.enable = true;
-  services.spice-vdagentd.enable = true;
-  
-  # Disable services that might not work in ARM VM
-  services.thermald.enable = lib.mkForce false;
-  services.tlp.enable = lib.mkForce false;
-  services.auto-cpufreq.enable = lib.mkForce false;
-  
-  # Disable hardware-specific services
-  services.asusd.enable = lib.mkForce false;
-  hardware.openrgb.enable = lib.mkForce false;
-  
-  # Keep podman instead of docker for better ARM support
-  virtualisation = {
-    podman = {
-      enable = true;
-      dockerCompat = true;
-    };
-    docker.enable = lib.mkForce false;
-  };
-  
-  # Ensure proper input devices are available
-  services.xserver.libinput = {
+
+  # Configure console keymap
+  console.keyMap = "sv-latin1";
+
+  # Enable X11 with i3
+  services.xserver = {
     enable = true;
-    # Increase sensitivity to help with VM input
-    mouse = {
-      accelSpeed = "0.7";
+    displayManager.startx.enable = true;
+    windowManager.i3.enable = true;
+    
+    # Keyboard layout
+    xkb = {
+      layout = "se";
+      variant = "";
     };
-    touchpad = {
-      accelSpeed = "0.7";
-      disableWhileTyping = false;
-    };
+    
+    # Virtual environment-friendly video driver
+    videoDrivers = [ "modesetting" "fbdev" ];
   };
-  
-  # Disable any GPU-specific configuration
-  hardware.graphics = lib.mkForce {
-    enable = true;
-    # No specific GPU drivers for the VM
+
+  # Enable sound
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
+
+  # Define user account
+  users.users.traum = {
+    isNormalUser = true;
+    description = "Traum";
+    extraGroups = [ "audio" "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
   };
-  
-  # Video drivers for VM
-  services.xserver.videoDrivers = lib.mkForce [ "virtio" "modesetting" ];
-  
-  # Boot settings specific to ARM VM
-  boot.initrd.availableKernelModules = [ "virtio_pci" "virtio_blk" "virtio_scsi" "virtio_net" ];
-  boot.kernelParams = [ "console=ttyAMA0" ];
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  # Enable nix flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # No password sudo for user
+  security.sudo.extraRules = [
+    { users = [ "traum" ];
+      commands = [
+        { command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
+  # Essential packages
+  environment.systemPackages = with pkgs; [
+    # WM and desktop environment
+    i3-gaps
+    polybar
+    rofi
+    feh
+    picom
+    i3lock-color
+    i3lock-fancy
+    dunst
+    pywal
+    pywalfox
+    
+    # Terminal and tools
+    alacritty
+    zsh
+    starship
+    ranger
+    joshuto
+    fastfetch
+    htop
+    bottom
+    cbonsai
+    cmatrix
+    pipes-rs
+    zoxide
+    eza
+    bat
+    
+    # Development tools
+    vim
+    git
+    curl
+    wget
+    
+    # Applications
+    zathura
+    firefox
+    
+    # System tools
+    blesh
+    unzip
+    killall
+    brightnessctl
+    
+    # Media
+    mpv
+    
+    # Networking tools
+    networkmanager
+    
+    # Fonts
+    cozette
+    
+    # Additional utilities
+    ugrep
+    figlet
+  ];
+
+  # Basic services
+  services = {
+    openssh.enable = true;
+    udisks2.enable = true;
+    libinput.enable = true;
+  };
+
+  # Enable ZSH
+  programs.zsh.enable = true;
+
+  # System version
+  system.stateVersion = "23.11";
 }
