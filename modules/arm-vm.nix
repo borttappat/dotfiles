@@ -70,6 +70,12 @@
     }
   ];
 
+  # Editor-settings
+  environment.variables = {
+    EDITOR = "vim";
+    VISUAL = "vim";
+  };
+
   # Essential packages
   environment.systemPackages = with pkgs; [
     # WM and desktop environment

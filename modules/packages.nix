@@ -8,6 +8,12 @@
 
 {
 
+# Editor-settings
+environment.variables = {
+  EDITOR = "vim";
+  VISUAL = "vim";
+};
+
 # Librewolf-settings
  nixpkgs.config.packageOverrides = pkgs: {
     librewolf = pkgs.librewolf.override {
