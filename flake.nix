@@ -43,7 +43,7 @@
         
         # ARM VM specific configuration
         ./modules/arm-vm.nix
-        ./modules/boot.nix
+        ./modules/hwconf.nix 
         #./modules/armboot.nix
         
         # Core functionality modules (non-hardware specific)
