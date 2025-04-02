@@ -21,6 +21,7 @@ FILES=(
     "$HOME/dotfiles/i3/config.base:$HOME/.config/i3"
     "$HOME/dotfiles/i3/config1080p:$HOME/.config/i3"
     "$HOME/dotfiles/i3/config2880:$HOME/.config/i3"
+    "$HOME/dotfiles/i3/config3k:$HOME/.config/i3"
     "$HOME/dotfiles/i3/config4k:$HOME/.config/i3"
     
     "$HOME/dotfiles/polybar/config.ini:$HOME/.config/polybar"
