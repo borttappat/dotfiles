@@ -43,10 +43,12 @@
         
         # ARM VM specific configuration
         ./modules/arm-vm.nix
-        ./modules/armboot.nix
+        ./modules/boot.nix
         
         # Core functionality modules (non-hardware specific)
         #./modules/packages.nix
+        ./modules/pentesting.nix
+        #./modules/bloodhound.nix
         #./modules/services.nix
         #./modules/users.nix
         ./modules/colors.nix
