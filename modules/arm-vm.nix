@@ -78,12 +78,13 @@
     rofi
     feh
     picom
-    i3lock-color
-    i3lock-fancy
+    #i3lock-color
+    #i3lock-fancy
     dunst
     pywal
     pywalfox-native
     jq
+    flameshot
     
     # Terminal and tools
     alacritty
@@ -107,6 +108,7 @@
     # Development tools
     vim
     git
+    gh
     curl
     wget
     python3

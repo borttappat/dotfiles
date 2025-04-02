@@ -63,6 +63,7 @@
     10.10.10.239 love.htb staging.love.htb
     10.10.11.57 cypher.htb
     10.10.11.59 strutted.htb
+    10.10.11.61 haze.htb
 
 
     # GOAD
