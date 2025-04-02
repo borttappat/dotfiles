@@ -47,6 +47,10 @@ case $RESOLUTION in
         resolution_config="$CONFIG_DIR/config4k"
         echo "Using 4K config"
         ;;
+    "3024x1890")
+        resolution_config="$CONFIG_DIR/config3k"
+        echo "Using 3K config"
+        ;;
     *)
         resolution_config=""
         echo "No specific config for resolution $RESOLUTION, using defaults"

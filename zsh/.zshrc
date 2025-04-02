@@ -177,6 +177,7 @@ alias nb='nixbuild'
 
 alias flake='v ~/dotfiles/flake.nix'
 alias nixconf='v ~/dotfiles/modules/configuration.nix'
+alias armconf='v ~/dotfiles/modules/arm-vm.nix'
 alias nixpkgs='v ~/dotfiles/modules/packages.nix'
 alias np='nixpkgs'
 alias npp='v ~/dotfiles/modules/pentesting.nix'

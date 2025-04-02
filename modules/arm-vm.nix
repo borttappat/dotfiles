@@ -2,11 +2,6 @@
 
 {
   # Import your existing boot.nix (which will be populated by nixsetup.sh)
-  imports = [ 
-    ./modules/boot.nix
-  ];
-
-  # Basic networking
   networking.hostName = "nixos-arm";
   networking.networkmanager.enable = true;
 
@@ -47,8 +42,8 @@
   };
 
   # Enable sound
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  #sound.enable = true;
+  #hardware.pulseaudio.enable = true;
 
   # Define user account
   users.users.traum = {
@@ -83,11 +78,13 @@
     rofi
     feh
     picom
-    i3lock-color
-    i3lock-fancy
+    #i3lock-color
+    #i3lock-fancy
     dunst
     pywal
-    pywalfox
+    pywalfox-native
+    jq
+    flameshot
     
     # Terminal and tools
     alacritty
@@ -104,12 +101,17 @@
     zoxide
     eza
     bat
+    tmux
+
+    xorg.xev
     
     # Development tools
     vim
     git
+    gh
     curl
     wget
+    python3
     
     # Applications
     zathura
@@ -133,6 +135,10 @@
     # Additional utilities
     ugrep
     figlet
+  ];
+
+  fonts.packages = with pkgs; [
+    cozette
   ];
 
   # Basic services

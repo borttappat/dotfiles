@@ -17,10 +17,11 @@ fi
 FILES=(
     "$HOME/dotfiles/vim/.vimrc:$HOME"
 
-    "$HOME/dotfiles/i3/config:$HOME/.config/i3"
+    #"$HOME/dotfiles/i3/config:$HOME/.config/i3"
     "$HOME/dotfiles/i3/config.base:$HOME/.config/i3"
     "$HOME/dotfiles/i3/config1080p:$HOME/.config/i3"
     "$HOME/dotfiles/i3/config2880:$HOME/.config/i3"
+    "$HOME/dotfiles/i3/config3k:$HOME/.config/i3"
     "$HOME/dotfiles/i3/config4k:$HOME/.config/i3"
     
     "$HOME/dotfiles/polybar/config.ini:$HOME/.config/polybar"
@@ -31,6 +32,7 @@ FILES=(
     "$HOME/dotfiles/ranger/rc.conf:$HOME/.config/ranger"
     "$HOME/dotfiles/ranger/scope.sh:$HOME/.config/ranger"
     
+    "$HOME/dotfiles/starship/starship.toml:$HOME/.config"
     "$HOME/dotfiles/htop/htoprc:$HOME/.config/htop"
     
     "$HOME/dotfiles/joshuto/joshuto.toml:$HOME/.config/joshuto"
