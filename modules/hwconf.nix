@@ -1,11 +1,20 @@
 { config, lib, pkgs, ... }:
 
 let
-  # Get the ESP path from hardware-configuration if available
-  espPath = lib.findFirst
-    (fs: fs.mountPoint == "/boot" || fs.mountPoint == "/boot/efi")
-    { mountPoint = "/boot"; } # Default fallback if not found
-    config.fileSystems;
+  # Find the ESP path among the filesystems
+  getEspPath = filesystems:
+    let
+      # Filter filesystems to find ones mounted at /boot or /boot/efi
+      bootMounts = lib.filterAttrs 
+        (mountPoint: _: mountPoint == "/boot" || mountPoint == "/boot/efi") 
+        filesystems;
+      
+      # Get the first mount point (if any)
+      firstBoot = lib.head (lib.attrNames bootMounts);
+    in
+      if firstBoot != null then firstBoot else "/boot";
+  
+  espPath = getEspPath config.fileSystems;
 in {
   imports = [ /etc/nixos/hardware-configuration.nix ];
 
@@ -18,7 +27,7 @@ in {
     };
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = espPath.mountPoint;
+      efiSysMountPoint = espPath;
     };
   };
 }
