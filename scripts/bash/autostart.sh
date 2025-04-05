@@ -36,9 +36,12 @@ case $RESOLUTION in
     "3840x2160")
         polybar -q 4k &
         ;;
-    "3024x1890")
+    "3600x2252")
         polybar -q 3k &
         ;;
+    "2288x1436")
+        polybar -q 3k &
+        ;;    
     *)
         polybar -q main &  # Default to main bar
         ;;

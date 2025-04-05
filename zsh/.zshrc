@@ -121,6 +121,7 @@ alias rb='reboot'
 alias shutdown='shutdown -h now'
 alias sd='shutdown'
 alias suspend='systemctl suspend'
+alias time='sudo pentest-time -r Europe/Stockholm'
 
 alias bat='bat --theme=ansi'
 

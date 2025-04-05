@@ -21,7 +21,7 @@ elif echo "$RESOLUTIONS" | grep -q "1920x1080"; then
     # 1080p display
     echo "Detected 1080p display - using 1080p config"
     alacritty --config-file ~/dotfiles/alacritty/alacritty1080p.toml
-elif echo "$RESOLUTIONS" | grep -q "3024x1890"; then
+elif echo "$RESOLUTIONS" | grep -q "2288x1436"; then
     # 3k display
     echo "Detected 3k display - using 3k config"
     alacritty --config-file ~/dotfiles/alacritty/alacritty3k.toml

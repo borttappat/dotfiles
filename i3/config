@@ -243,7 +243,7 @@ focus_follows_mouse no
 tiling_drag modifier
 floating_modifier $mod
 
-# Resolution-specific settings for 3024x1890
+# Resolution-specific settings for 2288x1436
 # Resolution-specific settings for 3024x1890
 
 font CozetteVector:16
