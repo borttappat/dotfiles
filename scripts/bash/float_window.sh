@@ -58,13 +58,16 @@ echo "$window_count $current_x $current_y" > "$state_file"
 # Determine which configuration to use based on resolution and cursor position
 if [ "$RESOLUTION" = "1920x1080" ]; then
     # 1080p display
-    config_file="$HOME/.config/alacritty/alacritty1080p.toml"
+    config_file="$HOME/dotfiles/alacritty/alacritty1080p.toml"
+elif [ "$RESOLUTION" = "2288x1436" ]; then
+    # 3k display
+    config_file="$HOME/dotfiles/alacritty/alacritty3k.toml"
 elif [ "$RESOLUTION" = "3840x2160" ] || [ $current_x -ge 1920 ]; then
     # 4K display or position is on the 4K display
-    config_file="$HOME/.config/alacritty/alacritty4k.toml"
+    config_file="$HOME/dotfiles/alacritty/alacritty4k.toml"
 else
     # Default (likely internal display)
-    config_file="$HOME/.config/alacritty/alacritty.toml"
+    config_file="$HOME/dotfiles/alacritty/alacritty.toml"
 fi
 
 # Launch Alacritty at the new position with the appropriate configuration

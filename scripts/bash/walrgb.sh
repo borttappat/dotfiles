@@ -64,6 +64,9 @@ if [ $? -ne 0 ]; then
     "3840x2160")
       polybar -q 4k &
       ;;
+    "2288x1436")
+      polybar -q 3k &
+      ;;
     *)
       polybar -q main &  # Default to main bar
       ;;
