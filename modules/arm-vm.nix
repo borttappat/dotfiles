@@ -5,6 +5,32 @@
   networking.hostName = "nixos-arm";
   networking.networkmanager.enable = true;
 
+
+    # Enable Docker
+  virtualisation = {
+    docker = {
+      enable = true;
+      enableOnBoot = true;
+      # Ensure compatibility with ARM
+      extraOptions = "--add-runtime=crun=/run/current-system/sw/bin/crun";
+      daemon.settings = {
+        experimental = true;
+        "exec-opts" = ["native.cgroupdriver=systemd"];
+      };
+    };
+  };
+
+
+  # Ensure the service is created and enabled
+  systemd.services.docker = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Restart = "always";
+    };
+  };
+
+
+
   # Set your time zone
   time.timeZone = "Europe/Stockholm";
 
@@ -49,7 +75,7 @@
   users.users.traum = {
     isNormalUser = true;
     description = "Traum";
-    extraGroups = [ "audio" "networkmanager" "wheel" ];
+    extraGroups = [ "audio" "networkmanager" "wheel" "docker" ];
     shell = pkgs.zsh;
   };
 
@@ -91,6 +117,7 @@
     pywalfox-native
     jq
     flameshot
+    docker
     
     # Terminal and tools
     alacritty
@@ -122,6 +149,7 @@
     # Applications
     zathura
     firefox
+    obsidian
     
     # System tools
     blesh
@@ -141,6 +169,13 @@
     # Additional utilities
     ugrep
     figlet
+
+    # Docker-shit
+    docker-compose
+    docker-client
+    crun # Container runtime for better ARM support
+
+
   ];
 
   fonts.packages = with pkgs; [

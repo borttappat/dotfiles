@@ -175,6 +175,8 @@ alias nu='sh ~/dotfiles/scripts/bash/nixupdate.sh'
 alias ncg='sudo nix-collect-garbage -d'
 alias nixbuild='~/dotfiles/scripts/bash/nixbuild.sh'
 alias nb='nixbuild'
+alias ns='nix-shell'
+alias nsp='nix-shell -p'
 
 alias flake='v ~/dotfiles/flake.nix'
 alias nixconf='v ~/dotfiles/modules/configuration.nix'
