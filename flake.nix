@@ -145,8 +145,10 @@
             { nixpkgs.overlays = [ overlay-unstable ]; }
             
             # Base system configuration
-            ./modules/configuration-common.nix
-            ./modules/configuration-x86.nix
+            #./modules/configuration-common.nix
+            #./modules/configuration-x86.nix
+            ./modules/configuration.nix
+            ./modules/hwconf.nix
             
             # Device specific configurations
             ./modules/asus.nix
@@ -160,7 +162,7 @@
             ./modules/hosts.nix
             ./modules/zsh.nix
             ./modules/virt.nix
-            ./modules/boot.nix
+            #./modules/boot.nix
             ./modules/scripts.nix
             
             # Additional feature modules
