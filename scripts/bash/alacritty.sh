@@ -13,7 +13,7 @@ if echo "$RESOLUTIONS" | grep -q "2880x1800"; then
     # 1800p display
     echo "Detected 1800p display - using 1800p config"
     alacritty --config-file ~/dotfiles/alacritty/alacritty1800p.toml
-elif echo "$RESOLUTIONS" | grep -q "3840x2160"; then
+elif echo "$RESOLUTIONS" | grep -q "2560x1440"; then
     # 4K display
     echo "Detected 4K display - using 4K config"
     alacritty --config-file ~/dotfiles/alacritty/alacritty4k.toml

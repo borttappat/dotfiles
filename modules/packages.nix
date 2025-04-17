@@ -180,6 +180,8 @@ environment.variables = {
     whois
     warpd           #click stuff without mouse input
     ollama          #run llms locally
+    gpt4all
+    local-ai
     #khoj
     aichat          #CLI gpt-chatbot 
     #llm-ls

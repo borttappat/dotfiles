@@ -59,9 +59,9 @@ echo "$window_count $current_x $current_y" > "$state_file"
 if [ "$RESOLUTION" = "1920x1080" ]; then
     # 1080p display
     config_file="$HOME/dotfiles/alacritty/alacritty1080p.toml"
-elif [ "$RESOLUTION" = "2288x1436" ]; then
+elif [ "$RESOLUTION" = "2560x1440" ]; then
     # 3k display
-    config_file="$HOME/dotfiles/alacritty/alacritty3k.toml"
+    config_file="$HOME/dotfiles/alacritty/alacritty4k.toml"
 elif [ "$RESOLUTION" = "3840x2160" ] || [ $current_x -ge 1920 ]; then
     # 4K display or position is on the 4K display
     config_file="$HOME/dotfiles/alacritty/alacritty4k.toml"

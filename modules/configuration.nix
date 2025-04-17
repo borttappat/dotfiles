@@ -127,7 +127,7 @@
   };
 
   # Firewall settings
-  networking.firewall.allowedTCPPorts = [ 21 25 80 110 135 139 389 445 587 1234 1433 3128 3141 8080 4444 4445 8000 53 3389 ];
+  networking.firewall.allowedTCPPorts = [ 21 22 25 80 110 135 139 389 445 587 1234 1433 3128 3141 8080 4444 4445 8000 53 3389 ];
   networking.firewall.allowedUDPPorts = [ 137 138 53 389 1434 4444 5353 5355 5453 ];
   networking.firewall.enable = true;
   networking.nftables.enable = false;

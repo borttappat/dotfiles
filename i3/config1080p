@@ -1,4 +1,4 @@
-# Resolution-specific settings for 1920x1080
+# Resolution-specific settings for 1920x1080/1200
 
 font CozetteVector:12
 
@@ -12,3 +12,8 @@ gaps inner 10
 gaps top 30
 smart_gaps off
 
+
+# Workspace gaps for external Monitor
+workspace 2 gaps top 40 
+
+#exec_always --no-startup-id polybar -q 4k

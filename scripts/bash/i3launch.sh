@@ -39,6 +39,10 @@ case $RESOLUTION in
         resolution_config="$CONFIG_DIR/config1080p"
         echo "Using 1080p config"
         ;;
+    "1920x1200")
+        resolution_config="$CONFIG_DIR/config1080p"
+        echo "Using 1080p config"
+        ;;
     "2880x1800")
         resolution_config="$CONFIG_DIR/config2880"
         echo "Using 2880p config"
