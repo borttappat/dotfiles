@@ -18,8 +18,8 @@ environment.variables = {
  nixpkgs.config.packageOverrides = pkgs: {
     librewolf = pkgs.librewolf.override {
       extraPrefs = ''
-        pref("browser.startup.homepage", "http://127.0.0.1:8000/startpage.html");
-        pref("browser.newtab.url", "http://127.0.0.1:8000/startpage.html");
+        pref("browser.startup.homepage", "https://borttappat.github.io/links.html");
+        pref("browser.newtab.url", "https://borttappat.github.io/links.html");
         pref("browser.newtabpage.enabled", true);
         pref("browser.newtab.preload", true);
         pref("browser.newtabpage.enhanced", true);
@@ -154,7 +154,8 @@ environment.variables = {
     gping           #graphical ping tool
     openvpn         #openvpn-client
     brightnessctl   #brightness-handler
-    obsidian       #note taking tool
+    obsidian        #note taking tool
+    notesnook       #OS-alternative to obsidian
     #light           #backlight-controller
     #undervolt
     git
@@ -184,12 +185,9 @@ environment.variables = {
     local-ai
     #khoj
     aichat          #CLI gpt-chatbot 
-    #llm-ls
-    #llm
     unclutter       #hides mouse cursor when not in use
     unzip           #zip-archiving tool 
     tealdeer        #alternative to man
-    #lynis           #security auditing tool
     #udevil          #udisks replacement
     jq              #JSON processor
 

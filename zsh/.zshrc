@@ -189,6 +189,10 @@ alias nixsrv='v ~/dotfiles/modules/services.nix'
 
 alias i3conf='v ~/dotfiles/i3/config'
 alias zathconf='v ~/dotfiles/zathura/zathurarc'
+
+alias zathura='zathura --fork=false'
+alias zath='zathura'
+
 alias picomconf='v ~/dotfiles/picom/picom.conf'
 alias polyconf='v ~/dotfiles/polybar/config.ini'
 alias poc='polyconf'

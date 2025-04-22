@@ -44,21 +44,13 @@
         # ARM VM specific configuration
         ./modules/arm-vm.nix
         ./modules/hwconf.nix 
-        #./modules/armboot.nix
         
         # Core functionality modules (non-hardware specific)
-        #./modules/packages.nix
         ./modules/pentesting.nix
-        #./modules/bloodhound.nix
-        #./modules/services.nix
-        #./modules/users.nix
         ./modules/colors.nix
         ./modules/hosts.nix
         ./modules/zsh.nix
-        #./modules/scripts.nix
         
-        # Additional feature modules
-        ./modules/proxychains.nix
       ];
     };       
     
@@ -73,13 +65,10 @@
             { nixpkgs.overlays = [ overlay-unstable ]; }
 
             # Base system configuration
-            #./modules/configuration-common.nix
-            #./modules/configuration-x86.nix
             ./modules/configuration.nix
             
             # Device specific configurations
             ./modules/razer.nix
-            #./modules/razerconf.nix
             ./modules/hwconf.nix
             
             # Core functionality modules
@@ -88,11 +77,9 @@
             ./modules/users.nix
             ./modules/colors.nix
             ./modules/hosts.nix
-            #./modules/boot.nix
             ./modules/zsh.nix
             ./modules/virt.nix
             ./modules/scripts.nix
-            #./modules/nixi.nix
             
             # Additional feature modules
             ./modules/pentesting.nix
@@ -113,12 +100,12 @@
             { nixpkgs.overlays = [ overlay-unstable ]; }
 
             # Base system configuration
-            ./modules/configuration-common.nix
-            ./modules/configuration-x86.nix
+            ./modules/configuration.nix
             
             # Device specific configurations
             ./modules/xmg.nix
             ./modules/xmgconf.nix
+            ./modules/hwconf.nix
             
             # Core functionality modules
             ./modules/packages.nix
@@ -145,8 +132,6 @@
             { nixpkgs.overlays = [ overlay-unstable ]; }
             
             # Base system configuration
-            #./modules/configuration-common.nix
-            #./modules/configuration-x86.nix
             ./modules/configuration.nix
             ./modules/hwconf.nix
             
@@ -162,7 +147,6 @@
             ./modules/hosts.nix
             ./modules/zsh.nix
             ./modules/virt.nix
-            #./modules/boot.nix
             ./modules/scripts.nix
             
             # Additional feature modules
@@ -181,8 +165,8 @@
             { nixpkgs.overlays = [ overlay-unstable ]; }
             
             # Base system configuration
-            ./modules/configuration-common.nix
-            ./modules/configuration-x86.nix
+            ./modules/configuration.nix
+            ./modules/hwconf.nix
             
             # Core functionality modules
             ./modules/packages.nix
@@ -190,9 +174,7 @@
             ./modules/users.nix
             ./modules/colors.nix
             ./modules/hosts.nix
-            ./modules/boot.nix
             ./modules/zsh.nix 
-            ./modules/vm-common.nix
 
             # Additional feature modules
             ./modules/pentesting.nix
@@ -209,16 +191,14 @@
             { nixpkgs.overlays = [ overlay-unstable ]; }
             
             # Base system configuration
-            ./modules/configuration-common.nix
-            ./modules/configuration-x86.nix
+            ./modules/configuration.nix
+            ./modules/hwconf.nix
             
             # Core functionality modules
             ./modules/packages.nix
             ./modules/services.nix
             ./modules/users.nix
             ./modules/colors.nix
-            ./modules/hosts.nix
-            ./modules/boot.nix
             ./modules/zsh.nix
             ./modules/virt.nix
             ./modules/scripts.nix
