@@ -72,6 +72,11 @@ setopt NO_BEEP
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
+# mkcd command
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
 # Load pywal colors
 (cat ~/.cache/wal/sequences &)
 
@@ -177,6 +182,8 @@ alias nixbuild='~/dotfiles/scripts/bash/nixbuild.sh'
 alias nb='nixbuild'
 alias ns='nix-shell'
 alias nsp='nix-shell -p'
+
+alias md='mkdir -p'
 
 alias flake='v ~/dotfiles/flake.nix'
 alias nixconf='v ~/dotfiles/modules/configuration.nix'
