@@ -57,11 +57,13 @@ environment.variables = {
 # Compilers
     gcc
     python3
+    jython
 
 # Programs
     librewolf
     firefox
-    brave
+    #brave
+    #ungoogled-chromium
     mullvad
     #nyxt
     #qutebrowser
