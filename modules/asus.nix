@@ -37,9 +37,9 @@ in
     enable = true;
     settings = {
       # CPU settings
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "powersave";
       CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
       CPU_MIN_PERF_ON_AC = 0;
       CPU_MAX_PERF_ON_AC = 100;
@@ -67,15 +67,15 @@ in
       SOUND_POWER_SAVE_CONTROLLER = "Y";
       
       # WiFi power saving
-      WIFI_PWR_ON_AC = "off";
-      WIFI_PWR_ON_BAT = "on";
+      #WIFI_PWR_ON_AC = "off";
+      #WIFI_PWR_ON_BAT = "on";
       
       # USB autosuspend
       USB_AUTOSUSPEND = 1;
       
       # Battery care settings
       START_CHARGE_THRESH_BAT0 = 40; # Start charging when below 40%
-      STOP_CHARGE_THRESH_BAT0 = 80;  # Stop charging at 80%
+      STOP_CHARGE_THRESH_BAT0 = 100;  # Stop charging at X%
     };
   };
   
@@ -88,8 +88,8 @@ in
         turbo = "never"; # Disable turbo boost on battery
       };
       charger = {
-        governor = "performance";
-        turbo = "auto";
+        governor = "powersave";
+        turbo = "never";
       };
     };
   };
@@ -111,7 +111,7 @@ in
 
   # Boot and Kernel Configuration
   boot = {
-    kernelPackages = mkForce pkgs.linuxPackages_6_1;
+    kernelPackages = mkForce pkgs.linuxPackages_6_12;
     kernelParams = [
       "quiet"
       "splash"
