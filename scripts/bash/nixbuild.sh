@@ -44,4 +44,4 @@ elif [[ "$VENDOR" == *"Apple"* ]]; then
 else
     echo "Unknown host: $current_host, building default version. Modify flake.nix to adjust according to preferences"
     sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#default
-fi#!/run/current-system/sw/bin/bash
+fi
