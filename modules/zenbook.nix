@@ -14,7 +14,7 @@ hardware.graphics.extraPackages = with pkgs; [
 hardware.cpu.intel.updateMicrocode = true;
 
 # Enable power management services
-services.power-profiles-daemon.enable = true;
+#services.power-profiles-daemon.enable = true;
 services.thermald.enable = true;
 
 # Basic Intel OpenCL support
