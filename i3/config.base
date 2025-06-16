@@ -98,7 +98,8 @@ for_window [instance="floating"] resize set 800 450
 bindsym $mod+q kill
 
 # Start rofi
-bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id ~/dotfiles/scripts/bash/rofi.sh drun
+#bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 
 # Gap adjustment bindings
