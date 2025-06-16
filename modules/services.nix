@@ -21,9 +21,6 @@ networking = {
 # avoid issues with #/bin/bash scripts and alike
 services.envfs.enable = true;
 
-# Sound-settings
-services.pipewire.pulse.enable = true;
-
 # ollama, LLM
 services.ollama.enable = true;
 

@@ -3,7 +3,7 @@
 #|       |  ||_   _||   -   |__     |
 #|__|____|__||__.__||_______|_______|
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {   
   # Enable parallel startup of systemd services
@@ -116,19 +116,25 @@
   networking.hostName = "nix"; # Define your hostname.
   networking.networkmanager.enable = true;
 
-  # Sound settings
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;  # For PulseAudio compatibility
-    jack.enable = true;   # For JACK applications
-  };
-
+# Sound settings
+hardware.alsa.enable = true;
+hardware.firmware = with pkgs; [
+  sof-firmware
+];
+security.rtkit.enable = true;
+services.pipewire = {
+  enable = lib.mkForce true;
+  alsa.enable = true;
+  alsa.support32Bit = true;
+  pulse.enable = true;
+  jack.enable = true;
+};
   # Firewall settings
-  networking.firewall.allowedTCPPorts = [ 21 22 25 80 110 135 139 389 445 587 1234 1433 3128 3141 8080 4444 4445 8000 53 3389 ];
-  networking.firewall.allowedUDPPorts = [ 137 138 53 389 1434 4444 5353 5355 5453 ];
+  #networking.firewall.allowedTCPPorts = [ 21 22 25 80 110 135 139 389 445 587 1234 1433 3128 3141 8080 4444 4445 8000 53 3389 ];
+  networking.firewall.allowedTCPPorts = [ 22 80 8080 4444 4445 8000 ];
+  #networking.firewall.allowedUDPPorts = [ 137 138 53 389 1434 4444 5353 5355 5453 ];
+  networking.firewall.allowedUDPPorts = [ 22 53 80 4444 4445 5353 5355 5453 ];
+
   networking.firewall.enable = true;
   networking.nftables.enable = false;
 

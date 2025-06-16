@@ -15,3 +15,48 @@ window {
     border: 7px;
     width: 720px;
 }
+
+inputbar {
+    children: [prompt,entry];
+    border-radius: 2px;
+    padding: 2px;
+}
+
+prompt {
+    enabled: false;
+    padding: 5px;
+    border-radius: 3px;
+    margin: 5px 0px 0px 5px;
+}
+
+textbox-prompt-colon {
+    expand: false;
+    str: ":";
+}
+
+entry {
+    padding: 2px;
+    margin: 2px 0px 0px 2px;
+}
+
+listview {
+    border: 0px 0px 0px;
+    padding: 5px 0px 0px;
+    margin: 5px 0px 0px 5px;
+    columns: 1;
+}
+
+element {
+    padding: 1px;
+}
+
+
+mode-switcher {
+    spacing: 0;
+  }
+
+button {
+    padding: 10px;
+    vertical-align: 0.5;
+    horizontal-align: 0.5;
+}
