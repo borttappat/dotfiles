@@ -14,6 +14,7 @@ fi
 
 # Get hardware information for x86 systems
 current_host=$(hostnamectl | grep -i "Hardware Vendor")
+current_model=$(hostnamectl | grep -i "Hardware Model")
 
 # For Razer-hosts
 if echo "$current_host" | grep -q "Razer"; then
@@ -23,8 +24,8 @@ if echo "$current_host" | grep -q "Razer"; then
 elif echo "$current_host" | grep -q "QEMU"; then
     sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#VM 
 
-# For ASUS Zenbook specifically (check before general ASUS)
-elif echo "$current_host" | grep -qi "zenbook"; then
+# For ASUS Zenbook specifically (check model line for "Zenbook")
+elif echo "$current_model" | grep -qi "zenbook"; then
     sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
 
 # For other Asus-hosts
