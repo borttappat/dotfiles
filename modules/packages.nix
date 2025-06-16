@@ -14,20 +14,31 @@ environment.variables = {
   VISUAL = "vim";
 };
 
-# Librewolf-settings
- nixpkgs.config.packageOverrides = pkgs: {
-    librewolf = pkgs.librewolf.override {
-      extraPrefs = ''
-        pref("browser.startup.homepage", "https://borttappat.github.io/links.html");
-        pref("browser.newtab.url", "https://borttappat.github.io/links.html");
-        pref("browser.newtabpage.enabled", true);
-        pref("browser.newtab.preload", true);
-        pref("browser.newtabpage.enhanced", true);
-        pref("browser.newtabpage.activity-stream.showSearch", true);
-        pref("browser.newtabpage.activity-stream.default.sites", "");
-      '';
-    };
+nixpkgs.config.packageOverrides = pkgs: {
+  librewolf = pkgs.librewolf.override {
+    extraPrefs = ''
+      pref("browser.startup.homepage", "https://borttappat.github.io/links.html");
+      pref("browser.newtab.url", "https://borttappat.github.io/links.html");
+      pref("browser.newtabpage.enabled", true);
+      pref("browser.newtab.preload", true);
+      pref("browser.newtabpage.enhanced", true);
+      pref("browser.newtabpage.activity-stream.showSearch", true);
+      pref("browser.newtabpage.activity-stream.default.sites", "");
+    '';
   };
+  
+  firefox = pkgs.firefox.override {
+    extraPrefs = ''
+      pref("browser.startup.homepage", "https://borttappat.github.io/links.html");
+      pref("browser.newtab.url", "https://borttappat.github.io/links.html");
+      pref("browser.newtabpage.enabled", true);
+      pref("browser.newtab.preload", true);
+      pref("browser.newtabpage.enhanced", true);
+      pref("browser.newtabpage.activity-stream.showSearch", true);
+      pref("browser.newtabpage.activity-stream.default.sites", "");
+    '';
+  };
+};
 
 # Allowing unfree and unstable packages
 # I'm sorry, Stallman
