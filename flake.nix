@@ -122,39 +122,6 @@
           ];
         }; 
 
-        # Zenbook configuration  
-zenbook = nixpkgs.lib.nixosSystem {
-  system = "x86_64-linux";
-  modules = [
-    { nixpkgs.config.allowUnfree = true; }
-    { nixpkgs.overlays = [ overlay-unstable ]; }
-    
-    # Base system configuration
-    ./modules/configuration.nix
-    ./modules/hwconf.nix
-    
-    # Device specific configurations
-    ./modules/zenbook.nix
-    ./modules/zenbookconf.nix
-    
-    # Core functionality modules
-    ./modules/packages.nix
-    ./modules/services.nix
-    ./modules/users.nix
-    ./modules/colors.nix
-    ./modules/hosts.nix
-    ./modules/zsh.nix
-    ./modules/virt.nix
-    ./modules/scripts.nix
-    
-    # Additional feature modules
-    ./modules/pentesting.nix
-    ./modules/proxychains.nix
-    ./modules/dev.nix
-    ./modules/steam.nix
-  ];
-};  
-
     #Zenbook configuration  
     zenbook = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
