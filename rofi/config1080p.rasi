@@ -1,0 +1,17 @@
+@import "~/.cache/wal/colors-rofi-dark"
+
+configuration{
+    modi: "run,drun,window";
+    lines: 10;
+    font: "CozetteVector 10";
+    terminal: "alacritty";
+    location: 0;
+    disable-history: false;
+    scrollbar: false;
+}
+
+window {
+    height: 240px;
+    border: 6px;
+    width: 480px;
+}
