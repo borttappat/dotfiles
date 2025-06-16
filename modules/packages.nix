@@ -46,6 +46,10 @@ environment.variables = {
 # Packages to install on a system-wide level
     environment.systemPackages = with pkgs; [
 
+     (writeShellScriptBin "burp" ''
+    ${burpsuite}/bin/burpsuite --project-file=memory:// --user-config-file=memory://
+  '')
+
 # Editors
     vim
     #neovim
@@ -60,6 +64,7 @@ environment.variables = {
     jython
 
 # Programs
+    krita
     librewolf
     firefox
     #brave
