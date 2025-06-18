@@ -134,8 +134,8 @@
         ./modules/hwconf.nix
         
         # Device specific configurations
-        ./modules/zenbook.nix
-        #./modules/zenbookconf.nix
+        #./modules/zenbook.nix
+        ./modules/zenbookconf.nix
         
         # Core functionality modules
         ./modules/packages.nix
