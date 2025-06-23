@@ -1,67 +1,70 @@
-{ config, pkgs, ... }: let
-  my-alsa-ucm = pkgs.alsa-ucm-conf.overrideAttrs (oldAttrs: {
-    src = fetchTarball {
-      url = "https://github.com/alsa-project/alsa-ucm-conf/archive/fc17ed4.tar.gz";
-      sha256 = "sha256:0krh3r9frzjcv0gj85dljb9776mfjmw18m0ph9lf3n0n4b129xzz";
-    };
-    installPhase = ''
-      mkdir -p $out/share/alsa
-      cp -r ucm2 $out/share/alsa/
-    '';
-    postInstall = "";
-  });
+{ config, pkgs, lib, ... }:
 
-  env = {
-    ALSA_CONFIG_UCM = "${my-alsa-ucm}/share/alsa/ucm";
-    ALSA_CONFIG_UCM2 = "${my-alsa-ucm}/share/alsa/ucm2";
+{
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
+
+  boot.kernelParams = [
+    "acpi_enforce_resources=lax"
+    "intel_iommu=igfx_off"
+  ];
+
+  hardware.graphics.extraPackages = with pkgs; [
+    intel-media-driver
+    vaapiIntel
+    vaapiVdpau
+    libvdpau-va-gl
+  ];
+
+  hardware.cpu.intel.updateMicrocode = true;
+  hardware.enableRedistributableFirmware = true;
+  hardware.enableAllFirmware = true;
+
+  services.thermald.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    intel-compute-runtime
+    ocl-icd
+    alsa-utils
+    pavucontrol
+  ];
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
   };
-in {
 
-# Intel graphics and hardware acceleration
-hardware.graphics.extraPackages = with pkgs; [
-  intel-media-driver
-  vaapiIntel
-  vaapiVdpau
-  libvdpau-va-gl
-];
+  services.blueman.enable = true;
 
-# Intel CPU optimizations
-hardware.cpu.intel.updateMicrocode = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    wireplumber.enable = true;
+  };
 
-# Enable power management services
-#services.power-profiles-daemon.enable = true;
-services.thermald.enable = true;
+  # Gaming performance configuration
+  gaming.performance = {
+    enable = true;
+    kernel.useZenKernel = false;        # Keep linuxPackages_latest
+    kernel.enableGameParams = true;
+    kernel.disableMitigations = false;  # Keep security
+    memory.enableZramOptimization = true;
+    memory.zramPercent = 25;            # Override configuration.nix 50%
+    display.enableRefreshRateOptimization = true;
+    display.maxRefreshRate = 120;       # OLED display refresh rate
+    network.enableOptimizations = true;
+    power.enableGamingProfile = true;   # Use TLP
+    gpu.enableOptimizations = true;
+    io.enableOptimizations = true;
+    audio.enableLowLatency = false;     # Disabled since you removed audio components
+  };
 
-# Basic Intel OpenCL support
-environment.systemPackages = with pkgs; [
-  intel-compute-runtime
-  ocl-icd
-  alsa-topology-conf
-  alsa-firmware
-  alsa-utils
-  my-alsa-ucm
-];
-
-# Enable bluetooth
-hardware.bluetooth = {
-  enable = true;
-  powerOnBoot = true;
-};
-
-services.blueman.enable = true;
-
-# Audio configuration for Lunar Lake
-environment.variables = env;
-environment.sessionVariables = env;
-systemd.user.services.pipewire.environment.ALSA_CONFIG_UCM = config.environment.variables.ALSA_CONFIG_UCM;
-systemd.user.services.pipewire.environment.ALSA_CONFIG_UCM2 = config.environment.variables.ALSA_CONFIG_UCM2;
-systemd.user.services.wireplumber.environment.ALSA_CONFIG_UCM = config.environment.variables.ALSA_CONFIG_UCM;
-systemd.user.services.wireplumber.environment.ALSA_CONFIG_UCM2 = config.environment.variables.ALSA_CONFIG_UCM2;
-
-hardware.firmware = [
-  pkgs.sof-firmware
-  pkgs.linux-firmware
-  pkgs.alsa-firmware
-];
-
+  hardware.firmware = [
+    pkgs.sof-firmware
+    pkgs.linux-firmware
+    pkgs.alsa-firmware
+  ];
 }

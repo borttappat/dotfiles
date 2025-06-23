@@ -50,6 +50,7 @@
         ./modules/colors.nix
         ./modules/hosts.nix
         ./modules/zsh.nix
+        ./modules/audio.nix
         
       ];
     };       
@@ -80,6 +81,7 @@
             ./modules/zsh.nix
             ./modules/virt.nix
             ./modules/scripts.nix
+            ./modules/audio.nix
             
             # Additional feature modules
             ./modules/pentesting.nix
@@ -113,6 +115,8 @@
             ./modules/zsh.nix
             ./modules/virt.nix
             ./modules/scripts.nix
+            ./modules/audio.nix
+
             
             # Additional feature modules
             ./modules/pentesting.nix
@@ -134,8 +138,9 @@
         ./modules/hwconf.nix
         
         # Device specific configurations
-        #./modules/zenbook.nix
-        ./modules/zenbookconf.nix
+        ./modules/zenbook.nix
+        #./modules/zenbookconf.nix
+        ./modules/zenbook-audio.nix
         
         # Core functionality modules
         ./modules/packages.nix
@@ -152,6 +157,7 @@
         ./modules/proxychains.nix
         ./modules/dev.nix
         ./modules/steam.nix
+        ./modules/gaming.nix
       ];
     };
         
@@ -241,6 +247,7 @@
             ./modules/colors.nix
             ./modules/hosts.nix
             ./modules/zsh.nix 
+            ./modules/audio.nix
 
             # Additional feature modules
             ./modules/pentesting.nix
@@ -268,6 +275,8 @@
             ./modules/zsh.nix
             ./modules/virt.nix
             ./modules/scripts.nix
+            ./modules/audio.nix
+
           ];
         };
       };

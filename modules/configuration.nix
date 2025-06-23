@@ -115,36 +115,7 @@
   # Networking/Hostname
   networking.hostName = "nix"; # Define your hostname.
   networking.networkmanager.enable = true;
-/*
-    # Sound settings
-    hardware.alsa.enable = true;
-    hardware.firmware = with pkgs; [
-      sof-firmware
-    ];
-    security.rtkit.enable = true;
-    services.pipewire = {
-      enable = lib.mkForce true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-    };
 
-*/
-
-#hardware.pulseaudio.enable = false;
-#services.pipewire.enable = false;
-#security.rtkit.enable = false;
-
-services.pulseaudio.enable = false;
-security.rtkit.enable = true;
-services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    wireplumber.enable = true;
-    };
 
   # Firewall settings
   #networking.firewall.allowedTCPPorts = [ 21 22 25 80 110 135 139 389 445 587 1234 1433 3128 3141 8080 4444 4445 8000 53 3389 ];

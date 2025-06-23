@@ -137,7 +137,7 @@ EOF
         amixer -c 0 sset 'cs42l43 Headphone Digital' 0,0 2>/dev/null || true
         
         # Set PipeWire default
-        wpctl set-default $(wpctl status | grep -E "pro-output-2|Speaker" | head -1 | awk '{print $2}' | tr -d '.')
+        wpctl set-default $(wpctl status | grep -E "pro-output-2|Speaker" | head -1 | awk '{print $2}' | tr -d '.') 2>/dev/null || echo "PipeWire device switch failed"
         
         echo "Switched to speakers"
     }
@@ -145,41 +145,26 @@ EOF
     enable_headphones() {
         echo "Switching to headphones..."
         
-        # Set headphone routing and volume
+        # Configure headphone routing and enable
         amixer -c 0 cset name='cs42l43 Headphone L Input 1' 'DP5RX1'
         amixer -c 0 cset name='cs42l43 Headphone R Input 1' 'DP5RX2'
-        amixer -c 0 sset 'cs42l43 Headphone Digital' 50%
+        amixer -c 0 sset 'cs42l43 Headphone Digital' ${toString config.hardware.zenbook-audio.defaultVolume}% 2>/dev/null || amixer -c 0 sset 'cs42l43 Headphone Digital' 50%
         amixer -c 0 sset 'Headphone' on
         
-        # Optionally mute speakers to avoid feedback
-        # amixer -c 0 sset 'cs42l43 Speaker Digital' off
+        # Mute speakers
+        amixer -c 0 sset 'cs42l43 Speaker Digital' off 2>/dev/null || true
         
         # Set PipeWire default
-        wpctl set-default $(wpctl status | grep -E "pro-output-0|Jack" | head -1 | awk '{print $2}' | tr -d '.')
+        wpctl set-default $(wpctl status | grep -E "pro-output-0|Headphone" | head -1 | awk '{print $2}' | tr -d '.') 2>/dev/null || echo "PipeWire device switch failed"
         
         echo "Switched to headphones"
     }
     
     show_status() {
         echo "=== ZenBook Audio Status ==="
+        echo "Sound card: $CARD"
         echo ""
-        
-        echo "PipeWire devices:"
-        wpctl status | grep -A 20 "Audio" | grep -E "(Sinks:|Sources:|\*.*Controller)"
-        echo ""
-        
-        echo "Speaker status:"
-        for i in {1..4}; do
-            amixer -c 0 sget "AMP$i Speaker" | grep -E "(Mono:|Front)"
-        done
-        amixer -c 0 sget 'cs42l43 Speaker Digital' | grep -E "(Front|Mono)"
-        echo ""
-        
-        echo "Headphone status:"
-        amixer -c 0 sget 'cs42l43 Headphone Digital' | grep -E "(Front|Mono)" || echo "Headphone control not found"
-        echo ""
-        
-        echo "Current default sink:"
+        echo "Current PipeWire default sink:"
         wpctl status | grep -E "\*.*Controller" || echo "No default sink found"
     }
     
@@ -235,7 +220,6 @@ in {
     
     # Force disable any existing audio configurations
     hardware.pulseaudio.enable = mkForce false;
-    services.pipewire.pulse.enable = mkForce true;
     
     # Ensure latest kernel for Lunar Lake support  
     boot.kernelPackages = mkForce pkgs.linuxPackages_latest;
@@ -411,7 +395,7 @@ in {
       ''}
     '';
     
-    # Audio initialization service
+    # Audio initialization service - SINGLE DEFINITION ONLY
     systemd.user.services.zenbook-audio-init = {
       description = "ZenBook Audio Initialization";
       wantedBy = [ "pipewire.service" ];
