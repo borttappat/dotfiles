@@ -102,6 +102,13 @@
 
   environment.variables = {
     GTK_THEME = "Adwaita:dark";
+    GDK_SCALE = "1.5";
+    GDK_DPI_SCALE = "1.0";
+    QT_SCALE_FACTOR = "1.5";
+    XCURSOR_SIZE = "32";
+
+    MOZ_ENABLE_WAYLAND = "1";
+    MOZ_USE_XINPUT2 = "1";
   };
 
   environment.etc."gtk-3.0/settings.ini".text = ''

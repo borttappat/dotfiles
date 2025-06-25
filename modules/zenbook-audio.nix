@@ -219,7 +219,7 @@ in {
   config = mkIf config.hardware.zenbook-audio.enable {
     
     # Force disable any existing audio configurations
-    hardware.pulseaudio.enable = mkForce false;
+    # hardware.pulseaudio.enable = mkForce false;
     
     # Ensure latest kernel for Lunar Lake support  
     boot.kernelPackages = mkForce pkgs.linuxPackages_latest;

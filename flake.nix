@@ -140,7 +140,7 @@
         # Device specific configurations
         ./modules/zenbook.nix
         #./modules/zenbookconf.nix
-        ./modules/zenbook-audio.nix
+        #./modules/zenaudio.nix
         
         # Core functionality modules
         ./modules/packages.nix
@@ -158,6 +158,7 @@
         ./modules/dev.nix
         ./modules/steam.nix
         ./modules/gaming.nix
+        ./modules/audio.nix
       ];
     };
         

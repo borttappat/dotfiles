@@ -50,8 +50,8 @@ nixpkgs.config.packageOverrides = pkgs: {
 # Fonts
     fonts.packages = with pkgs; [
     cozette
-    #hack-font
-    #creep
+    hack-font
+    creep
     ];
 
 # Packages to install on a system-wide level

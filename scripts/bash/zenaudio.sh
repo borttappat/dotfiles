@@ -1,15 +1,12 @@
 #!/bin/bash
 
-# ZenBook S14 Audio Switch Script
-# Tested and working on ASUS ZenBook S14 UX5406SA with SOF audio
-
 set -e
 
 CARD="sofsoundwire"
 CARD_NUM=0
 
 usage() {
-    echo "ZenBook Audio Switch - Manual device switching for ZenBook S14"
+    echo "ZenBook Audio Switch - Dynamic device detection"
     echo ""
     echo "Usage: $0 [speakers|headphones|status|toggle|test|volume|mute|unmute]"
     echo ""
@@ -27,346 +24,274 @@ usage() {
     echo "  status       Show current audio device status"
     echo "  test         Test current audio output with tone"
     echo ""
-    echo "Examples:"
-    echo "  $0 headphones    # Switch to headphones"
-    echo "  $0 volume +      # Increase volume by 5%"
-    echo "  $0 volume 75     # Set volume to 75%"
-    echo "  $0 mute          # Mute current device"
-    echo "  $0 test          # Play test tone"
-    echo ""
     exit 1
 }
 
 check_dependencies() {
-    for cmd in amixer wpctl aplay; do
+    for cmd in amixer wpctl aplay pactl; do
         if ! command -v "$cmd" >/dev/null 2>&1; then
             echo "Error: Required command '$cmd' not found"
-            echo "Please install alsa-utils and pipewire tools"
             exit 1
         fi
     done
 }
 
-get_current_device() {
-    # Returns "speakers", "headphones", or "unknown"
-    CURRENT_DEFAULT=$(wpctl status | grep -E "\*.*Controller Pro")
-    
-    if echo "$CURRENT_DEFAULT" | grep -q "Pro 2"; then
-        echo "speakers"
-    elif echo "$CURRENT_DEFAULT" | grep -q "Pro \["; then
-        echo "headphones"
-    else
-        echo "unknown"
+ensure_card_profile() {
+    local card_name=$(pactl list cards short | grep -E "sof|soundwire" | head -1 | awk '{print $2}')
+    if [ -n "$card_name" ]; then
+        pactl set-card-profile "$card_name" pro-audio >/dev/null 2>&1 || true
+        sleep 1
     fi
 }
 
-get_current_volume() {
-    # Returns current volume percentage
-    local device_type=$(get_current_device)
+find_device_ids() {
+    local headphone_id=""
+    local speaker_id=""
+    local debug=${DEBUG:-0}
     
-    case "$device_type" in
-        speakers)
-            # For speakers, use PipeWire volume
-            wpctl get-volume 47 2>/dev/null | awk '{print int($2*100)}' || echo "0"
-            ;;
-        headphones)
-            # For headphones, use ALSA volume
-            amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' | grep "Front Left:" | awk '{print $4}' | tr -d '[]%' | head -1
-            ;;
-        *)
-            echo "0"
-            ;;
-    esac
-}
-
-set_volume() {
-    local target_volume="$1"
-    local device_type=$(get_current_device)
+    [ "$debug" = "1" ] && echo "=== Debug: Finding device IDs ===" >&2
     
-    # Validate volume range
-    if [ "$target_volume" -lt 0 ]; then
-        target_volume=0
-    elif [ "$target_volume" -gt 100 ]; then
-        target_volume=100
+    # Get all sink IDs from wpctl status - handle box-drawing characters and asterisks
+    local sink_ids=($(wpctl status | sed -n '/Sinks:/,/Sources:/p' | grep -E "│.*[0-9]+\." | \
+                     awk '{
+                         # Find the field with digits followed by a dot
+                         for(i=1; i<=NF; i++) {
+                             if($i ~ /^[0-9]+\.$/) {
+                                 gsub(/\./, "", $i);
+                                 print $i;
+                                 break;
+                             }
+                         }
+                     }'))
+    
+    [ "$debug" = "1" ] && echo "Found sink IDs: ${sink_ids[@]}" >&2
+    
+    # Check each sink ID for its profile
+    for id in "${sink_ids[@]}"; do
+        if [[ "$id" =~ ^[0-9]+$ ]]; then
+            local profile=$(wpctl inspect "$id" 2>/dev/null | grep "device.profile.name" | cut -d'"' -f2)
+            
+            [ "$debug" = "1" ] && echo "ID $id has profile: $profile" >&2
+            
+            if [[ "$profile" == "pro-output-0" ]]; then
+                headphone_id="$id"
+            elif [[ "$profile" == "pro-output-2" ]]; then
+                speaker_id="$id"
+            fi
+        fi
+    done
+    
+    # Validate results
+    if [ -z "$headphone_id" ] || [ -z "$speaker_id" ]; then
+        echo "Error: Failed to find device IDs (headphones=$headphone_id, speakers=$speaker_id)" >&2
+        echo "Available sinks from wpctl status:" >&2
+        wpctl status | sed -n '/Sinks:/,/Sources:/p' | grep "│" >&2
+        return 1
     fi
     
-    case "$device_type" in
-        speakers)
-            echo "Setting speaker volume to ${target_volume}%..."
-            wpctl set-volume 47 "${target_volume}%" 2>/dev/null || echo "Warning: Could not set speaker volume"
-            ;;
-        headphones)
-            echo "Setting headphone volume to ${target_volume}%..."
-            amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' "${target_volume}%" >/dev/null || echo "Warning: Could not set headphone volume"
-            ;;
-        *)
-            echo "Error: No audio device currently active"
-            return 1
-            ;;
-    esac
-    
-    echo "Volume set to ${target_volume}%"
-}
-
-adjust_volume() {
-    local adjustment="$1"
-    local current_volume=$(get_current_volume)
-    local new_volume
-    
-    case "$adjustment" in
-        +)
-            new_volume=$((current_volume + 5))
-            ;;
-        -)
-            new_volume=$((current_volume - 5))
-            ;;
-        [0-9]*)
-            new_volume="$adjustment"
-            ;;
-        *)
-            echo "Error: Invalid volume adjustment '$adjustment'"
-            echo "Use: + (up 5%), - (down 5%), or a number (0-100)"
-            return 1
-            ;;
-    esac
-    
-    set_volume "$new_volume"
-}
-
-mute_device() {
-    local device_type=$(get_current_device)
-    
-    case "$device_type" in
-        speakers)
-            echo "Muting speakers..."
-            wpctl set-mute 47 1 2>/dev/null || echo "Warning: Could not mute speakers"
-            ;;
-        headphones)
-            echo "Muting headphones..."
-            amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 0% >/dev/null || echo "Warning: Could not mute headphones"
-            ;;
-        *)
-            echo "Error: No audio device currently active"
-            return 1
-            ;;
-    esac
-    
-    echo "Device muted"
-}
-
-unmute_device() {
-    local device_type=$(get_current_device)
-    
-    case "$device_type" in
-        speakers)
-            echo "Unmuting speakers..."
-            wpctl set-mute 47 0 2>/dev/null || echo "Warning: Could not unmute speakers"
-            ;;
-        headphones)
-            echo "Unmuting headphones..."
-            amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 50% >/dev/null || echo "Warning: Could not unmute headphones"
-            ;;
-        *)
-            echo "Error: No audio device currently active"
-            return 1
-            ;;
-    esac
-    
-    echo "Device unmuted"
+    echo "$headphone_id $speaker_id"
 }
 
 check_card() {
     if ! aplay -l | grep -q "$CARD"; then
         echo "Error: $CARD sound card not found"
-        echo "This script is designed for ZenBook S14 with SOF audio"
         exit 1
+    fi
+    
+    ensure_card_profile
+}
+
+get_device_ids() {
+    if [ -z "$HEADPHONE_DEVICE" ] || [ -z "$SPEAKER_DEVICE" ]; then
+        local devices=$(find_device_ids)
+        if [ $? -eq 0 ]; then
+            HEADPHONE_DEVICE=$(echo $devices | awk '{print $1}')
+            SPEAKER_DEVICE=$(echo $devices | awk '{print $2}')
+        else
+            echo "Error: Failed to find device IDs"
+            exit 1
+        fi
+    fi
+}
+
+get_current_device() {
+    HEADPHONE_VOL=$(amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' 2>/dev/null | grep "Front Left:" | awk '{print $4}' | tr -d '[]%' | head -1 || echo "0")
+    if [ "$HEADPHONE_VOL" -gt 0 ] 2>/dev/null; then
+        echo "headphones"
+    else
+        echo "speakers"
     fi
 }
 
 enable_speakers() {
-    echo "Switching to speakers..."
+    get_device_ids
+    echo "Switching to speakers (device $SPEAKER_DEVICE)..."
     
-    # Enable all speaker amplifiers
-    echo "  - Enabling speaker amplifiers..."
     amixer -c $CARD_NUM sset 'AMP1 Speaker' on >/dev/null
     amixer -c $CARD_NUM sset 'AMP2 Speaker' on >/dev/null
     amixer -c $CARD_NUM sset 'AMP3 Speaker' on >/dev/null
     amixer -c $CARD_NUM sset 'AMP4 Speaker' on >/dev/null
-    
-    # Enable speaker digital output
-    echo "  - Enabling speaker digital output..."
     amixer -c $CARD_NUM sset 'cs42l43 Speaker Digital' on >/dev/null
-    amixer -c $CARD_NUM sset 'Speaker' on >/dev/null
+    amixer -c $CARD_NUM sset 'Speaker' on >/dev/null 2>&1 || true
     
-    # Set speaker input routing
-    echo "  - Setting speaker routing..."
     amixer -c $CARD_NUM cset name='cs42l43 Speaker L Input 1' 'DP5RX1' >/dev/null
     amixer -c $CARD_NUM cset name='cs42l43 Speaker R Input 1' 'DP5RX2' >/dev/null
     
-    # Lower headphone volume to avoid feedback
-    echo "  - Muting headphones..."
-    amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 0,0 >/dev/null 2>&1 || true
+    amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 0% >/dev/null 2>&1 || true
     
-    # Set PipeWire default to speakers (device 2 = speakers)
-    echo "  - Setting PipeWire default..."
-    # Look for "Pro 2" device (speakers) 
-    SPEAKER_ID=$(wpctl status | grep -E "Controller Pro 2" | head -1 | awk '{print $2}' | tr -d '.')
-    if [ -n "$SPEAKER_ID" ]; then
-        wpctl set-default "$SPEAKER_ID" >/dev/null 2>&1 || echo "    Warning: Could not set PipeWire default"
-        # Set reasonable speaker volume if it's too low
-        CURRENT_VOL=$(wpctl get-volume "$SPEAKER_ID" 2>/dev/null | awk '{print int($2*100)}' || echo "0")
-        if [ "$CURRENT_VOL" -lt 30 ]; then
-            wpctl set-volume "$SPEAKER_ID" 50% >/dev/null 2>&1
-            echo "    Set default to device $SPEAKER_ID (speakers) at 50% volume"
-        else
-            echo "    Set default to device $SPEAKER_ID (speakers)"
-        fi
-    else
-        # Fallback: try device 47 directly
-        wpctl set-default 47 >/dev/null 2>&1 && echo "    Set default to device 47 (speakers)" || echo "    Warning: Could not set PipeWire default"
-    fi
+    wpctl set-default $SPEAKER_DEVICE >/dev/null 2>&1
+    wpctl set-volume $SPEAKER_DEVICE 50% >/dev/null 2>&1
     
-    echo "✓ Switched to speakers (device hw:$CARD,2)"
+    echo "✓ Switched to speakers"
 }
 
 enable_headphones() {
-    echo "Switching to headphones..."
+    get_device_ids
+    echo "Switching to headphones (device $HEADPHONE_DEVICE)..."
     
-    # Set headphone input routing
-    echo "  - Setting headphone routing..."
     amixer -c $CARD_NUM cset name='cs42l43 Headphone L Input 1' 'DP5RX1' >/dev/null
     amixer -c $CARD_NUM cset name='cs42l43 Headphone R Input 1' 'DP5RX2' >/dev/null
-    
-    # Set headphone volume to 50%
-    echo "  - Setting headphone volume..."
     amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 50% >/dev/null
-    amixer -c $CARD_NUM sset 'Headphone' on >/dev/null
+    amixer -c $CARD_NUM sset 'Headphone' on >/dev/null 2>&1 || true
     
-    # Optional: Mute speakers to avoid feedback
-    # echo "  - Muting speakers..."
-    # amixer -c $CARD_NUM sset 'cs42l43 Speaker Digital' off >/dev/null
+    wpctl set-default $HEADPHONE_DEVICE >/dev/null 2>&1
     
-    # Set PipeWire default to headphones (device 0 = headphones)
-    echo "  - Setting PipeWire default..."
-    # Look for "Pro" device without number (headphones)
-    HEADPHONE_ID=$(wpctl status | grep -E "Controller Pro \[" | head -1 | awk '{print $2}' | tr -d '.')
-    if [ -n "$HEADPHONE_ID" ]; then
-        wpctl set-default "$HEADPHONE_ID" >/dev/null 2>&1 || echo "    Warning: Could not set PipeWire default"
-        echo "    Set default to device $HEADPHONE_ID (headphones)"
-    else
-        # Fallback: try device 46 directly  
-        wpctl set-default 46 >/dev/null 2>&1 && echo "    Set default to device 46 (headphones)" || echo "    Warning: Could not set PipeWire default"
-    fi
-    
-    echo "✓ Switched to headphones (device hw:$CARD,0)"
+    echo "✓ Switched to headphones"
 }
 
 show_status() {
+    get_device_ids
     echo "=== ZenBook Audio Status ==="
     echo ""
     
-    echo "Hardware devices:"
-    aplay -l | grep "$CARD" | sed 's/^/  /'
+    device_type=$(get_current_device)
+    echo "Current device: $device_type"
+    echo "Dynamic devices: Headphones=$HEADPHONE_DEVICE, Speakers=$SPEAKER_DEVICE"
+    
     echo ""
+    echo "PipeWire status:"
+    wpctl status | grep -A 10 "Sinks:" | grep -E "^\s*[0-9]+\.|^Audio" | sed 's/^/  /'
     
-    echo "PipeWire sinks:"
-    wpctl status | grep -A 10 "Sinks:" | grep -E "(Sinks:|\*.*Controller|[0-9]+\. )" | sed 's/^/  /'
     echo ""
+    echo "Hardware status:"
+    local speaker_status=$(amixer -c $CARD_NUM sget 'cs42l43 Speaker Digital' 2>/dev/null | grep -o "\[on\]\|\[off\]" | head -1 || echo "[unknown]")
+    local headphone_vol=$(amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' 2>/dev/null | grep "Front Left:" | awk '{print $4}' | tr -d '[]' || echo "unknown")
+    echo "  Speakers: $speaker_status"
+    echo "  Headphones: $headphone_vol"
     
-    echo "Speaker amplifier status:"
-    for i in {1..4}; do
-        STATUS=$(amixer -c $CARD_NUM sget "AMP$i Speaker" | grep "Mono:" | grep -o "\[on\]\|\[off\]")
-        echo "  AMP$i Speaker: $STATUS"
-    done
-    
-    SPEAKER_DIGITAL=$(amixer -c $CARD_NUM sget 'cs42l43 Speaker Digital' | grep "Front Left:" | grep -o "\[on\]\|\[off\]")
-    echo "  Speaker Digital: $SPEAKER_DIGITAL"
     echo ""
-    
-    echo "Headphone status:"
-    HEADPHONE_VOL=$(amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' | grep "Front Left:" | awk '{print $4}' | tr -d '[]')
-    echo "  Headphone Volume: $HEADPHONE_VOL"
-    echo ""
-    
-    echo "Current device & volume:"
-    local device_type=$(get_current_device)
-    local current_volume=$(get_current_volume)
-    
-    case "$device_type" in
-        speakers)
-            local mute_status=$(wpctl get-volume 47 2>/dev/null | grep -o "MUTED" || echo "")
-            echo "  ✓ Speakers: ${current_volume}% ${mute_status}"
-            ;;
-        headphones)
-            if [ "$current_volume" = "0" ]; then
-                echo "  ✓ Headphones: ${current_volume}% MUTED"
-            else
-                echo "  ✓ Headphones: ${current_volume}%"
-            fi
-            ;;
-        *)
-            echo "  ? Unknown device"
-            ;;
-    esac
-    echo ""
-    
-    echo "Current PipeWire default:"
-    CURRENT_DEFAULT=$(wpctl status | grep -E "\*.*Controller" | head -1)
-    if echo "$CURRENT_DEFAULT" | grep -q "Pro 2"; then
-        echo "  ✓ Speakers (device $(echo "$CURRENT_DEFAULT" | awk '{print $2}' | tr -d '.'))"
-    elif echo "$CURRENT_DEFAULT" | grep -q "Pro \["; then
-        echo "  ✓ Headphones (device $(echo "$CURRENT_DEFAULT" | awk '{print $2}' | tr -d '.'))"
-    else
-        echo "$CURRENT_DEFAULT" | sed 's/^/  /' || echo "  No default found"
-    fi
+    echo "Current default sink:"
+    local default_sink=$(wpctl status | grep "Sinks:" -A 10 | grep "\*" | head -1)
+    echo "  $default_sink"
 }
 
 test_audio() {
-    local device_type=$(get_current_device)
-    local current_volume=$(get_current_volume)
+    device_type=$(get_current_device)
+    echo "Testing $device_type..."
+    echo "You should hear alternating tones in left and right channels"
     
-    echo "Testing current audio output..."
-    echo "Current device: $device_type at ${current_volume}% volume"
-    echo "You should hear a sine wave tone for 3 seconds"
-    echo "Press Ctrl+C to stop early"
-    echo ""
-    
-    # Detect which device is currently default
-    CURRENT_DEFAULT=$(wpctl status | grep -E "\*.*Controller Pro")
-    
-    if echo "$CURRENT_DEFAULT" | grep -q "Pro 2"; then
-        echo "Testing speakers (hw:$CARD,2)..."
-        timeout 3 speaker-test -c2 -r48000 -D "hw:$CARD,2" -t sine -f 440 2>/dev/null || true
-    elif echo "$CURRENT_DEFAULT" | grep -q "Pro \["; then
-        echo "Testing headphones (hw:$CARD,0)..."
-        timeout 3 speaker-test -c2 -r48000 -D "hw:$CARD,0" -t sine -f 440 2>/dev/null || true
-    else
-        echo "Could not determine current device, testing both:"
-        echo "Testing speakers..."
-        timeout 2 speaker-test -c2 -r48000 -D "hw:$CARD,2" -t sine -f 440 2>/dev/null || true
-        echo "Testing headphones..."
-        timeout 2 speaker-test -c2 -r48000 -D "hw:$CARD,0" -t sine -f 440 2>/dev/null || true
-    fi
-    
+    case "$device_type" in
+        speakers)
+            speaker-test -c2 -r48000 -D "hw:$CARD_NUM,2" -t wav -l 1 2>/dev/null || \
+            speaker-test -c2 -r48000 -D "hw:$CARD_NUM,2" -t sine -f 440 -l 1 2>/dev/null || true
+            ;;
+        headphones)
+            speaker-test -c2 -r48000 -D "hw:$CARD_NUM,0" -t wav -l 1 2>/dev/null || \
+            speaker-test -c2 -r48000 -D "hw:$CARD_NUM,0" -t sine -f 440 -l 1 2>/dev/null || true
+            ;;
+    esac
     echo "Test complete"
 }
 
 toggle_audio() {
-    echo "Toggling audio output..."
-    
-    # Check current default device by looking for the * marker
-    CURRENT_DEFAULT=$(wpctl status | grep -E "\*.*Controller Pro")
-    
-    if echo "$CURRENT_DEFAULT" | grep -q "Pro 2"; then
-        echo "Currently on speakers, switching to headphones..."
-        enable_headphones
-    else
-        echo "Currently on headphones (or unknown), switching to speakers..."
-        enable_speakers
-    fi
+    current_device=$(get_current_device)
+    case "$current_device" in
+        speakers)
+            enable_headphones
+            ;;
+        headphones)
+            enable_speakers
+            ;;
+    esac
 }
 
-# Main logic
+adjust_volume() {
+    get_device_ids
+    local adjustment="$1"
+    device_type=$(get_current_device)
+    
+    case "$adjustment" in
+        +)
+            if [ "$device_type" = "speakers" ]; then
+                wpctl set-volume $SPEAKER_DEVICE 5%+ >/dev/null 2>&1
+            else
+                current_vol=$(amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' | grep "Front Left:" | awk '{print $4}' | tr -d '[]%' | head -1)
+                new_vol=$((current_vol + 5))
+                [ $new_vol -gt 100 ] && new_vol=100
+                amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' "${new_vol}%" >/dev/null
+            fi
+            echo "Volume increased"
+            ;;
+        -)
+            if [ "$device_type" = "speakers" ]; then
+                wpctl set-volume $SPEAKER_DEVICE 5%- >/dev/null 2>&1
+            else
+                current_vol=$(amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' | grep "Front Left:" | awk '{print $4}' | tr -d '[]%' | head -1)
+                new_vol=$((current_vol - 5))
+                [ $new_vol -lt 0 ] && new_vol=0
+                amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' "${new_vol}%" >/dev/null
+            fi
+            echo "Volume decreased"
+            ;;
+        [0-9]*)
+            if [ "$device_type" = "speakers" ]; then
+                wpctl set-volume $SPEAKER_DEVICE "${adjustment}%" >/dev/null 2>&1
+            else
+                amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' "${adjustment}%" >/dev/null
+            fi
+            echo "Volume set to ${adjustment}%"
+            ;;
+        *)
+            if [ "$device_type" = "speakers" ]; then
+                current_vol=$(wpctl get-volume $SPEAKER_DEVICE 2>/dev/null | awk '{print int($2*100)}' || echo "0")
+            else
+                current_vol=$(amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' | grep "Front Left:" | awk '{print $4}' | tr -d '[]%' | head -1)
+            fi
+            echo "Current $device_type volume: ${current_vol}%"
+            ;;
+    esac
+}
+
+mute_device() {
+    get_device_ids
+    device_type=$(get_current_device)
+    case "$device_type" in
+        speakers)
+            wpctl set-mute $SPEAKER_DEVICE 1 >/dev/null 2>&1
+            echo "Speakers muted"
+            ;;
+        headphones)
+            amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 0% >/dev/null
+            echo "Headphones muted"
+            ;;
+    esac
+}
+
+unmute_device() {
+    get_device_ids
+    device_type=$(get_current_device)
+    case "$device_type" in
+        speakers)
+            wpctl set-mute $SPEAKER_DEVICE 0 >/dev/null 2>&1
+            echo "Speakers unmuted"
+            ;;
+        headphones)
+            amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 50% >/dev/null
+            echo "Headphones unmuted"
+            ;;
+    esac
+}
+
 check_dependencies
 check_card
 
@@ -387,13 +312,7 @@ case "${1:-}" in
         test_audio
         ;;
     volume)
-        if [ -z "$2" ]; then
-            current_volume=$(get_current_volume)
-            device_type=$(get_current_device)
-            echo "Current ${device_type} volume: ${current_volume}%"
-        else
-            adjust_volume "$2"
-        fi
+        adjust_volume "${2:-}"
         ;;
     mute)
         mute_device

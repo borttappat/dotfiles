@@ -36,10 +36,9 @@ hardware.bluetooth = {
   };
 };
 
-services.blueman.enable = true;
 
-# zenbook-audio module
-hardware.zenbook-audio.enable = true;
+
+services.blueman.enable = true;
 
 # Hardware firmware (non-audio)
 hardware.firmware = with pkgs; [
