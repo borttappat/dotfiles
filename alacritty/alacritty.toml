@@ -17,13 +17,13 @@ size = 5.5
 #size = 11.5
 
 [font.bold]
-#family = "hack"
+#family = "spleen"
 family = "CozetteVectorBold"
 #family = "creep"
 style = "Bold"
 
 [font.bold_italic]
-#family = "hack"
+#family = "spleen"
 family = "CozetteVector"
 #family= "creep"
 style = "Bold Italic"
@@ -34,7 +34,7 @@ x = 1
 y = 1
 
 [font.italic]
-#family = "hack"
+#family = "spleen"
 family = "CozetteVector"
 #family = "creep"
 style = "Italic"
@@ -42,6 +42,7 @@ style = "Italic"
 [font.normal]
 #family = "hack"
 family = "CozetteVector"
+#family = "spleen"
 #family = "creep"
 style = "Regular"
 

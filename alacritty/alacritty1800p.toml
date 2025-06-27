@@ -6,7 +6,7 @@ TERM = "xterm"
 
 [font]
 #size = 7.75
-size = 7
+size = 6 
 
 
 [window]

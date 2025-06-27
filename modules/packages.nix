@@ -54,6 +54,12 @@ nixpkgs.config.packageOverrides = pkgs: {
     creep
     cherry
     envypn-font
+    tamsyn
+    monocraft
+    miracode
+    termsyn
+    tewi-font
+    spleen
     ];
 
 # Packages to install on a system-wide level
