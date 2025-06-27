@@ -52,6 +52,8 @@ nixpkgs.config.packageOverrides = pkgs: {
     cozette
     hack-font
     creep
+    cherry
+    envypn-font
     ];
 
 # Packages to install on a system-wide level
