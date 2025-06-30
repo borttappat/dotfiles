@@ -159,6 +159,7 @@
         ./modules/steam.nix
         ./modules/gaming.nix
         ./modules/audio.nix
+        ./modules/firefox.nix
       ];
     };
         

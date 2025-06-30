@@ -9,6 +9,7 @@ hardware.graphics = {
     vaapiIntel
     vaapiVdpau
     libvdpau-va-gl
+    intel-compute-runtime
   ];
 };
 
@@ -22,6 +23,7 @@ services.thermald.enable = true;
 environment.systemPackages = with pkgs; [
   intel-compute-runtime
   ocl-icd
+  intel-ocl
 ];
 
 # Enable bluetooth
@@ -36,9 +38,10 @@ hardware.bluetooth = {
   };
 };
 
-
-
 services.blueman.enable = true;
+
+# Trying to get hashcat to work :)
+boot.kernelParams = [ "i915.enable_guc=3" "i915.enable_fbc=1" ];
 
 # Hardware firmware (non-audio)
 hardware.firmware = with pkgs; [

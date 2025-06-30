@@ -3,7 +3,7 @@
 configuration{
     modi: "run,drun,window";
     lines: 11;
-    font: "CozetteVector 12";
+    font: "CozetteVector 19";
     terminal: "alacritty";
     location: 0;
     disable-history: false;
@@ -11,9 +11,9 @@ configuration{
 }
 
 window {
-    height: 360px;
+    height: 460px;
     border: 7px;
-    width: 720px;
+    width: 820px;
 }
 
 inputbar {

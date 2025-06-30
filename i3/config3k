@@ -12,4 +12,4 @@ gaps inner 20
 #gaps top 120
 smart_gaps off
 
-exec_always --no-startup-id killall polybar && sleep 0.5 && polybar -q 3k
+exec_always --no-startup-id killall polybar && sleep 0.5 && polybar -q 3k && polybar -q 4k

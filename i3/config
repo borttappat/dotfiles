@@ -98,7 +98,8 @@ for_window [instance="floating"] resize set 800 450
 bindsym $mod+q kill
 
 # Start rofi
-bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+d exec ~/dotfiles/scripts/bash/rofi2.sh -show drun
+#bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 
 # Gap adjustment bindings
@@ -258,4 +259,4 @@ gaps inner 20
 #gaps top 120
 smart_gaps off
 
-exec_always --no-startup-id killall polybar && sleep 0.5 && polybar -q 3k
+exec_always --no-startup-id killall polybar && sleep 0.5 && polybar -q 3k && polybar -q 4k

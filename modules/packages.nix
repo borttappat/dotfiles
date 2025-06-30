@@ -58,7 +58,6 @@ nixpkgs.config.packageOverrides = pkgs: {
     monocraft
     miracode
     termsyn
-    tewi-font
     spleen
     ];
 
