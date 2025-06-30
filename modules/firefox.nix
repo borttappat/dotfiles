@@ -32,13 +32,29 @@ in
       DisplayBookmarksToolbar = "never";
       DisplayMenuBar = "default-off";
       SearchBar = "unified";
-      ExtensionSettings = {
-        "*".installation_mode = "blocked";
-        "uBlock0@raymondhill.net" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+        ExtensionSettings = {
+          "*".installation_mode = "blocked";
+          "uBlock0@raymondhill.net" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+            installation_mode = "force_installed";
+          };
+          "pywalfox@frewacom.org" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/pywalfox/latest.xpi";
+            installation_mode = "force_installed";
+          };
+          "foxyproxy@eric.h.jung" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/latest.xpi";
+            installation_mode = "force_installed";
+          };
+          "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
+            installation_mode = "force_installed";
+          };
+          "wappalyzer@crunchlabz.com" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/wappalyzer/latest.xpi";
           installation_mode = "force_installed";
+          };
         };
-      };
       Preferences = {
         "browser.contentblocking.category" = { Value = "strict"; Status = "locked"; };
         "extensions.pocket.enabled" = lock-false;
