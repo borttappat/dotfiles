@@ -5,7 +5,7 @@ TERM = "xterm"
 
 [font]
 # For internal display
-size = 6.5
+size = 7
 
 [font.bold]
 #family = "hack"

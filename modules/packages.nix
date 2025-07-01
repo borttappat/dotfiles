@@ -55,6 +55,7 @@ nixpkgs.config.packageOverrides = pkgs: {
     cherry
     envypn-font
     tamsyn
+    tamzen
     monocraft
     miracode
     termsyn

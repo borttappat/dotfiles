@@ -115,6 +115,7 @@ export GPG_TTY=$(tty)
 
 # ALIASES
 alias zenaudio='sh ~/dotfiles/scripts/bash/zenaudio.sh'
+alias za='zenaudio'
 
 alias bloodhound='nix develop ~/dotfiles/modules/bloodhound.nix'
 alias bh='bloodhound'

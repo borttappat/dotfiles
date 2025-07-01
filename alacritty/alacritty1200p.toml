@@ -1,10 +1,10 @@
-#Config for 1080p display
-
 [env]
 TERM = "xterm"
+#WINIT_X11_SCALE_FACTOR = "1.8"
+#WINIT_X11_SCALE_FACTOR = "2"
 
 [font]
-# For internal display
+# For external display
 size = 6 
 
 [font.bold]
@@ -37,7 +37,7 @@ family = "CozetteVector"
 style = "Regular"
 
 [font.offset]
-x = 1
+x = 1 
 y = 1
 
 [[keyboard.bindings]]

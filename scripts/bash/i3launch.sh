@@ -1,5 +1,35 @@
 #!/run/current-system/sw/bin/bash
 
+# Get display info
+INTERNAL_DISPLAY=$(xrandr | grep "eDP" | cut -d' ' -f1 | head -n1)
+EXTERNAL_CONNECTED=$(xrandr | grep " connected" | grep -v "eDP" | wc -l)
+
+# Only set resolution for internal display if no external monitor
+if [ "$EXTERNAL_CONNECTED" -eq 0 ] && [ -n "$INTERNAL_DISPLAY" ]; then
+    # Get native resolution of internal display
+    NATIVE_RES=$(xrandr | grep "$INTERNAL_DISPLAY" | grep -oP '\d+x\d+' | head -n1)
+    
+    case $NATIVE_RES in
+        "2880x1800")
+            # Zenbook - set to 1920x1200 for sharp fonts
+            xrandr --output "$INTERNAL_DISPLAY" --mode 1920x1200
+            echo "Set internal display to 1920x1200 for font clarity"
+            ;;
+        "1920x1080")
+            # Zephyrus - keep native
+            echo "Keeping native 1920x1080 resolution"
+            ;;
+        *)
+            echo "Unknown internal resolution: $NATIVE_RES, keeping native"
+            ;;
+    esac
+else
+    echo "External monitor detected or no internal display found, keeping current setup"
+fi
+
+# Small delay to let resolution change take effect
+sleep 0.5
+
 # Function to get the primary display resolution
 get_primary_resolution() {
     xrandr | grep " connected primary" | grep -oP '\d+x\d+' | head -n1

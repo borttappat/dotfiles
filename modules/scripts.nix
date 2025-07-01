@@ -34,10 +34,18 @@
         echo "ASUS hardware detected, using asusctl"
         # Use asusctl to set LED color
         asusctl led-mode static -c $HEX_CODE
+
       elif command -v openrgb >/dev/null 2>&1; then
-        echo "Using OpenRGB to set device lighting"
-        # Use OpenRGB to set device color
+       echo "Checking for RGB devices..."
+       # Check if OpenRGB can find any devices
+        if ${openrgb}/bin/openrgb --list-devices 2>/dev/null | grep -q "Device [0-9]"; then
+        echo "RGB devices found, using OpenRGB to set device lighting"  
         ${openrgb}/bin/openrgb --device 0 --mode static --color "''${HEX_CODE/#/}"
+      
+      else
+        echo "No RGB devices detected, skipping OpenRGB"
+      fi
+      
       else
         echo "No compatible RGB control tool found. Skipping RGB lighting control."
       fi

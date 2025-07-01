@@ -1,111 +1,63 @@
-#!/run/current-system/sw/bin/bash
+#!/bin/bash
 
-# Check if the file path argument is provided
 if [ -z "$1" ]; then
   echo "Usage: walrgb /path/to/file"
   exit 1
 fi
 
-# Extract specific part of the path using parameter expansion
 file_path="$1"
 file_name="${file_path##*/}"
 directory="${file_path%/*}"
 
-# Print the extracted parts of the path
 echo "File path: $file_path"
 echo "File name: $file_name"
 echo "Directory: $directory"
 
-# Run wal with the specified image path
 echo "Setting colorscheme according to $file_path"
 wal -q -i "${file_path}"
 echo "Colorscheme set"
 
-# IMPORTANT: Explicitly merge the X resources to fix border colors
-xrdb -merge "${HOME}/.cache/wal/colors.Xresources"
-
-# Convert line 2 of the wal colors cache to a hex code for RGB lighting
 HEX_CODE=$(sed -n '2p' ~/.cache/wal/colors | sed 's/#//')
 
-# Check if this is an ASUS machine (by checking if asusctl exists and works)
 if command -v asusctl >/dev/null 2>&1 && asusctl -v >/dev/null 2>&1; then
   echo "ASUS hardware detected, using asusctl"
-  # Use asusctl to set LED color
-  asusctl led-mode static -c "$HEX_CODE"
+  asusctl led-mode static -c $HEX_CODE
 elif command -v openrgb >/dev/null 2>&1; then
-  echo "Using OpenRGB to set device lighting"
-  # Use OpenRGB to set device color
-  openrgb --device 0 --mode static --color "${HEX_CODE}"
+  echo "Checking for RGB devices..."
+  if openrgb --list-devices 2>/dev/null | grep -q "Device [0-9]"; then
+    echo "RGB devices found, using OpenRGB to set device lighting"  
+    openrgb --device 0 --mode static --color "${HEX_CODE/#/}"
+  else
+    echo "No RGB devices detected, skipping OpenRGB"
+  fi
 else
   echo "No compatible RGB control tool found. Skipping RGB lighting control."
 fi
 
 echo "Backlight set"
 
-# Restart polybar (more reliable approach)
-echo "Restarting polybar..."
 polybar-msg cmd restart
+echo "Restarting polybar..."
 
-# Only kill and restart if the above command failed
-if [ $? -ne 0 ]; then
-  echo "Polybar message failed, trying full restart..."
-  killall -q polybar
-  while pgrep -u $UID -x polybar >/dev/null; do sleep 0.5; done
-  # Get the primary display resolution to determine which polybar config to use
-  RESOLUTION=$(xrandr | grep " connected primary" | grep -oP '\d+x\d+' | head -n1)
-  
-  case $RESOLUTION in
-    "2880x1800")
-      polybar -q hidpi &
-      ;;
-    "1920x1080")
-      polybar -q main &
-      ;;
-    "3840x2160")
-      polybar -q 4k &
-      ;;
-    "2288x1436")
-      polybar -q 3k &
-      ;;
-    *)
-      polybar -q main &  # Default to main bar
-      ;;
-  esac
-fi
-
-# Paste colors from wal-cache ~/dotfiles/wal/nix-colors
 ~/dotfiles/scripts/bash/nixwal.sh
 
-# Update /etc/nixos/colors.nix with colors from ~/dotfiles/wal/nix-color
-python ~/dotfiles/scripts/python/nixcolors.py
-
-# Change colors for startpage
-# Define file paths
 startpage="$HOME/dotfiles/misc/startpage.html"
 colors_css="$HOME/.cache/wal/colors.css"
 
-# Remove content from lines 12 to 28 in startpage.html
 sed -i '12,28d' "$startpage"
-
-# Extract lines 12 to 28 from colors.css and insert them into startpage.html at line 12
 sed -n '12,28p' "$colors_css" | sed -i '11r /dev/stdin' "$startpage"
 
-# Update GitHub Pages colors.css
 echo "Starting GitHub Pages color update..."
 
-# Define file paths
 site_colors="$HOME/borttappat.github.io/assets/css/colors.css"
 colors_css="$HOME/.cache/wal/colors.css"
 
-# Ensure the css directory exists
 mkdir -p "$(dirname "$site_colors")"
 
-# Create or update colors.css
 {
     echo "/* Theme colors - automatically generated */"
     echo ":root {"
     echo "    /* Colors extracted from pywal */"
-    # Extract color definitions from pywal
     sed -n '12,28p' "$colors_css"
     echo ""
     echo "    /* Additional theme variables */"
@@ -117,13 +69,39 @@ mkdir -p "$(dirname "$site_colors")"
 } > "$site_colors"
 echo "Updated GitHub Pages colors"
 
-# Update zathura colors
-~/dotfiles/scripts/bash/zathuracolors.sh
+colors_file="$HOME/.cache/wal/colors.sh"
+zathura_config="$HOME/.config/zathura/zathurarc"
 
-# Reload i3 to apply border changes
-i3-msg reload > /dev/null
+source "$colors_file"
 
-# Try to update Firefox/Librewolf themes
+sed -i "s/^set notification-error-bg.*/set notification-error-bg \"$background\"/" "$zathura_config"
+sed -i "s/^set notification-error-fg.*/set notification-error-fg \"$color2\"/" "$zathura_config"
+sed -i "s/^set notification-warning-bg.*/set notification-warning-bg \"$background\"/" "$zathura_config"
+sed -i "s/^set notification-warning-fg.*/set notification-warning-fg \"$color2\"/" "$zathura_config"
+sed -i "s/^set notification-bg.*/set notification-bg \"$background\"/" "$zathura_config"
+sed -i "s/^set notification-fg.*/set notification-fg \"$color2\"/" "$zathura_config"
+sed -i "s/^set completion-group-bg.*/set completion-group-bg \"$background\"/" "$zathura_config"
+sed -i "s/^set completion-group-fg.*/set completion-group-fg \"$color2\"/" "$zathura_config"
+sed -i "s/^set completion-bg.*/set completion-bg \"$color1\"/" "$zathura_config"
+sed -i "s/^set completion-fg.*/set completion-fg \"$foreground\"/" "$zathura_config"
+sed -i "s/^set completion-highlight-bg.*/set completion-highlight-bg \"$color3\"/" "$zathura_config"
+sed -i "s/^set completion-highlight-fg.*/set completion-highlight-fg \"$foreground\"/" "$zathura_config"
+sed -i "s/^set index-bg.*/set index-bg \"$background\"/" "$zathura_config"
+sed -i "s/^set index-fg.*/set index-fg \"$color2\"/" "$zathura_config"
+sed -i "s/^set index-active-bg.*/set index-active-bg \"$color1\"/" "$zathura_config"
+sed -i "s/^set index-active-fg.*/set index-active-fg \"$foreground\"/" "$zathura_config"
+sed -i "s/^set inputbar-bg.*/set inputbar-bg \"$color1\"/" "$zathura_config"
+sed -i "s/^set inputbar-fg.*/set inputbar-fg \"$foreground\"/" "$zathura_config"
+sed -i "s/^set statusbar-bg.*/set statusbar-bg \"$color3\"/" "$zathura_config"
+sed -i "s/^set statusbar-fg.*/set statusbar-fg \"$background\"/" "$zathura_config"
+sed -i "s/^set highlight-color.*/set highlight-color \"$color2\"/" "$zathura_config"
+sed -i "s/^set highlight-active-color.*/set highlight-active-color \"$color3\"/" "$zathura_config"
+sed -i "s/^set default-bg.*/set default-bg \"$background\"/" "$zathura_config"
+sed -i "s/^set default-fg.*/set default-fg \"$color2\"/" "$zathura_config"
+sed -i "s/^set recolor-lightcolor.*/set recolor-lightcolor \"$background\"/" "$zathura_config"
+sed -i "s/^set recolor-darkcolor.*/set recolor-darkcolor \"$color2\"/" "$zathura_config"
+
+echo "Zathura colors updated successfully."
+
 pywalfox update
-
 echo "Colors updated!"
