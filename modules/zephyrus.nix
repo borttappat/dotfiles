@@ -227,7 +227,7 @@ in
         };
         swtpm.enable = true;
         verbatimConfig = ''
-          user = "traum"
+          user = config.currentUser
           group = "kvm"
           memory_backing_dir = "/var/lib/libvirt/qemu/ram"
           nvram = [ "${pkgs.OVMF}/FV/OVMF.fd:${pkgs.OVMF}/FV/OVMF_VARS.fd" ]

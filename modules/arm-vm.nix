@@ -87,7 +87,7 @@
 
   # No password sudo for user
   security.sudo.extraRules = [
-    { users = [ "traum" ];
+    { users = [ config.currentUser ];
       commands = [
         { command = "ALL";
           options = [ "NOPASSWD" ];

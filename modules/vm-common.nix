@@ -1,6 +1,11 @@
 { config, pkgs, lib, ... }:
 
 {
+  imports = [ ./user-detection.nix ];
+
+{ config, pkgs, lib, ... }:
+
+{
   # VM specific settings
   
   # Guest additions for VM environments
@@ -33,8 +38,8 @@
     };
   };
   
-  # Set auto-login for traum user in VM
-  services.getty.autologinUser = "traum";
+  # Set auto-login for ${config.currentUser} user in VM
+  services.getty.autologinUser = config.currentUser;
   
   # Graphics settings for VMs
   services.xserver = {

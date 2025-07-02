@@ -203,6 +203,7 @@ nixpkgs.config.packageOverrides = pkgs: {
     
     ansible         #we be devs now
     
+    discordo
     signal-cli
     whois
     warpd           #click stuff without mouse input

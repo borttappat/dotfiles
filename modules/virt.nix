@@ -1,4 +1,6 @@
 #       __      __            __
+
+imports = [ ./user-detection.nix ];
 #.--.--|__.----|  |_   .-----|__.--.--.
 #|  |  |  |   _|   _|__|     |  |_   _|
 # \___/|__|__| |____|__|__|__|__|__.__|
@@ -14,7 +16,7 @@
       };
       mainUser = lib.mkOption {
         type = lib.types.str;
-        default = "traum";
+        default = config.currentUser;
         description = "Main user for virtualization permissions";
       };
     };
