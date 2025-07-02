@@ -28,6 +28,10 @@ elif echo "$current_host" | grep -q "QEMU"; then
 elif echo "$current_model" | grep -qi "zenbook"; then
     sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
 
+# For ASUS Zephyrus specifically (check model line for "Zephyrus")
+elif echo "$current_model" | grep -qi "zephyrus"; then
+    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+
 # For other Asus-hosts
 elif echo "$current_host" | grep -q "ASUS"; then
     sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#asus
