@@ -99,8 +99,11 @@ bindsym $mod+q kill
 
 # Start rofi
 bindsym $mod+d exec ~/dotfiles/scripts/bash/rofi2.sh -show drun
+bindsym $mod+Shift+d exec ~/dotfiles/scripts/bash/rofi.sh -show drun
+
+
 #bindsym $mod+d exec --no-startup-id rofi -show drun
-bindsym $mod+Shift+d exec --no-startup-id rofi -show run
+#bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 
 # Gap adjustment bindings
 # Increase/decrease inner gaps
