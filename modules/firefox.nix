@@ -38,6 +38,10 @@ in
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
             installation_mode = "force_installed";
           };
+          "claymont@mail.com_detach-tab" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/detach-tab/latest.xpi";
+            installation_mode = "force_installed";
+          };
           "pywalfox@frewacom.org" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/pywalfox/latest.xpi";
             installation_mode = "force_installed";
