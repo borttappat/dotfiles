@@ -1,128 +1,184 @@
-#!/usr/bin/env bash
+#!/run/current-system/sw/bin/bash
 
-# Links script with progress indication and ownership control
-LINK_SCRIPT="$HOME/dotfiles/scripts/python/link.py"
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly DOTFILES_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
+readonly LINK_SCRIPT="$DOTFILES_DIR/scripts/python/link.py"
 
 echo "Starting to link dotfiles..."
+echo "Dotfiles directory: $DOTFILES_DIR"
+echo "Link script: $LINK_SCRIPT"
 echo "-----------------------------------------"
 
-# Check if verbose mode was requested
-VERBOSE=false
-if [[ "$1" == "-v" || "$1" == "--verbose" ]]; then
-    VERBOSE=true
+# Check if link script exists
+if [[ ! -f "$LINK_SCRIPT" ]]; then
+    echo "Error: Link script not found at $LINK_SCRIPT"
+    exit 1
 fi
 
-# Array of files to link and their target directories
-# Format: "source_file:target_dir"
-FILES=(
-    "$HOME/dotfiles/vim/.vimrc:$HOME"
+VERBOSE=false
+QUIET=false
 
-    #"$HOME/dotfiles/i3/config:$HOME/.config/i3"
-    "$HOME/dotfiles/i3/config.base:$HOME/.config/i3"
-    "$HOME/dotfiles/i3/config1080p:$HOME/.config/i3"
-    "$HOME/dotfiles/i3/config2880:$HOME/.config/i3"
-    "$HOME/dotfiles/i3/config3k:$HOME/.config/i3"
-    "$HOME/dotfiles/i3/config4k:$HOME/.config/i3"
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -v|--verbose)
+            VERBOSE=true
+            shift
+            ;;
+        -q|--quiet)
+            QUIET=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Usage: $0 [-v|--verbose] [-q|--quiet]"
+            exit 1
+            ;;
+    esac
+done
+
+declare -A FILE_MAPPINGS=(
+    ["$DOTFILES_DIR/vim/.vimrc"]="$HOME"
+    ["$DOTFILES_DIR/bash/.bashrc"]="$HOME"
+    ["$DOTFILES_DIR/zsh/.zshrc"]="$HOME"
     
-    "$HOME/dotfiles/polybar/config.ini:$HOME/.config/polybar"
+    ["$DOTFILES_DIR/i3/config.base"]="$HOME/.config/i3"
+    ["$DOTFILES_DIR/i3/config1080p"]="$HOME/.config/i3"
+    ["$DOTFILES_DIR/i3/config2880"]="$HOME/.config/i3"
+    ["$DOTFILES_DIR/i3/config3k"]="$HOME/.config/i3"
+    ["$DOTFILES_DIR/i3/config4k"]="$HOME/.config/i3"
     
-    "$HOME/dotfiles/zathura/zathurarc:$HOME/.config/zathura"
+    ["$DOTFILES_DIR/polybar/config.ini"]="$HOME/.config/polybar"
     
-    "$HOME/dotfiles/ranger/rifle.conf:$HOME/.config/ranger"
-    "$HOME/dotfiles/ranger/rc.conf:$HOME/.config/ranger"
-    "$HOME/dotfiles/ranger/scope.sh:$HOME/.config/ranger"
+    ["$DOTFILES_DIR/zathura/zathurarc"]="$HOME/.config/zathura"
     
-    "$HOME/dotfiles/starship/starship.toml:$HOME/.config"
-    "$HOME/dotfiles/htop/htoprc:$HOME/.config/htop"
+    ["$DOTFILES_DIR/ranger/rifle.conf"]="$HOME/.config/ranger"
+    ["$DOTFILES_DIR/ranger/rc.conf"]="$HOME/.config/ranger"
+    ["$DOTFILES_DIR/ranger/scope.sh"]="$HOME/.config/ranger"
     
-    "$HOME/dotfiles/joshuto/joshuto.toml:$HOME/.config/joshuto"
-    "$HOME/dotfiles/joshuto/mimetype.toml:$HOME/.config/joshuto"
-    "$HOME/dotfiles/joshuto/preview_file.sh:$HOME/.config/joshuto"
+    ["$DOTFILES_DIR/starship/starship.toml"]="$HOME/.config"
+    ["$DOTFILES_DIR/htop/htoprc"]="$HOME/.config/htop"
     
-    "$HOME/dotfiles/rofi/config.rasi:$HOME/.config/rofi"
+    ["$DOTFILES_DIR/joshuto/joshuto.toml"]="$HOME/.config/joshuto"
+    ["$DOTFILES_DIR/joshuto/mimetype.toml"]="$HOME/.config/joshuto"
+    ["$DOTFILES_DIR/joshuto/preview_file.sh"]="$HOME/.config/joshuto"
     
-    "$HOME/dotfiles/bin/pomo:$HOME/.local/bin"
-    "$HOME/dotfiles/bin/traumhound:$HOME/.local/bin"
+    ["$DOTFILES_DIR/fish/config.fish"]="$HOME/.config/fish"
+    ["$DOTFILES_DIR/fish/fish_variables"]="$HOME/.config/fish"
     
-    "$HOME/dotfiles/alacritty/alacritty.toml:$HOME/.config/alacritty"
-    "$HOME/dotfiles/alacritty/alacritty4k.toml:$HOME/.config/alacritty"
-    "$HOME/dotfiles/alacritty/alacritty1080p.toml:$HOME/.config/alacritty"
+    ["$DOTFILES_DIR/picom/picom.conf"]="$HOME/.config/picom"
     
-    "$HOME/dotfiles/fish/config.fish:$HOME/.config/fish"
-    "$HOME/dotfiles/fish/fish_variables:$HOME/.config/fish"
+    ["$DOTFILES_DIR/bin/pomo"]="$HOME/.local/bin"
+    ["$DOTFILES_DIR/bin/traumhound"]="$HOME/.local/bin"
     
-    "$HOME/dotfiles/zsh/.zshrc:$HOME"
+    ["$DOTFILES_DIR/xorg/.xinitrc"]="$HOME"
+    ["$DOTFILES_DIR/xorg/.Xmodmap"]="$HOME"
+    ["$DOTFILES_DIR/xorg/.xsessionrc"]="$HOME"
     
-    "$HOME/dotfiles/picom/picom.conf:$HOME/.config/picom"
-    
-    "$HOME/dotfiles/xorg/.xinitrc:$HOME"
-    "$HOME/dotfiles/xorg/.Xmodmap:$HOME"
-    "$HOME/dotfiles/xorg/.xsessionrc:$HOME"
-    # Add more files as needed
 )
 
-# Total number of files
-TOTAL=${#FILES[@]}
-SUCCESS=0
-
-# Process each file
-for i in "${!FILES[@]}"; do
-    # Split the entry into source and target
-    entry="${FILES[$i]}"
-    source_file="${entry%%:*}"
-    target_dir="${entry##*:}"
-    
-    # Display progress
+create_link() {
+    local source_file="$1"
+    local target_dir="$2"
+    local file_name
     file_name=$(basename "$source_file")
-    echo -n "[$((i+1))/$TOTAL] Linking $file_name... "
     
-    # Create target directory if it doesn't exist
-    mkdir -p "$target_dir" 2>/dev/null
-    
-    # Run the link script
-    if $VERBOSE; then
-        sudo python "$LINK_SCRIPT" --file "$source_file" --dir "$target_dir" --verbose
-    else
-        sudo python "$LINK_SCRIPT" --file "$source_file" --dir "$target_dir" --quiet
+    if [[ ! -f "$source_file" ]]; then
+        if ! $QUIET; then
+            echo "Warning: Source file $source_file does not exist, skipping..."
+        fi
+        return 1
     fi
     
-    # Check if linking was successful
-    if [ $? -eq 0 ]; then
-        echo "Done"
+    mkdir -p "$target_dir" 2>/dev/null || true
+    
+    local link_args=("--file" "$source_file" "--dir" "$target_dir")
+    
+    if $VERBOSE; then
+        link_args+=("--verbose")
+    elif $QUIET; then
+        link_args+=("--quiet")
+    fi
+    
+    if ! $QUIET && ! $VERBOSE; then
+        echo -n "Linking $file_name... "
+    fi
+    
+    if python3 "$LINK_SCRIPT" "${link_args[@]}" 2>/dev/null; then
+        if ! $QUIET && ! $VERBOSE; then
+            echo "✓"
+        elif ! $QUIET; then
+            echo "✓ Linked: $file_name"
+        fi
+        return 0
+    else
+        if ! $QUIET; then
+            echo "✗ Failed: $file_name"
+        fi
+        return 1
+    fi
+}
+
+TOTAL=${#FILE_MAPPINGS[@]}
+echo "Found $TOTAL files to link"
+
+if [[ $TOTAL -eq 0 ]]; then
+    echo "Error: No files found in FILE_MAPPINGS array"
+    exit 1
+fi
+
+SUCCESS=0
+FAILED=0
+CURRENT=0
+
+for source_file in "${!FILE_MAPPINGS[@]}"; do
+    target_dir="${FILE_MAPPINGS[$source_file]}"
+    ((CURRENT++))
+    
+    if $VERBOSE && ! $QUIET; then
+        echo "[$CURRENT/$TOTAL] Processing: $source_file -> $target_dir"
+    elif ! $QUIET; then
+        echo -n "[$CURRENT/$TOTAL] "
+    fi
+    
+    if create_link "$source_file" "$target_dir"; then
         ((SUCCESS++))
     else
-        echo "Failed"
+        ((FAILED++))
     fi
 done
 
-echo "-----------------------------------------"
-echo "Making scripts executable..."
-sudo chmod +x "$HOME/dotfiles/scripts/bash/"*.sh
-sudo chmod +x "$HOME/.local/bin/"* 2>/dev/null || true
+if ! $QUIET; then
+    echo "-----------------------------------------"
+    echo "Making scripts executable..."
+fi
 
-# Set proper ownership
-echo "-----------------------------------------"
-echo "Setting proper ownership..."
+chmod +x "$DOTFILES_DIR/scripts/bash/"*.sh 2>/dev/null || true
+chmod +x "$HOME/.local/bin/"* 2>/dev/null || true
 
-# Get user's primary group
+if ! $QUIET; then
+    echo "Setting proper ownership..."
+fi
+
 PRIMARY_GROUP=$(id -gn)
-echo "Using primary group: $PRIMARY_GROUP for user $USER"
 
-# Collect unique target directories
 declare -A TARGET_DIRS
-for entry in "${FILES[@]}"; do
-    target_dir="${entry##*:}"
+for target_dir in "${FILE_MAPPINGS[@]}"; do
     TARGET_DIRS["$target_dir"]=1
 done
 
-# Set ownership for all target directories
 for dir in "${!TARGET_DIRS[@]}"; do
-    if $VERBOSE; then
-        echo "Setting ownership for $dir..."
+    if [[ -d "$dir" ]]; then
+        chown -R "$USER:$PRIMARY_GROUP" "$dir" 2>/dev/null || true
     fi
-    sudo chown -R "$USER:$PRIMARY_GROUP" "$dir"
 done
 
-echo "-----------------------------------------"
-echo "Linking complete!"
-echo "Successfully linked $SUCCESS of $TOTAL files"
+if ! $QUIET; then
+    echo "-----------------------------------------"
+    echo "Linking complete!"
+    echo "Successfully linked: $SUCCESS of $TOTAL files"
+    if [[ $FAILED -gt 0 ]]; then
+        echo "Failed links: $FAILED"
+    fi
+fi
+
+exit 0

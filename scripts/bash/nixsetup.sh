@@ -21,11 +21,11 @@ check_prerequisites() {
     
     command -v git >/dev/null || error "Git not found"
     command -v nixos-rebuild >/dev/null || error "nixos-rebuild not found"
+    command -v neofetch >/dev/null || error "neofetch not found"
     
     [[ -d "$DOTFILES_DIR" ]] || error "Dotfiles directory not found at $DOTFILES_DIR"
     [[ -f "$DOTFILES_DIR/flake.nix" ]] || error "flake.nix not found"
     [[ -f "$DOTFILES_DIR/scripts/bash/links.sh" ]] || error "links.sh not found"
-    [[ -f "$DOTFILES_DIR/scripts/bash/nixbuild.sh" ]] || error "nixbuild.sh not found"
     
     log "All prerequisites satisfied"
 }
@@ -38,9 +38,12 @@ create_backup() {
         "$HOME/.config/i3"
         "$HOME/.config/alacritty" 
         "$HOME/.config/polybar"
+        "$HOME/.config/rofi"
+        "$HOME/.config/picom"
         "$HOME/.xinitrc"
         "$HOME/.bashrc"
-        "/etc/nixos"
+        "$HOME/.zshrc"
+        "$HOME/.local/bin"
     )
     
     for config in "${configs[@]}"; do
@@ -68,6 +71,8 @@ build_system() {
     export USER="${USER:-$(whoami)}"
     export SUDO_USER="${SUDO_USER:-$USER}"
     
+    log "Calling nixbuild.sh for hardware detection and system build..."
+    
     chmod +x "$DOTFILES_DIR/scripts/bash/nixbuild.sh"
     "$DOTFILES_DIR/scripts/bash/nixbuild.sh" || error "System build failed"
     
@@ -81,8 +86,8 @@ cleanup() {
     log "Log file: $LOG_FILE"
     log ""
     log "Next steps:"
-    log "1. Reboot to activate new configuration"
-    log "2. Login to TTY and run 'x' to start X server"
+    log "1. Configuration is already active (using switch)"
+    log "2. If on TTY, run 'x' to start X server"
     log "3. If issues occur, restore from backup at $BACKUP_DIR"
 }
 
