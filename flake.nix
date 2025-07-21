@@ -104,7 +104,7 @@
             
             # Device specific configurations
             ./modules/zephyrus.nix
-            ./modules/zephyrusconf.nix
+            #./modules/zephyrusconf.nix
             
             # Core functionality modules
             ./modules/packages.nix
