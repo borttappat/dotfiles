@@ -208,7 +208,7 @@ nixpkgs.config.packageOverrides = pkgs: {
     warpd           #click stuff without mouse input
     ollama          #run llms locally
     unstable.claude-code
-    #gemini-cli
+    gemini-cli
     gpt4all
     local-ai
     #khoj
