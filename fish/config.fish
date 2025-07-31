@@ -3,51 +3,42 @@
 #   |   _|  |__ --|     |
 #   |__| |__|_____|__|__|
 
-if status is-interactive # Commands to run in interactive sessions can go here 
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+
 cat /home/traum/.cache/wal/sequences
+#wal -R -q
 
 end
 
-if command -v zoxide > /dev/null
-    zoxide init fish | source
-end
 
-set -gx GPG_TTY (tty)
-
-cat ~/.cache/wal/sequences &
-
-set -gx PATH $PATH ~/.local/bin
-
-function mkcd
-    mkdir -p $argv[1] && cd $argv[1]
-end
-
-function sudo-command-line
-    set cmd (commandline)
-    if test -z "$cmd"
-        set cmd (history | head -1)
-    end
-
-    if string match -q "sudo *" $cmd
-        commandline -r (string sub -s 6 $cmd)
-    else
-        commandline -r "sudo $cmd"
-    end
-end
-
+# enable vim mode for fish
 function toggle_vim_mode
-    if test $fish_key_bindings = fish_vi_key_bindings
+    if test "$fish_key_bindings" = "fish_vi_key_bindings"
         fish_default_key_bindings
-        echo "Switched to default key bindings"
+        echo "Switched to default (emacs) key bindings"
     else
         fish_vi_key_bindings
         echo "Switched to vi key bindings"
     end
 end
 
-fish_vi_key_bindings
 
-bind \es sudo-command-line
+# Starship
+starship init fish | source
+
+# Zoxide
+zoxide init fish | source
+
+# thefuck
+#thefuck --alias | source
+
+# Replicate !! functionality in fish
+function sudo!!
+    eval sudo $history[1]
+end
+
+abbr -a !! 'eval sudo $history[1]'
 
 alias zenaudio='sh ~/dotfiles/scripts/bash/zenaudio.sh'
 alias za='zenaudio'
@@ -66,8 +57,7 @@ alias rb='reboot'
 alias shutdown='shutdown -h now'
 alias sd='shutdown'
 alias suspend='systemctl suspend'
-alias time='sudo pentest-time -r Europe/Stockholm'
-alias time='sudo pentest-time -r Europe/Stockholm'
+alias ptime='sudo pentest-time -r Europe/Stockholm'
 
 alias bat='bat --theme=ansi'
 
@@ -87,6 +77,7 @@ alias npp='v ~/dotfiles/modules/pentesting.nix'
 
 alias nixsrv='v ~/dotfiles/modules/services.nix'
 
+alias i3conf='v ~/dotfiles/i3/config'
 alias zathconf='v ~/dotfiles/zathura/zathurarc'
 
 alias zathura='zathura --fork=false'
@@ -95,7 +86,7 @@ alias zath='zathura'
 alias picomconf='v ~/dotfiles/picom/picom.conf'
 alias polyconf='v ~/dotfiles/polybar/config.ini'
 alias poc='polyconf'
-alias fishconf='v ~/dotfiles/fish/config.fish'
+alias fishconf='v ~/.config/fish/config.fish'
 alias s='fishconf'
 
 alias pyserver='sudo python -m http.server 8002'
