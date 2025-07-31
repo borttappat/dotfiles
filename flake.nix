@@ -49,7 +49,6 @@
         ./modules/pentesting.nix
         ./modules/colors.nix
         ./modules/hosts.nix
-        ./modules/zsh.nix
         ./modules/audio.nix
         
       ];
@@ -78,7 +77,6 @@
             ./modules/users.nix
             ./modules/colors.nix
             ./modules/hosts.nix
-            ./modules/zsh.nix
             ./modules/virt.nix
             ./modules/scripts.nix
             ./modules/audio.nix
@@ -112,7 +110,6 @@
             ./modules/users.nix
             ./modules/colors.nix
             ./modules/hosts.nix
-            ./modules/zsh.nix
             ./modules/virt.nix
             ./modules/scripts.nix
             ./modules/audio.nix
@@ -148,7 +145,6 @@
         ./modules/users.nix
         ./modules/colors.nix
         ./modules/hosts.nix
-        ./modules/zsh.nix
         ./modules/virt.nix
         ./modules/scripts.nix
         
@@ -187,7 +183,6 @@
             ./modules/users.nix
             ./modules/colors.nix
             ./modules/hosts.nix
-            ./modules/zsh.nix
             ./modules/virt.nix
             ./modules/scripts.nix
             
@@ -219,7 +214,6 @@
             ./modules/users.nix
             ./modules/colors.nix
             ./modules/hosts.nix
-            ./modules/zsh.nix
             ./modules/virt.nix
             ./modules/scripts.nix
             
@@ -248,7 +242,6 @@
             ./modules/users.nix
             ./modules/colors.nix
             ./modules/hosts.nix
-            ./modules/zsh.nix 
             ./modules/audio.nix
 
             # Additional feature modules
@@ -274,7 +267,6 @@
             ./modules/services.nix
             ./modules/users.nix
             ./modules/colors.nix
-            ./modules/zsh.nix
             ./modules/virt.nix
             ./modules/scripts.nix
             ./modules/audio.nix

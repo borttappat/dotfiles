@@ -84,8 +84,11 @@ nix.settings.experimental-features = [
 # Nix-ld
 programs.nix-ld.enable = true;
 
-# Default shell
-users.defaultUserShell = pkgs.zsh;
+# Setting fish shell as default
+programs.fish = {
+  enable = true;
+};
+users.defaultUserShell = pkgs.fish;
 
 # Qt and gtk support
 qt = {

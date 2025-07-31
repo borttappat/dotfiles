@@ -100,6 +100,7 @@ nixpkgs.config.packageOverrides = pkgs: {
 # Terminal stuff
     tmate
     zsh
+    fish
     rsync 
     starship
     artem           #img-to-ascii
