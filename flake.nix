@@ -234,7 +234,7 @@
             
             # Base system configuration
             ./modules/configuration.nix
-            ./modules/hwconf.nix
+            ./modules/vm-hwconf.nix
             
             # Core functionality modules
             ./modules/packages.nix
