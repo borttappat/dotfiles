@@ -24,6 +24,6 @@ boot.initrd.availableKernelModules = [
 ];
 boot.kernelModules = [ "kvm-intel" ];
 
-# Enable VM guest additions
-virtualisation.qemu.guestAgent.enable = true;
+# Enable QEMU guest agent (correct syntax)
+services.qemuGuest.enable = true;
 }
