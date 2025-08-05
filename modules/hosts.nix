@@ -65,6 +65,7 @@
     10.10.11.59 strutted.htb
     10.10.11.61 haze.htb
     10.10.10.110 gogs.craft.htb craft.htb api.craft.htb
+    10.10.11.74 artificial.htb
 
 
     # GOAD

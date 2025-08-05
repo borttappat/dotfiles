@@ -238,7 +238,6 @@
             
             # Core functionality modules
             ./modules/packages.nix
-            ./modules/services-minimal.nix
             ./modules/users.nix
             ./modules/colors.nix
             ./modules/hosts.nix
