@@ -95,6 +95,7 @@ alias w='wal -Rn'
 alias walrgb='~/dotfiles/scripts/bash/walrgb.sh'
 
 alias dots='cd ~/dotfiles && git status'
+alias mods='cd ~/dotfiles/modules'
 
 alias gs='git status'
 alias ga='git add'
