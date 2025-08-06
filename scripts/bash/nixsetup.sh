@@ -12,12 +12,13 @@ log() {
 }
 
 error() {
-    log "ERROR: $*" >&2
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: $*" | tee -a "$LOG_FILE" >&2
     exit 1
 }
 
 detect_user() {
-    log "Detecting current user..."
+    # Send log messages to stderr so they don't interfere with command substitution
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Detecting current user..." | tee -a "$LOG_FILE" >&2
     
     # Try multiple methods to get the actual user (not root when using sudo)
     local detected_user=""
@@ -25,28 +26,30 @@ detect_user() {
     # Method 1: SUDO_USER (most reliable when using sudo)
     if [[ -n "${SUDO_USER:-}" ]]; then
         detected_user="$SUDO_USER"
-        log "Detected user via SUDO_USER: $detected_user"
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] Detected user via SUDO_USER: $detected_user" | tee -a "$LOG_FILE" >&2
     # Method 2: USER environment variable
     elif [[ -n "${USER:-}" && "$USER" != "root" ]]; then
         detected_user="$USER"
-        log "Detected user via USER: $detected_user"
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] Detected user via USER: $detected_user" | tee -a "$LOG_FILE" >&2
     # Method 3: logname command
     elif command -v logname >/dev/null 2>&1; then
         detected_user="$(logname 2>/dev/null || echo "")"
         if [[ -n "$detected_user" ]]; then
-            log "Detected user via logname: $detected_user"
+            echo "[$(date '+%Y-%m-%d %H:%M:%S')] Detected user via logname: $detected_user" | tee -a "$LOG_FILE" >&2
         fi
     # Method 4: whoami as fallback
     else
         detected_user="$(whoami)"
-        log "Detected user via whoami: $detected_user"
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] Detected user via whoami: $detected_user" | tee -a "$LOG_FILE" >&2
     fi
     
     # Validate we have a user and it's not root
     if [[ -z "$detected_user" || "$detected_user" == "root" ]]; then
-        error "Could not detect non-root user. Please run without sudo or set SUDO_USER environment variable."
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERROR: Could not detect non-root user. Please run without sudo or set SUDO_USER environment variable." | tee -a "$LOG_FILE" >&2
+        exit 1
     fi
     
+    # Only output the username to stdout (this is what gets captured)
     echo "$detected_user"
 }
 
@@ -61,11 +64,14 @@ replace_username_in_files() {
         "$DOTFILES_DIR/modules/virt.nix"
         "$DOTFILES_DIR/modules/pentesting.nix"
         "$DOTFILES_DIR/modules/zephyrus.nix"
+        "$DOTFILES_DIR/modules/vm-common.nix"
     )
     
     # Additional files that might exist and contain 'traum'
     local optional_files=(
+        "$DOTFILES_DIR/modules/asus.nix"
         "$DOTFILES_DIR/modules/razer.nix"
+        "$DOTFILES_DIR/modules/xmg.nix"
         "$DOTFILES_DIR/modules/zenbook.nix"
     )
     
@@ -106,7 +112,7 @@ replace_username_in_files() {
             # Create backup
             cp "$file" "$file.backup-$(date +%Y%m%d-%H%M%S)"
             
-            # Perform replacements:
+            # Perform replacements with proper escaping using @ as delimiter:
             # 1. Replace 'users.users.traum' with 'users.users.TARGET_USER'
             # 2. Replace '/home/traum/' with '/home/TARGET_USER/'
             # 3. Replace '"traum"' with '"TARGET_USER"' 
@@ -115,12 +121,12 @@ replace_username_in_files() {
             # 6. Replace 'default = "traum"' with 'default = "TARGET_USER"'
             
             sed -i \
-                -e "s/users\.users\.traum/users.users.$target_user/g" \
-                -e "s|/home/traum/|/home/$target_user/|g" \
-                -e "s/\"traum\"/\"$target_user\"/g" \
-                -e "s/user = \"traum\"/user = \"$target_user\"/g" \
-                -e "s/chown -R traum:/chown -R $target_user:/g" \
-                -e "s/default = \"traum\"/default = \"$target_user\"/g" \
+                -e "s@users\.users\.traum@users.users.$target_user@g" \
+                -e "s@/home/traum/@/home/$target_user/@g" \
+                -e "s@\"traum\"@\"$target_user\"@g" \
+                -e "s@user = \"traum\"@user = \"$target_user\"@g" \
+                -e "s@chown -R traum:@chown -R $target_user:@g" \
+                -e "s@default = \"traum\"@default = \"$target_user\"@g" \
                 "$file"
                 
             log "✓ Updated: $file"
@@ -220,6 +226,11 @@ main() {
     local target_user
     target_user="$(detect_user)"
     log "Target user: $target_user"
+    
+    # Validate username format (basic safety check)
+    if [[ ! "$target_user" =~ ^[a-zA-Z_][a-zA-Z0-9_-]*$ ]]; then
+        error "Invalid username format detected: '$target_user'. Username must start with letter/underscore and contain only alphanumeric characters, underscores, and hyphens."
+    fi
     
     # Check if we need to do username replacement
     if grep -r "traum" "$DOTFILES_DIR/modules/" >/dev/null 2>&1; then
