@@ -21,6 +21,7 @@
       };
 
       # Overlay to make unstable packages available
+      # Utilized by appending "unstable" before a package declaration in packaes.nix, such as unstable.firefox
       overlay-unstable = final: prev: {
         unstable = import nixpkgs-unstable {
           inherit (prev) system;
@@ -30,8 +31,169 @@
 
     in {
       nixosConfigurations = {
-        # ARM-specific VM configuration
-         # Add to your flake.nix outputs
+
+    # Configurations with system specific to architecture
+    razer = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        # Make unfree packages allowable
+        { nixpkgs.config.allowUnfree = true; }
+        
+        # Add overlay to the system
+        { nixpkgs.overlays = [ overlay-unstable ]; }
+
+        # Base system configuration
+        ./modules/configuration.nix
+        
+        # Device specific configurations
+        ./modules/razer.nix
+        ./modules/hwconf.nix
+        
+        # Core functionality modules
+        ./modules/packages.nix
+        ./modules/services.nix
+        ./modules/users.nix
+        ./modules/colors.nix
+        ./modules/hosts.nix
+        ./modules/virt.nix
+        ./modules/scripts.nix
+        ./modules/audio.nix
+        
+        # Additional feature modules
+        ./modules/pentesting.nix
+        ./modules/proxychains.nix
+        ./modules/dev.nix
+        ./modules/steam.nix
+      ];
+    };
+
+    # Zephyrus configuration  
+    zephyrus = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        { nixpkgs.config.allowUnfree = true; }
+        { nixpkgs.overlays = [ overlay-unstable ]; }
+        
+        # Base system configuration
+        ./modules/configuration.nix
+        ./modules/hwconf.nix
+        
+        # Device specific configurations
+        ./modules/zephyrus.nix
+        
+        # Core functionality modules
+        ./modules/packages.nix
+        ./modules/services.nix
+        ./modules/users.nix
+        ./modules/colors.nix
+        ./modules/hosts.nix
+        ./modules/virt.nix
+        ./modules/scripts.nix
+        ./modules/audio.nix
+        
+        # Additional feature modules
+        ./modules/pentesting.nix
+        ./modules/proxychains.nix
+        ./modules/dev.nix
+        ./modules/steam.nix
+      ];
+    }; 
+
+    #Zenbook configuration  
+    zenbook = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        { nixpkgs.config.allowUnfree = true; }
+        { nixpkgs.overlays = [ overlay-unstable ]; }
+        
+        # Base system configuration
+        ./modules/configuration.nix
+        ./modules/hwconf.nix
+        
+        # Device specific configurations
+        ./modules/zenbook.nix
+        
+        # Core functionality modules
+        ./modules/packages.nix
+        ./modules/services.nix
+        ./modules/users.nix
+        ./modules/colors.nix
+        ./modules/hosts.nix
+        ./modules/virt.nix
+        #./modules/scripts.nix
+        
+        # Additional feature modules
+        ./modules/pentesting.nix
+        ./modules/proxychains.nix
+        ./modules/dev.nix
+        ./modules/steam.nix
+        ./modules/gaming.nix
+        ./modules/audio.nix
+        ./modules/firefox.nix
+      ];
+    };
+        
+    #XMG Configuration
+    xmg = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        # Make unfree packages allowable
+        { nixpkgs.config.allowUnfree = true; }
+        
+        # Add overlay to the system
+        { nixpkgs.overlays = [ overlay-unstable ]; }
+
+        # Base system configuration
+        ./modules/configuration.nix
+        
+        # Device specific configurations
+        ./modules/xmg.nix
+        ./modules/xmgconf.nix
+        ./modules/hwconf.nix
+        
+        # Core functionality modules
+        ./modules/packages.nix
+        ./modules/services.nix
+        ./modules/users.nix
+        ./modules/colors.nix
+        ./modules/hosts.nix
+        ./modules/virt.nix
+        ./modules/scripts.nix
+        
+        # Additional feature modules
+        ./modules/pentesting.nix
+        ./modules/proxychains.nix
+        ./modules/steam.nix
+      ];
+    };
+        
+
+    # x86_64 VM configuration
+    VM = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        { nixpkgs.config.allowUnfree = true; }
+        { nixpkgs.overlays = [ overlay-unstable ]; }
+        
+        # Base system configuration
+        ./modules/configuration.nix
+        ./modules/vm-hwconf.nix
+        
+        # Core functionality modules
+        ./modules/packages.nix
+        ./modules/users.nix
+        ./modules/colors.nix
+        ./modules/hosts.nix
+        ./modules/audio.nix
+
+        # Additional feature modules
+        ./modules/pentesting.nix
+        ./modules/proxychains.nix
+        ./modules/dev.nix
+      ];
+    };
+
+    # ARM-specific VM configuration
     armVM = nixpkgs.lib.nixosSystem {
       system = "aarch64-linux";
       modules = [
@@ -50,81 +212,14 @@
         ./modules/colors.nix
         ./modules/hosts.nix
         ./modules/audio.nix
-        
+    
       ];
     };       
-    
-    # Configurations with system specific to architecture
-        razer = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            # Make unfree packages allowable
-            { nixpkgs.config.allowUnfree = true; }
-            
-            # Add overlay to the system
-            { nixpkgs.overlays = [ overlay-unstable ]; }
 
-            # Base system configuration
-            ./modules/configuration.nix
-            
-            # Device specific configurations
-            ./modules/razer.nix
-            ./modules/hwconf.nix
-            
-            # Core functionality modules
-            ./modules/packages.nix
-            ./modules/services.nix
-            ./modules/users.nix
-            ./modules/colors.nix
-            ./modules/hosts.nix
-            ./modules/virt.nix
-            ./modules/scripts.nix
-            ./modules/audio.nix
-            
-            # Additional feature modules
-            ./modules/pentesting.nix
-            ./modules/proxychains.nix
-            ./modules/dev.nix
-            ./modules/steam.nix
-          ];
-        };
 
-        # Zephyrus configuration  
-        zephyrus = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            { nixpkgs.config.allowUnfree = true; }
-            { nixpkgs.overlays = [ overlay-unstable ]; }
-            
-            # Base system configuration
-            ./modules/configuration.nix
-            ./modules/hwconf.nix
-            
-            # Device specific configurations
-            ./modules/zephyrus.nix
-            #./modules/zephyrusconf.nix
-            
-            # Core functionality modules
-            ./modules/packages.nix
-            ./modules/services.nix
-            ./modules/users.nix
-            ./modules/colors.nix
-            ./modules/hosts.nix
-            ./modules/virt.nix
-            ./modules/scripts.nix
-            ./modules/audio.nix
-
-            
-            # Additional feature modules
-            ./modules/pentesting.nix
-            ./modules/proxychains.nix
-            ./modules/dev.nix
-            ./modules/steam.nix
-          ];
-        }; 
-
-    #Zenbook configuration  
-    zenbook = nixpkgs.lib.nixosSystem {
+    # Default configuration
+    # Fallback configuration
+    default = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         { nixpkgs.config.allowUnfree = true; }
@@ -134,144 +229,17 @@
         ./modules/configuration.nix
         ./modules/hwconf.nix
         
-        # Device specific configurations
-        ./modules/zenbook.nix
-        #./modules/zenbookconf.nix
-        #./modules/zenaudio.nix
-        
         # Core functionality modules
         ./modules/packages.nix
         ./modules/services.nix
         ./modules/users.nix
         ./modules/colors.nix
-        ./modules/hosts.nix
-        ./modules/virt.nix
+        #./modules/virt.nix
         ./modules/scripts.nix
-        
-        # Additional feature modules
-        ./modules/pentesting.nix
-        ./modules/proxychains.nix
-        ./modules/dev.nix
-        ./modules/steam.nix
-        ./modules/gaming.nix
         ./modules/audio.nix
-        ./modules/firefox.nix
+
       ];
     };
-        
-        #XMG Configuration
-        xmg = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            # Make unfree packages allowable
-            { nixpkgs.config.allowUnfree = true; }
-            
-            # Add overlay to the system
-            { nixpkgs.overlays = [ overlay-unstable ]; }
-
-            # Base system configuration
-            ./modules/configuration.nix
-            
-            # Device specific configurations
-            ./modules/xmg.nix
-            ./modules/xmgconf.nix
-            ./modules/hwconf.nix
-            
-            # Core functionality modules
-            ./modules/packages.nix
-            ./modules/services.nix
-            ./modules/users.nix
-            ./modules/colors.nix
-            ./modules/hosts.nix
-            ./modules/virt.nix
-            ./modules/scripts.nix
-            
-            # Additional feature modules
-            ./modules/pentesting.nix
-            ./modules/proxychains.nix
-            ./modules/steam.nix
-          ];
-        };
-        
-        # ASUS configuration
-        asus = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            { nixpkgs.config.allowUnfree = true; }
-            { nixpkgs.overlays = [ overlay-unstable ]; }
-            
-            # Base system configuration
-            ./modules/configuration.nix
-            ./modules/hwconf.nix
-            
-            # Device specific configurations
-            ./modules/asus.nix
-            ./modules/asusconf.nix
-            
-            # Core functionality modules
-            ./modules/packages.nix
-            ./modules/services.nix
-            ./modules/users.nix
-            ./modules/colors.nix
-            ./modules/hosts.nix
-            ./modules/virt.nix
-            ./modules/scripts.nix
-            
-            # Additional feature modules
-            ./modules/pentesting.nix
-            ./modules/proxychains.nix
-            ./modules/dev.nix
-            ./modules/steam.nix
-          ];
-        };
-
-        # x86_64 VM configuration
-        VM = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            { nixpkgs.config.allowUnfree = true; }
-            { nixpkgs.overlays = [ overlay-unstable ]; }
-            
-            # Base system configuration
-            ./modules/configuration.nix
-            ./modules/vm-hwconf.nix
-            
-            # Core functionality modules
-            ./modules/packages.nix
-            ./modules/users.nix
-            ./modules/colors.nix
-            ./modules/hosts.nix
-            ./modules/audio.nix
-
-            # Additional feature modules
-            ./modules/pentesting.nix
-            ./modules/proxychains.nix
-            ./modules/dev.nix
-          ];
-        };
-
-        # Default configuration
-        default = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            { nixpkgs.config.allowUnfree = true; }
-            { nixpkgs.overlays = [ overlay-unstable ]; }
-            
-            # Base system configuration
-            ./modules/configuration.nix
-            ./modules/hwconf.nix
-            
-            # Core functionality modules
-            ./modules/packages.nix
-            ./modules/services.nix
-            ./modules/users.nix
-            ./modules/colors.nix
-            ./modules/virt.nix
-            ./modules/scripts.nix
-            ./modules/audio.nix
-
-          ];
-        };
-      };
-    };
+  };
+ };
 }
