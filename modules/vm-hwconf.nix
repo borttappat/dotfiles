@@ -5,16 +5,16 @@ imports = lib.optionals (builtins.pathExists /etc/nixos/hardware-configuration.n
 [ /etc/nixos/hardware-configuration.nix ];
 
 boot.loader = {
-systemd-boot.enable = true;
-grub.enable = false;
-efi = {
-canTouchEfiVariables = true;
-efiSysMountPoint = "/boot/efi";
-};
+  grub = {
+    enable = true;
+    device = "/dev/vda";
+    efiSupport = false;
+  };
+  systemd-boot.enable = false;
 };
 
 boot.initrd.availableKernelModules = [ 
-"ata_piix" "virtio_pci" "virtio_blk" "virtio_scsi" "sd_mod" "sr_mod" 
+  "ata_piix" "virtio_pci" "virtio_blk" "virtio_scsi" "sd_mod" "sr_mod" 
 ];
 boot.kernelModules = [ "kvm-intel" ];
 
