@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/run/current-system/sw/bin/bash
 
 if [ -z "$1" ]; then
   echo "Usage: walrgb /path/to/file"
