@@ -20,10 +20,10 @@
   ];
   boot.kernelModules = [ "virtio_balloon" "virtio_console" "virtio_gpu" ];
 
-  # VM performance optimizations
+  # VM performance optimizations (override existing settings)
   boot.kernel.sysctl = {
-    "vm.swappiness" = 10;
-    "fs.file-max" = 65536;
+    "vm.swappiness" = lib.mkForce 10;
+    "fs.file-max" = lib.mkForce 65536;
   };
 
   # Resolution and display for VMs
