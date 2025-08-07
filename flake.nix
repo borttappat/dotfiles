@@ -178,6 +178,7 @@
         # Base system configuration
         ./modules/configuration.nix
         ./modules/vm-hwconf.nix
+        ./modules/vm.nix
         
         # Core functionality modules
         ./modules/packages.nix

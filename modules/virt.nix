@@ -5,33 +5,33 @@
 { config, pkgs, lib, ... }:
 
 {
-  options = {
-    virtualisation = {
-      useDocker = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Whether to use Docker instead of Podman";
-      };
-      mainUser = lib.mkOption {
-        type = lib.types.str;
-        default = "traum";
-        description = "Main user for virtualization permissions";
-      };
-    };
+options = {
+virtualisation = {
+  useDocker = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Whether to use Docker instead of Podman";
   };
+  mainUser = lib.mkOption {
+    type = lib.types.str;
+    default = "traum";
+    description = "Main user for virtualization permissions";
+  };
+};
+};
 
-  config = {
-    # Virtualization services
-    virtualisation = {
-      libvirtd = {
+config = {
+# Virtualization services
+virtualisation = {
+  libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu;
+      ovmf = {
         enable = true;
-        qemu = {
-          package = pkgs.qemu;
-          ovmf = {
-            enable = true;
-            packages = [pkgs.OVMFFull];
-          };
-          swtpm.enable = true;
+        packages = [pkgs.OVMFFull];
+      };
+      swtpm.enable = true;
         };
       };
 
@@ -117,6 +117,9 @@
       virt-manager
       virt-viewer
       spice-gtk
+      spice
+      spice-protocol
+      win-spice
       win-virtio
       swtpm
       OVMF
@@ -130,6 +133,10 @@
       docker-compose
       lazydocker
     ];
+
+
+    # Enable SPICE WebDAV for file sharing between host and guest
+    services.spice-webdavd.enable = true;
 
     # Do NOT enable the system dnsmasq service as libvirt manages its own instance
     services.dnsmasq.enable = false;
