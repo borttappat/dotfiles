@@ -114,6 +114,7 @@
         ./modules/zenbook.nix
         
         # Core functionality modules
+        ./modules/i3.nix
         ./modules/packages.nix
         ./modules/services.nix
         ./modules/users.nix

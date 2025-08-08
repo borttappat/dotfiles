@@ -163,8 +163,9 @@ console.keyMap = "sv-latin1";
 services.xserver.enable = true;
 
 # Window manager and display manager
-services.xserver.displayManager.startx.enable = true;
-services.xserver.windowManager.i3.enable = true;
+#services.xserver.displayManager.startx.enable = true;
+#services.xserver.windowManager.i3.enable = true;
+#services.xserver.windowManager.i3.package = pkgs.i3-gaps;
 
 # Configure keymap in X11
 services.xserver.xkb = {
