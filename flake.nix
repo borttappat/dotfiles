@@ -94,6 +94,7 @@
           system = "x86_64-linux";
           modules = [
             { nixpkgs.config.allowUnfree = true; }
+            ./modules/router-generated/host-passthrough.nix
             { nixpkgs.overlays = [ overlay-unstable ]; }
             
             # Base system configuration
