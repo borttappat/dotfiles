@@ -173,8 +173,9 @@ set $ws9 "9"
 set $ws10 "10"
 
 # Switch to workspace
-bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
+bindsym $mod+1 workspace number 1; exec "polybar-msg cmd show"
+bindsym $mod+2 workspace number 2; exec "polybar-msg cmd hide"
+
 bindsym $mod+3 workspace number $ws3
 bindsym $mod+4 workspace number $ws4
 bindsym $mod+5 workspace number $ws5
