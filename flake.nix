@@ -191,6 +191,7 @@
         ./modules/colors.nix
         ./modules/hosts.nix
         ./modules/audio.nix
+        ./modules/services.nix
 
         # Additional feature modules
         ./modules/pentesting.nix
