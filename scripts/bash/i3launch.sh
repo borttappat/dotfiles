@@ -27,7 +27,7 @@ INTERNAL_DISPLAY=$(xrandr | grep "eDP" | cut -d' ' -f1 | head -n1)
 EXTERNAL_CONNECTED=$(xrandr | grep " connected" | grep -v "eDP" | wc -l)
 
 if [ -n "$INTERNAL_DISPLAY" ]; then
-NATIVE_RES=$(xrandr | grep "$INTERNAL_DISPLAY" | grep -oP '\d+x\d+') | head -n1)
+NATIVE_RES=$(xrandr | grep "$INTERNAL_DISPLAY" | grep -oP '\d+x\d+' | head -n1)
 
 case $NATIVE_RES in
 "2880x1800")
@@ -49,11 +49,11 @@ fi
 sleep 0.5
 
 get_primary_resolution() {
-xrandr | grep " connected primary" | grep -oP '\d+x\d+') | head -n1
+xrandr | grep " connected primary" | grep -oP '\d+x\d+' | head -n1
 }
 
 get_any_resolution() {
-xrandr | grep " connected" | grep -oP '\d+x\d+') | head -n1
+xrandr | grep " connected" | grep -oP '\d+x\d+' | head -n1
 }
 
 RESOLUTION=$(get_primary_resolution)
