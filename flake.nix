@@ -50,6 +50,7 @@
         ./modules/hwconf.nix
         
         # Core functionality modules
+        ./modules/i3.nix
         ./modules/packages.nix
         ./modules/services.nix
         ./modules/users.nix
@@ -82,6 +83,7 @@
         ./modules/zephyrus.nix
         
         # Core functionality modules
+        ./modules/i3.nix
         ./modules/packages.nix
         ./modules/services.nix
         ./modules/users.nix
@@ -153,6 +155,7 @@
         ./modules/hwconf.nix
         
         # Core functionality modules
+        ./modules/i3.nix
         ./modules/packages.nix
         ./modules/services.nix
         ./modules/users.nix
@@ -182,6 +185,7 @@
         ./modules/vm.nix
         
         # Core functionality modules
+        ./modules/i3.nix
         ./modules/packages.nix
         ./modules/users.nix
         ./modules/colors.nix
