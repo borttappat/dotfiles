@@ -35,11 +35,11 @@ prefixLength = 24;
 
 # Allow forwarding for VM network
 networking.firewall = {
-extraCommands = '
+extraCommands = ''
 iptables -A FORWARD -i virbr1 -j ACCEPT
 iptables -A FORWARD -o virbr1 -j ACCEPT
 iptables -t nat -A POSTROUTING -s 192.168.100.0/24 ! -d 192.168.100.0/24 -j MASQUERADE
-';
+'';
 trustedInterfaces = [ "virbr1" ];
 };
 
