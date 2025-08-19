@@ -72,6 +72,7 @@
             ./modules/hwconf.nix
             
             # Core functionality modules
+            ./modules/i3.nix
             ./modules/packages.nix
             ./modules/services.nix
             ./modules/users.nix
@@ -106,6 +107,7 @@
             #./modules/zephyrusconf.nix
             
             # Core functionality modules
+            ./modules/i3.nix
             ./modules/packages.nix
             ./modules/services.nix
             ./modules/users.nix
@@ -139,6 +141,7 @@
         ./modules/zenbook.nix
         #./modules/zenbookconf.nix
         #./modules/zenaudio.nix
+        ./modules/i3.nix
         
         # Core functionality modules
         ./modules/packages.nix
@@ -238,6 +241,7 @@
             ./modules/hwconf.nix
             
             # Core functionality modules
+            ./modules/i3.nix
             ./modules/packages.nix
             ./modules/services-minimal.nix
             ./modules/users.nix
@@ -264,6 +268,7 @@
             ./modules/hwconf.nix
             
             # Core functionality modules
+            ./modules/i3.nix
             ./modules/packages.nix
             ./modules/services.nix
             ./modules/users.nix

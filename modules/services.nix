@@ -49,9 +49,6 @@ services.mysql = {
 };
 */
 
-# Window-manager
-services.xserver.windowManager.i3.package = pkgs.i3-gaps; 	
-#services.xserver.windowManager.i3.package = pkgs.i3-rounded;
 
 # Enabling auto-cpufreq
 services.auto-cpufreq.enable = true;

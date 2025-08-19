@@ -114,9 +114,14 @@
 
     # System packages and configuration
     environment.systemPackages = with pkgs; [
+      qemu_kvm
       virt-manager
       virt-viewer
       spice-gtk
+      spice-vdagent
+      spice-protocol
+      spice-autorandr
+      win-spice
       win-virtio
       swtpm
       OVMF
