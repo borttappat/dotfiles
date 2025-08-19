@@ -13,6 +13,9 @@ hardware.graphics = {
   ];
 };
 
+# Hardware-specific hostname
+networking.hostName = lib.mkForce "zen";
+
 # Intel CPU optimizations
 hardware.cpu.intel.updateMicrocode = true;
 

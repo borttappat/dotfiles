@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-
+networking.hostName = lib.mkForce "rzr";
 
 # Services
 
