@@ -25,6 +25,9 @@ in
     };
   };
 
+# Host-specific name
+networking.hostName = lib.mkForce "zeph";
+
   # Advanced Power Management
   powerManagement = {
     enable = true;
