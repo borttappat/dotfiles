@@ -43,6 +43,8 @@ abbr -a !! 'eval sudo $history[1]'
 alias zenaudio='sh ~/dotfiles/scripts/bash/zenaudio.sh'
 alias za='zenaudio'
 
+alias tui='sh ~/splix/scripts/router-tui.sh'
+
 alias bloodhound='nix develop ~/dotfiles/modules/bloodhound.nix'
 alias bh='bloodhound'
 

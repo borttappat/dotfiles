@@ -25,7 +25,6 @@ packages = [ pkgs.OVMF.fd ];
 };
 };
 };
-
 # Create network bridge for VM communication
 networking.bridges.virbr1.interfaces = [];
 networking.interfaces.virbr1.ipv4.addresses = [{
