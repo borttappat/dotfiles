@@ -1,73 +1,81 @@
-# Router VM NixOS Configuration
-# This will run inside the VM with the passed-through WiFi card
-
-{ config, pkgs, ... }:
-
+{ config, lib, pkgs, modulesPath, ... }:
 {
-  # Basic system configuration
+  nixpkgs.config.allowUnfree = true;
+
+  imports = [ 
+    (modulesPath + "/profiles/qemu-guest.nix")
+  ];
+
+  boot.initrd.availableKernelModules = [
+    "virtio_balloon" "virtio_blk" "virtio_pci" "virtio_ring"
+    "virtio_net" "virtio_scsi"
+  ];
+
+  boot.kernelParams = [ 
+    "console=tty1" 
+    "console=ttyS0,115200n8" 
+  ];
+
   system.stateVersion = "24.05";
-  
-  # Enable WiFi and networking
+
   networking = {
     hostName = "router-vm";
-    wireless.enable = true;
-    wireless.networks = {
-      # Configure your WiFi network here
-      # "YourNetworkName" = {
-      #   psk = "your-password";
-      # };
+    useDHCP = false;
+    enableIPv6 = false;
+    
+    networkmanager.enable = true;
+    wireless.enable = false;
+    
+    interfaces.enp1s0 = {
+      ipv4.addresses = [{
+        address = "192.168.100.253";
+        prefixLength = 24;
+      }];
     };
     
-    # Enable IP forwarding for routing
-    enableIPv6 = false;  # Simplify for now
+    nat = {
+      enable = true;
+      externalInterface = "wlp5s0";
+      internalInterfaces = [ "enp1s0" ];
+    };
+    
     firewall = {
       enable = true;
       allowedTCPPorts = [ 22 53 ];
       allowedUDPPorts = [ 53 67 68 ];
+      extraCommands = ''
+        iptables -t nat -A POSTROUTING -s 192.168.100.0/24 -o wlp5s0 -j MASQUERADE
+        iptables -A FORWARD -i enp1s0 -o wlp5s0 -j ACCEPT
+        iptables -A FORWARD -i wlp5s0 -o enp1s0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+      '';
     };
   };
 
-  # DHCP server for guest VMs
-
-  # DNS server
-  services.dnsmasq = {
-    enable = true;
-    settings = {
-      server = [ "8.8.8.8" "1.1.1.1" ];
-      interface = [ "enp2s0" ];
-    };
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv4.conf.all.forwarding" = 1;
   };
 
-  # NAT configuration
-  networking.nat = {
-    enable = true;
-    internalInterfaces = [ "enp2s0" ];
-    externalInterface = "wlan0";  # WiFi interface from passthrough
-  };
+  hardware.enableAllFirmware = true;
 
-  # SSH for management
-  services.openssh = {
-    enable = true;
-    settings.PasswordAuthentication = false;
-  };
-
-  # Essential packages
   environment.systemPackages = with pkgs; [
-    wirelesstools
-    iw
-    tcpdump
-    netcat
-    iptables
+    pciutils usbutils iw wirelesstools networkmanager
+    dhcpcd iptables bridge-utils tcpdump nettools nano
   ];
 
-  # Auto-login for console access
+  services.qemuGuest.enable = true;
+  services.spice-vdagentd.enable = true;
+
+  services.openssh = {
+    enable = true;
+    settings.PasswordAuthentication = true;
+  };
+
   services.getty.autologinUser = "router";
-  
-  # Create router user
+
   users.users.router = {
     isNormalUser = true;
+    password = "router";
     extraGroups = [ "wheel" "networkmanager" ];
-    # Add your SSH keys here
-    # openssh.authorizedKeys.keys = [ "ssh-ed25519 ..." ];
   };
 }
