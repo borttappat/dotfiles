@@ -5,12 +5,12 @@
 boot.kernelParams = [ 
 "intel_iommu=on" 
 "iommu=pt" 
-#"vfio-pci.ids=8086:a370"
+"vfio-pci.ids=8086:a370"
 ];
 
 # Load VFIO modules
 boot.kernelModules = [ "vfio" "vfio_iommu_type1" "vfio_pci" "vfio_virqfd" ];
-#boot.blacklistedKernelModules = [ "iwlwifi" ];
+boot.blacklistedKernelModules = [ "iwlwifi" ];
 
 # Ensure libvirtd has access to VFIO devices
 virtualisation.libvirtd = {
@@ -25,6 +25,7 @@ packages = [ pkgs.OVMF.fd ];
 };
 };
 };
+
 # Create network bridge for VM communication
 networking.bridges.virbr1.interfaces = [];
 networking.interfaces.virbr1.ipv4.addresses = [{
