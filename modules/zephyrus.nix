@@ -14,7 +14,7 @@ system.nixos.label = "base-setup";
 
 # Router specialisation
 specialisation.router.configuration = {
-    system.nixos.label = "router-setup";
+    system.nixos.label = lib.mkForce "router-setup";
 
     # Import router VFIO configuration
     imports = [ ./router-generated/host-passthrough.nix ];

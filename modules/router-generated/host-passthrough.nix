@@ -33,6 +33,7 @@ address = "192.168.100.1";
 prefixLength = 24;
 }];
 
+/*
 # Automatic route to router VM
 networking.routes = [
   {
@@ -42,6 +43,7 @@ networking.routes = [
     options = { dev = "virbr1"; };
   }
 ];
+*/
 
 # Allow forwarding for VM network
 networking.firewall = {
