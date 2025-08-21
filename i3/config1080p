@@ -9,13 +9,13 @@ smart_borders on
 
 # Gaps settings
 gaps inner 10
-gaps top 30
+#gaps top 30
 smart_gaps off
 
 
 # Workspace gaps for external Monitor
-workspace 2 gaps top 40 
-workspace 3 gaps top 40 
-workspace 4 gaps top 40 
+#workspace 2 gaps top 40 
+#workspace 3 gaps top 40 
+#workspace 4 gaps top 40 
 
 #exec_always --no-startup-id polybar -q 4k

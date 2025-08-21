@@ -46,6 +46,7 @@
         ./modules/hwconf.nix 
         
         # Core functionality modules (non-hardware specific)
+        ./modules/i3.nix
         ./modules/pentesting.nix
         ./modules/colors.nix
         ./modules/hosts.nix
@@ -72,6 +73,7 @@
             ./modules/hwconf.nix
             
             # Core functionality modules
+            ./modules/i3.nix
             ./modules/packages.nix
             ./modules/services.nix
             ./modules/users.nix
@@ -94,7 +96,7 @@
           system = "x86_64-linux";
           modules = [
             { nixpkgs.config.allowUnfree = true; }
-            ./modules/router-generated/host-passthrough.nix
+            #./modules/router-generated/host-passthrough.nix
             { nixpkgs.overlays = [ overlay-unstable ]; }
             
             # Base system configuration
@@ -106,6 +108,7 @@
             #./modules/zephyrusconf.nix
             
             # Core functionality modules
+            ./modules/i3.nix
             ./modules/packages.nix
             ./modules/services.nix
             ./modules/users.nix
@@ -139,6 +142,7 @@
         ./modules/zenbook.nix
         #./modules/zenbookconf.nix
         #./modules/zenaudio.nix
+        ./modules/i3.nix
         
         # Core functionality modules
         ./modules/packages.nix
@@ -179,6 +183,7 @@
             ./modules/hwconf.nix
             
             # Core functionality modules
+            ./modules/i3.nix
             ./modules/packages.nix
             ./modules/services.nix
             ./modules/users.nix
@@ -238,6 +243,7 @@
             ./modules/hwconf.nix
             
             # Core functionality modules
+            ./modules/i3.nix
             ./modules/packages.nix
             ./modules/services-minimal.nix
             ./modules/users.nix
@@ -264,11 +270,12 @@
             ./modules/hwconf.nix
             
             # Core functionality modules
+            ./modules/i3.nix
             ./modules/packages.nix
             ./modules/services.nix
             ./modules/users.nix
             ./modules/colors.nix
-            ./modules/virt.nix
+            #./modules/virt.nix
             ./modules/scripts.nix
             ./modules/audio.nix
 

@@ -89,7 +89,7 @@ alias picomconf='v ~/dotfiles/picom/picom.conf'
 alias polyconf='v ~/dotfiles/polybar/config.ini'
 alias poc='polyconf'
 alias fishconf='v ~/.config/fish/config.fish'
-alias s='fishconf'
+alias f='fishconf'
 
 alias pyserver='sudo python -m http.server 8002'
 alias rgb='openrgb --device 0 --mode static --color'

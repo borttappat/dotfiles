@@ -228,6 +228,7 @@ nixpkgs.config.packageOverrides = pkgs: {
     xorg.xmodmap
     xorg.xmessage
     xorg.xcursorthemes
+    xorg.xdpyinfo
     
 
 
