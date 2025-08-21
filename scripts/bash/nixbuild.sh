@@ -30,7 +30,42 @@ elif echo "$current_model" | grep -qi "zenbook"; then
 
 # For ASUS Zephyrus specifically (check model line for "Zephyrus")
 elif echo "$current_model" | grep -qi "zephyrus"; then
-    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+    # Detect current specialisation
+    CURRENT_LABEL=$(nixos-version | grep -o '[a-zA-Z-]*setup' || echo "base-setup")
+    echo "Current system: $CURRENT_LABEL"
+    
+    case "${1:-auto}" in
+        "router-boot")
+            echo "Building zephyrus with router specialisation, staging for boot..."
+            sudo nixos-rebuild boot --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+            echo "✅ Built. Reboot, then run 'switch-to-router' for router mode"
+            ;;
+        "router-switch")
+            echo "Building zephyrus and switching to router mode..."
+            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+            echo "Switching to router mode..."
+            switch-to-router
+            ;;
+        "base-switch")
+            echo "Building zephyrus and staying in base mode..."
+            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+            echo "✅ Base mode active"
+            ;;
+        *)
+            echo "Building zephyrus and maintaining current mode ($CURRENT_LABEL)..."
+            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+            
+            # Switch back to whatever mode we were in
+            if [[ "$CURRENT_LABEL" == "router-setup" ]]; then
+                echo "Restoring router mode..."
+                switch-to-router
+            else
+                echo "✅ Base mode active. Available commands:"
+                echo "  switch-to-router  - Enable router mode with VFIO"
+                echo "  switch-to-base    - Return to normal WiFi"
+            fi
+            ;;
+    esac
 
 # For other Asus-hosts
 elif echo "$current_host" | grep -q "ASUS"; then

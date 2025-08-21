@@ -46,6 +46,7 @@
         ./modules/hwconf.nix 
         
         # Core functionality modules (non-hardware specific)
+        ./modules/i3.nix
         ./modules/pentesting.nix
         ./modules/colors.nix
         ./modules/hosts.nix
@@ -95,7 +96,7 @@
           system = "x86_64-linux";
           modules = [
             { nixpkgs.config.allowUnfree = true; }
-            ./modules/router-generated/host-passthrough.nix
+            #./modules/router-generated/host-passthrough.nix
             { nixpkgs.overlays = [ overlay-unstable ]; }
             
             # Base system configuration
@@ -182,6 +183,7 @@
             ./modules/hwconf.nix
             
             # Core functionality modules
+            ./modules/i3.nix
             ./modules/packages.nix
             ./modules/services.nix
             ./modules/users.nix
@@ -273,7 +275,7 @@
             ./modules/services.nix
             ./modules/users.nix
             ./modules/colors.nix
-            ./modules/virt.nix
+            #./modules/virt.nix
             ./modules/scripts.nix
             ./modules/audio.nix
 
