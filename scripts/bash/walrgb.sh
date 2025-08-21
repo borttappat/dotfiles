@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/run/current-system/sw/bin/bash
 
 if [ -z "$1" ]; then
   echo "Usage: walrgb /path/to/file"
@@ -21,7 +21,8 @@ HEX_CODE=$(sed -n '2p' ~/.cache/wal/colors | sed 's/#//')
 
 if command -v asusctl >/dev/null 2>&1 && asusctl -v >/dev/null 2>&1; then
   echo "ASUS hardware detected, using asusctl"
-  asusctl led-mode static -c $HEX_CODE
+  asusctl aura static -c $HEX_CODE
+  asusctl -k high
 elif command -v openrgb >/dev/null 2>&1; then
   echo "Checking for RGB devices..."
   if openrgb --list-devices 2>/dev/null | grep -q "Device [0-9]"; then
