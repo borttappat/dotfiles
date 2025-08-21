@@ -7,6 +7,30 @@
 
 {   
 
+# Disable command not found error
+programs.command-not-found.enable = false;
+/*
+# Nix-index stuff, including oneshot
+programs.nix-index.enable = true;
+programs.nix-index.enableFishIntegration = true;
+
+systemd.services.nix-index-build = {
+  description = "Build nix-index database";
+  wantedBy = [ "multi-user.target" ];
+  after = [ "network-online.target" ];
+  wants = [ "network-online.target" ];
+  serviceConfig = {
+    Type = "oneshot";
+    User = "root";
+    ExecStart = "${pkgs.nix-index}/bin/nix-index";
+    RemainAfterExit = true;
+  };
+  environment = {
+    NIX_PATH = "nixpkgs=${pkgs.path}";
+  };
+};
+*/
+
 # Setting to avoid download buffer warnings
 nix.settings.download-buffer-size = 524288000;
 
@@ -14,7 +38,7 @@ nix.settings.download-buffer-size = 524288000;
 systemd = {
     services.nix-daemon.enable = true;
     extraConfig = ''
-      DefaultTimeoutStopSec=10s
+        DefaultTimeoutStopSec=10s
     '';
 };
 
@@ -124,8 +148,8 @@ environment.etc."gtk-3.0/settings.ini".text = ''
 # Use latest kernel
 boot.kernelPackages = pkgs.linuxPackages_latest;
 
-# Networking/Hostname
-networking.hostName = "nix"; # Define your hostname.
+# Default networking hostname and NetworkManager
+networking.hostName = "nix"; # default, unless declared in other configs with mkForce
 networking.networkmanager.enable = true;
 
 

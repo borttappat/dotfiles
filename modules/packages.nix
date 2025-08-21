@@ -98,6 +98,7 @@ nixpkgs.config.packageOverrides = pkgs: {
     #pipewire
 
 # Terminal stuff
+    comma
     tmate
     zsh
     fish
