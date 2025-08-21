@@ -1,11 +1,10 @@
 [env]
 TERM = "xterm"
-#WINIT_X11_SCALE_FACTOR = "1.8"
+WINIT_X11_SCALE_FACTOR = "1.5"
 #WINIT_X11_SCALE_FACTOR = "2"
 
 [font]
-# For external display
-size = 6 
+size = 6.5 
 
 [font.bold]
 #family = "hack"
