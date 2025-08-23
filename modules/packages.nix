@@ -60,6 +60,7 @@ nixpkgs.config.packageOverrides = pkgs: {
     miracode
     termsyn
     spleen
+    anakron
     ];
 
 # Packages to install on a system-wide level
