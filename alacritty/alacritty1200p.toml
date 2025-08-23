@@ -1,6 +1,7 @@
 [env]
 TERM = "xterm"
 WINIT_X11_SCALE_FACTOR = "1.5"
+#WINIT_X11_SCALE_FACTOR = "1"
 #WINIT_X11_SCALE_FACTOR = "2"
 
 [font]
@@ -21,7 +22,7 @@ style = "Bold Italic"
 [font.glyph_offset]
 #live_config_reload = true
 x = 1
-y = 1
+#y = 1
 
 [font.italic]
 #family = "hack"
@@ -37,7 +38,7 @@ style = "Regular"
 
 [font.offset]
 x = 1 
-y = 1
+#y = 1
 
 [[keyboard.bindings]]
 action = "Paste"
