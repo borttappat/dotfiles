@@ -22,7 +22,7 @@ style = "Bold Italic"
 [font.glyph_offset]
 #live_config_reload = true
 x = 1
-#y = 1
+y = 1
 
 [font.italic]
 #family = "hack"
@@ -38,7 +38,7 @@ style = "Regular"
 
 [font.offset]
 x = 1 
-#y = 1
+y = 1
 
 [[keyboard.bindings]]
 action = "Paste"
@@ -73,7 +73,7 @@ mods = "Control"
 [window]
 dynamic_padding = true
 #multiplier = 3
-opacity = 1.0
+opacity = 0.6
 
 [window.class]
 general = "Alacritty"
@@ -82,3 +82,4 @@ instance = "Alacritty"
 [window.padding]
 x = 10
 y = 8
+
