@@ -28,6 +28,21 @@ specialisation.router.configuration = {
             User = "root";
         };
     };
+    systemd.services.router-default-route = {
+        description = "Set default route through router VM";
+        after = [ "router-vm-autostart.service" "network.target" ];
+        wants = [ "router-vm-autostart.service" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            Restart = "no";
+        };
+        script = ''
+            sleep 30
+            ${pkgs.iproute2}/bin/ip route add default via 192.168.100.253 dev virbr1 || true
+        '';
+    };
 };
 
 ##########################
