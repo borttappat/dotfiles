@@ -1,6 +1,39 @@
 { config, pkgs, lib, ... }:
 
 {
+
+###########################
+# BEGIN ROUTER SPEC SETUP #
+###########################
+
+# System labels for identification
+system.nixos.label = "base-setup";
+
+# Router specialisation
+specialisation.router.configuration = {
+    system.nixos.label = lib.mkForce "router-setup";
+
+    # Import router VFIO configuration
+    imports = [ ./router-generated/zenbook-passthrough.nix ];
+
+    # Auto-start router VM service
+    systemd.services.router-vm-autostart = {
+        description = "Auto-start router VM in router mode";
+        after = [ "libvirtd.service" "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "/home/traum/splix/scripts/generated-configs/deploy-router-vm.sh";
+            RemainAfterExit = true;
+            User = "root";
+        };
+    };
+};
+
+##########################
+#  END ROUTER SPEC SETUP #
+##########################
+
 # Intel graphics and hardware acceleration
 hardware.graphics = {
   enable = true;

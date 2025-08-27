@@ -26,7 +26,42 @@ elif echo "$current_host" | grep -q "QEMU"; then
 
 # For ASUS Zenbook specifically (check model line for "Zenbook")
 elif echo "$current_model" | grep -qi "zenbook"; then
-    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
+    # Detect current specialisation
+    CURRENT_LABEL=$(nixos-version | grep -o '[a-zA-Z-]*setup' || echo "base-setup")
+    echo "Current system: $CURRENT_LABEL"
+    
+    case "${1:-auto}" in
+        "router-boot")
+            echo "Building zenbook with router specialisation, staging for boot..."
+            sudo nixos-rebuild boot --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
+            echo "✅ Built. Reboot, then run 'switch-to-router' for router mode"
+            ;;
+        "router-switch")
+            echo "Building zenbook and switching to router mode..."
+            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
+            echo "Switching to router mode..."
+            switch-to-router
+            ;;
+        "base-switch")
+            echo "Building zenbook and staying in base mode..."
+            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
+            echo "✅ Base mode active"
+            ;;
+        *)
+            echo "Building zenbook and maintaining current mode ($CURRENT_LABEL)..."
+            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
+            
+            # Switch back to whatever mode we were in
+            if [[ "$CURRENT_LABEL" == "router-setup" ]]; then
+                echo "Restoring router mode..."
+                switch-to-router
+            else
+                echo "✅ Base mode active. Available commands:"
+                echo "  switch-to-router  - Enable router mode with VFIO"
+                echo "  switch-to-base    - Return to normal WiFi"
+            fi
+            ;;
+    esac
 
 # For ASUS Zephyrus specifically (check model line for "Zephyrus")
 elif echo "$current_model" | grep -qi "zephyrus"; then
