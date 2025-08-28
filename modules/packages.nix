@@ -10,45 +10,45 @@
 
 # Editor-settings
 environment.variables = {
-  EDITOR = "vim";
-  VISUAL = "vim";
+    EDITOR = "vim";
+    VISUAL = "vim";
 };
 
 nixpkgs.config.packageOverrides = pkgs: {
-  librewolf = pkgs.librewolf.override {
-    extraPrefs = ''
-      pref("browser.startup.homepage", "https://borttappat.github.io/links.html");
-      pref("browser.newtab.url", "https://borttappat.github.io/links.html");
-      pref("browser.newtabpage.enabled", true);
-      pref("browser.newtab.preload", true);
-      pref("browser.newtabpage.enhanced", true);
-      pref("browser.newtabpage.activity-stream.showSearch", true);
-      pref("browser.newtabpage.activity-stream.default.sites", "");
-    '';
-  };
+    librewolf = pkgs.librewolf.override {
+        extraPrefs = ''
+            pref("browser.startup.homepage", "https://borttappat.github.io/links.html");
+            pref("browser.newtab.url", "https://borttappat.github.io/links.html");
+            pref("browser.newtabpage.enabled", true);
+            pref("browser.newtab.preload", true);
+            pref("browser.newtabpage.enhanced", true);
+            pref("browser.newtabpage.activity-stream.showSearch", true);
+            pref("browser.newtabpage.activity-stream.default.sites", "");
+        '';
+    };
   
-  firefox = pkgs.firefox.override {
-    extraPrefs = ''
-      pref("browser.startup.homepage", "https://borttappat.github.io/links.html");
-      pref("browser.newtab.url", "https://borttappat.github.io/links.html");
-      pref("browser.newtabpage.enabled", true);
-      pref("browser.newtab.preload", true);
-      pref("browser.newtabpage.enhanced", true);
-      pref("browser.newtabpage.activity-stream.showSearch", true);
-      pref("browser.newtabpage.activity-stream.default.sites", "");
-    '';
-  };
+    firefox = pkgs.firefox.override {
+        extraPrefs = ''
+            pref("browser.startup.homepage", "https://borttappat.github.io/links.html");
+            pref("browser.newtab.url", "https://borttappat.github.io/links.html");
+            pref("browser.newtabpage.enabled", true);
+            pref("browser.newtab.preload", true);
+            pref("browser.newtabpage.enhanced", true);
+            pref("browser.newtabpage.activity-stream.showSearch", true);
+            pref("browser.newtabpage.activity-stream.default.sites", "");
+        '';
+    };
 };
 
 # Allowing unfree and unstable packages
 # I'm sorry, Stallman
-    nixpkgs.config.allowUnfree = true;
-    nixpkgs.config.allowUnstable = true;
+nixpkgs.config.allowUnfree = true;
+nixpkgs.config.allowUnstable = true;
 
-    nix.package = pkgs.nixVersions.git;
+nix.package = pkgs.nixVersions.git;
  
 # Fonts
-    fonts.packages = with pkgs; [
+fonts.packages = with pkgs; [
     cozette
     hack-font
     creep
@@ -61,14 +61,13 @@ nixpkgs.config.packageOverrides = pkgs: {
     termsyn
     spleen
     anakron
-    ];
+];
 
 # Packages to install on a system-wide level
-    environment.systemPackages = with pkgs; [
-
-     (writeShellScriptBin "burp" ''
-    ${burpsuite}/bin/burpsuite --project-file=memory:// --user-config-file=memory://
-  '')
+environment.systemPackages = with pkgs; [
+    (writeShellScriptBin "burp" ''
+        ${burpsuite}/bin/burpsuite --project-file=memory:// --user-config-file=memory://
+    '')
 
 # Editors
     vim
@@ -184,7 +183,7 @@ nixpkgs.config.packageOverrides = pkgs: {
     openvpn         #openvpn-client
     brightnessctl   #brightness-handler
     obsidian        #note taking tool
-    notesnook       #OS-alternative to obsidian
+    #notesnook       #OS-alternative to obsidian
     #light           #backlight-controller
     #undervolt
     git
@@ -210,17 +209,13 @@ nixpkgs.config.packageOverrides = pkgs: {
     whois
     warpd           #click stuff without mouse input
     ollama          #run llms locally
-    unstable.claude-code
-    gemini-cli
-    gpt4all
-    local-ai
     #khoj
-    aichat          #CLI gpt-chatbot 
+    #aichat          #CLI gpt-chatbot 
     unclutter       #hides mouse cursor when not in use
     unzip           #zip-archiving tool 
     tealdeer        #alternative to man
     #udevil          #udisks replacement
-    jq              #JSON processor
+    jq              #JSON processor, do not remove, is unfortunately used in a few places
 
     
 # X11
@@ -236,5 +231,6 @@ nixpkgs.config.packageOverrides = pkgs: {
 
 # Uncategorized
     pulseaudioFull
-        ];
+];
+
 }

@@ -22,14 +22,18 @@ if echo "$current_host" | grep -q "Razer"; then
 
 # For Virtual machines
 elif echo "$current_host" | grep -q "QEMU"; then
-    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#VM 
+    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#VM
 
 # For ASUS Zenbook specifically (check model line for "Zenbook")
 elif echo "$current_model" | grep -qi "zenbook"; then
-    # Detect current specialisation
-    CURRENT_LABEL=$(nixos-version | grep -o '[a-zA-Z-]*setup' || echo "base-setup")
-    echo "Current system: $CURRENT_LABEL"
-    
+    # Detect current specialisation by checking system state
+    if lsmod | grep -q vfio_pci && [[ -d /sys/class/net/virbr1 ]]; then
+        CURRENT_LABEL="router-setup"
+    else
+        CURRENT_LABEL="base-setup"
+    fi
+    echo "Current system: $CURRENT_LABEL (detected from system state)"
+
     case "${1:-auto}" in
         "router-boot")
             echo "Building zenbook with router specialisation, staging for boot..."
@@ -50,7 +54,20 @@ elif echo "$current_model" | grep -qi "zenbook"; then
         *)
             echo "Building zenbook and maintaining current mode ($CURRENT_LABEL)..."
             sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
-            
+
+            # Add bridge recreation for router mode
+            if [[ "$CURRENT_LABEL" == "router-setup" ]]; then
+                echo "Ensuring virbr1 bridge exists for router mode..."
+                if ! ip link show virbr1 >/dev/null 2>&1; then
+                    sudo ip link add virbr1 type bridge
+                    sudo ip addr add 192.168.100.1/24 dev virbr1
+                    sudo ip link set virbr1 up
+                    echo "✓ virbr1 bridge recreated"
+                else
+                    echo "✓ virbr1 bridge already exists"
+                fi
+            fi
+
             # Switch back to whatever mode we were in
             if [[ "$CURRENT_LABEL" == "router-setup" ]]; then
                 echo "Restoring router mode..."
@@ -68,7 +85,7 @@ elif echo "$current_model" | grep -qi "zephyrus"; then
     # Detect current specialisation
     CURRENT_LABEL=$(nixos-version | grep -o '[a-zA-Z-]*setup' || echo "base-setup")
     echo "Current system: $CURRENT_LABEL"
-    
+
     case "${1:-auto}" in
         "router-boot")
             echo "Building zephyrus with router specialisation, staging for boot..."
@@ -89,7 +106,7 @@ elif echo "$current_model" | grep -qi "zephyrus"; then
         *)
             echo "Building zephyrus and maintaining current mode ($CURRENT_LABEL)..."
             sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
-            
+
             # Switch back to whatever mode we were in
             if [[ "$CURRENT_LABEL" == "router-setup" ]]; then
                 echo "Restoring router mode..."

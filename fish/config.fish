@@ -79,7 +79,6 @@ alias npp='v ~/dotfiles/modules/pentesting.nix'
 
 alias nixsrv='v ~/dotfiles/modules/services.nix'
 
-alias i3conf='v ~/dotfiles/i3/config'
 alias zathconf='v ~/dotfiles/zathura/zathurarc'
 
 alias zathura='zathura --fork=false'

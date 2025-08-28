@@ -16,18 +16,6 @@ specialisation.router.configuration = {
     # Import router VFIO configuration
     imports = [ ./router-generated/zenbook-passthrough.nix ];
 
-    # Auto-start router VM service
-    systemd.services.router-vm-autostart = {
-        description = "Auto-start router VM in router mode";
-        after = [ "libvirtd.service" "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-            Type = "oneshot";
-            ExecStart = "/home/traum/splix/scripts/generated-configs/deploy-router-vm.sh";
-            RemainAfterExit = true;
-            User = "root";
-        };
-    };
     systemd.services.router-default-route = {
         description = "Set default route through router VM";
         after = [ "router-vm-autostart.service" "network.target" ];
@@ -75,6 +63,22 @@ environment.systemPackages = with pkgs; [
   intel-compute-runtime
   ocl-icd
   intel-ocl
+
+    (writeShellScriptBin "switch-to-router" ''
+        #!/bin/sh
+        echo "Switching to router mode..."
+        sudo /run/current-system/specialisation/router/bin/switch-to-configuration switch
+        echo "✅ Router mode activated"
+        echo "Router VM should start automatically"
+    '')
+
+    (writeShellScriptBin "switch-to-base" ''
+        #!/bin/sh
+        echo "Switching to base mode..."
+        sudo /run/current-system/bin/switch-to-configuration switch
+        echo "✅ Base mode activated"
+        echo "WiFi should be restored"
+    '')
 ];
 
 # Enable bluetooth
