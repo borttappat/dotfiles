@@ -5,7 +5,7 @@ WINIT_X11_SCALE_FACTOR = "1.5"
 #WINIT_X11_SCALE_FACTOR = "2"
 
 [font]
-size = 6.5 
+size = 6.5
 
 [font.bold]
 #family = "hack"
@@ -61,14 +61,19 @@ key = "Key0"
 mods = "Control"
 
 [[keyboard.bindings]]
-action = "IncreaseFontSize"
 key = "Plus"
 mods = "Control"
+command = { program = "fish", args = ["-c", "if test (alacritty msg config font.size | string trim) = '13.0'; alacritty msg config font.size=26; else; alacritty msg config font.size=13; end"] }
+
+#[[keyboard.bindings]]
+#action = "DecreaseFontSize"
+#key = "Minus"
+#mods = "Control"
 
 [[keyboard.bindings]]
-action = "DecreaseFontSize"
 key = "Minus"
 mods = "Control"
+command = { program = "alacritty", args = ["msg", "config", "font.size=6.5"] }
 
 [window]
 dynamic_padding = true
@@ -82,4 +87,3 @@ instance = "Alacritty"
 [window.padding]
 x = 10
 y = 8
-
