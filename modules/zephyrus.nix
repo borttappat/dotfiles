@@ -367,8 +367,6 @@ boot.loader = {
 };
 
   
-boot.initrd.luks.devices."luks-0097e1f0-0180-40d6-ba65-55c705b20bec".device = "/dev/disk/by-uuid/0097e1f0-0180-40d6-ba65-55c705b20bec";
-
 environment.systemPackages = with pkgs; [
   
     # Add a script to set battery charge limit
