@@ -122,17 +122,17 @@ in {
             ./modules/services.nix
             ./modules/users.nix
             ./modules/colors.nix
-            ./modules/hosts.nix
+            #./modules/hosts.nix
             ./modules/virt.nix
-            ./modules/scripts.nix
+            #./modules/scripts.nix
             ./modules/audio.nix
 
             
             # Additional feature modules
-            ./modules/pentesting.nix
-            ./modules/proxychains.nix
-            ./modules/dev.nix
-            ./modules/steam.nix
+            #./modules/pentesting.nix
+            #./modules/proxychains.nix
+            #./modules/dev.nix
+            #./modules/steam.nix
         ];
     }; 
 
