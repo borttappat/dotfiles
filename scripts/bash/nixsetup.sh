@@ -6,6 +6,7 @@ readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly DOTFILES_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 readonly BACKUP_DIR="$HOME/.config-backup-$(date +%Y%m%d-%H%M%S)"
 readonly LOG_FILE="/tmp/nixsetup-$(date +%Y%m%d-%H%M%S).log"
+readonly CURRENT_USER="$(whoami)"
 
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG_FILE"
@@ -21,13 +22,24 @@ check_prerequisites() {
     
     command -v git >/dev/null || error "Git not found"
     command -v nixos-rebuild >/dev/null || error "nixos-rebuild not found"
-    command -v neofetch >/dev/null || error "neofetch not found"
     
     [[ -d "$DOTFILES_DIR" ]] || error "Dotfiles directory not found at $DOTFILES_DIR"
     [[ -f "$DOTFILES_DIR/flake.nix" ]] || error "flake.nix not found"
     [[ -f "$DOTFILES_DIR/scripts/bash/links.sh" ]] || error "links.sh not found"
     
     log "All prerequisites satisfied"
+}
+
+replace_username() {
+    log "Replacing 'traum' with current user '$CURRENT_USER' throughout dotfiles..."
+    
+    # Find all files (excluding .git directory and binary files)
+    find "$DOTFILES_DIR" -type f -not -path "*/.git/*" -not -name "*.png" -not -name "*.jpg" -not -name "*.jpeg" -not -name "*.gif" -not -name "*.ico" -not -name "*.svg" -exec grep -l "traum" {} \; 2>/dev/null | while read -r file; do
+        log "Updating file: $file"
+        sed -i "s/traum/$CURRENT_USER/g" "$file"
+    done
+    
+    log "Username replacement completed"
 }
 
 create_backup() {
@@ -66,9 +78,9 @@ setup_symlinks() {
 }
 
 build_system() {
-    log "Building NixOS system configuration for user: $(whoami)"
+    log "Building NixOS system configuration for user: $CURRENT_USER"
     
-    export USER="${USER:-$(whoami)}"
+    export USER="${USER:-$CURRENT_USER}"
     export SUDO_USER="${SUDO_USER:-$USER}"
     
     log "Calling nixbuild.sh for hardware detection and system build..."
@@ -81,7 +93,7 @@ build_system() {
 
 cleanup() {
     log "Setup completed successfully!"
-    log "Configuration is now active for user: $(whoami)"
+    log "Configuration is now active for user: $CURRENT_USER"
     log "Backup stored at: $BACKUP_DIR"
     log "Log file: $LOG_FILE"
     log ""
@@ -94,9 +106,10 @@ cleanup() {
 main() {
     log "Starting NixOS dotfiles setup..."
     log "Dotfiles directory: $DOTFILES_DIR"
-    log "Target user: $(whoami)"
+    log "Target user: $CURRENT_USER"
     
     check_prerequisites
+    replace_username
     create_backup
     setup_symlinks
     build_system
