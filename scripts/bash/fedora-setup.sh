@@ -182,6 +182,7 @@ setup_environment() {
     echo 'set -x VISUAL vim' >> ~/.config/fish/config.fish
     echo 'set -x BROWSER firefox' >> ~/.config/fish/config.fish
     echo 'set -x TERM xterm' >> ~/.config/fish/config.fish
+    echo 'fish_add_path ~/.local/bin' >> ~/.config/fish/config.fish
 }
 
 create_script_fixes() {
