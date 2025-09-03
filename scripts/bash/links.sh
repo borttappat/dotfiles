@@ -43,6 +43,7 @@ declare -A FILE_MAPPINGS=(
     ["$DOTFILES_DIR/bash/.bashrc"]="$HOME"
     ["$DOTFILES_DIR/zsh/.zshrc"]="$HOME"
     
+    ["$DOTFILES_DIR/i3/config"]="$HOME/.config/i3"
     ["$DOTFILES_DIR/i3/config.base"]="$HOME/.config/i3"
     ["$DOTFILES_DIR/i3/config1080p"]="$HOME/.config/i3"
     ["$DOTFILES_DIR/i3/config2880"]="$HOME/.config/i3"
@@ -70,7 +71,6 @@ declare -A FILE_MAPPINGS=(
     ["$DOTFILES_DIR/picom/picom.conf"]="$HOME/.config/picom"
     
     ["$DOTFILES_DIR/bin/pomo"]="$HOME/.local/bin"
-    ["$DOTFILES_DIR/bin/traumhound"]="$HOME/.local/bin"
     
     ["$DOTFILES_DIR/xorg/.xinitrc"]="$HOME"
     ["$DOTFILES_DIR/xorg/.Xmodmap"]="$HOME"
