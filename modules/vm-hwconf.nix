@@ -5,13 +5,9 @@
   boot.loader = lib.mkForce {
     grub = {
       enable = true;
-      device = "nodev";
-      efiSupport = true;
+      device = "/dev/vda";  # or /dev/sda depending on your VM
+      efiSupport = false;
       useOSProber = false;
-    };
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
     };
   };
 }
