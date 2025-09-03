@@ -1,14 +1,16 @@
 { config, lib, pkgs, ... }:
 
 let
+  # Find the ESP path among the filesystems
   getEspPath = filesystems:
     let
+      # Filter filesystems to find ones mounted at /boot or /boot/efi
       bootMounts = lib.filterAttrs 
         (mountPoint: _: mountPoint == "/boot" || mountPoint == "/boot/efi") 
         filesystems;
       
-      bootMountsList = lib.attrNames bootMounts;
-      firstBoot = if bootMountsList != [] then lib.head bootMountsList else null;
+      # Get the first mount point (if any)
+      firstBoot = lib.head (lib.attrNames bootMounts);
     in
       if firstBoot != null then firstBoot else "/boot";
   
