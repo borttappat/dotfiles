@@ -1,13 +1,15 @@
 { config, lib, pkgs, ... }:
 {
-  imports = [ /etc/nixos/hardware-configuration.nix ];
-
-  boot.loader = lib.mkForce {
-    grub = {
-      enable = true;
-      device = "/dev/vda";  # or /dev/sda depending on your VM
-      efiSupport = false;
-      useOSProber = false;
-    };
-  };
+  virtualisation.vmware.guest.enable = true;
+  services.qemuGuest.enable = true;
+  services.spice-vdagentd.enable = true;
+  services.xserver.videoDrivers = [ "vmware" "qxl" "virtio" ];
+  environment.systemPackages = with pkgs; [
+    open-vm-tools
+    qemu-guest-agent
+    spice-vdagent
+  ];
+  services.xserver.displayManager.sessionCommands = ''
+    ${pkgs.xorg.xrandr}/bin/xrandr --auto
+  '';
 }
