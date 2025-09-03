@@ -3,7 +3,6 @@
 #|  |  |  |   _|   _|__|     |  |_   _|
 # \___/|__|__| |____|__|__|__|__|__.__|
 { config, pkgs, lib, ... }:
-
 {
   options = {
     virtualisation = {
@@ -17,207 +16,156 @@
         default = "traum";
         description = "Main user for virtualization permissions";
       };
+      enableLookingGlass = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Enable Looking Glass for GPU passthrough";
+      };
     };
   };
 
   config = {
-    # Virtualization services
+    # Core virtualization services
     virtualisation = {
       libvirtd = {
         enable = true;
         qemu = {
-          package = pkgs.qemu;
+          package = pkgs.qemu_kvm;
           ovmf = {
             enable = true;
-            packages = [pkgs.OVMFFull];
+            packages = [ pkgs.OVMFFull.fd ];
           };
           swtpm.enable = true;
+          runAsRoot = false;
         };
+        onBoot = "start";
+        onShutdown = "shutdown";
       };
 
+      # Container runtime
       docker = lib.mkIf config.virtualisation.useDocker {
         enable = true;
         autoPrune = {
           enable = true;
           dates = "weekly";
+          flags = [ "--all" ];
+        };
+        daemon.settings = {
+          data-root = "/var/lib/docker";
+          storage-driver = "overlay2";
         };
       };
 
       podman = lib.mkIf (!config.virtualisation.useDocker) {
         enable = true;
         dockerCompat = true;
-        defaultNetwork.settings = {
-          dns_enabled = true;
-        };
+        defaultNetwork.settings.dns_enabled = true;
       };
     };
 
-    # Libvirt networks
+    # Optimized networking
     networking = {
       firewall = {
-        allowedTCPPorts = [ 
-          16509  # libvirt
-          5900 5901  # VNC
+        allowedTCPPorts = [
+          16509 16514  # libvirt (secure)
+          5900 5901 5902 5903  # VNC
           3389  # RDP
+        ] ++ lib.optionals config.virtualisation.enableLookingGlass [
+          9999  # Looking Glass SPICE
         ];
-        allowedUDPPorts = [ 
-          8472  # Flannel overlay
-        ];
-        checkReversePath = "loose";  # Important for VPN compatibility
-        trustedInterfaces = [ "virbr0" ];
+        allowedUDPPorts = [ 8472 ];
+        checkReversePath = "loose";
+        trustedInterfaces = [ "virbr0" "virbr+" ];
       };
 
-      # NAT configuration that doesn't require specifying the external interface
       nat = {
         enable = true;
-        internalInterfaces = ["virbr0"];
-        # No externalInterface specified - system will determine automatically
+        internalInterfaces = [ "virbr0" ];
       };
     };
 
-    # Enable IP forwarding
+    # Performance kernel parameters
     boot.kernel.sysctl = {
       "net.ipv4.ip_forward" = 1;
       "net.ipv4.conf.all.forwarding" = 1;
-      # Additional settings for better VPN compatibility
       "net.ipv4.conf.all.rp_filter" = 0;
       "net.ipv4.conf.default.rp_filter" = 0;
+      # VM memory optimizations
+      "vm.max_map_count" = 2147483647;
+      "kernel.unprivileged_userns_clone" = 1;
     };
 
-    # Default network configuration for libvirt with more reliable DNS settings
-    environment.etc."libvirt/qemu/networks/default.xml" = {
-      text = ''
-        <?xml version="1.0" encoding="UTF-8"?>
-        <network>
-          <name>default</name>
-          <forward mode="nat">
-            <nat>
-              <port start='1024' end='65535'/>
-            </nat>
-          </forward>
-          <bridge name="virbr0" stp='on' delay='0'/>
-          <dns>
-            <forwarder addr="1.1.1.1"/>
-            <forwarder addr="8.8.8.8"/>
-          </dns>
-          <ip address="192.168.122.1" netmask="255.255.255.0">
-            <dhcp>
-              <range start="192.168.122.2" end="192.168.122.254"/>
-            </dhcp>
-          </ip>
-        </network>
-      '';
-      user = "root";
-      group = "root";
-      mode = "0644";
-    };
-
-    # System packages and configuration
+    # Enhanced system packages
     environment.systemPackages = with pkgs; [
+      # Core QEMU/KVM
       qemu_kvm
       virt-manager
       virt-viewer
+      libvirt
+      libosinfo
+      guestfs-tools
+
+      # SPICE support
       spice-gtk
       spice-vdagent
       spice-protocol
-      spice-autorandr
-      win-spice
-      win-virtio
-      swtpm
+
+      # VM utilities
       OVMF
+      swtpm
       virtiofsd
+      win-virtio
+      win-spice
+
+      # Network tools
       bridge-utils
-      dnsmasq  # needed for libvirt but will be managed by libvirt
-      iptables
-      iproute2  # For network troubleshooting
-      bind.dnsutils  # For DNS troubleshooting (dig, nslookup)
+      iproute2
+      bind.dnsutils
+
     ] ++ lib.optionals config.virtualisation.useDocker [
       docker-compose
       lazydocker
+    ] ++ lib.optionals config.virtualisation.enableLookingGlass [
+      looking-glass-client
     ];
 
-    # Do NOT enable the system dnsmasq service as libvirt manages its own instance
-    services.dnsmasq.enable = false;
-
-    # User groups
-    users.groups = {
-      libvirtd = {};
-      kvm = {};
-    } // lib.mkIf config.virtualisation.useDocker {
-      docker = {};
-    };
-
-    # Add current user to virtualization groups
-    users.users.${config.virtualisation.mainUser}.extraGroups = [ "libvirtd" "kvm" ] 
+    # User configuration
+    users.users.${config.virtualisation.mainUser}.extraGroups =
+      [ "libvirtd" "kvm" "qemu" ]
       ++ lib.optional config.virtualisation.useDocker "docker";
 
-    # Required services
+    # Improved libvirt service
     systemd.services.libvirtd = {
-      path = [ pkgs.bridge-utils ];
+      path = with pkgs; [ bridge-utils iproute2 ];
       preStart = ''
-        mkdir -p /var/lib/libvirt/qemu/networks/autostart
-        mkdir -p /etc/libvirt/qemu/networks/
-        chmod 755 /var/lib/libvirt/qemu/networks/autostart
-        chmod 755 /etc/libvirt/qemu/networks/
+        mkdir -p /var/lib/libvirt/{qemu/networks/autostart,images,dnsmasq}
+        chmod 755 /var/lib/libvirt/{qemu/networks{,/autostart},images,dnsmasq}
       '';
     };
 
-    # Ensure default network is started and configured for VPN compatibility
-    systemd.services.libvirt-default-network = {
-      description = "Libvirt Default Network";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "libvirtd.service" ];
-      after = [ "libvirtd.service" "network.target" ];
-      path = with pkgs; [ libvirt dnsmasq iptables iproute2 ];
-      environment = {
-        LC_ALL = "C";
-      };
-      preStart = ''
-        mkdir -p /var/lib/libvirt/qemu/networks/
-        mkdir -p /var/lib/libvirt/qemu/networks/autostart/
-        chmod 755 /var/lib/libvirt/qemu/networks{,/autostart}
-      '';
-      script = ''
-        set -x
-
-        # Make sure libvirtd is ready
-        timeout=30
-        while [ $timeout -gt 0 ]; do
-          if virsh connect "qemu:///system" >/dev/null 2>&1; then
-            break
-          fi
-          sleep 1
-          timeout=$((timeout - 1))
-        done
-
-        if [ $timeout -eq 0 ]; then
-          echo "Timeout waiting for libvirtd"
-          exit 1
-        fi
-
-        # Clean up any existing network
-        virsh net-destroy default >/dev/null 2>&1 || true
-        virsh net-undefine default >/dev/null 2>&1 || true
-
-        echo "Creating network from: /etc/libvirt/qemu/networks/default.xml"
-        virsh net-define /etc/libvirt/qemu/networks/default.xml
-        
-        virsh net-autostart default
-        virsh net-start default
-
-        # Fix iptables rules for VPN compatibility
-        # This helps when the host is using a VPN by ensuring masquerading works properly
-        iptables -t nat -I POSTROUTING -s 192.168.122.0/24 -j MASQUERADE
-
-        echo "Current networks:"
-        virsh net-list --all
-      '';
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = "yes";
-        Restart = "on-failure";
-        RestartSec = "1s";
-      };
-    };
+    # Default network with better DNS
+    environment.etc."libvirt/qemu/networks/default.xml".text = ''
+      <?xml version="1.0" encoding="UTF-8"?>
+      <network>
+        <name>default</name>
+        <forward mode="nat">
+          <nat>
+            <port start='1024' end='65535'/>
+          </nat>
+        </forward>
+        <bridge name="virbr0" stp='on' delay='0'/>
+        <dns enable="yes">
+          <forwarder addr="1.1.1.1"/>
+          <forwarder addr="8.8.8.8"/>
+          <forwarder addr="9.9.9.9"/>
+        </dns>
+        <ip address="192.168.122.1" netmask="255.255.255.0">
+          <dhcp>
+            <range start="192.168.122.10" end="192.168.122.200"/>
+            <lease expiry="24" unit="hours"/>
+          </dhcp>
+        </ip>
+      </network>
+    '';
   };
 }
