@@ -17,11 +17,11 @@ virtualisation.libvirtd = {
 enable = true;
 qemu = {
 package = lib.mkForce pkgs.qemu_kvm;
-runAsRoot = true;
+#runAsRoot = true;
 swtpm.enable = true;
 ovmf = {
 enable = true;
-packages = [ pkgs.OVMF.fd ];
+packages = [ pkgs.OVMFFull.fd ];
 };
 };
 };

@@ -33,29 +33,6 @@ let
 
 in {
     nixosConfigurations = {
-        # ARM-specific VM configuration
-        armVM = nixpkgs.lib.nixosSystem {
-            system = "aarch64-linux";
-            modules = [
-                # Make unfree packages allowable
-                { nixpkgs.config.allowUnfree = true; }
-    
-                # Add overlay to the system
-                { nixpkgs.overlays = [ overlay-unstable ]; }
-    
-                # ARM VM specific configuration
-                ./modules/arm-vm.nix
-                ./modules/hwconf.nix 
-                
-                # Core functionality modules (non-hardware specific)
-                ./modules/i3.nix
-                ./modules/pentesting.nix
-                ./modules/colors.nix
-                ./modules/hosts.nix
-                ./modules/audio.nix
-    
-            ];
-        };       
     
     # Configurations with system specific to architecture
     razer = nixpkgs.lib.nixosSystem {
@@ -154,8 +131,6 @@ in {
             
             # Device specific configurations
             ./modules/zenbook.nix
-            #./modules/zenbookconf.nix
-            #./modules/zenaudio.nix
             ./modules/i3.nix
             
             # Core functionality modules
@@ -163,16 +138,16 @@ in {
             ./modules/services.nix
             ./modules/users.nix
             ./modules/colors.nix
-            ./modules/hosts.nix
+            #./modules/hosts.nix
             ./modules/virt.nix
             ./modules/scripts.nix
             
             # Additional feature modules
-            ./modules/pentesting.nix
-            ./modules/proxychains.nix
-            ./modules/dev.nix
+            #./modules/pentesting.nix
+            #./modules/proxychains.nix
+            #./modules/dev.nix
             ./modules/steam.nix
-            ./modules/gaming.nix
+            #./modules/gaming.nix
             ./modules/audio.nix
             ./modules/firefox.nix
         ];
@@ -255,6 +230,7 @@ in {
             # Base system configuration
             ./modules/configuration.nix
             ./modules/vm-hwconf.nix
+            ./modules/vm-guest.nix
             
             # Core functionality modules
             ./modules/i3.nix
@@ -271,6 +247,30 @@ in {
             ./modules/dev.nix
         ];
     };
+
+    # ARM-specific VM configuration
+    armVM = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+            # Make unfree packages allowable
+            { nixpkgs.config.allowUnfree = true; }
+
+            # Add overlay to the system
+            { nixpkgs.overlays = [ overlay-unstable ]; }
+
+            # ARM VM specific configuration
+            ./modules/arm-vm.nix
+            ./modules/hwconf.nix 
+            
+            # Core functionality modules (non-hardware specific)
+            ./modules/i3.nix
+            ./modules/pentesting.nix
+            ./modules/colors.nix
+            ./modules/hosts.nix
+            ./modules/audio.nix
+
+        ];
+    };       
 
     # Default configuration
     default = nixpkgs.lib.nixosSystem {

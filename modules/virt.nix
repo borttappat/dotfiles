@@ -111,7 +111,7 @@
       spice-protocol
 
       # VM utilities
-      OVMF
+      #OVMF
       swtpm
       virtiofsd
       win-virtio
