@@ -259,7 +259,7 @@ in {
             # Core functionality modules
             ./modules/i3.nix
             ./modules/packages.nix
-            ./modules/services-minimal.nix
+            ./modules/services.nix
             ./modules/users.nix
             ./modules/colors.nix
             ./modules/hosts.nix
