@@ -95,6 +95,17 @@ hardware.bluetooth = {
 
 services.blueman.enable = true;
 
+boot.loader.grub.extraEntries = ''
+  menuentry "Bazzite" {
+    insmod part_gpt
+    insmod ext2
+    search --no-floppy --fs-uuid --set=root 01e3fba2-cbc3-4909-8ba1-2f4efa910d8f
+    linux /ostree/default-408ddefbd1ea9b87291d956fd54fbc525956e01dbc251c14ddc6fad62386eaed/vmlinuz-6.16.4-104.bazzite.fc42.x86_64 rhgb quiet root=UUID=bfe5e66b-8be3-431d-a8fe-e6277b27cc26 rootflags=subvol=root rw ostree=/ostree/boot.0/default/408ddefbd1ea9b87291d956fd54fbc525956e01dbc251c14ddc6fad62386eaed/0 bluetooth.disable_ertm=1
+    initrd /ostree/default-408ddefbd1ea9b87291d956fd54fbc525956e01dbc251c14ddc6fad62386eaed/initramfs-6.16.4-104.bazzite.fc42.x86_64.img
+  }
+'';
+
+
 # Trying to get hashcat to work :)
 boot.kernelParams = [ "i915.enable_guc=3" "i915.enable_fbc=1" ];
 
