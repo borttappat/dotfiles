@@ -111,7 +111,7 @@ alias link='sudo python ~/dotfiles/scripts/python/link_file.py'
 alias tds='sudo tailscale file cp'
 alias tdr='sudo tailscale file get'
 
-alias cf='clear && fastfetch'
+alias cf='clear && fastfetch --file ~/dotfiles/misc/grace.txt'
 
 alias nwshow='nmcli dev wifi show'
 alias nwconnect='nmcli --ask dev wifi connect'
