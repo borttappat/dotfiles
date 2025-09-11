@@ -36,7 +36,7 @@
             packages = [ pkgs.OVMFFull.fd ];
           };
           swtpm.enable = true;
-          runAsRoot = false;
+          runAsRoot = true;
         };
         onBoot = "start";
         onShutdown = "shutdown";
