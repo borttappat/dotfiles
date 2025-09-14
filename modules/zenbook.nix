@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 
+let
+  inherit (pkgs.lib) mkForce;
+in
 {
 
 ###########################
@@ -16,20 +19,29 @@ specialisation.router.configuration = {
     # Import router VFIO configuration
     imports = [ ./router-generated/zenbook-passthrough.nix ];
 
-    systemd.services.router-default-route = {
-        description = "Set default route through router VM";
-        after = [ "router-vm-autostart.service" "network.target" ];
-        wants = [ "router-vm-autostart.service" ];
+    # Set default route through router VM (NixOS way)
+    networking.defaultGateway = {
+        address = "192.168.100.253";
+        interface = "virbr1";
+    };
+
+    # Auto-start router VM service (simplified)
+    systemd.services.router-vm-autostart = {
+        description = "Auto-start router VM in router mode";
+        after = [
+            "libvirtd.service"
+            "network.target"
+            "network-online.target"
+        ];
+        wants = [ "libvirtd.service" "network-online.target" ];
         wantedBy = [ "multi-user.target" ];
         serviceConfig = {
             Type = "oneshot";
+            ExecStart = "/home/traum/splix/generated/scripts/deploy-router-vm.sh";
             RemainAfterExit = true;
-            Restart = "no";
+            User = "root";
+            TimeoutStartSec = "300s";
         };
-        script = ''
-            sleep 30
-            ${pkgs.iproute2}/bin/ip route add default via 192.168.100.253 dev virbr1 || true
-        '';
     };
 };
 
