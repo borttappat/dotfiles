@@ -49,6 +49,8 @@ nix.package = pkgs.nixVersions.git;
  
 # Fonts
 fonts.packages = with pkgs; [
+    scientifica
+    gohufont
     cozette
     hack-font
     creep
@@ -98,7 +100,6 @@ environment.systemPackages = with pkgs; [
     #pipewire
 
 # Terminal stuff
-    comma
     tmate
     zsh
     fish

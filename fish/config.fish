@@ -40,6 +40,7 @@ end
 
 abbr -a !! 'eval sudo $history[1]'
 
+alias rc='sudo virsh console router-vm-passthrough'
 alias zenaudio='sh ~/dotfiles/scripts/bash/zenaudio.sh'
 alias za='zenaudio'
 

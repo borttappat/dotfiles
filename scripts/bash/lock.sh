@@ -31,7 +31,7 @@ i3lock \
     --date-font="CozetteVector" \
     --time-size=104 \
     --date-size=1 \
-    --time-color="${color7:1}" \
+    --time-color="${color2:1}" \
     --date-color="${color7:1}" \
     --inside-color="${color0:1}00" \
     --ring-color="${color0:1}00" \
