@@ -3,6 +3,9 @@
 # Kill any existing instances of i3lock
 killall -q i3lock
 
+# Source wal colors for consistent theming
+. "$HOME/.cache/wal/colors.sh"
+
 # Create temporary files
 img=/tmp/i3lock.png
 blur_img=/tmp/i3lock_blur.png
@@ -15,11 +18,8 @@ scrot -o $img
 magick $img -scale 20% -scale 500% $blur_img
 
 # Add text to the upper left corner of the blurred image
-magick $blur_img -gravity NorthWest -pointsize 143 -font "CozetteVector" -fill "${color7:1}" \
+magick $blur_img -gravity NorthWest -pointsize 143 -font "CozetteVector" -fill "$color1" \
     -annotate +50+50 'Enter password' $text_img
-
-# Source wal colors for consistent theming
-. "$HOME/.cache/wal/colors.sh"
 
 # Run i3lock-color with custom positions
 i3lock \
@@ -31,7 +31,7 @@ i3lock \
     --date-font="CozetteVector" \
     --time-size=104 \
     --date-size=1 \
-    --time-color="${color2:1}" \
+    --time-color="${color3:1}" \
     --date-color="${color7:1}" \
     --inside-color="${color0:1}00" \
     --ring-color="${color0:1}00" \
