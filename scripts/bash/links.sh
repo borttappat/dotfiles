@@ -75,6 +75,8 @@ declare -A FILE_MAPPINGS=(
     ["$DOTFILES_DIR/xorg/.xinitrc"]="$HOME"
     ["$DOTFILES_DIR/xorg/.Xmodmap"]="$HOME"
     ["$DOTFILES_DIR/xorg/.xsessionrc"]="$HOME"
+    
+    ["$DOTFILES_DIR/wal"]="$HOME/.cache"
 )
 
 create_link() {
@@ -84,15 +86,13 @@ create_link() {
     file_name=$(basename "$source_file")
     local target_file="$target_dir/$file_name"
     
-    # Check if source file exists
-    if [[ ! -f "$source_file" ]]; then
+    if [[ ! -e "$source_file" ]]; then
         if ! $QUIET; then
             echo "Warning: Source file $source_file does not exist, skipping..."
         fi
         return 1
     fi
     
-    # Create target directory if it doesn't exist
     if ! mkdir -p "$target_dir" 2>/dev/null; then
         if ! $QUIET; then
             echo "✗ Failed to create directory: $target_dir"
@@ -100,14 +100,11 @@ create_link() {
         return 1
     fi
     
-    # Handle existing files/links
     if [[ -e "$target_file" || -L "$target_file" ]]; then
         if [[ -L "$target_file" ]]; then
-            # It's a symlink - check if it points to the right place
             local current_target
             current_target=$(readlink "$target_file")
             
-            # Convert both paths to absolute paths for comparison
             local abs_current_target abs_source_file
             abs_current_target=$(realpath "$current_target" 2>/dev/null || echo "$current_target")
             abs_source_file=$(realpath "$source_file")
@@ -120,16 +117,13 @@ create_link() {
                 fi
                 return 0
             else
-                # Symlink points to wrong location, remove it
                 rm "$target_file"
                 if $VERBOSE && ! $QUIET; then
                     echo "  Removed incorrect symlink: $file_name"
                 fi
             fi
         else
-            # It's a regular file or directory
             if $CREATE_BACKUP; then
-                # Back up the existing file
                 local backup_file="${target_file}.old"
                 if [[ ! -e "$backup_file" ]]; then
                     mv "$target_file" "$backup_file"
@@ -137,14 +131,12 @@ create_link() {
                         echo "  Created backup: ${file_name}.old"
                     fi
                 else
-                    # Backup already exists, just remove the file
                     rm -rf "$target_file"
                     if $VERBOSE && ! $QUIET; then
                         echo "  Preserved existing backup: ${file_name}.old"
                     fi
                 fi
             else
-                # Default behavior: just remove without backing up
                 rm -rf "$target_file"
                 if $VERBOSE && ! $QUIET; then
                     echo "  Removed existing file: $file_name"
@@ -153,7 +145,6 @@ create_link() {
         fi
     fi
     
-    # Create the symbolic link
     if ln -s "$source_file" "$target_file" 2>/dev/null; then
         if $VERBOSE && ! $QUIET; then
             echo "✓ Created symlink: $file_name -> $source_file"
@@ -207,7 +198,6 @@ if ! $QUIET; then
     echo "Making scripts executable..."
 fi
 
-# Make scripts executable
 chmod +x "$DOTFILES_DIR/scripts/bash/"*.sh 2>/dev/null || true
 chmod +x "$HOME/.local/bin/"* 2>/dev/null || true
 
@@ -215,7 +205,6 @@ if ! $QUIET; then
     echo "Setting proper ownership..."
 fi
 
-# Set proper ownership
 PRIMARY_GROUP=$(id -gn)
 
 declare -A TARGET_DIRS
