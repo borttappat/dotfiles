@@ -77,6 +77,7 @@ declare -A FILE_MAPPINGS=(
     ["$DOTFILES_DIR/xorg/.xsessionrc"]="$HOME"
     
     ["$DOTFILES_DIR/wal"]="$HOME/.cache"
+    ["$DOTFILES_DIR/wal/templates/dunstrc"]="$HOME/.config/wal/templates"
 )
 
 create_link() {

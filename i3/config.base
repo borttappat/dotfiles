@@ -15,9 +15,8 @@ set $mod Mod4
 exec_always --no-startup-id ~/dotfiles/scripts/bash/autostart.sh
 exec_always --no-startup-id wal -Rnq
 exec_always --no-startup-id ~/.fehbg &
-exec_always --no-startup-id warpd
-#exec_always --no-startup-id ~/dotfiles/scripts/bash/python_server.sh
 exec_always --no-startup-id sleep 2 && xmodmap ~/.Xmodmap
+exec --no-startup-id dunst
 
 #########
 # BINDS #

@@ -19,6 +19,7 @@ polybar
 alacritty
 flameshot
 dunst
+libnotify
 arandr
 lxappearance
 pavucontrol

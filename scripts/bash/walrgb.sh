@@ -105,4 +105,13 @@ sed -i "s/^set recolor-darkcolor.*/set recolor-darkcolor \"$color2\"/" "$zathura
 echo "Zathura colors updated successfully."
 
 pywalfox update
+
+
+# Update dunst colors
+echo "Updating dunst colors..."
+ln -sf ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
+pkill dunst
+dunst &
+echo "Dunst colors updated"
+
 echo "Colors updated!"
