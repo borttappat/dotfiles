@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/traum/Wallpapers/Temple.png",
+    "alpha": "100",
+    "special": {
+        "background": "#0A090C",
+        "foreground": "#ceccc9",
+        "cursor": "#ceccc9"
+    },
+    "colors": {
+        "color0": "#0A090C",
+        "color1": "#961C2E",
+        "color2": "#D5393F",
+        "color3": "#808080",
+        "color4": "#8C8B89",
+        "color5": "#A29D99",
+        "color6": "#A7A39E",
+        "color7": "#ceccc9",
+        "color8": "#908e8c",
+        "color9": "#961C2E",
+        "color10": "#D5393F",
+        "color11": "#808080",
+        "color12": "#8C8B89",
+        "color13": "#A29D99",
+        "color14": "#A7A39E",
+        "color15": "#ceccc9"
+    }
+}

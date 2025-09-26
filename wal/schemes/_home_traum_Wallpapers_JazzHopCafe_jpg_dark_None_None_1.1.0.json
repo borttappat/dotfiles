@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/traum/Wallpapers/JazzHopCafe.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#0f1021",
+        "foreground": "#9fccd7",
+        "cursor": "#9fccd7"
+    },
+    "colors": {
+        "color0": "#0f1021",
+        "color1": "#565961",
+        "color2": "#989273",
+        "color3": "#334E8B",
+        "color4": "#34439A",
+        "color5": "#306299",
+        "color6": "#4B659C",
+        "color7": "#9fccd7",
+        "color8": "#6f8e96",
+        "color9": "#565961",
+        "color10": "#989273",
+        "color11": "#334E8B",
+        "color12": "#34439A",
+        "color13": "#306299",
+        "color14": "#4B659C",
+        "color15": "#9fccd7"
+    }
+}

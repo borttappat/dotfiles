@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/traum/Wallpapers/Wolf.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#131216",
+        "foreground": "#c5c7c9",
+        "cursor": "#c5c7c9"
+    },
+    "colors": {
+        "color0": "#131216",
+        "color1": "#973E43",
+        "color2": "#727D82",
+        "color3": "#509397",
+        "color4": "#8F9699",
+        "color5": "#9B9EA3",
+        "color6": "#A19FA3",
+        "color7": "#c5c7c9",
+        "color8": "#898b8c",
+        "color9": "#973E43",
+        "color10": "#727D82",
+        "color11": "#509397",
+        "color12": "#8F9699",
+        "color13": "#9B9EA3",
+        "color14": "#A19FA3",
+        "color15": "#c5c7c9"
+    }
+}

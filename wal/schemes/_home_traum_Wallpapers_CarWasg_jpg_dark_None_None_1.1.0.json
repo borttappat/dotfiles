@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/traum/Wallpapers/CarWasg.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#0F131E",
+        "foreground": "#dc8389",
+        "cursor": "#dc8389"
+    },
+    "colors": {
+        "color0": "#0F131E",
+        "color1": "#27334C",
+        "color2": "#3E3E61",
+        "color3": "#443650",
+        "color4": "#374462",
+        "color5": "#555459",
+        "color6": "#46476A",
+        "color7": "#dc8389",
+        "color8": "#9a5b5f",
+        "color9": "#27334C",
+        "color10": "#3E3E61",
+        "color11": "#443650",
+        "color12": "#374462",
+        "color13": "#555459",
+        "color14": "#46476A",
+        "color15": "#dc8389"
+    }
+}

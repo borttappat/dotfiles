@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/traum/Wallpapers/Arctic.png",
+    "alpha": "100",
+    "special": {
+        "background": "#0F171E",
+        "foreground": "#cdd4d9",
+        "cursor": "#cdd4d9"
+    },
+    "colors": {
+        "color0": "#0F171E",
+        "color1": "#4F5D6B",
+        "color2": "#516677",
+        "color3": "#657886",
+        "color4": "#817F81",
+        "color5": "#768896",
+        "color6": "#98A2AA",
+        "color7": "#cdd4d9",
+        "color8": "#8f9497",
+        "color9": "#4F5D6B",
+        "color10": "#516677",
+        "color11": "#657886",
+        "color12": "#817F81",
+        "color13": "#768896",
+        "color14": "#98A2AA",
+        "color15": "#cdd4d9"
+    }
+}

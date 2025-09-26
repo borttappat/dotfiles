@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/traum/Wallpapers/Evas.png",
+    "alpha": "100",
+    "special": {
+        "background": "#0a0a0a",
+        "foreground": "#e6e7e7",
+        "cursor": "#e6e7e7"
+    },
+    "colors": {
+        "color0": "#0a0a0a",
+        "color1": "#7E7E81",
+        "color2": "#8D8D8D",
+        "color3": "#9E9FA1",
+        "color4": "#AFB0B1",
+        "color5": "#BEC0C1",
+        "color6": "#CDCECF",
+        "color7": "#e6e7e7",
+        "color8": "#a1a1a1",
+        "color9": "#7E7E81",
+        "color10": "#8D8D8D",
+        "color11": "#9E9FA1",
+        "color12": "#AFB0B1",
+        "color13": "#BEC0C1",
+        "color14": "#CDCECF",
+        "color15": "#e6e7e7"
+    }
+}

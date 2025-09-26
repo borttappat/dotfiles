@@ -1,4 +1,4 @@
-#!/run/current-system/sw/bin/bash
+#!/usr/bin/env bash
 # Kill any existing instances of i3lock
 killall -q i3lock
 

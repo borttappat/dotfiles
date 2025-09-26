@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/traum/images/1984_3.png",
+    "alpha": "100",
+    "special": {
+        "background": "#060600",
+        "foreground": "#c1c2c3",
+        "cursor": "#c1c2c3"
+    },
+    "colors": {
+        "color0": "#060600",
+        "color1": "#99D11A",
+        "color2": "#BAF21C",
+        "color3": "#4A0194",
+        "color4": "#7A00F4",
+        "color5": "#8000FF",
+        "color6": "#7C8384",
+        "color7": "#c1c2c3",
+        "color8": "#878788",
+        "color9": "#99D11A",
+        "color10": "#BAF21C",
+        "color11": "#4A0194",
+        "color12": "#7A00F4",
+        "color13": "#8000FF",
+        "color14": "#7C8384",
+        "color15": "#c1c2c3"
+    }
+}

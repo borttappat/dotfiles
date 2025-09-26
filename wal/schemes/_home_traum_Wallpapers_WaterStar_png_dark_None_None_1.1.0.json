@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/traum/Wallpapers/WaterStar.png",
+    "alpha": "100",
+    "special": {
+        "background": "#201e21",
+        "foreground": "#d6d5d6",
+        "cursor": "#d6d5d6"
+    },
+    "colors": {
+        "color0": "#201e21",
+        "color1": "#687B89",
+        "color2": "#5F8094",
+        "color3": "#648396",
+        "color4": "#7794A7",
+        "color5": "#92969D",
+        "color6": "#ADB2B5",
+        "color7": "#d6d5d6",
+        "color8": "#959595",
+        "color9": "#687B89",
+        "color10": "#5F8094",
+        "color11": "#648396",
+        "color12": "#7794A7",
+        "color13": "#92969D",
+        "color14": "#ADB2B5",
+        "color15": "#d6d5d6"
+    }
+}

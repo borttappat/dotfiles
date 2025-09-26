@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/traum/Wallpapers/SpaceShip.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#0d0913",
+        "foreground": "#cab3d3",
+        "cursor": "#cab3d3"
+    },
+    "colors": {
+        "color0": "#0d0913",
+        "color1": "#5F5DA7",
+        "color2": "#3C59CA",
+        "color3": "#475CCB",
+        "color4": "#5365D3",
+        "color5": "#6B73D6",
+        "color6": "#717AE2",
+        "color7": "#cab3d3",
+        "color8": "#8d7d93",
+        "color9": "#5F5DA7",
+        "color10": "#3C59CA",
+        "color11": "#475CCB",
+        "color12": "#5365D3",
+        "color13": "#6B73D6",
+        "color14": "#717AE2",
+        "color15": "#cab3d3"
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "wallpaper": "/home/traum/Wallpapers/Aurora.png",
+    "alpha": "100",
+    "special": {
+        "background": "#091215",
+        "foreground": "#e1e9c4",
+        "cursor": "#e1e9c4"
+    },
+    "colors": {
+        "color0": "#091215",
+        "color1": "#99A46F",
+        "color2": "#C1D46F",
+        "color3": "#786386",
+        "color4": "#8C6F9E",
+        "color5": "#9FA291",
+        "color6": "#B6CE90",
+        "color7": "#e1e9c4",
+        "color8": "#9da389",
+        "color9": "#99A46F",
+        "color10": "#C1D46F",
+        "color11": "#786386",
+        "color12": "#8C6F9E",
+        "color13": "#9FA291",
+        "color14": "#B6CE90",
+        "color15": "#e1e9c4"
+    }
+}

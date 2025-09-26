@@ -1,0 +1,23 @@
+" Special
+let wallpaper  = "/home/traum/Wallpapers/Nvid.png"
+let background = "#0c0c0c"
+let foreground = "#dedede"
+let cursor     = "#dedede"
+
+" Colors
+let color0  = "#0c0c0c"
+let color1  = "#6E9B08"
+let color2  = "#84BB05"
+let color3  = "#98D902"
+let color4  = "#9DE001"
+let color5  = "#929292"
+let color6  = "#B3B3B3"
+let color7  = "#dedede"
+let color8  = "#9b9b9b"
+let color9  = "#6E9B08"
+let color10 = "#84BB05"
+let color11 = "#98D902"
+let color12 = "#9DE001"
+let color13 = "#929292"
+let color14 = "#B3B3B3"
+let color15 = "#dedede"
