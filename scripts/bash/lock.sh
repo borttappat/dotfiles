@@ -1,5 +1,4 @@
 #!/run/current-system/sw/bin/bash
-
 # Kill any existing instances of i3lock
 killall -q i3lock
 
@@ -27,6 +26,8 @@ i3lock \
     --clock \
     --time-str="%H:%M:%S" \
     --date-str="%A, %Y-%m-%d" \
+    --layout-font="CozetteVector" \
+    --layout-size=26 \
     --time-font="CozetteVector" \
     --date-font="CozetteVector" \
     --time-size=104 \
@@ -35,16 +36,33 @@ i3lock \
     --date-color="${color7:1}" \
     --inside-color="${color0:1}00" \
     --ring-color="${color0:1}00" \
-    --ringver-color="${color0:1}00" \
     --ringwrong-color="${color0:1}00" \
-    --line-uses-inside \
-    --line-color="${color2:1}ff" \
+    --line-color="${color0:1}ff" \
     --separator-color="${color0:1}00" \
-    --keyhl-color="${color2:1}ff" \
-    --bshl-color="${color1:1}ff" \
-    --time-pos="250:270" \
+    --keyhl-color="${color3:1}ff" \
+    --bshl-color="${color0:1}ff" \
+    --time-pos="245:270" \
     --date-pos="220:190" \
     --indicator \
-    --radius=1
+    --radius=50 \
+    --ring-color="${color0:1}00" \
+    --ringver-color="${color6:1}00" \
+    --ringwrong-color="${color7:1}00" \
+    --verif-text="Verifying..." \
+    --verif-font="CozetteVector" \
+    --verif-size=91 \
+    --verif-color="$color3" \
+    --verif-pos="311:270" \
+    --wrong-text="Ah ah ah! You didn't say the magic word!!" \
+    --wrong-pos="920:270" \
+    --wrong-font="CozetteVector" \
+    --wrong-size=91 \
+    --wrong-color="$color3" \
+    --noinput-text="Err: no input" \
+    --ind-pos="328:270" \
+    --bar-indicator \
+    --bar-step=5 \
+    --bar-max-height 5 \
+    --bar-color="${color0:1}00"
 
 rm "$img" "$blur_img" 
