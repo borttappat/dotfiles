@@ -76,6 +76,71 @@ fi
 
 echo "Detected resolution: $RESOLUTION"
 
+generate_resolution_settings() {
+    local res=$1
+    case $res in
+        "1920x1080"|"1920x1200")
+            cat << 'EOF'
+
+# Resolution-specific settings for 1920x1080/1200
+font pango:Cozette 8
+gaps inner 6
+gaps outer 0
+for_window [class=".*"] border pixel 2
+EOF
+            ;;
+        "2560x1440")
+            cat << 'EOF'
+
+# Resolution-specific settings for 2560x1440
+font pango:Cozette 9
+gaps inner 8
+gaps outer 0
+for_window [class=".*"] border pixel 2
+EOF
+            ;;
+        "2880x1800"|"2288x1436")
+            cat << 'EOF'
+
+# Resolution-specific settings for 2880x1800/2288x1436
+font pango:Cozette 10
+gaps inner 10
+gaps outer 0
+for_window [class=".*"] border pixel 3
+EOF
+            ;;
+        "3840x2160")
+            cat << 'EOF'
+
+# Resolution-specific settings for 4K
+font pango:Cozette 12
+gaps inner 12
+gaps outer 0
+for_window [class=".*"] border pixel 4
+EOF
+            ;;
+        *)
+            cat << 'EOF'
+
+# Default settings
+font pango:Cozette 8
+gaps inner 6
+gaps outer 0
+for_window [class=".*"] border pixel 2
+EOF
+            ;;
+    esac
+}
+
+generate_modifier_settings() {
+    local is_vm=$1
+    if [[ $is_vm == "true" ]]; then
+        echo ""
+        echo "# VM-specific modifier override"
+        echo "set \$mod Mod4"
+    fi
+}
+
 CONFIG_DIR="$HOME/.config/i3"
 BASE_CONFIG="$CONFIG_DIR/config.base"
 FINAL_CONFIG="$CONFIG_DIR/config"
@@ -85,46 +150,22 @@ echo "Error: Base config file not found at $BASE_CONFIG"
 exit 1
 fi
 
-case $RESOLUTION in
-"1920x1080")
-resolution_config="$CONFIG_DIR/config1080p"
-echo "Using 1080p config"
-;;
-"1920x1200")
-resolution_config="$CONFIG_DIR/config1080p"
-echo "Using 1080p config"
-;;
-"2880x1800")
-resolution_config="$CONFIG_DIR/config2880"
-echo "Using 2880p config"
-;;
-"3840x2160")
-resolution_config="$CONFIG_DIR/config4k"
-echo "Using 4K config"
-;;
-"2288x1436")
-resolution_config="$CONFIG_DIR/config3k"
-echo "Using 3K config"
-;;
-*)
-resolution_config=""
-echo "No specific config for resolution $RESOLUTION, using defaults"
-;;
-esac
+IS_VM="false"
+if [[ $hostname =~ [vV][mM] ]]; then
+    IS_VM="true"
+fi
 
 {
 cat "$BASE_CONFIG"
-
-if [ -n "$resolution_config" ] && [ -f "$resolution_config" ]; then
-echo ""
-echo "# Resolution-specific settings for $RESOLUTION"
-cat "$resolution_config"
-else
-echo ""
-echo "# Using default settings (no specific config for $RESOLUTION)"
-fi
+generate_modifier_settings "$IS_VM"
+generate_resolution_settings "$RESOLUTION"
 } > "$FINAL_CONFIG"
 
-echo "Created i3 config at $FINAL_CONFIG"
+echo "Created i3 config at $FINAL_CONFIG for resolution $RESOLUTION"
+if [[ $IS_VM == "true" ]]; then
+    echo "VM detected: Using Mod4 (Super) as modifier"
+else
+    echo "Regular system: Using Mod1 (Alt) as modifier"
+fi
 
 exec i3

@@ -7,7 +7,7 @@
 #      `-------'
 # Base i3 configuration file (config.base)
 # Modifier-settings
-set $mod Mod4
+set $mod Mod1
 
 #############
 # Autostart #
