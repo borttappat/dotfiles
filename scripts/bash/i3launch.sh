@@ -137,7 +137,7 @@ generate_modifier_settings() {
     if [[ $is_vm == "true" ]]; then
         echo ""
         echo "# VM-specific modifier override"
-        echo "set \$mod Mod4"
+        echo "set \$mod Mod1"
     fi
 }
 
@@ -163,9 +163,9 @@ generate_resolution_settings "$RESOLUTION"
 
 echo "Created i3 config at $FINAL_CONFIG for resolution $RESOLUTION"
 if [[ $IS_VM == "true" ]]; then
-    echo "VM detected: Using Mod4 (Super) as modifier"
+    echo "VM detected: Using Mod1 (Alt) as modifier"
 else
-    echo "Regular system: Using Mod1 (Alt) as modifier"
+    echo "Regular system: Using Mod4 (Super) as modifier"
 fi
 
 exec i3
