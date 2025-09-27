@@ -13,61 +13,65 @@ cleanup_old_serverauth
 hostname=$(hostnamectl | grep "Icon name:" | cut -d ":" -f2 | xargs)
 
 if [[ $hostname =~ [vV][mM] ]]; then
-    echo "VM detected, using VM-specific i3 config with Mod1 key"
-    IS_VM=true
-    
-    VM_DISPLAY=$(xrandr | grep -E "(Virtual-1|qxl-0)" | grep " connected" | cut -d' ' -f1 | head -n1)
+echo "VM detected, setting up VM display resolution..."
 
-    if [ -n "$VM_DISPLAY" ]; then
-        echo "Found VM display: $VM_DISPLAY"
-        if xrandr --output "$VM_DISPLAY" --mode 1920x1200 2>/dev/null; then
-            echo "Successfully set $VM_DISPLAY to 1920x1200"
-        else
-            echo "Could not set $VM_DISPLAY to 1920x1200, using current resolution"
-        fi
-    else
-        echo "No VM display found, proceeding with normal logic"
-    fi
+VM_DISPLAY=$(xrandr | grep -E "(Virtual-1|qxl-0)" | grep " connected" | cut -d' ' -f1 | head -n1)
+
+if [ -n "$VM_DISPLAY" ]; then
+echo "Found VM display: $VM_DISPLAY"
+xrandr --newmode "1920x1200" 193.25 1920 2056 2256 2592 1200 1203 1209 1245 -hsync +vsync 2>/dev/null || true
+xrandr --newmode "2560x1440" 312.25 2560 2752 3024 3488 1440 1443 1448 1493 -hsync +vsync 2>/dev/null || true
+xrandr --addmode "$VM_DISPLAY" 1920x1200 2>/dev/null || true
+xrandr --addmode "$VM_DISPLAY" 2560x1440 2>/dev/null || true
+if xrandr --output "$VM_DISPLAY" --mode 2560x1440 2>/dev/null; then
+echo "Successfully set $VM_DISPLAY to 2560x1440"
+elif xrandr --output "$VM_DISPLAY" --mode 1920x1200 2>/dev/null; then
+echo "Successfully set $VM_DISPLAY to 1920x1200"
 else
-    IS_VM=false
-    INTERNAL_DISPLAY=$(xrandr | grep "eDP" | cut -d' ' -f1 | head -n1)
-    EXTERNAL_CONNECTED=$(xrandr | grep " connected" | grep -v "eDP" | wc -l)
+echo "Could not set custom resolution, using current resolution"
+fi
+else
+echo "No VM display found, proceeding with normal logic"
+fi
+else
+INTERNAL_DISPLAY=$(xrandr | grep "eDP" | cut -d' ' -f1 | head -n1)
+EXTERNAL_CONNECTED=$(xrandr | grep " connected" | grep -v "eDP" | wc -l)
 
-    if [ -n "$INTERNAL_DISPLAY" ]; then
-        NATIVE_RES=$(xrandr | grep "$INTERNAL_DISPLAY" | grep -oP '\d+x\d+' | head -n1)
+if [ -n "$INTERNAL_DISPLAY" ]; then
+NATIVE_RES=$(xrandr | grep "$INTERNAL_DISPLAY" | grep -oP '\d+x\d+' | head -n1)
 
-        case $NATIVE_RES in
-            "2880x1800")
-                xrandr --output "$INTERNAL_DISPLAY" --mode 1920x1200 
-                echo "Set internal display to 1920x1200 for font clarity"
-                ;;
-            "1920x1080")
-                echo "Keeping native 1920x1080 resolution"
-                ;;
-            *)
-                echo "Unknown internal resolution: $NATIVE_RES, keeping native"
-                ;;
-        esac
-    else
-        echo "No internal display found"
-    fi
+case $NATIVE_RES in
+"2880x1800")
+xrandr --output "$INTERNAL_DISPLAY" --mode 1920x1200 
+echo "Set internal display to 1920x1200 for font clarity"
+;;
+"1920x1080")
+echo "Keeping native 1920x1080 resolution"
+;;
+*)
+echo "Unknown internal resolution: $NATIVE_RES, keeping native"
+;;
+esac
+else
+echo "No internal display found"
+fi
 fi
 
 sleep 0.5
 
 get_primary_resolution() {
-    xrandr | grep " connected primary" | grep -oP '\d+x\d+' | head -n1
+xrandr | grep " connected primary" | grep -oP '\d+x\d+' | head -n1
 }
 
 get_any_resolution() {
-    xrandr | grep " connected" | grep -oP '\d+x\d+' | head -n1
+xrandr | grep " connected" | grep -oP '\d+x\d+' | head -n1
 }
 
 RESOLUTION=$(get_primary_resolution)
 
 if [ -z "$RESOLUTION" ]; then
-    RESOLUTION=$(get_any_resolution)
-    echo "No primary display found, using first connected display: $RESOLUTION"
+RESOLUTION=$(get_any_resolution)
+echo "No primary display found, using first connected display: $RESOLUTION"
 fi
 
 echo "Detected resolution: $RESOLUTION"
@@ -77,52 +81,48 @@ BASE_CONFIG="$CONFIG_DIR/config.base"
 FINAL_CONFIG="$CONFIG_DIR/config"
 
 if [ ! -f "$BASE_CONFIG" ]; then
-    echo "Error: Base config file not found at $BASE_CONFIG"
-    exit 1
+echo "Error: Base config file not found at $BASE_CONFIG"
+exit 1
 fi
 
 case $RESOLUTION in
-    "1920x1080")
-        resolution_config="$CONFIG_DIR/config1080p"
-        echo "Using 1080p config"
-        ;;
-    "1920x1200")
-        resolution_config="$CONFIG_DIR/config1080p"
-        echo "Using 1080p config"
-        ;;
-    "2880x1800")
-        resolution_config="$CONFIG_DIR/config2880"
-        echo "Using 2880p config"
-        ;;
-    "3840x2160")
-        resolution_config="$CONFIG_DIR/config4k"
-        echo "Using 4K config"
-        ;;
-    "2288x1436")
-        resolution_config="$CONFIG_DIR/config3k"
-        echo "Using 3K config"
-        ;;
-    *)
-        resolution_config=""
-        echo "No specific config for resolution $RESOLUTION, using defaults"
-        ;;
+"1920x1080")
+resolution_config="$CONFIG_DIR/config1080p"
+echo "Using 1080p config"
+;;
+"1920x1200")
+resolution_config="$CONFIG_DIR/config1080p"
+echo "Using 1080p config"
+;;
+"2880x1800")
+resolution_config="$CONFIG_DIR/config2880"
+echo "Using 2880p config"
+;;
+"3840x2160")
+resolution_config="$CONFIG_DIR/config4k"
+echo "Using 4K config"
+;;
+"2288x1436")
+resolution_config="$CONFIG_DIR/config3k"
+echo "Using 3K config"
+;;
+*)
+resolution_config=""
+echo "No specific config for resolution $RESOLUTION, using defaults"
+;;
 esac
 
 {
-    if [ "$IS_VM" = true ]; then
-        sed 's/set $mod Mod4/set $mod Mod1/' "$BASE_CONFIG"
-    else
-        cat "$BASE_CONFIG"
-    fi
+cat "$BASE_CONFIG"
 
-    if [ -n "$resolution_config" ] && [ -f "$resolution_config" ]; then
-        echo ""
-        echo "# Resolution-specific settings for $RESOLUTION"
-        cat "$resolution_config"
-    else
-        echo ""
-        echo "# Using default settings (no specific config for $RESOLUTION)"
-    fi
+if [ -n "$resolution_config" ] && [ -f "$resolution_config" ]; then
+echo ""
+echo "# Resolution-specific settings for $RESOLUTION"
+cat "$resolution_config"
+else
+echo ""
+echo "# Using default settings (no specific config for $RESOLUTION)"
+fi
 } > "$FINAL_CONFIG"
 
 echo "Created i3 config at $FINAL_CONFIG"
