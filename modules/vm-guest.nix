@@ -40,8 +40,8 @@ zramSwap = {
 
 environment.systemPackages = with pkgs; [
     open-vm-tools
-    qemu-guest-agent
-    #spice-vdagent
+    #qemu-guest-agent
+    spice-vdagent
     spice-gtk
 ];
 
