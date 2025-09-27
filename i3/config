@@ -15,9 +15,8 @@ set $mod Mod4
 exec_always --no-startup-id ~/dotfiles/scripts/bash/autostart.sh
 exec_always --no-startup-id wal -Rnq
 exec_always --no-startup-id ~/.fehbg &
-exec_always --no-startup-id warpd
-#exec_always --no-startup-id ~/dotfiles/scripts/bash/python_server.sh
 exec_always --no-startup-id sleep 2 && xmodmap ~/.Xmodmap
+exec --no-startup-id dunst
 
 #########
 # BINDS #
@@ -98,12 +97,9 @@ for_window [instance="floating"] resize set 800 450
 bindsym $mod+q kill
 
 # Start rofi
-bindsym $mod+d exec ~/dotfiles/scripts/bash/rofi2.sh -show drun
-bindsym $mod+Shift+d exec ~/dotfiles/scripts/bash/rofi.sh -show drun
-
-
+bindsym $mod+d exec --no-startup-id ~/dotfiles/scripts/bash/rofi.sh drun
 #bindsym $mod+d exec --no-startup-id rofi -show drun
-#bindsym $mod+Shift+d exec --no-startup-id rofi -show run
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 
 # Gap adjustment bindings
 # Increase/decrease inner gaps
@@ -224,9 +220,9 @@ bindsym $mod+ctrl+l i3-msg resize width grow 5 ppt
 bindsym $mod+Shift+r reload
 
 # Colors
-set_from_resource $fg i3wm.color1 #ffffff
+set_from_resource $fg i3wm.color3 #ffffff
 set_from_resource $bg i3wm.color0 #f0f0f0
-set_from_resource $al i3wm.color4 #ff0000
+set_from_resource $al i3wm.color8 #ff0000
 set_from_resource $c1 i3wm.color3 #f0f0f0
 set_From_resource $c2 i3wm.color0 #f0f0f0
 
@@ -247,19 +243,25 @@ focus_follows_mouse no
 tiling_drag modifier
 floating_modifier $mod
 
-# Resolution-specific settings for 2288x1436
-# Resolution-specific settings for 3024x1890
+# Resolution-specific settings for 1920x1200
+# Resolution-specific settings for 1920x1080/1200
 
-font CozetteVector:16
+font CozetteVector:12
 
 # Window borders
-new_window pixel 3 
+new_window pixel 2 
 hide_edge_borders both
 smart_borders on
 
 # Gaps settings
-gaps inner 20
-#gaps top 120
+gaps inner 10
+#gaps top 30
 smart_gaps off
 
-exec_always --no-startup-id killall polybar && sleep 0.5 && polybar -q 3k && polybar -q 4k
+
+# Workspace gaps for external Monitor
+#workspace 2 gaps top 40 
+#workspace 3 gaps top 40 
+#workspace 4 gaps top 40 
+
+#exec_always --no-startup-id polybar -q 4k

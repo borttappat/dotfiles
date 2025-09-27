@@ -220,9 +220,9 @@ bindsym $mod+ctrl+l i3-msg resize width grow 5 ppt
 bindsym $mod+Shift+r reload
 
 # Colors
-set_from_resource $fg i3wm.color2 #ffffff
+set_from_resource $fg i3wm.color3 #ffffff
 set_from_resource $bg i3wm.color0 #f0f0f0
-set_from_resource $al i3wm.color4 #ff0000
+set_from_resource $al i3wm.color8 #ff0000
 set_from_resource $c1 i3wm.color3 #f0f0f0
 set_From_resource $c2 i3wm.color0 #f0f0f0
 
