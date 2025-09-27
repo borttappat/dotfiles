@@ -1,78 +1,59 @@
 { config, lib, pkgs, ... }:
 {
-  # VM detection and conditional guest tools
-  virtualisation.vmware.guest.enable = true;
-  services.qemuGuest.enable = true;
-  services.spice-vdagentd.enable = true;
+virtualisation.vmware.guest.enable = true;
+services.qemuGuest.enable = true;
+services.spice-vdagentd.enable = true;
 
-  # Optimized video drivers with better ordering
-  services.xserver.videoDrivers = [ "virtio" "qxl" "vmware" "modesetting" ];
+services.xserver = {
+    videoDrivers = [ "virtio" "qxl" "vmware" "modesetting" ];
 
-  # VM-specific kernel modules
-  boot.initrd.availableKernelModules = [
+    displayManager.sessionCommands = ''
+        ${pkgs.xorg.xrandr}/bin/xrandr --newmode "2560x1440" 312.25 2560 2752 3024 3488 1440 1443 1448 1493 -hsync +vsync 2>/dev/null || true
+        ${pkgs.xorg.xrandr}/bin/xrandr --addmode Virtual-1 2560x1440 2>/dev/null || true
+        ${pkgs.xorg.xrandr}/bin/xrandr --output Virtual-1 --mode 2560x1440 2>/dev/null || true
+        ${pkgs.xorg.xrandr}/bin/xrandr --auto
+        ${pkgs.spice-vdagent}/bin/spice-vdagent
+    '';
+};
+
+boot.initrd.availableKernelModules = [
     "virtio_balloon" "virtio_blk" "virtio_pci" "virtio_ring"
     "virtio_net" "virtio_scsi" "virtio_console"
-  ];
+];
 
-  # Performance optimizations for VMs
-  powerManagement = {
+powerManagement = {
     enable = false;
     cpuFreqGovernor = lib.mkDefault "performance";
-  };
+};
 
-  # Disable unnecessary services in VMs
-  services = {
+services = {
     thermald.enable = false;
     earlyoom.enable = lib.mkDefault false;
     tlp.enable = false;
-  };
+};
 
-  # Memory optimization
-  zramSwap = {
+zramSwap = {
     enable = true;
-    memoryPercent = 50;  # More conservative than the 80% in vm-common
+    memoryPercent = 50;
     algorithm = "zstd";
-  };
+};
 
-  # VM-optimized packages
-  environment.systemPackages = with pkgs; [
+environment.systemPackages = with pkgs; [
     open-vm-tools
     qemu-guest-agent
     spice-vdagent
     spice-gtk
-  ];
+];
 
-  # Display management with better resolution handling
-  services.xserver = {
-    displayManager.sessionCommands = ''
-      ${pkgs.xorg.xrandr}/bin/xrandr --auto
-      ${pkgs.spice-vdagent}/bin/spice-vdagent
-    '';
-    
-    # Better resolution defaults
-    resolutions = [
-      { x = 1920; y = 1080; }
-      { x = 1600; y = 900; }
-      { x = 1280; y = 720; }
-    ];
-  };
-
-  # Clipboard integration
-  services.xserver.desktopManager.sessionCommands = ''
-    ${pkgs.spice-vdagent}/bin/spice-vdagent &
-  '';
-
-  # Network optimizations for VMs
-  networking = {
+networking = {
     firewall.allowPing = true;
     useDHCP = lib.mkDefault true;
-  };
+};
 
-  # Faster boot for VMs
-  boot.loader.timeout = lib.mkDefault 1;
-  boot.kernelParams = [ 
-    "quiet" 
-    "console=tty1" 
-    "console=ttyS0,115200n8" 
-  ];
+boot.loader.timeout = lib.mkDefault 1;
+boot.kernelParams = [
+    "quiet"
+    "console=tty1"
+    "console=ttyS0,115200n8"
+];
 }
