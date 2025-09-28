@@ -5,6 +5,8 @@ killall -q i3lock
 # Source wal colors for consistent theming
 . "$HOME/.cache/wal/colors.sh"
 
+xdotool mousemove 9999 0
+
 # Create temporary files
 img=/tmp/i3lock.png
 blur_img=/tmp/i3lock_blur.png
