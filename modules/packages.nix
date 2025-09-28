@@ -147,7 +147,7 @@ environment.systemPackages = with pkgs; [
     polybar
     rofi
     picom
-    #picom-pijulius
+   #picom-pijulius
     wpgtk
     pywal
     themix-gui

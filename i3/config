@@ -7,7 +7,7 @@
 #      `-------'
 # Base i3 configuration file (config.base)
 # Modifier-settings
-set $mod Mod1
+set $mod Mod4
 
 #############
 # Autostart #
@@ -243,25 +243,8 @@ focus_follows_mouse no
 tiling_drag modifier
 floating_modifier $mod
 
-# Resolution-specific settings for 1920x1200
 # Resolution-specific settings for 1920x1080/1200
-
-font CozetteVector:12
-
-# Window borders
-new_window pixel 2 
-hide_edge_borders both
-smart_borders on
-
-# Gaps settings
-gaps inner 10
-#gaps top 30
-smart_gaps off
-
-
-# Workspace gaps for external Monitor
-#workspace 2 gaps top 40 
-#workspace 3 gaps top 40 
-#workspace 4 gaps top 40 
-
-#exec_always --no-startup-id polybar -q 4k
+font pango:Cozette 8
+gaps inner 6
+gaps outer 0
+for_window [class=".*"] border pixel 2
