@@ -104,8 +104,11 @@ sed -i "s/^set recolor-darkcolor.*/set recolor-darkcolor \"$color2\"/" "$zathura
 
 echo "Zathura colors updated successfully."
 
+echo "updating firefox using pywalfox..."
 pywalfox update
+echo "pywalfox updated successfully"
 
+sh ~/dotfiles/scripts/bash/wal-gtk.sh
 
 # Update dunst colors
 echo "Updating dunst colors..."
