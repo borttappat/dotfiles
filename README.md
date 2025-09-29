@@ -1,8 +1,12 @@
-# Traum's NixOS Dotfiles
+# Dotfiles!
 
 ![screenshot](misc/screenshot.png)
 
 This repository contains my personal dotfiles for NixOS. It's a comprehensive setup that I use across multiple machines, with a focus on automation, customization, and a streamlined workflow for development and pentesting.
+
+Currently not merged into one project, but there is a sister project related to my setup over at [splix](https://github.com/borttappat/splix), which essentially runs a couple of hardware identifying scripts, populates templates and spits out a few scripts, modules and text blocks to paste into the modules directory(so far all manual, will be automated eventually). 
+
+Without using the splix-setup, this is just a collection of modules and scripts that I use to run all of my machines and VMs.
 
 ## Key Features
 

@@ -203,6 +203,8 @@ environment.systemPackages = with pkgs; [
     busybox
     inetutils
     udisks
+    nix-prefetch
+    nix-prefetch-github
     
     ansible         #we be devs now
     
