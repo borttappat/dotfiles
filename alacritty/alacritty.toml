@@ -9,6 +9,18 @@ TERM = "xterm"
 #WINIT_X11_SCALE_FACTOR = "1.8"
 #WINIT_X11_SCALE_FACTOR = "2"
 
+[cursor.style]
+shape = "Underline"
+blinking = "On"
+
+[cursor]
+thickness = 0.25
+unfocused_hollow = false
+
+[cursor.vi_mode_style]
+shape = "Underline"
+blinking = "On"
+
 [font]
 # For internal display
 size = 5.5

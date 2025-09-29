@@ -43,6 +43,8 @@ abbr -a !! 'eval sudo $history[1]'
 alias rc='sudo virsh console router-vm-passthrough'
 alias zenaudio='sh ~/dotfiles/scripts/bash/zenaudio.sh'
 alias za='zenaudio'
+alias zah='zenaudio headphones && zenaudio volume 75'
+alias zas='zenaudio speakers && zenaudio volume 75'
 
 alias tui='sh ~/splix/scripts/router-tui.sh'
 

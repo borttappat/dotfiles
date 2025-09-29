@@ -32,19 +32,19 @@
     force_xinerama = false
 
 [urgency_low]
-    background = "#0c0c0c"
-    foreground = "#efefef"
-    frame_color = "#E4E4E4"
+    background = "#0a0a0a"
+    foreground = "#e6e7e7"
+    frame_color = "#8D8D8D"
     timeout = 3
     
 [urgency_normal]
-    background = "#0c0c0c"
-    foreground = "#efefef"
-    frame_color = "#E8E8E8"
+    background = "#0a0a0a"
+    foreground = "#e6e7e7"
+    frame_color = "#AFB0B1"
     timeout = 5
     
 [urgency_critical]
-    background = "#E2E2E2"
-    foreground = "#efefef"
-    frame_color = "#E2E2E2"
+    background = "#7E7E81"
+    foreground = "#e6e7e7"
+    frame_color = "#7E7E81"
     timeout = 0
