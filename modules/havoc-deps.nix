@@ -6,7 +6,7 @@
     gnumake cmake pkg-config gcc git
     
     # Qt5 dependencies 
-    qt5.qtbase qt5.qttools qt5.qtwebsockets qt5.qtdeclarative
+    qt5.qtbase qt5.qttools qt5.qtwebsockets qt5.qtdeclarative libsForQt5.full
     
     # Languages
     python3 go
@@ -26,6 +26,6 @@
   ];
 
   # Open firewall for Havoc
-  networking.firewall.allowedTCPPorts = [ 40056 ];
-  networking.firewall.allowedUDPPorts = [ 40056 ];
+  # networking.firewall.allowedTCPPorts = [ 40056 ];
+  # networking.firewall.allowedUDPPorts = [ 40056 ];
 }
