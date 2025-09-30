@@ -34,7 +34,12 @@ in
       SearchBar = "unified";
         ExtensionSettings = {
           #"*".installation_mode = "blocked";
-          "uBlock0@raymondhill.net" = {
+         "{531906d3-e22f-4a6c-a102-8057b88a1a63}" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/single-file/latest.xpi";
+            installation_mode = "force_installed";
+         };
+
+         "uBlock0@raymondhill.net" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
             installation_mode = "force_installed";
           };
