@@ -7,6 +7,8 @@
 
 {
 
+programs.dconf.enable = true;
+
 # NetworkManager configuration
 systemd.services.NetworkManager-wait-online = {
     enable = false;

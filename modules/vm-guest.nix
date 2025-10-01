@@ -56,4 +56,12 @@ boot.kernelParams = [
     "console=tty1"
     "console=ttyS0,115200n8"
 ];
+
+services.openssh = {
+  enable = true;
+  settings = {
+    X11Forwarding = true;
+  };
+};
+
 }

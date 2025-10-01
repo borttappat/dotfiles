@@ -7,6 +7,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 
 cat /home/traum/.cache/wal/sequences
+fish_vi_key_bindings
 #wal -R -q
 
 end
@@ -33,12 +34,12 @@ zoxide init fish | source
 # thefuck
 #thefuck --alias | source
 
-# Replicate !! functionality in fish
-function sudo!!
-    eval sudo $history[1]
+function sudo_last_command
+    commandline -r "sudo $history[1]"
 end
 
-abbr -a !! 'eval sudo $history[1]'
+bind \e\e sudo_last_command
+bind -M insert \e\e sudo_last_command
 
 alias rc='sudo virsh console router-vm-passthrough'
 alias zenaudio='sh ~/dotfiles/scripts/bash/zenaudio.sh'

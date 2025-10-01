@@ -119,7 +119,7 @@ boot.loader.grub.extraEntries = ''
 
 
 # Trying to get hashcat to work :)
-boot.kernelParams = [ "i915.enable_guc=3" "i915.enable_fbc=1" ];
+boot.kernelParams = [ "i915.enable_fbc=1" ];
 
 # Hardware firmware (non-audio)
 hardware.firmware = with pkgs; [
