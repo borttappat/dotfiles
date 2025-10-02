@@ -39,6 +39,9 @@ while [[ $# -gt 0 ]]; do
 done
 
 declare -A FILE_MAPPINGS=(
+    ["$DOTFILES_DIR/firefox/profiles.ini"]="$HOME/.mozilla/firefox"
+    ["$DOTFILES_DIR/firefox/traum"]="$HOME/.mozilla/firefox"
+    
     ["$DOTFILES_DIR/vim/.vimrc"]="$HOME"
     ["$DOTFILES_DIR/bash/.bashrc"]="$HOME"
     ["$DOTFILES_DIR/zsh/.zshrc"]="$HOME"

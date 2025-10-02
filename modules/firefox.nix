@@ -69,6 +69,11 @@ in
           };
         };
       Preferences = {
+        "toolkit.zoomManager.zoomValues" = {
+            Value = "1,2,3,4,5";
+            Status = "locked";
+        };
+
         "browser.contentblocking.category" = { Value = "strict"; Status = "locked"; };
         "extensions.pocket.enabled" = lock-false;
         "extensions.screenshots.disabled" = lock-true;
