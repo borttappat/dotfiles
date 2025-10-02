@@ -2,12 +2,23 @@
 
 {
   home.stateVersion = "22.11";
+  home.enableNixpkgsReleaseCheck = false;
   
   programs.firefox = {
     enable = true;
     profiles."default" = {
+      id = 0;
+      isDefault = true;
+      
       settings = {
-        "toolkit.zoomManager.zoomValues" = "1,2,3,4,5";
+        "font.name.monospace.x-western" = "Cozette";
+        "font.name.sans-serif.x-western" = "Cozette";
+        "font.name.serif.x-western" = "Cozette";
+        "font.size.monospace.x-western" = 13;
+        "font.size.variable.x-western" = 13;
+        "font.minimum-size.x-western" = 13;
+        "browser.display.use_document_fonts" = 0;
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       };
       
       userChrome = ''

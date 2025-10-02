@@ -7,9 +7,14 @@ inputs = {
     
     nix-index-database.url = "github:Mic92/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 };
 
-outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
+outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
 let
     # Detect architecture dynamically
     supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -125,6 +130,17 @@ in {
             # Enable nix-index
             inputs.nix-index-database.nixosModules.nix-index
             
+            /*
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.traum = import ./modules/home.nix;
+              home-manager.backupFileExtension = "backup";
+            }
+            */
+
+
             # Base system configuration
             ./modules/configuration.nix
             ./modules/hwconf.nix
