@@ -40,7 +40,8 @@ done
 
 declare -A FILE_MAPPINGS=(
     ["$DOTFILES_DIR/firefox/profiles.ini"]="$HOME/.mozilla/firefox"
-    ["$DOTFILES_DIR/firefox/traum"]="$HOME/.mozilla/firefox"
+    ["$DOTFILES_DIR/firefox/traum/chrome"]="$HOME/.mozilla/firefox/traum"
+    ["$DOTFILES_DIR/firefox/traum/user.js"]="$HOME/.mozilla/firefox/traum"
     
     ["$DOTFILES_DIR/vim/.vimrc"]="$HOME"
     ["$DOTFILES_DIR/bash/.bashrc"]="$HOME"
