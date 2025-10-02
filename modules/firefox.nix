@@ -33,12 +33,10 @@ in
       DisplayMenuBar = "default-off";
       SearchBar = "unified";
         ExtensionSettings = {
-          #"*".installation_mode = "blocked";
          "{531906d3-e22f-4a6c-a102-8057b88a1a63}" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/single-file/latest.xpi";
             installation_mode = "force_installed";
          };
-
          "uBlock0@raymondhill.net" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
             installation_mode = "force_installed";
@@ -69,11 +67,6 @@ in
           };
         };
       Preferences = {
-        "toolkit.zoomManager.zoomValues" = {
-            Value = "1,2,3,4,5";
-            Status = "locked";
-        };
-
         "browser.contentblocking.category" = { Value = "strict"; Status = "locked"; };
         "extensions.pocket.enabled" = lock-false;
         "extensions.screenshots.disabled" = lock-true;
@@ -92,7 +85,6 @@ in
         "browser.newtabpage.activity-stream.showSponsored" = lock-false;
         "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
-        #"layout.css.devPixelsPerPx" = { Value = "1.5"; Status = "locked"; };
       };
     };
   };

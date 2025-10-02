@@ -6,3 +6,4 @@ user_pref("font.name.serif.x-western", "Cozette");
 user_pref("font.size.monospace.x-western", 13);
 user_pref("font.size.variable.x-western", 13);
 user_pref("font.minimum-size.x-western", 13);
+user_pref("toolkit.zoomManager.zoomValues", "1,2,3,4,5");
