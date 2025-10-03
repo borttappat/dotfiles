@@ -1,5 +1,5 @@
-* {
-font-family: "Cozette", monospace !important;
+* :not([class*="icon"]):not([class*="fa-"]):not([class*="material"]):not([class*="glyph"]):not(svg):not([role="img"]) {
+font-family: "CozetteVector", monospace !important;
 font-size: 13px !important;
 line-height: 13px !important;
 -webkit-font-smoothing: none !important;
@@ -7,9 +7,6 @@ line-height: 13px !important;
 font-smooth: never !important;
 text-rendering: optimizeSpeed !important;
 transform: none !important;
-}
-
-h1, h2 {
-font-size: 26px !important;
-line-height: 26px !important;
+min-font-size: 0 !important;
+font-size-adjust: none !important;
 }

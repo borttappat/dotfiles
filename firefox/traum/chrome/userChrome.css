@@ -1,4 +1,4 @@
-* {
+* :not([class*="icon"]):not([class*="fa-"]):not([class*="material"]):not([class*="glyph"]):not(svg):not([role="img"]) {
 font-family: "Cozette", monospace !important;
 font-size: 13px !important;
 line-height: 13px !important;
@@ -6,6 +6,8 @@ line-height: 13px !important;
 -moz-osx-font-smoothing: unset !important;
 font-smooth: never !important;
 transform: none !important;
+min-font-size: 0 !important;
+font-size-adjust: none !important;
 }
 
 @-moz-document url-prefix(about:), url-prefix(chrome://browser/content/) {
