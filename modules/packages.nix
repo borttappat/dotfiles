@@ -90,6 +90,7 @@ environment.systemPackages = with pkgs; [
     firefox
     #brave
     #ungoogled-chromium
+    google-chrome
     mullvad
     #nyxt
     #qutebrowser
