@@ -85,6 +85,7 @@ environment.systemPackages = with pkgs; [
     jython
 
 # Programs
+     (pkgs.burpsuite.override { proEdition = true; })
     krita
     librewolf
     firefox
@@ -140,6 +141,7 @@ environment.systemPackages = with pkgs; [
     eza             #better ls
     ttyper          #typing excercises
     pipes-rs        #rust-written replacement
+    clock-rs
     #gurk-rs
     #ddgr
     bat
