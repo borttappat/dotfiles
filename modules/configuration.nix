@@ -7,29 +7,10 @@
 
 {   
 
-# Disable command not found error
-programs.command-not-found.enable = false;
-/*
-# Nix-index stuff, including oneshot
-programs.nix-index.enable = true;
-programs.nix-index.enableFishIntegration = true;
-
-systemd.services.nix-index-build = {
-  description = "Build nix-index database";
-  wantedBy = [ "multi-user.target" ];
-  after = [ "network-online.target" ];
-  wants = [ "network-online.target" ];
-  serviceConfig = {
-    Type = "oneshot";
-    User = "root";
-    ExecStart = "${pkgs.nix-index}/bin/nix-index";
-    RemainAfterExit = true;
-  };
-  environment = {
-    NIX_PATH = "nixpkgs=${pkgs.path}";
-  };
+# Set ranger as default file manager
+xdg.mime.defaultApplications = {
+  "inode/directory" = "ranger.desktop";
 };
-*/
 
 # Setting to avoid download buffer warnings
 nix.settings.download-buffer-size = 524288000;

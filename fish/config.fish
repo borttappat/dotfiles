@@ -52,7 +52,10 @@ alias tui='sh ~/splix/scripts/router-tui.sh'
 alias bloodhound='nix develop ~/dotfiles/modules/bloodhound.nix'
 alias bh='bloodhound'
 
-alias burp='burpsuite --disable-auto-update'
+#alias burp='burpsuite --disable-auto-update'
+
+# fuck nano
+alias nano='vim'
 
 alias htblabs='sudo openvpn ~/Downloads/lab_griefhoundTCP.ovpn'
 alias msf='figlet -f cricket "msf" && sudo msfconsole -q'
