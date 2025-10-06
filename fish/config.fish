@@ -4,16 +4,17 @@
 #   |__| |__|_____|__|__|
 
 if status is-interactive
-    # Commands to run in interactive sessions can go here
-
-cat /home/traum/.cache/wal/sequences
-fish_vi_key_bindings
-#wal -R -q
-
+    cat /home/traum/.cache/wal/sequences
+    fish_vi_key_bindings
 end
 
+# Starship
+starship init fish | source
 
-# enable vim mode for fish
+# Zoxide
+zoxide init fish | source
+
+# === VIM MODE ===
 function toggle_vim_mode
     if test "$fish_key_bindings" = "fish_vi_key_bindings"
         fish_default_key_bindings
@@ -24,16 +25,6 @@ function toggle_vim_mode
     end
 end
 
-
-# Starship
-starship init fish | source
-
-# Zoxide
-zoxide init fish | source
-
-# thefuck
-#thefuck --alias | source
-
 function sudo_last_command
     commandline -r "sudo $history[1]"
 end
@@ -41,129 +32,173 @@ end
 bind \e\e sudo_last_command
 bind -M insert \e\e sudo_last_command
 
-alias rc='sudo virsh console router-vm-passthrough'
-alias zenaudio='sh ~/dotfiles/scripts/bash/zenaudio.sh'
-alias za='zenaudio'
-alias zah='zenaudio headphones && zenaudio volume 75'
-alias zas='zenaudio speakers && zenaudio volume 75'
+# === NIX SHELL ===
+abbr -a ns 'nix-shell --run fish'
+abbr -a nsp 'nix-shell -p'
 
-alias tui='sh ~/splix/scripts/router-tui.sh'
+# === SYSTEM ===
+abbr -a reboot 'systemctl reboot'
+abbr -a rb 'systemctl reboot'
+abbr -a shutdown 'shutdown -h now'
+abbr -a sd 'shutdown -h now'
+abbr -a suspend 'systemctl suspend'
+abbr -a ncg 'sudo nix-collect-garbage -d'
 
-alias bloodhound='nix develop ~/dotfiles/modules/bloodhound.nix'
-alias bh='bloodhound'
+# === EDITORS ===
+abbr -a v 'vim'
+abbr -a nano 'vim'
+abbr -a vn 'vim notes.txt'
 
-#alias burp='burpsuite --disable-auto-update'
+# === NAVIGATION ===
+abbr -a j 'joshuto'
+abbr -a r 'ranger'
+abbr -a wp 'cd ~/Wallpapers && ranger'
+abbr -a dots 'cd ~/dotfiles && git status'
 
-# fuck nano
-alias nano='vim'
+function c
+    cd $argv && ls
+end
 
-alias htblabs='sudo openvpn ~/Downloads/lab_griefhoundTCP.ovpn'
-alias msf='figlet -f cricket "msf" && sudo msfconsole -q'
-alias sesp='searchsploit'
+function mkcd
+    mkdir -p $argv && cd $argv
+end
 
-alias reboot='systemctl reboot'
-alias rb='reboot'
-alias shutdown='shutdown -h now'
-alias sd='shutdown'
-alias suspend='systemctl suspend'
-alias ptime='sudo pentest-time -r Europe/Stockholm'
+# === FILE LISTING ===
+abbr -a ls 'eza -A --color=always --group-directories-first --icons'
+abbr -a l 'eza -Al --color=always --group-directories-first --icons'
+abbr -a lt 'eza -AT --color=always --group-directories-first --icons'
 
-alias bat='bat --theme=ansi'
+function sls
+    ls | grep -i $argv
+end
 
-alias wp='cd ~/Wallpapers && ranger'
-alias j='joshuto'
-alias cb='cbonsai -l -t 1'
-alias g='glances'
-alias r='ranger'
-alias cm='cmatrix -u 10'
-alias p='pipes-rs -f 25 -p 7 -r 1.0'
-alias bw='sudo bandwhich'
+function sl
+    eza -Al --color=always --group-directories-first --icons | grep -i $argv
+end
 
-alias ac='alacrittyconf'
-alias pc='picomconf'
+# === GREP ===
+abbr -a grep 'ugrep --color=auto'
+abbr -a egrep 'ugrep -E --color=auto'
+abbr -a fgrep 'ugrep -F --color=auto'
 
-alias npp='v ~/dotfiles/modules/pentesting.nix'
+# === GIT ===
+abbr -a gs 'git status'
+abbr -a ga 'git add'
+abbr -a gd 'git diff'
+abbr -a gc 'git commit -m'
+abbr -a gp 'git push -uf origin main'
+abbr -a gur 'git add -A && git commit -m "updates" && git push -uf origin main'
+abbr -a gu 'git add -u && git commit -m "updates" && git push -uf origin main'
+abbr -a gl 'git log --oneline --graph --decorate -20'
 
-alias nixsrv='v ~/dotfiles/modules/services.nix'
+# === UTILITIES ===
+abbr -a h 'htop'
+abbr -a ka 'killall'
+abbr -a bat 'bat --theme=ansi'
+abbr -a cb 'cbonsai -l -t 1'
+abbr -a g 'glances'
+abbr -a cm 'cmatrix -u 10'
+abbr -a p 'pipes-rs -f 25 -p 7 -r 1.0'
+abbr -a bw 'sudo bandwhich'
+abbr -a md 'mkdir -p'
+abbr -a ip 'ip -color'
+abbr -a cf 'clear && fastfetch --file ~/dotfiles/misc/grace.txt'
+abbr -a reload 'source ~/.config/fish/config.fish'
 
-alias zathconf='v ~/dotfiles/zathura/zathurarc'
+# === CONFIG FILES ===
+abbr -a f 'vim ~/.config/fish/config.fish'
+abbr -a fishconf 'vim ~/.config/fish/config.fish'
+abbr -a flake 'vim ~/dotfiles/flake.nix'
+abbr -a nixconf 'vim ~/dotfiles/modules/configuration.nix'
+abbr -a nixpkgs 'vim ~/dotfiles/modules/packages.nix'
+abbr -a np 'vim ~/dotfiles/modules/packages.nix'
+abbr -a npp 'vim ~/dotfiles/modules/pentesting.nix'
+abbr -a nixsrv 'vim ~/dotfiles/modules/services.nix'
+abbr -a hosts 'vim ~/dotfiles/modules/hosts.nix'
+abbr -a nixhosts 'vim ~/dotfiles/modules/hosts.nix'
+abbr -a armconf 'vim ~/dotfiles/modules/arm-vm.nix'
+abbr -a asusconf 'vim ~/dotfiles/modules/asus.nix'
+abbr -a ac 'vim ~/dotfiles/alacritty/alacritty.toml'
+abbr -a alacrittyconf 'vim ~/dotfiles/alacritty/alacritty.toml'
+abbr -a pc 'vim ~/dotfiles/picom/picom.conf'
+abbr -a picomconf 'vim ~/dotfiles/picom/picom.conf'
+abbr -a poc 'vim ~/dotfiles/polybar/config.ini'
+abbr -a polyconf 'vim ~/dotfiles/polybar/config.ini'
+abbr -a zathconf 'vim ~/dotfiles/zathura/zathurarc'
 
-alias zathura='zathura --fork=false'
-alias zath='zathura'
+# === PENTESTING ===
+abbr -a msf 'figlet -f cricket "msf" && sudo msfconsole -q'
+abbr -a sesp 'searchsploit'
+abbr -a ptime 'sudo pentest-time -r Europe/Stockholm'
+abbr -a htblabs 'sudo openvpn ~/Downloads/lab_griefhoundTCP.ovpn'
+abbr -a pyserver 'sudo python -m http.server 8002'
 
-alias picomconf='v ~/dotfiles/picom/picom.conf'
-alias polyconf='v ~/dotfiles/polybar/config.ini'
-alias poc='polyconf'
-alias fishconf='v ~/.config/fish/config.fish'
-alias f='fishconf'
+# === DEV ENVIRONMENTS ===
+abbr -a bloodhound 'nix develop ~/dotfiles/modules/bloodhound.nix'
+abbr -a bh 'nix develop ~/dotfiles/modules/bloodhound.nix'
 
-alias pyserver='sudo python -m http.server 8002'
-alias rgb='openrgb --device 0 --mode static --color'
-alias w='wal -Rn'
-alias walrgb='~/dotfiles/scripts/bash/walrgb.sh'
+# === APPLICATIONS ===
+abbr -a zath 'zathura --fork=false'
+abbr -a zathura 'zathura --fork=false'
+abbr -a ai 'aichat -H --save-session -s'
+abbr -a x 'startx'
+abbr -a nf 'nix search nixpkgs'
 
-alias dots='cd ~/dotfiles && git status'
+# === AUDIO ===
+function zenaudio
+    sh ~/dotfiles/scripts/bash/zenaudio.sh $argv
+end
 
-alias gs='git status'
-alias ga='git add'
-alias gd='git diff'
-alias gc='git commit -m'
-alias gp='git push -uf origin main'
-alias gur='git add -A && git commit -m "updates" && git push -uf origin main'
-alias gu='git add -u && git commit -m "updates" && git push -uf origin main'
+abbr -a za 'zenaudio'
+abbr -a zah 'zenaudio headphones && zenaudio volume 75'
+abbr -a zas 'zenaudio speakers && zenaudio volume 75'
 
-alias links='sh ~/dotfiles/scripts/bash/links.sh'
-alias link='sudo python ~/dotfiles/scripts/python/link_file.py'
+# === VISUALS ===
+abbr -a w 'wal -Rn'
 
-alias tds='sudo tailscale file cp'
-alias tdr='sudo tailscale file get'
+function walrgb
+    sh ~/dotfiles/scripts/bash/walrgb.sh $argv
+end
 
-alias cf='clear && fastfetch --file ~/dotfiles/misc/grace.txt'
+function rgb
+    openrgb --device 0 --mode static --color $argv
+end
 
-alias nwshow='nmcli dev wifi show'
-alias nwconnect='nmcli --ask dev wifi connect'
-alias wifirestore='~/dotfiles/scripts/bash/wifirestore.sh'
+# === XRANDR ===
+abbr -a xrandrwide 'xrandr --output HDMI-1 --mode 3440x1440 --output eDP-1 --off && wal -R && killall polybar && polybar -q &'
+abbr -a xrandrrestore 'xrandr --output eDP-1 --mode 1920x1200 --output HDMI-1 --off && wal -R && killall polybar && polybar -q &'
 
-alias ai='aichat -H --save-session -s'
+# === NETWORK ===
+abbr -a nwshow 'nmcli dev wifi show'
+abbr -a nwconnect 'nmcli --ask dev wifi connect'
 
-alias vn='vim notes.txt'
+function wifirestore
+    sh ~/dotfiles/scripts/bash/wifirestore.sh $argv
+end
 
-alias ls='eza -A --color=always --group-directories-first --icons'
-alias l='eza -Al --color=always --group-directories-first --icons'
-alias lt='eza -AT --color=always --group-directories-first --icons'
-alias sls='ls | grep -i'
-alias sl='eza -Al --color=always --group-directories-first --icons | grep -i'
+# === TAILSCALE ===
+abbr -a tds 'sudo tailscale file cp'
+abbr -a tdr 'sudo tailscale file get'
 
-alias grep='ugrep --color=auto'
-alias egrep='ugrep -E --color=auto'
-alias fgrep='ugrep -F --color=auto'
-alias grubup='sudo update-grub'
+# === VM/ROUTER ===
+abbr -a rc 'sudo virsh console router-vm-passthrough'
+abbr -a tui 'sh ~/splix/scripts/router-tui.sh'
 
-alias ip='ip -color'
-alias xrandrwide='xrandr --output HDMI-1 --mode 3440x1440 --output eDP-1 --off && wal -R && killall polybar && polybar -q &'
-alias xrandrrestore='xrandr --output eDP-1 --mode 1920x1200 --output HDMI-1 --off && wal -R && killall polybar && polybar -q &'
+# === SCRIPTS ===
+function links
+    sh ~/dotfiles/scripts/bash/links.sh $argv
+end
 
-alias x='startx'
-alias v='vim'
-alias h='htop'
-alias ka='killall'
+function link
+    sudo python ~/dotfiles/scripts/python/link_file.py $argv
+end
 
-alias alacrittyconf='vim ~/dotfiles/alacritty/alacritty.toml'
-alias asusconf='vim ~/dotfiles/modules/asus.nix'
-alias hosts='v ~/dotfiles/modules/hosts.nix'
-alias nixhosts='v ~/dotfiles/modules/hosts.nix'
+function nu
+    sh ~/dotfiles/scripts/bash/nixupdate.sh $argv
+end
 
-alias nu='sh ~/dotfiles/scripts/bash/nixupdate.sh'
-alias ncg='sudo nix-collect-garbage -d'
-alias nixbuild='~/dotfiles/scripts/bash/nixbuild.sh'
-alias nb='nixbuild'
-alias ns='nix-shell'
-alias nsp='nix-shell -p'
+function nixbuild
+    sh ~/dotfiles/scripts/bash/nixbuild.sh $argv
+end
 
-alias md='mkdir -p'
-
-alias flake='v ~/dotfiles/flake.nix'
-alias nixconf='v ~/dotfiles/modules/configuration.nix'
-alias armconf='v ~/dotfiles/modules/arm-vm.nix'
-alias nixpkgs='v ~/dotfiles/modules/packages.nix'
-alias np='nixpkgs'
+abbr -a nb 'nixbuild'
