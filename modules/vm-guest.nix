@@ -2,19 +2,20 @@
 {
 virtualisation.vmware.guest.enable = true;
 services.qemuGuest.enable = true;
+
 services.spice-vdagentd.enable = true;
 
 services.xserver = {
     videoDrivers = [ "virtio" "qxl" "vmware" "modesetting" ];
-
     displayManager.sessionCommands = ''
         ${pkgs.xorg.xrandr}/bin/xrandr --newmode "2560x1440" 312.25 2560 2752 3024 3488 1440 1443 1448 1493 -hsync +vsync 2>/dev/null || true
         ${pkgs.xorg.xrandr}/bin/xrandr --addmode Virtual-1 2560x1440 2>/dev/null || true
         ${pkgs.xorg.xrandr}/bin/xrandr --output Virtual-1 --mode 2560x1440 2>/dev/null || true
         ${pkgs.xorg.xrandr}/bin/xrandr --auto
-        ${pkgs.spice-vdagent}/bin/spice-vdagent
+        ${pkgs.spice-vdagent}/bin/spice-vdagent -x &
     '';
 };
+
 
 boot.initrd.availableKernelModules = [
     "virtio_balloon" "virtio_blk" "virtio_pci" "virtio_ring"
