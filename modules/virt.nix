@@ -4,129 +4,132 @@
 # \___/|__|__| |____|__|__|__|__|__.__|
 { config, pkgs, lib, ... }:
 {
-  options = {
+options = {
     virtualisation = {
-      useDocker = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Whether to use Docker instead of Podman";
-      };
-      mainUser = lib.mkOption {
-        type = lib.types.str;
-        default = "traum";
-        description = "Main user for virtualization permissions";
-      };
-      enableLookingGlass = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Enable Looking Glass for GPU passthrough";
-      };
+        useDocker = lib.mkOption {
+            type = lib.types.bool;
+            default = true;
+            description = "Whether to use Docker instead of Podman";
+        };
+        mainUser = lib.mkOption {
+            type = lib.types.str;
+            default = "traum";
+            description = "Main user for virtualization permissions";
+        };
+        enableLookingGlass = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            description = "Enable Looking Glass for GPU passthrough";
+        };
     };
-  };
+};
 
-  config = {
+
+config = {
+    services.spice-vdagentd.enable = true;
+    
     # Core virtualization services
     virtualisation = {
-      libvirtd = {
-        enable = true;
-        qemu = {
-          package = pkgs.qemu_kvm;
-          ovmf = {
+        libvirtd = {
             enable = true;
-            packages = [ pkgs.OVMFFull.fd ];
-          };
-          swtpm.enable = true;
-          runAsRoot = true;
+                qemu = {
+                    package = pkgs.qemu_kvm;
+                    ovmf = {
+                        enable = true;
+                        packages = [ pkgs.OVMFFull.fd ];
+                    };
+                    swtpm.enable = true;
+                    runAsRoot = true;
+                };
+            onBoot = "start";
+            onShutdown = "shutdown";
         };
-        onBoot = "start";
-        onShutdown = "shutdown";
-      };
 
       # Container runtime
-      docker = lib.mkIf config.virtualisation.useDocker {
-        enable = true;
-        autoPrune = {
-          enable = true;
-          dates = "weekly";
-          flags = [ "--all" ];
+        docker = lib.mkIf config.virtualisation.useDocker {
+            enable = true;
+            autoPrune = {
+                enable = true;
+                dates = "weekly";
+                flags = [ "--all" ];
+            };
+            daemon.settings = {
+                data-root = "/var/lib/docker";
+                storage-driver = "overlay2";
+            };
         };
-        daemon.settings = {
-          data-root = "/var/lib/docker";
-          storage-driver = "overlay2";
-        };
-      };
 
-      podman = lib.mkIf (!config.virtualisation.useDocker) {
-        enable = true;
-        dockerCompat = true;
-        defaultNetwork.settings.dns_enabled = true;
-      };
+        podman = lib.mkIf (!config.virtualisation.useDocker) {
+            enable = true;
+            dockerCompat = true;
+            defaultNetwork.settings.dns_enabled = true;
+        };
     };
 
     # Optimized networking
     networking = {
-      firewall = {
-        allowedTCPPorts = [
-          16509 16514  # libvirt (secure)
-          5900 5901 5902 5903  # VNC
-          3389  # RDP
-        ] ++ lib.optionals config.virtualisation.enableLookingGlass [
-          9999  # Looking Glass SPICE
-        ];
-        allowedUDPPorts = [ 8472 ];
-        checkReversePath = "loose";
-        trustedInterfaces = [ "virbr0" "virbr+" ];
-      };
+        firewall = {
+            allowedTCPPorts = [
+                16509 16514  # libvirt (secure)
+                5900 5901 5902 5903  # VNC
+                3389  # RDP
+            ] ++ lib.optionals config.virtualisation.enableLookingGlass [
+                9999  # Looking Glass SPICE
+            ];
+            allowedUDPPorts = [ 8472 ];
+            checkReversePath = "loose";
+            trustedInterfaces = [ "virbr0" "virbr+" ];
+        };
 
-      nat = {
-        enable = true;
-        internalInterfaces = [ "virbr0" ];
-      };
+        nat = {
+            enable = true;
+            internalInterfaces = [ "virbr0" ];
+        };
     };
 
     # Performance kernel parameters
     boot.kernel.sysctl = {
-      "net.ipv4.ip_forward" = 1;
-      "net.ipv4.conf.all.forwarding" = 1;
-      "net.ipv4.conf.all.rp_filter" = 0;
-      "net.ipv4.conf.default.rp_filter" = 0;
-      # VM memory optimizations
-      "vm.max_map_count" = 2147483647;
-      "kernel.unprivileged_userns_clone" = 1;
+        "net.ipv4.ip_forward" = 1;
+        "net.ipv4.conf.all.forwarding" = 1;
+        "net.ipv4.conf.all.rp_filter" = 0;
+        "net.ipv4.conf.default.rp_filter" = 0;
+        # VM memory optimizations
+        "vm.max_map_count" = 2147483647;
+        "kernel.unprivileged_userns_clone" = 1;
     };
 
     # Enhanced system packages
     environment.systemPackages = with pkgs; [
-      # Core QEMU/KVM
-      qemu_kvm
-      virt-manager
-      virt-viewer
-      libvirt
-      libosinfo
-      guestfs-tools
+        # Core QEMU/KVM
+        qemu_kvm
+        virt-manager
+        virt-viewer
+        libvirt
+        libosinfo
+        guestfs-tools
 
-      # SPICE support
-      spice-gtk
-      spice-vdagent
-      spice-protocol
+        # SPICE support
+        spice-gtk
+        spice-vdagent
+        spice-protocol
 
-      # VM utilities
-      #OVMF
-      swtpm
-      virtiofsd
-      win-virtio
-      win-spice
+        # VM utilities
+        #OVMF
+        swtpm
+        virtiofsd
+        win-virtio
+        win-spice
 
-      # Network tools
-      bridge-utils
-      iproute2
-      bind.dnsutils
+        # Network tools
+        bridge-utils
+        iproute2
+        bind.dnsutils
 
     ] ++ lib.optionals config.virtualisation.useDocker [
-      docker-compose
-      lazydocker
+        docker-compose
+        lazydocker
     ] ++ lib.optionals config.virtualisation.enableLookingGlass [
-      looking-glass-client
+        looking-glass-client
     ];
 
     # User configuration
@@ -136,11 +139,11 @@
 
     # Improved libvirt service
     systemd.services.libvirtd = {
-      path = with pkgs; [ bridge-utils iproute2 ];
-      preStart = ''
-        mkdir -p /var/lib/libvirt/{qemu/networks/autostart,images,dnsmasq}
-        chmod 755 /var/lib/libvirt/{qemu/networks{,/autostart},images,dnsmasq}
-      '';
+        path = with pkgs; [ bridge-utils iproute2 ];
+        preStart = ''
+            mkdir -p /var/lib/libvirt/{qemu/networks/autostart,images,dnsmasq}
+            chmod 755 /var/lib/libvirt/{qemu/networks{,/autostart},images,dnsmasq}
+        '';
     };
 
     # Default network with better DNS
