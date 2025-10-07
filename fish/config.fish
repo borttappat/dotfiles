@@ -33,8 +33,7 @@ bind \e\e sudo_last_command
 bind -M insert \e\e sudo_last_command
 
 # === NIX SHELL ===
-abbr -a ns 'nix-shell --run fish'
-abbr -a nsp 'nix-shell -p'
+abbr -a nsp 'nix-shell --run fish -p'
 
 # === SYSTEM ===
 abbr -a reboot 'systemctl reboot'

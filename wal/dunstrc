@@ -30,21 +30,22 @@
     class = Dunst
     corner_radius = 0
     force_xinerama = false
+    gap_size = 10
 
 [urgency_low]
-    background = "#101116"
-    foreground = "#b7c6d7"
-    frame_color = "#6E899E"
+    background = "#100c12"
+    foreground = "#d2cddd"
+    frame_color = "#8A7497"
     timeout = 3
     
 [urgency_normal]
-    background = "#101116"
-    foreground = "#b7c6d7"
-    frame_color = "#7E9FC1"
+    background = "#100c12"
+    foreground = "#d2cddd"
+    frame_color = "#8F63E7"
     timeout = 5
     
 [urgency_critical]
-    background = "#637B92"
-    foreground = "#b7c6d7"
-    frame_color = "#637B92"
+    background = "#6A4AA5"
+    foreground = "#d2cddd"
+    frame_color = "#6A4AA5"
     timeout = 0
