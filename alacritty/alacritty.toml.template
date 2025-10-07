@@ -1,0 +1,84 @@
+[env]
+TERM = "xterm"
+${ALACRITTY_SCALE_FACTOR_LINE}
+
+[cursor.style]
+shape = "Underline"
+blinking = "On"
+
+[cursor]
+thickness = 0.25
+unfocused_hollow = false
+
+[cursor.vi_mode_style]
+shape = "Underline"
+blinking = "On"
+
+[font]
+size = ${ALACRITTY_FONT_SIZE}
+
+[font.bold]
+family = "CozetteVectorBold"
+style = "Bold"
+
+[font.bold_italic]
+family = "CozetteVector"
+style = "Bold Italic"
+
+[font.glyph_offset]
+x = 1
+y = 1
+
+[font.italic]
+family = "CozetteVector"
+style = "Italic"
+
+[font.normal]
+family = "CozetteVector"
+style = "Regular"
+
+[font.offset]
+x = 1
+y = 1
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "PasteSelection"
+key = "Insert"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "ResetFontSize"
+key = "Key0"
+mods = "Control"
+
+[[keyboard.bindings]]
+key = "Plus"
+mods = "Control"
+command = { program = "fish", args = ["-c", "if test (alacritty msg config font.size | string trim) = '13.0'; alacritty msg config font.size=26; else; alacritty msg config font.size=13; end"] }
+
+[[keyboard.bindings]]
+key = "Minus"
+mods = "Control"
+command = { program = "alacritty", args = ["msg", "config", "font.size=${ALACRITTY_FONT_SIZE}"] }
+
+[window]
+dynamic_padding = true
+opacity = 0.6
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.padding]
+x = 10
+y = 8

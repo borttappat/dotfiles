@@ -222,6 +222,7 @@ environment.systemPackages = with pkgs; [
     tealdeer        #alternative to man
     #udevil          #udisks replacement
     jq              #JSON processor, do not remove, is unfortunately used in a few places
+    envsubst
 
     
 # X11
