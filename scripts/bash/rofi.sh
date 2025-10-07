@@ -54,6 +54,6 @@ fi
 echo "Using rofi font size: $ROFI_FONT_SIZE for display $CURRENT_DISPLAY"
 
 sed -e "s/\${ROFI_FONT_SIZE}/$ROFI_FONT_SIZE/g" \
-    ~/dotfiles/rofi/config.rasi.template > ~/dotfiles/rofi/config.rasi
+    ~/.config/rofi/config.rasi.template > ~/.config/rofi/config.rasi
 
-rofi "$@" -config ~/dotfiles/rofi/config.rasi -m "$MONITOR_NAME"
+rofi "$@" -config ~/.config/rofi/config.rasi -m "$MONITOR_NAME"
