@@ -1,10 +1,10 @@
 #    __ _______                          ___ __
-#   |__|   _   |______.----.-----.-----.'  _|__.-----.
+#   |__|   _   |______.----.-----.-----.'\''\''  _|__.-----.
 #   |  |___|   |______|  __|  _  |     |   _|  |  _  |
 #   |__|_(__   |      |____|_____|__|__|__| |__|___  |
 #      |:  1   |                               |_____|
 #      |::.. . |
-#      `-------'
+#      `-------'\''
 # Base i3 configuration file (config.base)
 # Modifier-settings
 set $mod Mod4
@@ -100,23 +100,13 @@ bindsym $mod+q kill
 
 # Start rofi
 bindsym $mod+d exec --no-startup-id ~/dotfiles/scripts/bash/rofi.sh drun
-#bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run
 
 # Gap adjustment bindings
-# Increase/decrease inner gaps
 bindsym $mod+Shift+Right gaps inner current plus 5
 bindsym $mod+Shift+Left gaps inner current minus 5
-
-# Increase/decrease outer gaps
 bindsym $mod+Shift+Up gaps outer current plus 5
 bindsym $mod+Shift+Down gaps outer current minus 5
-
-# Reset gaps
-#bindsym $mod+Shift+g gaps inner current set 15; gaps outer current set 0
-
-# Toggle gaps
-#bindsym $mod+Shift+t gaps inner current toggle 15; gaps outer current toggle 5
 
 # Window focus keys
 bindsym $mod+Left focus left
@@ -222,17 +212,17 @@ bindsym $mod+ctrl+l i3-msg resize width grow 5 ppt
 bindsym $mod+Shift+r reload
 
 # Colors
-set_from_resource $fg i3wm.color3 #ffffff
-set_from_resource $bg i3wm.color0 #f0f0f0
-set_from_resource $al i3wm.color8 #ff0000
-set_from_resource $c1 i3wm.color3 #f0f0f0
-set_From_resource $c2 i3wm.color0 #f0f0f0
+set_from_resource $$fg i3wm.color3 #ffffff
+set_from_resource $$bg i3wm.color0 #f0f0f0
+set_from_resource $$al i3wm.color8 #ff0000
+set_from_resource $$c1 i3wm.color3 #f0f0f0
+set_From_resource $$c2 i3wm.color0 #f0f0f0
 
 # Window colors
-client.focused          $fg     $fg     $fg     $fg       
-client.focused_inactive $c2     $c2     $c2     $c2       
-client.unfocused        $c2     $c2     $c2     $c2       
-client.urgent           $al     $al     $al     $al       
+client.focused          $$fg     $$fg     $$fg     $$fg       
+client.focused_inactive $$c2     $$c2     $$c2     $$c2       
+client.unfocused        $$c2     $$c2     $$c2     $$c2       
+client.urgent           $$al     $$al     $$al     $$al       
 
 # Polybar settings
 for_window [class="Polybar"] border pixel 0
@@ -245,8 +235,8 @@ focus_follows_mouse no
 tiling_drag modifier
 floating_modifier $mod
 
-# Resolution-specific settings for 1920x1080/1200
-font pango:Cozette 8
+# Dynamic resolution-specific settings
+font pango:CozetteVector 8
 gaps inner 6
 gaps outer 0
 for_window [class=".*"] border pixel 2

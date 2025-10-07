@@ -5,12 +5,6 @@ readonly DOTFILES_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"
 
 echo "Starting to link dotfiles..."
 echo "Dotfiles directory: $DOTFILES_DIR"
-if $CREATE_BACKUP; then
-    echo "Mode: Backup existing files as .old"
-else
-    echo "Mode: Replace existing files (no backups)"
-fi
-echo "-----------------------------------------"
 
 VERBOSE=false
 QUIET=false
@@ -38,7 +32,26 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+if $CREATE_BACKUP; then
+    echo "Mode: Backup existing files as .old"
+else
+    echo "Mode: Replace existing files (no backups)"
+fi
+echo "-----------------------------------------"
+
 declare -A FILE_MAPPINGS=(
+    ["$DOTFILES_DIR/configs/display-config.json"]="$HOME/.config"
+    ["$DOTFILES_DIR/configs/fonts.env"]="$HOME/.config"
+    
+    ["$DOTFILES_DIR/scripts/bash/load-display-config.sh"]="$HOME/.config/scripts"
+    ["$DOTFILES_DIR/scripts/bash/load-display-config.fish"]="$HOME/.config/scripts"
+    
+    ["$DOTFILES_DIR/i3/config.template"]="$HOME/.config/i3"
+    ["$DOTFILES_DIR/i3/config.base"]="$HOME/.config/i3"
+    ["$DOTFILES_DIR/alacritty/alacritty.toml.template"]="$HOME/.config/alacritty"
+    ["$DOTFILES_DIR/rofi/config.rasi.template"]="$HOME/.config/rofi"
+    ["$DOTFILES_DIR/polybar/config.ini.template"]="$HOME/.config/polybar"
+    
     ["$DOTFILES_DIR/firefox/profiles.ini"]="$HOME/.mozilla/firefox"
     ["$DOTFILES_DIR/firefox/traum/chrome"]="$HOME/.mozilla/firefox/traum"
     ["$DOTFILES_DIR/firefox/traum/user.js"]="$HOME/.mozilla/firefox/traum"
@@ -46,15 +59,6 @@ declare -A FILE_MAPPINGS=(
     ["$DOTFILES_DIR/vim/.vimrc"]="$HOME"
     ["$DOTFILES_DIR/bash/.bashrc"]="$HOME"
     ["$DOTFILES_DIR/zsh/.zshrc"]="$HOME"
-    
-    ["$DOTFILES_DIR/i3/config"]="$HOME/.config/i3"
-    ["$DOTFILES_DIR/i3/config.base"]="$HOME/.config/i3"
-    ["$DOTFILES_DIR/i3/config1080p"]="$HOME/.config/i3"
-    ["$DOTFILES_DIR/i3/config2880"]="$HOME/.config/i3"
-    ["$DOTFILES_DIR/i3/config3k"]="$HOME/.config/i3"
-    ["$DOTFILES_DIR/i3/config4k"]="$HOME/.config/i3"
-    
-    ["$DOTFILES_DIR/polybar/config.ini"]="$HOME/.config/polybar"
     
     ["$DOTFILES_DIR/zathura/zathurarc"]="$HOME/.config/zathura"
     
