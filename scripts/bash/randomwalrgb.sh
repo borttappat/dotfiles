@@ -1,48 +1,53 @@
 #!/run/current-system/sw/bin/bash
 
-echo "Starting wallpaper and color update..."
+echo "Setting random wallpaper and colors..."
 
-#set a random wallpaper
-wal -q -i ~/Wallpapers -o wal-set
+echo "Setting colorscheme from random wallpaper"
+wal -q -i ~/Wallpapers
+echo "Colorscheme set"
 
-# convert the colorscheme to HEX and run walrgb with the color to set colors of device 0
-HEX_CODE=$(sed -n '4p' ~/.cache/wal/colors | sed 's/#//')
-openrgb --device 0 --mode static --color ${HEX_CODE/#/}
+HEX_CODE=$(sed -n '2p' ~/.cache/wal/colors | sed 's/#//')
 
-# set the nix-colors to the generated colorscheme
-# paste colors from wal-cache ~/dotfiles/wal/nix-colors
+if command -v asusctl >/dev/null 2>&1 && asusctl -v >/dev/null 2>&1; then
+  echo "ASUS hardware detected, using asusctl"
+  asusctl aura static -c $HEX_CODE
+  asusctl -k high
+elif command -v openrgb >/dev/null 2>&1; then
+  echo "Checking for RGB devices..."
+  if openrgb --list-devices 2>/dev/null | grep -q "Device [0-9]"; then
+    echo "RGB devices found, using OpenRGB to set device lighting"  
+    openrgb --device 0 --mode static --color "${HEX_CODE/#/}"
+  else
+    echo "No RGB devices detected, skipping OpenRGB"
+  fi
+else
+  echo "No compatible RGB control tool found. Skipping RGB lighting control."
+fi
+
+echo "Backlight set"
+
+polybar-msg cmd restart
+echo "Restarting polybar..."
+
 ~/dotfiles/scripts/bash/nixwal.sh
 
-# update /etc/nixos/colors.nix with colors from ~/dotfiles/wal/nix-color
-${python3}/bin/python ~/dotfiles/scripts/python/nixcolors.py
-
-# change the colors for startpage.html 
-# define file paths
 startpage="$HOME/dotfiles/misc/startpage.html"
 colors_css="$HOME/.cache/wal/colors.css"
 
-# Remove content from lines 12 to 28 in startpage.html
 sed -i '12,28d' "$startpage"
-
-# Extract lines 12 to 28 from colors.css and insert them into startpage.html at line 12
 sed -n '12,28p' "$colors_css" | sed -i '11r /dev/stdin' "$startpage"
 
-# Update GitHub Pages colors.css
 echo "Starting GitHub Pages color update..."
 
-# Define file paths
 site_colors="$HOME/borttappat.github.io/assets/css/colors.css"
 colors_css="$HOME/.cache/wal/colors.css"
 
-# Ensure the css directory exists
 mkdir -p "$(dirname "$site_colors")"
 
-# Create or update colors.css
 {
     echo "/* Theme colors - automatically generated */"
     echo ":root {"
     echo "    /* Colors extracted from pywal */"
-    # Extract color definitions from pywal
     sed -n '12,28p' "$colors_css"
     echo ""
     echo "    /* Additional theme variables */"
@@ -52,22 +57,20 @@ mkdir -p "$(dirname "$site_colors")"
     echo "    --header-shadow-color: var(--color0);"
     echo "}"
 } > "$site_colors"
+echo "Updated GitHub Pages colors"
 
-# Update other configurations
-echo "Updating other configurations..."
 sh ~/dotfiles/scripts/bash/zathuracolors.sh
 
-# makse sure the pywal colors are merged with xrdb
-xrdb -merge "${HOME}/.cache/wal/colors.Xresources"
-
-#reload i3
-i3-msg reload
-
-# restart polybar
-echo "Restarting polybar..."
-polybar-msg cmd restart
-
-echo "Updating pywalfox..."
+echo "updating firefox using pywalfox..."
 pywalfox update
+echo "pywalfox updated successfully"
 
-echo "Script completed!"
+sh ~/dotfiles/scripts/bash/wal-gtk.sh
+
+echo "Updating dunst colors..."
+ln -sf ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
+pkill dunst
+dunst &
+echo "Dunst colors updated"
+
+echo "Colors updated!"
