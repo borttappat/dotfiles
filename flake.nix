@@ -261,7 +261,7 @@ in {
             ./modules/pentesting.nix
             ./modules/havoc-deps.nix
             ./modules/proxychains.nix
-            ./modules/dev.nix
+            ./modules/firefox.nix
         ];
     };
 

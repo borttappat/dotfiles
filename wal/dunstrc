@@ -33,19 +33,19 @@
     gap_size = 10
 
 [urgency_low]
-    background = "#090909"
-    foreground = "#e2e2e2"
-    frame_color = "#888888"
+    background = "#040404"
+    foreground = "#efe3e1"
+    frame_color = "#E74E74"
     timeout = 3
     
 [urgency_normal]
-    background = "#090909"
-    foreground = "#e2e2e2"
-    frame_color = "#A8A8A8"
+    background = "#040404"
+    foreground = "#efe3e1"
+    frame_color = "#EC6E8C"
     timeout = 5
     
 [urgency_critical]
-    background = "#777777"
-    foreground = "#e2e2e2"
-    frame_color = "#777777"
+    background = "#E62759"
+    foreground = "#efe3e1"
+    frame_color = "#E62759"
     timeout = 0
