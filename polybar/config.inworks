@@ -1,0 +1,557 @@
+#                __       __
+#   .-----.-----|  .--.--|  |--.---.-.----.
+#   |  _  |  _  |  |  |  |  _  |  _  |   _|
+#   |   __|_____|__|___  |_____|___._|__|
+#   |__|           |_____|
+
+[colors]
+    color0 = #00000000 
+    color1 = ${xrdb:color0}
+    color2 = ${xrdb:color3}
+    color3 = ${xrdb:color4}
+    color4 = ${xrdb:color3}
+    color5 = ${xrdb:color8}
+    color6 = ${xrdb:color5}
+    color7 = ${xrdb:color6}
+    color8 = ${xrdb:color7}
+    alert = #e53935
+    background = ${xrdb:color0}
+    foreground = ${xrdb:color7}
+    background-alt = ${xrdb:color10}
+    foreground-alt = ${xrdb:color6}
+    primary = ${xrdb:color1}
+    secondary = ${xrdb:color2}
+    disabled = ${xrdb:color8}
+    border = ${xrdb:color6}
+
+
+
+[bar/left]
+    background = ${colors.background}
+    foreground = ${colors.foreground}
+    width = 20%
+    height = 28
+    radius = 8
+    bottom = false
+    offset-x = 1%
+    offset-y = 7
+    override-redirect = true
+    wm-restack = i3
+    enable-ipc = true
+    border-size = 3
+    border-color = ${colors.border}
+    padding-left = 1
+    padding-right = 1
+    module-margin-left = 1
+    module-margin-right = 1
+    
+    font-0 = cozetteVector:style=Regular:fontformat=truetype:size=10:antialias=false;0
+    
+    modules-left = lb xworkspaces rb
+    
+    cursor-click = pointer
+    cursor-scroll = ns-resize
+
+[bar/center]
+    background = ${colors.background}
+    foreground = ${colors.foreground}
+    width = 30%
+    height = 28
+    radius = 8
+    bottom = false
+    offset-x = 35%
+    offset-y = 7
+    override-redirect = true
+    wm-restack = i3
+    enable-ipc = true
+    border-size = 3
+    border-color = ${colors.border}
+    padding-left = 1
+    padding-right = 1
+    module-margin-left = 1
+    module-margin-right = 1
+    
+    font-0 = cozetteVector:style=Regular:fontformat=truetype:size=10:antialias=false;0
+    
+    modules-center = lb essid sep nwup sep nwdown sep ip sep pomodoro sep btc rb
+    
+    cursor-click = pointer
+    cursor-scroll = ns-resize
+
+[bar/right]
+    background = ${colors.background}
+    foreground = ${colors.foreground}
+    width = 32%
+    height = 28
+    radius = 8
+    bottom = false
+    offset-x = 67%
+    offset-y = 7
+    override-redirect = true
+    wm-restack = i3
+    enable-ipc = true
+    border-size = 3
+    border-color = ${colors.border}
+    padding-left = 1
+    padding-right = 1
+    module-margin-left = 1
+    module-margin-right = 1
+    
+    font-0 = cozetteVector:style=Regular:fontformat=truetype:size=10:antialias=false;0
+    
+    modules-right = lb battery sep volume sep memory sep cpu sep filesystem sep uptime sep date rb
+    
+    cursor-click = pointer
+    cursor-scroll = ns-resize
+
+[bar/3k]
+    top = true
+    width = 100%
+    height = 44
+    fixed-center = true
+    radius = 2.0
+
+    background = ${colors.color1} 
+    foreground = ${colors.color5}
+
+    line-size = 2
+    line-color = #f00
+
+    border-size = 0
+    border-color = #00000000
+
+    padding-left = 1.5 
+    padding-right = 1.5
+
+    module-margin-left = 2
+    module-margin-right = 2
+
+    font-0 = cozetteVector:style=Regular:fontformat=truetype:size=20:antialias=true;0
+
+    separator = "//"
+    separator-foreground= ${colors.color2}
+
+    modules-left = xworkspaces 
+    modules-center = 
+    modules-right =  pomodoro ip btc memory cpu filesystem  date 
+
+    cursor-click = pointer
+    cursor-scroll = ns-resize
+
+    screenchange-reload = true
+
+[bar/hidpi]
+    top = true
+    width = 99.26%
+    height = 45
+    offset-x = 0.42%
+    offset-y = 9
+    fixed-center = true
+    radius = .0
+
+    override-redirect = true
+    enable-ipc = true
+
+    background = ${colors.color1}
+    foreground = ${colors.color5}
+
+    line-size = 3 
+    line-color = #f00
+
+    border-size = 0
+    border-color = #00000000
+
+    padding-left = 1.5
+    padding-right = 1.5
+
+    module-margin-left = 2
+    module-margin-right = 2
+
+    font-0 = cozetteVector:style=Regular:fontformat=truetype:size=10:antialias=true;0
+
+    separator = "//"
+    separator-foreground= ${colors.color2}
+
+    modules-left = mullvad  nwup nwdown ip pomodoro btc 
+    modules-center = xworkspaces  
+    modules-right = battery volume memory cpu uptime date 
+
+    cursor-click = pointer
+    cursor-scroll = ns-resize
+
+    screenchange-reload = true    
+
+[bar/4k]
+    top = true
+    width = 100%
+    height = 30
+    offset-x = 0.30%
+    offset-y = 7
+    fixed-center = true
+    radius = 2.0
+
+    enable-ipc = true
+    
+    monitor = ${env:MONITOR:HDMI-1}
+
+    background = ${colors.color1}
+    foreground = ${colors.color7}
+
+    line-size = 2
+    line-color = #f00
+
+    border-size = 0
+    border-color = #00000000
+
+    padding-left = 1
+    padding-right = 1
+
+    module-margin-left = 2
+    module-margin-right = 2
+
+    font-0 = cozetteVector:style=Regular:fontformat=truetype:size=10:antialias=true;0 
+
+    separator = "//"
+    separator-foreground= ${colors.color4}
+
+    modules-left = essid nwup nwdown ip mullvad pomodoro btc 
+    modules-center = xworkspaces 
+    modules-right = battery volume memory cpu filesystem uptime date 
+
+    cursor-click = pointer
+    cursor-scroll = ns-resize
+
+[module/lb]
+    type = custom/text
+    content = "[ "
+    content-foreground = ${colors.primary}
+    content-padding = 0
+
+[module/rb]
+    type = custom/text
+    content = " ]"
+    content-foreground = ${colors.primary}
+    content-padding = 0
+
+[module/sep]
+    type = custom/text
+    content = " | "
+    content-foreground = ${colors.disabled}
+    content-padding = 0
+
+[module/btc]
+    type = custom/script
+    exec = ~/dotfiles/scripts/bash/btc_price.sh
+    interval = 50 
+    label-underline = ${colors.color2}
+    format-prefix = "BTC "
+    format-prefix-foreground = ${colors.color3}
+    format-prefix-underline = ${colors.color2}
+
+[module/spacing]
+    type = custom/text
+    content = "     "
+
+[module/docker]
+    type = custom/script
+    exec = docker ps -q | wc -l
+    interval = 10
+    label-underline = ${colors.color2}
+    format-prefix= "DCKR "
+    format-prefix-foreground = ${colors.color3}
+    format-prefix-underline = ${colors.color2}
+
+[module/pomodoro]
+    type = custom/script
+    exec = ~/dotfiles/scripts/bash/pomodoro.sh
+    interval = 1
+    label = %output%
+    click-left = ~/.local/bin/pomo toggle
+    click-right = ~/.local/bin/pomo stop
+    click-middle = ~/.local/bin/pomo start
+    label-underline = ${colors.color2}
+    format-prefix= "POMO "
+    format-prefix-foreground = ${colors.color3}
+    format-prefix-underline = ${colors.color2}
+
+[module/uptime]
+    type = custom/script
+    exec = uptime | awk -F, '{sub(".*up ",x,$1);print $1}'
+    interval = 100
+    label = %output%
+    label-underline = ${colors.color2}
+    format-prefix= "UPTIME "
+    format-prefix-foreground = ${colors.color3}
+    format-prefix-underline = ${colors.color2}
+
+[module/mullvad]
+    type = custom/script
+    exec = mullvad status
+    interval = 1
+    format = <label>
+    format-underline = ${colors.color2}
+    format-prefix = "MLVD " 
+    format-prefix-foreground = ${colors.color3}
+    format--prefix-underline = ${colors.color2}
+
+[module/ip]
+    type = custom/script
+    exec = ifconfig | grep -A 1 tun0 | grep inet | awk '{print $2}'
+    interval = 1
+    format = <label>
+    format-underline = ${colors.color2}
+    format-prefix = "HTB " 
+    format-prefix-foreground = ${colors.color3}
+    format--prefix-underline = ${colors.color2}
+
+[module/publicip]
+    type = custom/script
+    exec = echo "$(curl -4 -sf ifconfig.co)"
+    interval = 1
+    format = <label>
+    format-underline = ${colors.color2}
+    format-prefix = "IP " 
+    format-prefix-foreground = ${colors.color3}
+    format--prefix-underline = ${colors.color2}
+
+[module/filesystem]
+    type = internal/fs
+
+    mount-0 = /
+    interval = 30
+
+    fixed-value = false
+    spacing = 2
+
+    format-mounted = <label-mounted>
+    format-mounted-underline = ${colors.color2}
+    format-mounted-prefix = "FS "
+    format-mounted-prefix-foreground = ${colors.color3}
+    format-mounted-prefix-underline = ${colors.color2}
+    
+    label-mounted = %used% / %total%
+    label-mounted-underline = ${colors.color2}
+
+[module/battery]
+    type = internal/battery
+    
+    full-at = 99
+    low-at = 10
+    format-discharging = <label-discharging>
+    format-discharging-underline = ${colors.color2}
+
+    format-discharging-prefix = "PWR "
+    format-discharging-prefix-foreground = ${colors.color3}
+    format-discharging-prefix-underline = ${colors.color2}
+
+    format-full = <label-full>
+    format-full-underline = ${colors.color2}
+
+    format-full-prefix = "PWR "
+    format-full-prefix-foreground = ${colors.color3}
+    format-full-prefix-underline = ${colors.color2}
+ 
+    format-charging = <label-charging>
+    format-charging-underline = ${colors.color2}
+
+    format-charging-prefix = "CHR "
+    format-charging-prefix-foreground = ${colors.color3}
+    format-charging-prefix-underline = ${colors.color2}
+    
+    format-low = <label-low>
+    format-low-underline = ${colors.color4}
+
+    format-low-prefix = "PWR LOW "
+    format-low-prefix-foreground = ${colors.color3}
+    format-low-prefix-underline = ${colors.color4}
+
+    battery = BAT0
+    adapter = ADP1
+
+    poll-interval = 5
+
+[module/essid]
+    type = internal/network
+    interface = wlo1
+    label-connected = %essid%
+    label-disconnected = "Disconnected" 
+    format-connected-prefix = "NW "
+    format-connected-prefix-foreground = ${colors.color3}
+    format-connected-prefix-underline = ${colors.color2}
+    label-connected-underline = ${colors.color2}
+    format-disconnected-prefix = "NW "
+    format-disconnected-prefix-foreground = ${colors.color3}
+    format-disconnected-prefix-underline = ${colors.color2}
+    label-disconnected-underline = ${colors.color2}
+
+[module/essidxmg]
+    type = internal/network
+    interface = wlp2s0
+    label-connected = %essid%
+    label-disconnected = "Disconnected" 
+    format-connected-prefix = "NW "
+    format-connected-prefix-foreground = ${colors.color3}
+    format-connected-prefix-underline = ${colors.color2}
+    label-connected-underline = ${colors.color2}
+    format-disconnected-prefix = "NW "
+    format-disconnected-prefix-foreground = ${colors.color3}
+    format-disconnected-prefix-underline = ${colors.color2}
+    label-disconnected-underline = ${colors.color2}
+
+[module/nwup]
+    type = internal/network
+    interface = wlo1
+    label-connected = %upspeed:7% 
+    label-connected-underline = ${colors.color2}
+    format-connected = <label-connected>
+    format-disconnected = <label-disconnected>
+    format-packetloss = <label-packetloss>
+    format-connected-prefix = "UL "
+    format-connected-prefix-foreground = ${colors.color3} 
+    format-connected-prefix-color = ${colors.color2}
+    format-connected-prefix-underline = ${colors.color2}
+
+[module/nwdown]
+    type = internal/network
+    interface = wlo1
+    label-connected = %downspeed:7%
+    label-connected-underline = ${colors.color2}
+    format-connected = <label-connected>
+    format-disconnected = <label-disconnected>
+    format-packetloss = <label-packetloss>
+    format-connected-prefix = "DL "
+    format-connected-prefix-foreground = ${colors.color3} 
+    format-connected-prefix-color = ${colors.color2}
+    format-connected-prefix-underline = ${colors.color2}
+
+[module/xworkspaces]
+    type = internal/xworkspaces
+
+    label-active = %name%
+    label-active-color = ${colors.color2}
+    label-active-underline= ${colors.color2}
+    label-active-padding = 1
+
+    label-occupied = %name%
+    label-occupied-padding = 1
+    
+    label-urgent = %name%
+    label-urgent-color = ${colors.color2}
+    label-urgent-padding = 1
+
+    label-empty = %name%
+    label-empty-foreground = ${colors.color6}
+    label-empty-padding = 1
+
+[module/xwindow]
+    type = internal/xwindow
+    label = %title:0:60:...%
+    label-prefix = ${colors.color2}
+    label-color = ${colors.color2}
+    label-underline = ${colors.color2}
+    format-prefix = "FOCUSED "
+    format-prefix-foreground = ${colors.color3}
+    format-prefix-underline = ${colors.color2}
+    align-center = true
+    align = center
+    center = true
+
+[module/i3]
+    type = internal/i3
+    format = <label-state> <label-mode>
+    index-sort = true
+    wrapping-scroll = false
+
+    label-mode-padding = 2
+    label-mode-foreground = #FFFFFF
+    label-mode-color = ${colors.color2}
+
+    label-focused = %index%
+    label-focused-color = ${colors.color2}
+    label-focused-underline= ${colors.color2}
+    label-focused-padding = 2
+
+    label-unfocused = %index%
+    label-unfocused-padding = 2
+
+    label-visible = %index%
+    label-visible-color = ${self.label-focused-color}
+    label-visible-underline = ${colors.color2}
+    label-visible-padding = ${self.label-focused-padding}
+
+    label-urgent = %index%
+    label-urgent-color = ${colors.alert}
+    label-urgent-padding = 2
+
+[module/cpu]
+    type = internal/cpu
+    interval = 0.5
+    format-prefix = "CPU "
+    format-prefix-foreground = ${colors.color3}
+    format-underline = ${colors.color2}
+    label = %percentage:2%%
+
+[module/memory]
+    type = internal/memory
+    interval = 0.5
+    format-prefix = "RAM "
+    format-prefix-foreground = ${colors.color3}
+    format-underline = ${colors.color2}
+    label = %percentage_used%%
+
+[module/date]
+    type = internal/date
+    interval = 5
+
+    date = " %d/%m/%Y"
+    date-alt =
+
+    time = %H:%M
+    time-alt = %H:%M
+
+    format-prefix = "D&T"
+    format-prefix-foreground = ${colors.color3}
+    format-underline = ${colors.color2}
+
+    label = "%date% %time%"
+
+[module/volume]
+    type = custom/script
+    exec = amixer sget Master | awk -F"[][]" '/Left:/ { print $2 }'
+    interval = 0.1
+    format = <label>
+    format-underline = ${colors.color2}
+    format-prefix = "VOL " 
+    format-prefix-foreground = ${colors.color3}
+
+[global/wm]
+    margin-top = 5
+    margin-bottom = 5
+
+[module/backlight]
+    type = internal/backlight
+
+    format = <label>
+
+    label = %percentage%%
+
+    ramp-0 = 🌕
+    ramp-1 = 🌔
+    ramp-2 = 🌓
+    ramp-3 = 🌒
+    ramp-4 = 🌑
+
+    bar-width = 10
+    bar-indicator = |
+    bar-fill = ─
+    bar-empty = ─
+
+    card = intel_backlight
+
+    use-actual-brightness = true
+
+    enable-scroll = true
+
+[settings]
+    screenchange-reload = true
+    pseudo-transparency = true

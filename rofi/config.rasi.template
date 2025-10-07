@@ -3,7 +3,7 @@
 configuration{
 modi: "run,drun,window";
 lines: 10;
-font: "CozetteVector 10";
+font: "CozetteVector ${ROFI_FONT_SIZE}";
 terminal: "alacritty";
 location: 0;
 disable-history: false;
