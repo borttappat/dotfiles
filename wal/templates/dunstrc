@@ -30,6 +30,7 @@
     class = Dunst
     corner_radius = 0
     force_xinerama = false
+    gap_size = 10
 
 [urgency_low]
     background = "{color0}"
