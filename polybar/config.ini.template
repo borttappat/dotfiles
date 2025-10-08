@@ -51,7 +51,7 @@ font-1 = cozetteVector:style=Bold:fontformat=truetype:size=${POLYBAR_FONT_SIZE}:
 separator = "%{T1}//%{T1}"
 separator-foreground= ${colors.color2}
 
-modules-left = essid nwup nwdown ip pomodoro btc eth sol
+modules-left = hostname essid nwup nwdown ip pomodoro btc eth sol
 modules-center = xworkspaces  
 modules-right = battery volume memory cpu filesystem uptime date 
 
@@ -59,6 +59,16 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 screenchange-reload = true    
+
+[module/hostname]
+type = custom/script
+exec = hostname
+interval = 600
+label = %output%
+label-underline = ${colors.color2}
+format-prefix = "HOST "
+format-prefix-foreground = ${colors.color3}
+format-prefix-underline = ${colors.color2}
 
 [module/btc]
 type = custom/script
