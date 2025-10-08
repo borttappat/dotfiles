@@ -136,6 +136,10 @@ abbr -a pyserver 'sudo python -m http.server 8002'
 abbr -a bloodhound 'nix develop ~/dotfiles/modules/bloodhound.nix'
 abbr -a bh 'nix develop ~/dotfiles/modules/bloodhound.nix'
 
+function pyenv
+    ~/dotfiles/scripts/bash/pyenvshell.sh $argv
+end
+
 # === APPLICATIONS ===
 abbr -a zath 'zathura --fork=false'
 abbr -a zathura 'zathura --fork=false'
