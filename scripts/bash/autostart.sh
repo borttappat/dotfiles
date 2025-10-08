@@ -1,5 +1,9 @@
 #!/run/current-system/sw/bin/bash
 
+# Ensure dunst uses wal colors
+mkdir -p ~/.config/dunst
+ln -sf ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
+
 # Notify user that display configuration is starting
 notify-send "Display Setup" "Configuring monitors..." -t 2000
 
