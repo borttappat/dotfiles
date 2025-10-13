@@ -49,9 +49,16 @@ specialisation.router.configuration = {
 #  END ROUTER SPEC SETUP #
 ##########################
 
+services.asusd = {
+  enable = true;
+};
+
+
+
 # Intel graphics and hardware acceleration
 hardware.graphics = {
   enable = true;
+  enable32Bit = true;
   extraPackages = with pkgs; [
     intel-media-driver
     vaapiIntel
@@ -72,9 +79,12 @@ services.thermald.enable = true;
 
 # Basic Intel OpenCL support
 environment.systemPackages = with pkgs; [
-  intel-compute-runtime
-  ocl-icd
-  intel-ocl
+    intel-compute-runtime
+    ocl-icd
+    intel-ocl
+    asusctl
+    acpi
+    powertop
 
     (writeShellScriptBin "switch-to-router" ''
         #!/bin/sh
@@ -90,6 +100,29 @@ environment.systemPackages = with pkgs; [
         sudo /run/current-system/bin/switch-to-configuration switch
         echo "✅ Base mode activated"
         echo "WiFi should be restored"
+    '')
+
+    (writeShellScriptBin "set-battery-limit" ''
+        #!/bin/sh
+        if [ -z "$1" ]; then
+            echo "Usage: set-battery-limit <percentage>"
+            echo "Example: set-battery-limit 80"
+            echo ""
+            echo "Current limit:"
+            ${pkgs.asusctl}/bin/asusctl -c
+            exit 1
+        fi
+
+        limit="$1"
+
+        if ! [ "$limit" -eq "$limit" ] 2>/dev/null || [ "$limit" -lt 20 ] || [ "$limit" -gt 100 ]; then
+            echo "Error: Limit must be a number between 20 and 100"
+            exit 1
+        fi
+
+        echo "Setting battery charge limit to $limit%..."
+        ${pkgs.asusctl}/bin/asusctl -c "$limit"
+        echo "Battery charge limit set to $limit%"
     '')
 ];
 
