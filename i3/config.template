@@ -99,10 +99,10 @@ for_window [instance="floating"] resize set 800 450
 bindsym $mod+q kill
 
 # Start Obsidian
-bindsym $mod+o exec --no-startup-id Obsidian
+bindsym $mod+o exec obsidian
 
 # Start Virt-Manager
-bindsym $mod+o exec --no-startup-id virt-manager
+bindsym $mod+m exec virt-manager
 
 # Start rofi
 bindsym $mod+d exec --no-startup-id ~/dotfiles/scripts/bash/rofi.sh -show drun
@@ -143,7 +143,7 @@ mode "moveit" {
     bindsym l move right 40px
     bindsym Mod4+m mode "default"
 }
-bindsym $mod+m focus floating; mode "moveit"
+#bindsym $mod+m focus floating; mode "moveit"
 
 # Split orientation
 bindsym $mod+c split v

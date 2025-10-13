@@ -5,42 +5,42 @@
 "alacritty_font_size": 11,
 "rofi_font_size": 10,
 "i3_font_size": 8,
-"gaps_inner": 6
+"gaps_inner": 15 
 },
 "1920x1200": {
 "polybar_font_size": 9,
 "alacritty_font_size": 11,
 "rofi_font_size": 10,
 "i3_font_size": 8,
-"gaps_inner": 6
+"gaps_inner": 15
 },
 "2560x1440": {
 "polybar_font_size": 11,
 "alacritty_font_size": 13,
 "rofi_font_size": 12,
 "i3_font_size": 9,
-"gaps_inner": 8
+"gaps_inner": 15
 },
 "2880x1800": {
 "polybar_font_size": 12,
 "alacritty_font_size": 14,
 "rofi_font_size": 14,
 "i3_font_size": 10,
-"gaps_inner": 10
+"gaps_inner": 15
 },
 "3440x1440": {
 "polybar_font_size": 10,
 "alacritty_font_size": 11,
 "rofi_font_size": 10,
 "i3_font_size": 9,
-"gaps_inner": 8
+"gaps_inner": 15
 },
 "3840x2160": {
 "polybar_font_size": 14,
 "alacritty_font_size": 16,
 "rofi_font_size": 16,
 "i3_font_size": 12,
-"gaps_inner": 12
+"gaps_inner": 15
 }
 },
 "machine_overrides": {

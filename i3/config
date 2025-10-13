@@ -1,11 +1,11 @@
-#    __ _______                          ___ __
-#   |__|   _   |______.----.-----.-----.'\''\''  _|__.-----.
-#   |  |___|   |______|  __|  _  |     |   _|  |  _  |
-#   |__|_(__   |      |____|_____|__|__|__| |__|___  |
-#      |:  1   |                               |_____|
-#      |::.. . |
-#      `-------'\''
-# Base i3 configuration file (config.base)
+# __ _______                          ___ __
+#|__|   _   |______.----.-----.-----.'  _|__.-----.
+#|  |___|   |______|  __|  _  |     |   _|  |  _  |
+#|__|_(__   |      |____|_____|__|__|__| |__|___  |
+#   |:  1   |                               |_____|
+#   |::.. . |   Base i3 configuration file 
+#   `-------'   (config.base)
+#
 # Modifier-settings
 set $mod Mod4
 
@@ -74,7 +74,7 @@ bindsym $mod+w exec ~/dotfiles/scripts/bash/randomwalrgb.sh
 # Browser settings
 set $browser firefox
 bindsym $mod+b exec $browser
-bindsym $mod+a exec $browser https://claude.ai/new 
+bindsym $mod+a exec $browser https://claude.ai 
 bindsym $mod+shift+m exec $browser https://music.youtube.com/
 bindsym $mod+t exec $browser https://borttappat.github.io/links.html
 bindsym $mod+g exec $browser https://github.com/borttappat/dotfiles
@@ -97,6 +97,12 @@ for_window [instance="floating"] resize set 800 450
 
 # Kill focused window
 bindsym $mod+q kill
+
+# Start Obsidian
+bindsym $mod+o exec obsidian
+
+# Start Virt-Manager
+bindsym $mod+m exec virt-manager
 
 # Start rofi
 bindsym $mod+d exec --no-startup-id ~/dotfiles/scripts/bash/rofi.sh -show drun
@@ -137,7 +143,7 @@ mode "moveit" {
     bindsym l move right 40px
     bindsym Mod4+m mode "default"
 }
-bindsym $mod+m focus floating; mode "moveit"
+#bindsym $mod+m focus floating; mode "moveit"
 
 # Split orientation
 bindsym $mod+c split v
@@ -237,6 +243,6 @@ floating_modifier $mod
 
 # Dynamic resolution-specific settings
 font pango:CozetteVector 8
-gaps inner 6
+gaps inner 15
 gaps outer 0
 for_window [class=".*"] border pixel 2
