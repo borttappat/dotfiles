@@ -7,6 +7,28 @@
 
 {   
 
+services.logind.lidSwitch = "suspend";
+
+systemd.services.i3lock-on-suspend = {
+  description = "Lock screen before suspend";
+  before = [ "sleep.target" ];
+  wantedBy = [ "sleep.target" ];
+  serviceConfig = {
+    User = "traum";
+    Type = "forking";
+    Environment = [
+      "DISPLAY=:0"
+      "XAUTHORITY=/home/traum/.Xauthority"
+      "HOME=/home/traum"
+      "PATH=/run/current-system/sw/bin"
+    ];
+    ExecStart = "/home/traum/dotfiles/scripts/bash/lock.sh";
+  };
+};
+
+# Autorandr is dope
+services.autorandr.enable = true;
+
 # Set ranger as default file manager
 xdg.mime.defaultApplications = {
   "inode/directory" = "ranger.desktop";

@@ -91,7 +91,7 @@ environment.systemPackages = with pkgs; [
     firefox
     #brave
     #ungoogled-chromium
-    google-chrome
+    #google-chrome
     mullvad
     #nyxt
     #qutebrowser
@@ -102,7 +102,7 @@ environment.systemPackages = with pkgs; [
     #pipewire
 
 # Terminal stuff
-    tmate
+    #tmate
     zsh
     fish
     rsync 
@@ -118,9 +118,9 @@ environment.systemPackages = with pkgs; [
     #wiki-tui
     fzf 
     alacritty
-    ghostty
+    #ghostty
     warp-terminal
-    thefuck         #Magnificent app which corrects your previous console command
+    #thefuck         #Magnificent app which corrects your previous console command
     #kitty
     htop
     #glances
