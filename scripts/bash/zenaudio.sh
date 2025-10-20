@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/run/current-system/sw/bin/bash
 
 set -e
 
@@ -8,11 +8,12 @@ CARD_NUM=0
 usage() {
     echo "ZenBook Audio Switch - Dynamic device detection"
     echo ""
-    echo "Usage: $0 [speakers|headphones|status|toggle|test|volume|mute|unmute]"
+    echo "Usage: $0 [speakers|headphones|bluetooth|status|toggle|test|volume|mute|unmute]"
     echo ""
     echo "Device Commands:"
     echo "  speakers     Switch to internal speakers"
     echo "  headphones   Switch to headphones"
+    echo "  bluetooth    Switch to Bluetooth headset"
     echo "  toggle       Toggle between speakers and headphones"
     echo ""
     echo "Volume Commands:"
@@ -92,6 +93,11 @@ find_device_ids() {
     echo "$headphone_id $speaker_id"
 }
 
+find_bluetooth_id() {
+    # Find Bluetooth sink ID
+    pactl list sinks short | grep bluez | awk '{print $1}' | head -n1
+}
+
 check_card() {
     if ! aplay -l | grep -q "$CARD"; then
         echo "Error: $CARD sound card not found"
@@ -115,6 +121,14 @@ get_device_ids() {
 }
 
 get_current_device() {
+    # Check if Bluetooth is the default
+    local default_sink=$(wpctl status | grep "Sinks:" -A 20 | grep "\*" | head -1)
+    if echo "$default_sink" | grep -qi "bluez\|bluetooth\|nothing\|ear"; then
+        echo "bluetooth"
+        return
+    fi
+
+    # Check analog headphones vs speakers
     HEADPHONE_VOL=$(amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' 2>/dev/null | grep "Front Left:" | awk '{print $4}' | tr -d '[]%' | head -1 || echo "0")
     if [ "$HEADPHONE_VOL" -gt 0 ] 2>/dev/null; then
         echo "headphones"
@@ -159,6 +173,33 @@ enable_headphones() {
     echo "✓ Switched to headphones"
 }
 
+enable_bluetooth() {
+    echo "Switching to Bluetooth headset..."
+
+    # Disable internal audio
+    amixer -c $CARD_NUM sset 'cs42l43 Speaker Digital' off >/dev/null 2>&1 || true
+    amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 0% >/dev/null 2>&1 || true
+
+    # Find Bluetooth sink NAME (not ID) - pactl version
+    local bt_sink=$(pactl list sinks short | grep bluez | awk '{print $2}' | head -n1)
+
+    if [ -z "$bt_sink" ]; then
+        echo "ERROR: No Bluetooth audio device found."
+        echo "Make sure your Bluetooth headset is paired and connected."
+        exit 1
+    fi
+
+    # Set as default using pactl
+    pactl set-default-sink "$bt_sink"
+
+    # Move all active streams
+    pactl list sink-inputs short | awk '{print $1}' | while read -r stream; do
+        pactl move-sink-input "$stream" "$bt_sink" 2>/dev/null || true
+    done
+
+    echo "✓ Switched to Bluetooth: $bt_sink"
+}
+
 show_status() {
     get_device_ids
     echo "=== ZenBook Audio Status ==="
@@ -167,6 +208,15 @@ show_status() {
     device_type=$(get_current_device)
     echo "Current device: $device_type"
     echo "Dynamic devices: Headphones=$HEADPHONE_DEVICE, Speakers=$SPEAKER_DEVICE"
+    
+    # Show Bluetooth info
+    local bt_id=$(find_bluetooth_id)
+    if [ -n "$bt_id" ]; then
+        local bt_name=$(pactl list sinks | grep -A 20 "Sink #$bt_id" | grep "Description:" | cut -d':' -f2 | xargs)
+        echo "Bluetooth device: $bt_id ($bt_name)"
+    else
+        echo "Bluetooth device: Not connected"
+    fi
     
     echo ""
     echo "PipeWire status:"
@@ -199,6 +249,11 @@ test_audio() {
             speaker-test -c2 -r48000 -D "hw:$CARD_NUM,0" -t wav -l 1 2>/dev/null || \
             speaker-test -c2 -r48000 -D "hw:$CARD_NUM,0" -t sine -f 440 -l 1 2>/dev/null || true
             ;;
+        bluetooth)
+            # Use paplay for Bluetooth testing
+            paplay /usr/share/sounds/alsa/Front_Center.wav 2>/dev/null || \
+            echo "Could not find test sound file"
+            ;;
     esac
     echo "Test complete"
 }
@@ -212,6 +267,9 @@ toggle_audio() {
         headphones)
             enable_speakers
             ;;
+        bluetooth)
+            enable_speakers
+            ;;
     esac
 }
 
@@ -220,6 +278,31 @@ adjust_volume() {
     local adjustment="$1"
     device_type=$(get_current_device)
     
+    # For Bluetooth, use wpctl on the Bluetooth sink
+    if [ "$device_type" = "bluetooth" ]; then
+        local bt_id=$(find_bluetooth_id)
+        case "$adjustment" in
+            +)
+                wpctl set-volume "$bt_id" 5%+ >/dev/null 2>&1
+                echo "Volume increased"
+                ;;
+            -)
+                wpctl set-volume "$bt_id" 5%- >/dev/null 2>&1
+                echo "Volume decreased"
+                ;;
+            [0-9]*)
+                wpctl set-volume "$bt_id" "${adjustment}%" >/dev/null 2>&1
+                echo "Volume set to ${adjustment}%"
+                ;;
+            *)
+                current_vol=$(wpctl get-volume "$bt_id" 2>/dev/null | awk '{print int($2*100)}' || echo "0")
+                echo "Current bluetooth volume: ${current_vol}%"
+                ;;
+        esac
+        return
+    fi
+    
+    # Original volume control for speakers/headphones
     case "$adjustment" in
         +)
             if [ "$device_type" = "speakers" ]; then
@@ -274,6 +357,11 @@ mute_device() {
             amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 0% >/dev/null
             echo "Headphones muted"
             ;;
+        bluetooth)
+            local bt_id=$(find_bluetooth_id)
+            wpctl set-mute "$bt_id" 1 >/dev/null 2>&1
+            echo "Bluetooth muted"
+            ;;
     esac
 }
 
@@ -289,6 +377,11 @@ unmute_device() {
             amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 50% >/dev/null
             echo "Headphones unmuted"
             ;;
+        bluetooth)
+            local bt_id=$(find_bluetooth_id)
+            wpctl set-mute "$bt_id" 0 >/dev/null 2>&1
+            echo "Bluetooth unmuted"
+            ;;
     esac
 }
 
@@ -301,6 +394,9 @@ case "${1:-}" in
         ;;
     headphones)
         enable_headphones
+        ;;
+    bluetooth)
+        enable_bluetooth
         ;;
     status)
         show_status
