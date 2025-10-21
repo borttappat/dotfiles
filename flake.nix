@@ -37,6 +37,10 @@ let
   };
 
 in {
+     devShells.x86_64-linux = (import ./modules/bloodhound.nix {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    }).devShells;
+
     nixosConfigurations = {
     
     # Configurations with system specific to architecture
