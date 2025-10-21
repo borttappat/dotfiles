@@ -133,8 +133,7 @@ abbr -a htblabs 'sudo openvpn ~/Downloads/lab_griefhoundTCP.ovpn'
 abbr -a pyserver 'sudo python -m http.server 8002'
 
 # === DEV ENVIRONMENTS ===
-abbr -a bloodhound 'nix develop ~/dotfiles/modules/bloodhound.nix'
-abbr -a bh 'nix develop ~/dotfiles/modules/bloodhound.nix'
+abbr -a bloodhound 'nix develop ~/dotfiles#bloodhound'
 
 function pyenv
     ~/dotfiles/scripts/bash/pyenvshell.sh $argv
