@@ -1,6 +1,20 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$cmd_duration\
+$time\
+$line_break\
+$character"""
+
 # Inserts a blank line between shell prompts
 add_newline = true
 
@@ -12,7 +26,7 @@ show_always = true
 
 [character]
 success_symbol = " [└─>](bold yellow)"
-error_symbol = " [└─x](bold yellow)"
+error_symbol = " [└─X](bold yellow)"
 
 [hostname]
 format = "[ $hostname]($style) in "
@@ -27,12 +41,18 @@ disabled = true
 
 [directory]
 style = "bold purple"
-truncation_length = 0
-truncate_to_repo = true
-truncation_symbol = " "
+truncation_length = 10
+truncate_to_repo = false 
+#truncation_symbol = " "
 disabled = false
 read_only = ' [R]'
 home_symbol = '~'
+
+[time]
+disabled = false
+format = 'at [$time]($style) '
+time_format = "%H:%M:%S"
+style = "bold cyan"
 
 [git_status]
 style = "white"
@@ -50,8 +70,8 @@ commit_hash_length = 4
 #disabled = true
 
 [cmd_duration]
-min_time = 1
-format = "took [$duration]($style)"
+min_time = 2000
+format = "took [$duration]($style) "
 disabled = false
 
 [status]
@@ -73,7 +93,7 @@ version_format = "v${raw}"
 disabled = true
 
 [battery]
-disabled = true
+disabled = false
 full_symbol = '🔋 '
 charging_symbol = '⚡️ '
 discharging_symbol = '💀 '

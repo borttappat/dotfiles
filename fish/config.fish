@@ -63,9 +63,9 @@ function mkcd
 end
 
 # === FILE LISTING ===
-abbr -a ls 'eza -A --color=always --group-directories-first --icons'
-abbr -a l 'eza -Al --color=always --group-directories-first --icons'
-abbr -a lt 'eza -AT --color=always --group-directories-first --icons'
+abbr -a ls 'eza -A --color=always --group-directories-first'
+abbr -a l 'eza -Al --color=always --group-directories-first'
+abbr -a lt 'eza -AT --color=always --group-directories-first'
 
 function sls
     ls | grep -i $argv
