@@ -9,7 +9,7 @@
 },
 "1920x1200": {
 "polybar_font_size": 9,
-"alacritty_font_size": 11,
+"alacritty_font_size": 13,
 "rofi_font_size": 10,
 "i3_font_size": 8,
 "gaps_inner": 15

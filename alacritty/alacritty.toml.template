@@ -1,18 +1,20 @@
+[selection]
+save_to_clipboard = true
+
+[general]
+live_config_reload = true
+ipc_socket = true
+
 [env]
-TERM = "xterm"
+TERM = "alacritty"
 ${ALACRITTY_SCALE_FACTOR_LINE}
 
-[cursor.style]
-shape = "Underline"
-blinking = "On"
-
 [cursor]
-thickness = 0.25
+thickness = 0.35
 unfocused_hollow = false
-
-[cursor.vi_mode_style]
-shape = "Underline"
-blinking = "On"
+blink_timeout = 0
+blink_interval = 500
+style = { shape = "Underline", blinking = "Always" }
 
 [font]
 size = ${ALACRITTY_FONT_SIZE}
@@ -74,6 +76,7 @@ command = { program = "alacritty", args = ["msg", "config", "font.size=${ALACRIT
 [window]
 dynamic_padding = true
 opacity = 0.6
+resize_increments = true
 
 [window.class]
 general = "Alacritty"

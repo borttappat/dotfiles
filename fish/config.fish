@@ -7,7 +7,10 @@ if status is-interactive
     cat /home/traum/.cache/wal/sequences
     fish_vi_key_bindings
 end
-
+set fish_cursor_default underscore blink
+set fish_cursor_insert underscore blink
+set fish_cursor_replace_one underscore blink
+set fish_cursor_visual underscore blink
 # Starship
 starship init fish | source
 
