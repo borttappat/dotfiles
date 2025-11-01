@@ -28,5 +28,7 @@ sleep 0.5
 source ~/.config/scripts/load-display-config.sh
 
 sed -e "s/\${MOD_KEY}/$MOD_KEY/g" -e "s/\${I3_FONT_SIZE}/$I3_FONT_SIZE/g" -e "s/\${GAPS_INNER}/$GAPS_INNER/g" ~/.config/i3/config.template > ~/.config/i3/config
-
+sed -e "s/\${POLYBAR_FONT_SIZE}/$POLYBAR_FONT_SIZE/g" \
+    -e "s/\${POLYBAR_FONT}/$POLYBAR_FONT/g" \
+    ~/.config/polybar/config.ini.template > ~/.config/polybar/config.ini
 exec i3

@@ -215,7 +215,7 @@ bindsym $mod+ctrl+h i3-msg resize width shrink 5 ppt
 bindsym $mod+ctrl+l i3-msg resize width grow 5 ppt
 
 # Reload the configuration file
-bindsym $mod+Shift+r reload
+bindsym $mod+Shift+r exec ~/dotfiles/scripts/bash/refresh-display-config.sh
 
 # Colors
 set_from_resource $$fg i3wm.color3 #ffffff

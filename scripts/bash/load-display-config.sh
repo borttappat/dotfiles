@@ -46,5 +46,7 @@ fi
 
 export DISPLAY_RESOLUTION="$CURRENT_RESOLUTION"
 export DISPLAY_FONTS=$(jq -r '.fonts | join(",")' "$CONFIG_FILE")
+export POLYBAR_FONT=$(jq -r '.fonts[0]' "$CONFIG_FILE")
+export ALACRITTY_FONT=$(jq -r '.fonts[0]' "$CONFIG_FILE")
 
-echo "Loaded config for $HOSTNAME @ $DISPLAY_RESOLUTION: polybar=$POLYBAR_FONT_SIZE alacritty=$ALACRITTY_FONT_SIZE i3=$I3_FONT_SIZE gaps=$GAPS_INNER"
+echo "Loaded config for $HOSTNAME @ $DISPLAY_RESOLUTION: polybar=$POLYBAR_FONT_SIZE alacritty=$ALACRITTY_FONT_SIZE i3=$I3_FONT_SIZE gaps=$GAPS_INNER font=$POLYBAR_FONT"

@@ -51,6 +51,9 @@ fi
 [ "$ALACRITTY_FONT_SIZE" = "null" ] && ALACRITTY_FONT_SIZE=$(echo "$RES_DEFAULTS" | jq -r '.alacritty_font_size')
 [ "$ALACRITTY_SCALE_FACTOR" = "null" ] && ALACRITTY_SCALE_FACTOR="1.0"
 
+# Get font from config
+ALACRITTY_FONT=$(jq -r '.fonts[0]' "$CONFIG_FILE")
+
 # Build the scale factor line - if it's 1.0, leave it blank, otherwise include it
 if [ "$ALACRITTY_SCALE_FACTOR" != "1.0" ]; then
     ALACRITTY_SCALE_FACTOR_LINE="WINIT_X11_SCALE_FACTOR = \"$ALACRITTY_SCALE_FACTOR\""
@@ -58,6 +61,7 @@ else
     ALACRITTY_SCALE_FACTOR_LINE=""
 fi
 
+echo "Using font: $ALACRITTY_FONT"
 echo "Using font size: $ALACRITTY_FONT_SIZE"
 echo "Using scale factor: $ALACRITTY_SCALE_FACTOR"
 
@@ -65,6 +69,7 @@ echo "Using scale factor: $ALACRITTY_SCALE_FACTOR"
 TEMP_CONFIG="/tmp/alacritty-$$.toml"
 
 sed -e "s/\${ALACRITTY_FONT_SIZE}/$ALACRITTY_FONT_SIZE/g" \
+    -e "s/\${ALACRITTY_FONT}/$ALACRITTY_FONT/g" \
     -e "s/\${ALACRITTY_SCALE_FACTOR_LINE}/$ALACRITTY_SCALE_FACTOR_LINE/g" \
     "$TEMPLATE_FILE" > "$TEMP_CONFIG"
 

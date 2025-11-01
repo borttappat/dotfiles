@@ -35,6 +35,7 @@ fi
 source ~/.config/scripts/load-display-config.sh
 
 sed -e "s/\${POLYBAR_FONT_SIZE}/$POLYBAR_FONT_SIZE/g" \
+    -e "s/\${POLYBAR_FONT}/$POLYBAR_FONT/g" \
     ~/.config/polybar/config.ini.template > ~/.config/polybar/config.ini
 
 killall -q polybar

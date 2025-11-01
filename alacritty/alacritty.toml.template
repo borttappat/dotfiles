@@ -6,7 +6,7 @@ live_config_reload = true
 ipc_socket = true
 
 [env]
-TERM = "alacritty"
+TERM = "xterm"
 ${ALACRITTY_SCALE_FACTOR_LINE}
 
 [cursor]
@@ -20,11 +20,11 @@ style = { shape = "Underline", blinking = "Always" }
 size = ${ALACRITTY_FONT_SIZE}
 
 [font.bold]
-family = "CozetteVectorBold"
+family = "${ALACRITTY_FONT}"
 style = "Bold"
 
 [font.bold_italic]
-family = "CozetteVector"
+family = "${ALACRITTY_FONT}"
 style = "Bold Italic"
 
 [font.glyph_offset]
@@ -32,11 +32,11 @@ x = 1
 y = 1
 
 [font.italic]
-family = "CozetteVector"
+family = "${ALACRITTY_FONT}"
 style = "Italic"
 
 [font.normal]
-family = "CozetteVector"
+family = "${ALACRITTY_FONT}"
 style = "Regular"
 
 [font.offset]
