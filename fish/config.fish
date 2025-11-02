@@ -2,11 +2,28 @@
 #   .'  _|__.-----|  |--.
 #   |   _|  |__ --|     |
 #   |__| |__|_____|__|__|
-
 if status is-interactive
     cat /home/traum/.cache/wal/sequences
     fish_vi_key_bindings
+    
+    # Auto-start recording if flag exists
+    if test -f ~/.recording_active
+        and not set -q RECORDING_ACTIVE
+        
+        set -l log_dir (cat ~/.recording_active)
+        set -l timestamp (date +%Y%m%d_%H%M%S)
+        set -gx RECORDING_FILE "$log_dir/session_$timestamp.cast"
+        set -gx RECORDING_ACTIVE 1
+        
+        echo "[!] Recording to: $RECORDING_FILE"
+        
+        asciinema rec "$RECORDING_FILE"
+        
+        set -e RECORDING_ACTIVE
+        set -e RECORDING_FILE
+    end
 end
+
 set fish_cursor_default underscore blink
 set fish_cursor_insert underscore blink
 set fish_cursor_replace_one underscore blink
