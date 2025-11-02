@@ -58,20 +58,7 @@ fi
 
 echo "$window_count $current_x $current_y" > "$state_file"
 
-if echo "$CURRENT_DISPLAY" | grep -q "2880x1800"; then
-    config_file="$HOME/dotfiles/alacritty/alacritty1800p.toml"
-elif echo "$CURRENT_DISPLAY" | grep -q "2560x1440"; then
-    config_file="$HOME/dotfiles/alacritty/alacritty1440p.toml"
-elif echo "$CURRENT_DISPLAY" | grep -q "1920x1080"; then
-    config_file="$HOME/dotfiles/alacritty/alacritty1080p.toml"
-elif echo "$CURRENT_DISPLAY" | grep -q "2288x1436"; then
-    config_file="$HOME/dotfiles/alacritty/alacritty3k.toml"
-elif echo "$CURRENT_DISPLAY" | grep -q "1920x1200"; then
-    config_file="$HOME/dotfiles/alacritty/alacritty1200p.toml"
-else
-    config_file="$HOME/dotfiles/alacritty/alacritty.toml"
-fi
+echo "Launching floating terminal at position: $current_x,$current_y"
 
-echo "Using config: $config_file at position: $current_x,$current_y"
-
-alacritty --class floating -o window.position.x=$current_x -o window.position.y=$current_y --config-file "$config_file"
+# Use alacritty.sh with floating class and position overrides
+~/dotfiles/scripts/bash/alacritty.sh --class floating -o window.position.x=$current_x -o window.position.y=$current_y
