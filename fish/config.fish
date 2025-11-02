@@ -34,6 +34,20 @@ starship init fish | source
 # Zoxide
 zoxide init fish | source
 
+# Save current directory whenever PWD changes
+function __save_last_dir --on-variable PWD
+    echo $PWD > /tmp/last_fish_dir
+end
+
+# Restore last directory on shell startup
+if status is-interactive
+    and test -f /tmp/last_fish_dir
+    set -l last_dir (cat /tmp/last_fish_dir)
+    if test -d "$last_dir"
+        cd "$last_dir"
+    end
+end
+
 # === VIM MODE ===
 function toggle_vim_mode
     if test "$fish_key_bindings" = "fish_vi_key_bindings"
