@@ -30,7 +30,7 @@ radius = 0.0
 
 enable-ipc = true
 
-background = ${colors.color0} 
+background = ${colors.color1} 
 foreground = ${colors.color7}
 
 line-size = 2

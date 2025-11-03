@@ -24,7 +24,7 @@ networking = {
 services.envfs.enable = true;
 
 # ollama, LLM
-services.ollama.enable = true;
+services.ollama.enable = false;
 
 # udisksctl
 services.udisks2.enable = true; #added with udisks in packages.nix
@@ -38,7 +38,7 @@ services.resolved.enable = true;
 services.logind.lidSwitchExternalPower = "ignore";
 
 # Rsync
-# services.rsyncd.enable = true;
+services.rsyncd.enable = true;
 
 # Enable touchpad support
 services.libinput.enable = true;
@@ -66,9 +66,6 @@ services.tailscale.enable = true;
 
 # Enable i2c-bus
 hardware.i2c.enable = true;
-
-
-
 
 # Undervolt
    # services.undervolt = {

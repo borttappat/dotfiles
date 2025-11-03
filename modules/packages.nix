@@ -67,9 +67,6 @@ fonts.packages = with pkgs; [
 
 # Packages to install on a system-wide level
 environment.systemPackages = with pkgs; [
-    (writeShellScriptBin "burp" ''
-        ${burpsuite}/bin/burpsuite --project-file=memory:// --user-config-file=memory://
-    '')
 
 # Editors
     vim
@@ -108,6 +105,7 @@ environment.systemPackages = with pkgs; [
     rsync 
     starship
     artem           #img-to-ascii
+    asciinema
     cava
     #mop
     du-dust         #better version of du
@@ -117,7 +115,7 @@ environment.systemPackages = with pkgs; [
     ugrep
     #wiki-tui
     fzf 
-    alacritty
+    unstable.alacritty
     #ghostty
     warp-terminal
     #thefuck         #Magnificent app which corrects your previous console command
@@ -215,6 +213,7 @@ environment.systemPackages = with pkgs; [
     whois
     warpd           #click stuff without mouse input
     ollama          #run llms locally
+    claude-code
     #khoj
     #aichat          #CLI gpt-chatbot 
     unclutter       #hides mouse cursor when not in use
