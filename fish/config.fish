@@ -2,6 +2,8 @@
 #   .'  _|__.-----|  |--.
 #   |   _|  |__ --|     |
 #   |__| |__|_____|__|__|
+#
+# === INTERACTIVE BLOCK ===
 if status is-interactive
     cat /home/traum/.cache/wal/sequences
     fish_vi_key_bindings
@@ -24,10 +26,13 @@ if status is-interactive
     end
 end
 
+# === CURSOR SETTINGS ===
 set fish_cursor_default underscore blink
 set fish_cursor_insert underscore blink
 set fish_cursor_replace_one underscore blink
 set fish_cursor_visual underscore blink
+
+# === INITS ===
 # Starship
 starship init fish | source
 
@@ -39,6 +44,7 @@ function __save_last_dir --on-variable PWD
     echo $PWD > /tmp/last_fish_dir
 end
 
+# === DIRECTORY-MEMORY ===
 # Restore last directory on shell startup
 if status is-interactive
     and test -f /tmp/last_fish_dir
@@ -47,6 +53,12 @@ if status is-interactive
         cd "$last_dir"
     end
 end
+
+# === MKCD ===
+function mkcd
+    mkdir -p $argv[1] && cd $argv[1]
+end
+
 
 # === VIM MODE ===
 function toggle_vim_mode
@@ -188,10 +200,9 @@ end
 abbr -a za 'zenaudio'
 abbr -a zah 'zenaudio headphones && zenaudio volume 75'
 abbr -a zas 'zenaudio speakers && zenaudio volume 75'
+abbr -a zab 'zenaudio bluetooth && zenaudio volume 75'
 
 # === VISUALS ===
-abbr -a w 'wal -Rn'
-
 function walrgb
     sh ~/dotfiles/scripts/bash/walrgb.sh $argv
 end
