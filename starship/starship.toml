@@ -10,6 +10,7 @@ $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
+$jobs\
 $cmd_duration\
 $time\
 $line_break\
@@ -17,6 +18,13 @@ $character"""
 
 # Inserts a blank line between shell prompts
 add_newline = true
+
+[jobs]
+symbol = "✦"
+number_threshold = 1
+symbol_threshold = 1
+format = "[$symbol$number]($style) "
+style = "bold blue"
 
 [username]
 format = " [┌─$user]($style) "
