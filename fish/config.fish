@@ -95,6 +95,7 @@ abbr -a nano 'vim'
 abbr -a vn 'vim notes.txt'
 
 # === NAVIGATION ===
+abbr -a ... 'cd ../..'
 abbr -a j 'joshuto'
 abbr -a r 'ranger'
 abbr -a wp 'cd ~/Wallpapers && ranger'
