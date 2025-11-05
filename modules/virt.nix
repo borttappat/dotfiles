@@ -24,8 +24,12 @@ options = {
     };
 };
 
-
 config = {
+    # Resolving error related to mbedtls
+    nixpkgs.config.permittedInsecurePackages = [
+        "mbedtls-2.28.10"
+    ];
+    
     services.spice-vdagentd.enable = true;
     
     # Core virtualization services
@@ -150,7 +154,7 @@ config = {
     environment.etc."libvirt/qemu/networks/default.xml".text = ''
       <?xml version="1.0" encoding="UTF-8"?>
       <network>
-        <name>default</name>
+        <n>default</n>
         <forward mode="nat">
           <nat>
             <port start='1024' end='65535'/>

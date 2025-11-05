@@ -97,6 +97,7 @@ environment.systemPackages = with pkgs; [
     #tor
     mpv
     #pipewire
+    openssl
 
 # Terminal stuff
     #tmate
