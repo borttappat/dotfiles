@@ -1,2 +1,4 @@
 #modules/router-generated/
 wal/schemes/*
+polybar/config.ini
+

@@ -109,6 +109,39 @@ function mkcd
     mkdir -p $argv && cd $argv
 end
 
+# === FILE SORTING ===
+function filesort
+    set -l target_dir $argv[1]
+    
+    if test -z "$target_dir"
+        set target_dir .
+    end
+    
+    if not test -d "$target_dir"
+        echo "Error: $target_dir is not a directory"
+        return 1
+    end
+    
+    for file in $target_dir/*
+        if not test -f "$file"
+            continue
+        end
+        
+        set -l basename (basename $file)
+        set -l ext (string match -r '\.[^.]+$' $basename | string sub -s 2)
+        
+        if test -n "$ext"
+            mkdir -p "$target_dir/$ext"
+            mv "$file" "$target_dir/$ext/"
+        else
+            mkdir -p "$target_dir/no_extension"
+            mv "$file" "$target_dir/no_extension/"
+        end
+    end
+    
+    echo "Files sorted by extension in $target_dir"
+end
+
 # === FILE LISTING ===
 abbr -a ls 'eza -A --color=always --group-directories-first'
 abbr -a l 'eza -Al --color=always --group-directories-first'

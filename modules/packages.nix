@@ -84,7 +84,7 @@ environment.systemPackages = with pkgs; [
 # Programs
      (pkgs.burpsuite.override { proEdition = true; })
     krita
-    librewolf
+    #librewolf
     firefox
     #brave
     #ungoogled-chromium
@@ -101,9 +101,10 @@ environment.systemPackages = with pkgs; [
 
 # Terminal stuff
     #tmate
+    unstable.nix-output-monitor
     zsh
     fish
-    rsync 
+    #rsync 
     starship
     artem           #img-to-ascii
     asciinema
@@ -214,7 +215,7 @@ environment.systemPackages = with pkgs; [
     whois
     warpd           #click stuff without mouse input
     ollama          #run llms locally
-    claude-code
+    unstable.claude-code
     #khoj
     #aichat          #CLI gpt-chatbot 
     unclutter       #hides mouse cursor when not in use
