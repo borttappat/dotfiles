@@ -26,11 +26,11 @@
 "alacritty_font_size": 14,
 "rofi_font_size": 14,
 "i3_font_size": 10,
-"gaps_inner": 15
+"gaps_inner": 5
 },
 "3440x1440": {
 "polybar_font_size": 10,
-"alacritty_font_size": 11,
+"alacritty_font_size": 13,
 "rofi_font_size": 10,
 "i3_font_size": 9,
 "gaps_inner": 15
@@ -48,6 +48,10 @@
 "force_resolution": "2880x1800",
 "dpi": 192,
 "gdk_scale": 1.5,
+"gdk_dpi_scale": 0.5,
+"electron_scale_standalone": 1.5,
+"electron_scale_external": 1,
+"external_monitor_resolutions": ["2560", "3440", "3840"],
 "alacritty_font_size": 26,
 "alacritty_scale_factor": "1",
 "polybar_font_size": 20,

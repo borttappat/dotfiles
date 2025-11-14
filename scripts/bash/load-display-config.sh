@@ -38,7 +38,6 @@ fi
 # Apply GTK/Qt scaling
 if [ "$FORCED_GDK_SCALE" != "null" ]; then
 export GDK_SCALE="$FORCED_GDK_SCALE"
-export GDK_DPI_SCALE=$(echo "scale=2; 1/$FORCED_GDK_SCALE" | bc)
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 fi
 
