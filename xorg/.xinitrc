@@ -14,13 +14,7 @@ if [[ $hostname =~ [vV][mM] ]]; then
     export MOD_KEY="Mod1"
 else
     export MOD_KEY="Mod4"
-    INTERNAL_DISPLAY=$(xrandr | grep "eDP" | cut -d' ' -f1 | head -n1)
-    if [ -n "$INTERNAL_DISPLAY" ]; then
-        NATIVE_RES=$(xrandr | grep "$INTERNAL_DISPLAY" | grep -oP '\d+x\d+' | head -n1)
-        if [ "$NATIVE_RES" = "2880x1800" ]; then
-            xrandr --output "$INTERNAL_DISPLAY" --mode 1920x1200
-        fi
-    fi
+    # Resolution will be set by load-display-config.sh based on machine overrides
 fi
 
 sleep 0.5

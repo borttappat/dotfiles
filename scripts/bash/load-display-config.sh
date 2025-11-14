@@ -14,8 +14,32 @@ MACHINE_OVERRIDE=$(jq -r ".machine_overrides[\"$HOSTNAME\"] // null" "$CONFIG_FI
 
 if [ "$MACHINE_OVERRIDE" != "null" ]; then
 FORCED_RES=$(echo "$MACHINE_OVERRIDE" | jq -r '.force_resolution // "null"')
+FORCED_DPI=$(echo "$MACHINE_OVERRIDE" | jq -r '.dpi // "null"')
+FORCED_GDK_SCALE=$(echo "$MACHINE_OVERRIDE" | jq -r '.gdk_scale // "null"')
+
 if [ "$FORCED_RES" != "null" ]; then
 CURRENT_RESOLUTION="$FORCED_RES"
+# Apply the forced resolution
+INTERNAL_DISPLAY=$(xrandr | grep "eDP" | cut -d' ' -f1 | head -n1)
+if [ -n "$INTERNAL_DISPLAY" ]; then
+if [ "$FORCED_DPI" != "null" ]; then
+xrandr --output "$INTERNAL_DISPLAY" --mode "$FORCED_RES" --dpi "$FORCED_DPI" 2>/dev/null || echo "Warning: Could not set resolution to $FORCED_RES"
+else
+xrandr --output "$INTERNAL_DISPLAY" --mode "$FORCED_RES" 2>/dev/null || echo "Warning: Could not set resolution to $FORCED_RES"
+fi
+fi
+fi
+
+# Apply DPI scaling for HiDPI displays
+if [ "$FORCED_DPI" != "null" ]; then
+echo "Xft.dpi: $FORCED_DPI" | xrdb -merge
+fi
+
+# Apply GTK/Qt scaling
+if [ "$FORCED_GDK_SCALE" != "null" ]; then
+export GDK_SCALE="$FORCED_GDK_SCALE"
+export GDK_DPI_SCALE=$(echo "scale=2; 1/$FORCED_GDK_SCALE" | bc)
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
 fi
 
 export POLYBAR_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".polybar_font_size // null")

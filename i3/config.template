@@ -245,4 +245,4 @@ floating_modifier $mod
 font pango:CozetteVector ${I3_FONT_SIZE}
 gaps inner ${GAPS_INNER}
 gaps outer 0
-for_window [class=".*"] border pixel 2
+for_window [class=".*"] border pixel 2 

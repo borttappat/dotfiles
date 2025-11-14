@@ -12,7 +12,7 @@
 "alacritty_font_size": 13,
 "rofi_font_size": 10,
 "i3_font_size": 8,
-"gaps_inner": 15
+"gaps_inner": 5
 },
 "2560x1440": {
 "polybar_font_size": 11,
@@ -45,11 +45,13 @@
 },
 "machine_overrides": {
 "zen": {
-"force_resolution": "1920x1200",
-"alacritty_font_size": 6.5,
-"alacritty_scale_factor": "1.5",
-"polybar_font_size": 10,
-"rofi_font_size": 10
+"force_resolution": "2880x1800",
+"dpi": 192,
+"gdk_scale": 1.5,
+"alacritty_font_size": 26,
+"alacritty_scale_factor": "1",
+"polybar_font_size": 20,
+"rofi_font_size": 20
 }
 },
 "fonts": ["Cozette"]
