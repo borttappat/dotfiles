@@ -1,62 +1,164 @@
 {
-"resolution_defaults": {
-"1920x1080": {
-"polybar_font_size": 9,
-"alacritty_font_size": 11,
-"rofi_font_size": 10,
-"i3_font_size": 8,
-"gaps_inner": 15 
-},
-"1920x1200": {
-"polybar_font_size": 9,
-"alacritty_font_size": 13,
-"rofi_font_size": 10,
-"i3_font_size": 8,
-"gaps_inner": 5
-},
-"2560x1440": {
-"polybar_font_size": 11,
-"alacritty_font_size": 13,
-"rofi_font_size": 12,
-"i3_font_size": 9,
-"gaps_inner": 15
-},
-"2880x1800": {
-"polybar_font_size": 12,
-"alacritty_font_size": 14,
-"rofi_font_size": 14,
-"i3_font_size": 10,
-"gaps_inner": 5
-},
-"3440x1440": {
-"polybar_font_size": 10,
-"alacritty_font_size": 13,
-"rofi_font_size": 10,
-"i3_font_size": 9,
-"gaps_inner": 15
-},
-"3840x2160": {
-"polybar_font_size": 14,
-"alacritty_font_size": 16,
-"rofi_font_size": 16,
-"i3_font_size": 12,
-"gaps_inner": 15
-}
-},
-"machine_overrides": {
-"zen": {
-"force_resolution": "2880x1800",
-"dpi": 192,
-"gdk_scale": 1.5,
-"gdk_dpi_scale": 0.5,
-"electron_scale_standalone": 1.5,
-"electron_scale_external": 1,
-"external_monitor_resolutions": ["2560", "3440", "3840"],
-"alacritty_font_size": 26,
-"alacritty_scale_factor": "1",
-"polybar_font_size": 20,
-"rofi_font_size": 20
-}
-},
-"fonts": ["Cozette"]
+  "resolution_defaults": {
+    "1920x1080": {
+      "polybar_font_size": 9,
+      "polybar_height": 30,
+      "polybar_line_size": 2,
+      "alacritty_font_size": 11,
+      "rofi_font_size": 10,
+      "i3_font_size": 8,
+      "i3_border_thickness": 2,
+      "gaps_inner": 15,
+      "dunst_font_size": 10,
+      "dunst_width": 300,
+      "dunst_height": 300,
+      "dunst_offset_x": 24,
+      "dunst_offset_y": 50,
+      "dunst_padding": 8,
+      "dunst_frame_width": 2,
+      "dunst_icon_size": 32
+    },
+    "1920x1200": {
+      "polybar_font_size": 9,
+      "polybar_height": 30,
+      "polybar_line_size": 2,
+      "alacritty_font_size": 13,
+      "rofi_font_size": 10,
+      "i3_font_size": 8,
+      "i3_border_thickness": 2,
+      "gaps_inner": 5,
+      "dunst_font_size": 10,
+      "dunst_width": 300,
+      "dunst_height": 300,
+      "dunst_offset_x": 24,
+      "dunst_offset_y": 50,
+      "dunst_padding": 8,
+      "dunst_frame_width": 2,
+      "dunst_icon_size": 32
+    },
+    "2560x1440": {
+      "polybar_font_size": 11,
+      "polybar_height": 35,
+      "polybar_line_size": 2,
+      "alacritty_font_size": 13,
+      "rofi_font_size": 12,
+      "i3_font_size": 9,
+      "i3_border_thickness": 1,
+      "gaps_inner": 5,
+      "dunst_font_size": 13,
+      "dunst_width": 350,
+      "dunst_height": 350,
+      "dunst_offset_x": 24,
+      "dunst_offset_y": 50,
+      "dunst_padding": 10,
+      "dunst_frame_width": 2,
+      "dunst_icon_size": 40
+    },
+    "2880x1800": {
+      "polybar_font_size": 12,
+      "polybar_height": 40,
+      "polybar_line_size": 3,
+      "alacritty_font_size": 14,
+      "rofi_font_size": 14,
+      "i3_font_size": 10,
+      "i3_border_thickness": 3,
+      "gaps_inner": 5,
+      "dunst_font_size": 14,
+      "dunst_width": 400,
+      "dunst_height": 400,
+      "dunst_offset_x": 32,
+      "dunst_offset_y": 60,
+      "dunst_padding": 12,
+      "dunst_frame_width": 3,
+      "dunst_icon_size": 48
+    },
+    "3440x1440": {
+      "polybar_font_size": 10,
+      "polybar_height": 35,
+      "polybar_line_size": 2,
+      "alacritty_font_size": 13,
+      "rofi_font_size": 10,
+      "i3_font_size": 9,
+      "i3_border_thickness": 2,
+      "gaps_inner": 15,
+      "dunst_font_size": 13,
+      "dunst_width": 350,
+      "dunst_height": 350,
+      "dunst_offset_x": 24,
+      "dunst_offset_y": 50,
+      "dunst_padding": 10,
+      "dunst_frame_width": 2,
+      "dunst_icon_size": 40
+    },
+    "3840x2160": {
+      "polybar_font_size": 14,
+      "polybar_height": 45,
+      "polybar_line_size": 3,
+      "alacritty_font_size": 16,
+      "rofi_font_size": 16,
+      "i3_font_size": 12,
+      "i3_border_thickness": 3,
+      "gaps_inner": 15,
+      "dunst_font_size": 16,
+      "dunst_width": 450,
+      "dunst_height": 450,
+      "dunst_offset_x": 32,
+      "dunst_offset_y": 60,
+      "dunst_padding": 14,
+      "dunst_frame_width": 3,
+      "dunst_icon_size": 56
+    }
+  },
+  "machine_overrides": {
+    "zen": {
+      "force_resolution": "2880x1800",
+      "dpi": 192,
+      "gdk_scale": 1.5,
+      "gdk_dpi_scale": 0.5,
+      "electron_scale_standalone": 1.5,
+      "electron_scale_external": 1,
+      "external_monitor_resolutions": [
+        "2560",
+        "3440",
+        "3840"
+      ],
+      "alacritty_font_size": 26,
+      "alacritty_scale_factor": "1.5",
+      "polybar_font_size": 20,
+      "rofi_font_size": 20,
+      "alacritty_font_size_external": 13,
+      "alacritty_scale_factor_external": "1",
+      "polybar_font_size_external": 10,
+      "rofi_font_size_external": 13,
+      "i3_font_size_external": 9,
+      "gaps_inner_external": 5,
+      "polybar_height": 45,
+      "polybar_line_size": 3,
+      "i3_font_size": 10,
+      "i3_border_thickness": 2,
+      "gaps_inner": 5,
+      "polybar_height_external": 30,
+      "polybar_line_size_external": 2,
+      "i3_border_thickness_external": 1,
+      "dunst_font_size": 26,
+      "dunst_width": 500,
+      "dunst_height": 500,
+      "dunst_offset_x": 40,
+      "dunst_offset_y": 70,
+      "dunst_padding": 16,
+      "dunst_frame_width": 3,
+      "dunst_icon_size": 64,
+      "dunst_font_size_external": 13,
+      "dunst_width_external": 300,
+      "dunst_height_external": 300,
+      "dunst_offset_x_external": 24,
+      "dunst_offset_y_external": 50,
+      "dunst_padding_external": 8,
+      "dunst_frame_width_external": 2,
+      "dunst_icon_size_external": 32
+    }
+  },
+  "fonts": [
+    "Cozette"
+  ]
 }

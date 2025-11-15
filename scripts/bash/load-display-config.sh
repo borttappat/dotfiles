@@ -17,6 +17,13 @@ FORCED_RES=$(echo "$MACHINE_OVERRIDE" | jq -r '.force_resolution // "null"')
 FORCED_DPI=$(echo "$MACHINE_OVERRIDE" | jq -r '.dpi // "null"')
 FORCED_GDK_SCALE=$(echo "$MACHINE_OVERRIDE" | jq -r '.gdk_scale // "null"')
 
+# Check for external monitors
+EXTERNAL_MONITOR_PATTERNS=$(echo "$MACHINE_OVERRIDE" | jq -r '.external_monitor_resolutions // [] | join("|")')
+EXTERNAL_MONITOR=0
+if [ -n "$EXTERNAL_MONITOR_PATTERNS" ] && xrandr --listmonitors | grep -qE "(${EXTERNAL_MONITOR_PATTERNS}/)"; then
+    EXTERNAL_MONITOR=1
+fi
+
 if [ "$FORCED_RES" != "null" ]; then
 CURRENT_RESOLUTION="$FORCED_RES"
 # Apply the forced resolution
@@ -41,17 +48,38 @@ export GDK_SCALE="$FORCED_GDK_SCALE"
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 fi
 
+# Use external monitor settings if external monitor is detected
+if [ "$EXTERNAL_MONITOR" -eq 1 ]; then
+export POLYBAR_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".polybar_font_size_external // .polybar_font_size // null")
+export POLYBAR_HEIGHT=$(echo "$MACHINE_OVERRIDE" | jq -r ".polybar_height_external // .polybar_height // null")
+export POLYBAR_LINE_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".polybar_line_size_external // .polybar_line_size // null")
+export ALACRITTY_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_font_size_external // .alacritty_font_size // null")
+export I3_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".i3_font_size_external // .i3_font_size // null")
+export I3_BORDER_THICKNESS=$(echo "$MACHINE_OVERRIDE" | jq -r ".i3_border_thickness_external // .i3_border_thickness // null")
+export GAPS_INNER=$(echo "$MACHINE_OVERRIDE" | jq -r ".gaps_inner_external // .gaps_inner // null")
+export ROFI_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".rofi_font_size_external // .rofi_font_size // null")
+export ALACRITTY_SCALE_FACTOR=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_scale_factor_external // .alacritty_scale_factor // null")
+else
 export POLYBAR_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".polybar_font_size // null")
+export POLYBAR_HEIGHT=$(echo "$MACHINE_OVERRIDE" | jq -r ".polybar_height // null")
+export POLYBAR_LINE_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".polybar_line_size // null")
 export ALACRITTY_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_font_size // null")
 export I3_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".i3_font_size // null")
+export I3_BORDER_THICKNESS=$(echo "$MACHINE_OVERRIDE" | jq -r ".i3_border_thickness // null")
 export GAPS_INNER=$(echo "$MACHINE_OVERRIDE" | jq -r ".gaps_inner // null")
 export ROFI_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".rofi_font_size // null")
+export ALACRITTY_SCALE_FACTOR=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_scale_factor // null")
+fi
 else
 export POLYBAR_FONT_SIZE="null"
+export POLYBAR_HEIGHT="null"
+export POLYBAR_LINE_SIZE="null"
 export ALACRITTY_FONT_SIZE="null"
 export I3_FONT_SIZE="null"
+export I3_BORDER_THICKNESS="null"
 export GAPS_INNER="null"
 export ROFI_FONT_SIZE="null"
+export ALACRITTY_SCALE_FACTOR="null"
 fi
 
 RES_DEFAULTS=$(jq -r ".resolution_defaults[\"$CURRENT_RESOLUTION\"] // null" "$CONFIG_FILE")
@@ -62,8 +90,11 @@ RES_DEFAULTS=$(jq -r '.resolution_defaults["1920x1080"]' "$CONFIG_FILE")
 fi
 
 [ "$POLYBAR_FONT_SIZE" = "null" ] && export POLYBAR_FONT_SIZE=$(echo "$RES_DEFAULTS" | jq -r '.polybar_font_size')
+[ "$POLYBAR_HEIGHT" = "null" ] && export POLYBAR_HEIGHT=$(echo "$RES_DEFAULTS" | jq -r '.polybar_height')
+[ "$POLYBAR_LINE_SIZE" = "null" ] && export POLYBAR_LINE_SIZE=$(echo "$RES_DEFAULTS" | jq -r '.polybar_line_size')
 [ "$ALACRITTY_FONT_SIZE" = "null" ] && export ALACRITTY_FONT_SIZE=$(echo "$RES_DEFAULTS" | jq -r '.alacritty_font_size')
 [ "$I3_FONT_SIZE" = "null" ] && export I3_FONT_SIZE=$(echo "$RES_DEFAULTS" | jq -r '.i3_font_size')
+[ "$I3_BORDER_THICKNESS" = "null" ] && export I3_BORDER_THICKNESS=$(echo "$RES_DEFAULTS" | jq -r '.i3_border_thickness')
 [ "$GAPS_INNER" = "null" ] && export GAPS_INNER=$(echo "$RES_DEFAULTS" | jq -r '.gaps_inner')
 [ "$ROFI_FONT_SIZE" = "null" ] && export ROFI_FONT_SIZE=$(echo "$RES_DEFAULTS" | jq -r '.rofi_font_size')
 
@@ -72,4 +103,11 @@ export DISPLAY_FONTS=$(jq -r '.fonts | join(",")' "$CONFIG_FILE")
 export POLYBAR_FONT=$(jq -r '.fonts[0]' "$CONFIG_FILE")
 export ALACRITTY_FONT=$(jq -r '.fonts[0]' "$CONFIG_FILE")
 
-echo "Loaded config for $HOSTNAME @ $DISPLAY_RESOLUTION: polybar=$POLYBAR_FONT_SIZE alacritty=$ALACRITTY_FONT_SIZE i3=$I3_FONT_SIZE gaps=$GAPS_INNER font=$POLYBAR_FONT"
+# Generate the WINIT_X11_SCALE_FACTOR line for alacritty if scale factor is set
+if [ "$ALACRITTY_SCALE_FACTOR" != "null" ] && [ "$ALACRITTY_SCALE_FACTOR" != "1" ]; then
+export ALACRITTY_SCALE_FACTOR_LINE="WINIT_X11_SCALE_FACTOR = \"$ALACRITTY_SCALE_FACTOR\""
+else
+export ALACRITTY_SCALE_FACTOR_LINE=""
+fi
+
+echo "Loaded config for $HOSTNAME @ $DISPLAY_RESOLUTION: polybar=$POLYBAR_FONT_SIZE alacritty=$ALACRITTY_FONT_SIZE (scale=$ALACRITTY_SCALE_FACTOR) i3=$I3_FONT_SIZE gaps=$GAPS_INNER font=$POLYBAR_FONT external=$EXTERNAL_MONITOR"

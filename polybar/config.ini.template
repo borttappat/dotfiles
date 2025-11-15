@@ -22,7 +22,7 @@ disabled = #707880
 monitor = ${env:MONITOR:}
 top = true
 width = 100%
-height = 52
+height = ${POLYBAR_HEIGHT}
 offset-x = 0.42%
 offset-y = 7
 fixed-center = true
@@ -30,10 +30,10 @@ radius = 0.0
 
 enable-ipc = true
 
-background = ${colors.color1} 
+background = ${colors.color1}
 foreground = ${colors.color7}
 
-line-size = 3
+line-size = ${POLYBAR_LINE_SIZE}
 line-color = #f00
 
 border-size = 0
@@ -51,10 +51,11 @@ font-1 = ${POLYBAR_FONT}:style=Bold:fontformat=truetype:size=${POLYBAR_FONT_SIZE
 separator = "%{T1}//%{T1}"
 separator-foreground= ${colors.color2}
 
-modules-left = hostname xworkspaces essid nwup nwdown ip 
-modules-center =   
+modules-left = hostname essid nwup nwdown ip btc eth 
+modules-center = xworkspaces  
 modules-right = battery volume memory cpu date 
 ;filesystem uptime pomodoro btc eth sol
+
 cursor-click = pointer
 cursor-scroll = ns-resize
 

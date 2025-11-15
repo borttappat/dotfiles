@@ -1,6 +1,6 @@
 #!/run/current-system/sw/bin/bash
 
-CONFIG_FILE="$HOME/.config/display-config.json"
+CONFIG_FILE="$HOME/dotfiles/configs/display-config.json"
 TEMPLATE_FILE="$HOME/.config/alacritty/alacritty.toml.template"
 
 if [ ! -f "$CONFIG_FILE" ]; then
@@ -29,13 +29,21 @@ HOSTNAME=$(hostnamectl hostname | cut -d'-' -f1)
 # Check machine overrides first (same logic as load-display-config.sh)
 MACHINE_OVERRIDE=$(jq -r ".machine_overrides[\"$HOSTNAME\"] // null" "$CONFIG_FILE")
 if [ "$MACHINE_OVERRIDE" != "null" ]; then
-    FORCED_RES=$(echo "$MACHINE_OVERRIDE" | jq -r '.force_resolution // "null"')
-    if [ "$FORCED_RES" != "null" ]; then
-        CURRENT_RESOLUTION="$FORCED_RES"
+    # Check if cursor display is an external monitor
+    EXTERNAL_MONITOR_PATTERNS=$(echo "$MACHINE_OVERRIDE" | jq -r '.external_monitor_resolutions // [] | join("|")')
+    IS_EXTERNAL=0
+    if [ -n "$EXTERNAL_MONITOR_PATTERNS" ] && echo "$CURRENT_RESOLUTION" | grep -qE "^(${EXTERNAL_MONITOR_PATTERNS})x"; then
+        IS_EXTERNAL=1
     fi
-    
-    ALACRITTY_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_font_size // null")
-    ALACRITTY_SCALE_FACTOR=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_scale_factor // null")
+
+    # Use external settings if on external monitor, otherwise use standalone settings
+    if [ "$IS_EXTERNAL" -eq 1 ]; then
+        ALACRITTY_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_font_size_external // .alacritty_font_size // null")
+        ALACRITTY_SCALE_FACTOR=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_scale_factor_external // .alacritty_scale_factor // null")
+    else
+        ALACRITTY_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_font_size // null")
+        ALACRITTY_SCALE_FACTOR=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_scale_factor // null")
+    fi
 else
     ALACRITTY_FONT_SIZE="null"
     ALACRITTY_SCALE_FACTOR="null"
