@@ -36,16 +36,32 @@ sed -e "s/\${ALACRITTY_FONT_SIZE}/$ALACRITTY_FONT_SIZE/g" \
 i3-msg reload
 
 # Regenerate dunst config
-sed -e "s/\${DUNST_FONT}/$DUNST_FONT/g" \
-    -e "s/\${DUNST_FONT_SIZE}/$DUNST_FONT_SIZE/g" \
-    -e "s/\${DUNST_WIDTH}/$DUNST_WIDTH/g" \
-    -e "s/\${DUNST_HEIGHT}/$DUNST_HEIGHT/g" \
-    -e "s/\${DUNST_OFFSET_X}/$DUNST_OFFSET_X/g" \
-    -e "s/\${DUNST_OFFSET_Y}/$DUNST_OFFSET_Y/g" \
-    -e "s/\${DUNST_PADDING}/$DUNST_PADDING/g" \
-    -e "s/\${DUNST_FRAME_WIDTH}/$DUNST_FRAME_WIDTH/g" \
-    -e "s/\${DUNST_ICON_SIZE}/$DUNST_ICON_SIZE/g" \
-    ~/dotfiles/dunst/dunstrc.template > ~/.config/dunst/dunstrc
+# Use wal template if wal colors exist and is not empty, otherwise use basic template
+if [ -f ~/.cache/wal/dunstrc ] && [ -s ~/.cache/wal/dunstrc ]; then
+    # Expand display-config variables in the wal-generated config
+    sed -e "s/###DUNST_FONT###/$DUNST_FONT/g" \
+        -e "s/###DUNST_FONT_SIZE###/$DUNST_FONT_SIZE/g" \
+        -e "s/###DUNST_WIDTH###/$DUNST_WIDTH/g" \
+        -e "s/###DUNST_HEIGHT###/$DUNST_HEIGHT/g" \
+        -e "s/###DUNST_OFFSET_X###/$DUNST_OFFSET_X/g" \
+        -e "s/###DUNST_OFFSET_Y###/$DUNST_OFFSET_Y/g" \
+        -e "s/###DUNST_PADDING###/$DUNST_PADDING/g" \
+        -e "s/###DUNST_FRAME_WIDTH###/$DUNST_FRAME_WIDTH/g" \
+        -e "s/###DUNST_ICON_SIZE###/$DUNST_ICON_SIZE/g" \
+        ~/.cache/wal/dunstrc > ~/.config/dunst/dunstrc
+else
+    # Use basic template as fallback
+    sed -e "s/\${DUNST_FONT}/$DUNST_FONT/g" \
+        -e "s/\${DUNST_FONT_SIZE}/$DUNST_FONT_SIZE/g" \
+        -e "s/\${DUNST_WIDTH}/$DUNST_WIDTH/g" \
+        -e "s/\${DUNST_HEIGHT}/$DUNST_HEIGHT/g" \
+        -e "s/\${DUNST_OFFSET_X}/$DUNST_OFFSET_X/g" \
+        -e "s/\${DUNST_OFFSET_Y}/$DUNST_OFFSET_Y/g" \
+        -e "s/\${DUNST_PADDING}/$DUNST_PADDING/g" \
+        -e "s/\${DUNST_FRAME_WIDTH}/$DUNST_FRAME_WIDTH/g" \
+        -e "s/\${DUNST_ICON_SIZE}/$DUNST_ICON_SIZE/g" \
+        ~/dotfiles/dunst/dunstrc.template > ~/.config/dunst/dunstrc
+fi
 
 # Restart dunst to apply new config
 killall dunst 2>/dev/null; dunst &

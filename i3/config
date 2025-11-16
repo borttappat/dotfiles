@@ -29,8 +29,8 @@ bindsym $mod+F3 exec "amixer set Master 5%+"
 # flameshot
 bindsym $mod+F12 exec "flameshot gui"
 
-# virt-manager
-bindsym $mod+Shift+v exec virt-manager
+# Detect external monitors-script
+bindsym $mod+Shift+v exec ~/dotfiles/scripts/bash/detect-monitors.sh
 
 # htop
 bindsym $mod+Shift+u exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && htop"
@@ -73,12 +73,12 @@ bindsym $mod+w exec ~/dotfiles/scripts/bash/randomwalrgb.sh
 
 # Browser settings
 set $browser firefox
-bindsym $mod+b exec $browser
-bindsym $mod+a exec $browser https://claude.ai 
-bindsym $mod+shift+m exec $browser https://music.youtube.com/
-bindsym $mod+t exec $browser https://borttappat.github.io/links.html
-bindsym $mod+g exec $browser https://github.com/borttappat/dotfiles
-bindsym $mod+n exec $browser https://search.nixos.org/packages?channel=unstable
+bindsym $mod+b exec ~/dotfiles/scripts/bash/scaled-app $browser
+bindsym $mod+a exec ~/dotfiles/scripts/bash/scaled-app $browser https://claude.ai 
+bindsym $mod+shift+m exec ~/dotfiles/scripts/bash/scaled-app $browser https://music.youtube.com/
+bindsym $mod+t exec ~/dotfiles/scripts/bash/scaled-app $browser https://borttappat.github.io/links.html
+bindsym $mod+g exec ~/dotfiles/scripts/bash/scaled-app $browser https://github.com/borttappat/dotfiles
+bindsym $mod+n exec ~/dotfiles/scripts/bash/scaled-app $browser https://search.nixos.org/packages?channel=unstable
 
 # Brightness controls
 bindsym $mod+F8 exec brightnessctl set +10%
@@ -99,10 +99,10 @@ for_window [instance="floating"] resize set 800 450
 bindsym $mod+q kill
 
 # Start Obsidian
-bindsym $mod+o exec obsidian
+bindsym $mod+o exec ~/dotfiles/scripts/bash/scaled-app obsidian
 
 # Start Virt-Manager
-bindsym $mod+m exec virt-manager
+bindsym $mod+m exec ~/dotfiles/scripts/bash/scaled-app virt-manager
 
 # Start rofi
 bindsym $mod+d exec --no-startup-id ~/dotfiles/scripts/bash/rofi.sh -show drun
@@ -242,7 +242,7 @@ tiling_drag modifier
 floating_modifier $mod
 
 # Dynamic resolution-specific settings
-font pango:CozetteVector 8
-gaps inner 15
+font pango:CozetteVector 9
+gaps inner 5
 gaps outer 0
-for_window [class=".*"] border pixel 2
+for_window [class=".*"] border pixel 1 

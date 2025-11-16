@@ -1,15 +1,15 @@
 [global]
     monitor = 0
     follow = mouse
-    width = 300
-    height = (0, 300)
+    width = ###DUNST_WIDTH###
+    height = (0, ###DUNST_HEIGHT###)
     origin = top-right
-    offset = (24, 50)
-    padding = 8
-    horizontal_padding = 8
-    frame_width = 2 
+    offset = (###DUNST_OFFSET_X###, ###DUNST_OFFSET_Y###)
+    padding = ###DUNST_PADDING###
+    horizontal_padding = ###DUNST_PADDING###
+    frame_width = ###DUNST_FRAME_WIDTH###
     separator_height = 2
-    font = CozetteVector 13
+    font = ###DUNST_FONT### ###DUNST_FONT_SIZE###
     line_height = 0
     markup = full
     format = "<b>%s</b>\n%b"
@@ -21,7 +21,7 @@
     hide_duplicate_count = false
     show_indicators = yes
     icon_position = left
-    max_icon_size = 32
+    max_icon_size = ###DUNST_ICON_SIZE###
     sticky_history = yes
     history_length = 20
     browser = /usr/bin/firefox
@@ -33,19 +33,19 @@
     gap_size = 10
 
 [urgency_low]
-    background = "#0d0d0d"
-    foreground = "#d2d2d2"
-    frame_color = "#676767"
+    background = "#1b1e25"
+    foreground = "#b7c6d7"
+    frame_color = "#7694AE"
     timeout = 3
     
 [urgency_normal]
-    background = "#0d0d0d"
-    foreground = "#d2d2d2"
-    frame_color = "#878787"
+    background = "#1b1e25"
+    foreground = "#b7c6d7"
+    frame_color = "#7C9FC1"
     timeout = 5
     
 [urgency_critical]
-    background = "#585858"
-    foreground = "#d2d2d2"
-    frame_color = "#585858"
+    background = "#6C869A"
+    foreground = "#b7c6d7"
+    frame_color = "#6C869A"
     timeout = 0
