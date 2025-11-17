@@ -52,7 +52,7 @@ fonts.packages = with pkgs; [
     scientifica
     gohufont
     cozette
-    hack-font
+   #hack-font
     creep
     cherry
     envypn-font
