@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CONFIG_FILE="$HOME/.config/display-config.json"
+CONFIG_FILE="$HOME/dotfiles/configs/display-config.json"
 HOSTNAME=$(hostnamectl hostname | cut -d'-' -f1)
 
 if [ ! -f "$CONFIG_FILE" ]; then
@@ -55,8 +55,11 @@ export POLYBAR_HEIGHT=$(echo "$MACHINE_OVERRIDE" | jq -r ".polybar_height_extern
 export POLYBAR_LINE_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".polybar_line_size_external // .polybar_line_size // null")
 export ALACRITTY_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_font_size_external // .alacritty_font_size // null")
 export I3_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".i3_font_size_external // .i3_font_size // null")
-export I3_BORDER_THICKNESS=$(echo "$MACHINE_OVERRIDE" | jq -r ".i3_border_thickness_external // .i3_border_thickness // null")
-export GAPS_INNER=$(echo "$MACHINE_OVERRIDE" | jq -r ".gaps_inner_external // .gaps_inner // null")
+# Export both internal and external border/gap values for per-workspace configuration
+export I3_BORDER_THICKNESS=$(echo "$MACHINE_OVERRIDE" | jq -r ".i3_border_thickness // null")
+export I3_BORDER_THICKNESS_EXTERNAL=$(echo "$MACHINE_OVERRIDE" | jq -r ".i3_border_thickness_external // .i3_border_thickness // null")
+export GAPS_INNER=$(echo "$MACHINE_OVERRIDE" | jq -r ".gaps_inner // null")
+export GAPS_INNER_EXTERNAL=$(echo "$MACHINE_OVERRIDE" | jq -r ".gaps_inner_external // .gaps_inner // null")
 export ROFI_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".rofi_font_size_external // .rofi_font_size // null")
 export ALACRITTY_SCALE_FACTOR=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_scale_factor_external // .alacritty_scale_factor // null")
 else
@@ -66,7 +69,9 @@ export POLYBAR_LINE_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".polybar_line_size 
 export ALACRITTY_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_font_size // null")
 export I3_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".i3_font_size // null")
 export I3_BORDER_THICKNESS=$(echo "$MACHINE_OVERRIDE" | jq -r ".i3_border_thickness // null")
+export I3_BORDER_THICKNESS_EXTERNAL=$(echo "$MACHINE_OVERRIDE" | jq -r ".i3_border_thickness // null")
 export GAPS_INNER=$(echo "$MACHINE_OVERRIDE" | jq -r ".gaps_inner // null")
+export GAPS_INNER_EXTERNAL=$(echo "$MACHINE_OVERRIDE" | jq -r ".gaps_inner // null")
 export ROFI_FONT_SIZE=$(echo "$MACHINE_OVERRIDE" | jq -r ".rofi_font_size // null")
 export ALACRITTY_SCALE_FACTOR=$(echo "$MACHINE_OVERRIDE" | jq -r ".alacritty_scale_factor // null")
 fi
@@ -77,7 +82,9 @@ export POLYBAR_LINE_SIZE="null"
 export ALACRITTY_FONT_SIZE="null"
 export I3_FONT_SIZE="null"
 export I3_BORDER_THICKNESS="null"
+export I3_BORDER_THICKNESS_EXTERNAL="null"
 export GAPS_INNER="null"
+export GAPS_INNER_EXTERNAL="null"
 export ROFI_FONT_SIZE="null"
 export ALACRITTY_SCALE_FACTOR="null"
 fi
@@ -95,7 +102,9 @@ fi
 [ "$ALACRITTY_FONT_SIZE" = "null" ] && export ALACRITTY_FONT_SIZE=$(echo "$RES_DEFAULTS" | jq -r '.alacritty_font_size')
 [ "$I3_FONT_SIZE" = "null" ] && export I3_FONT_SIZE=$(echo "$RES_DEFAULTS" | jq -r '.i3_font_size')
 [ "$I3_BORDER_THICKNESS" = "null" ] && export I3_BORDER_THICKNESS=$(echo "$RES_DEFAULTS" | jq -r '.i3_border_thickness')
+[ "$I3_BORDER_THICKNESS_EXTERNAL" = "null" ] && export I3_BORDER_THICKNESS_EXTERNAL=$(echo "$RES_DEFAULTS" | jq -r '.i3_border_thickness')
 [ "$GAPS_INNER" = "null" ] && export GAPS_INNER=$(echo "$RES_DEFAULTS" | jq -r '.gaps_inner')
+[ "$GAPS_INNER_EXTERNAL" = "null" ] && export GAPS_INNER_EXTERNAL=$(echo "$RES_DEFAULTS" | jq -r '.gaps_inner')
 [ "$ROFI_FONT_SIZE" = "null" ] && export ROFI_FONT_SIZE=$(echo "$RES_DEFAULTS" | jq -r '.rofi_font_size')
 
 export DISPLAY_RESOLUTION="$CURRENT_RESOLUTION"

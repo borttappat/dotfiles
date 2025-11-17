@@ -9,7 +9,7 @@
     horizontal_padding = ###DUNST_PADDING###
     frame_width = ###DUNST_FRAME_WIDTH###
     separator_height = 2
-    font = ###DUNST_FONT### ###DUNST_FONT_SIZE###
+    font = CozetteVector ###DUNST_FONT_SIZE###
     line_height = 0
     markup = full
     format = "<b>%s</b>\n%b"

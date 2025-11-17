@@ -248,6 +248,18 @@ font pango:${I3_FONT} ${I3_FONT_SIZE}
 gaps inner ${GAPS_INNER}
 gaps outer 0
 
+# Per-workspace gaps: odd workspaces (1,3,5,7,9) = internal, even (2,4,6,8,10) = external
+workspace 1 gaps inner ${GAPS_INNER}
+workspace 2 gaps inner ${GAPS_INNER_EXTERNAL}
+workspace 3 gaps inner ${GAPS_INNER}
+workspace 4 gaps inner ${GAPS_INNER_EXTERNAL}
+workspace 5 gaps inner ${GAPS_INNER}
+workspace 6 gaps inner ${GAPS_INNER_EXTERNAL}
+workspace 7 gaps inner ${GAPS_INNER}
+workspace 8 gaps inner ${GAPS_INNER_EXTERNAL}
+workspace 9 gaps inner ${GAPS_INNER}
+workspace 10 gaps inner ${GAPS_INNER_EXTERNAL}
+
 # Per-workspace borders: odd workspaces (1,3,5,7,9) = internal, even (2,4,6,8,10) = external
 for_window [workspace="1"] border pixel ${I3_BORDER_THICKNESS}
 for_window [workspace="3"] border pixel ${I3_BORDER_THICKNESS}
