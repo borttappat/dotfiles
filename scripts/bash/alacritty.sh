@@ -62,12 +62,8 @@ fi
 # Get font from config
 ALACRITTY_FONT=$(jq -r '.fonts[0]' "$CONFIG_FILE")
 
-# Build the scale factor line - if it's 1.0, leave it blank, otherwise include it
-if [ "$ALACRITTY_SCALE_FACTOR" != "1.0" ]; then
-    ALACRITTY_SCALE_FACTOR_LINE="WINIT_X11_SCALE_FACTOR = \"$ALACRITTY_SCALE_FACTOR\""
-else
-    ALACRITTY_SCALE_FACTOR_LINE=""
-fi
+# Build the scale factor line - always set it to override system DPI
+ALACRITTY_SCALE_FACTOR_LINE="WINIT_X11_SCALE_FACTOR = \"$ALACRITTY_SCALE_FACTOR\""
 
 echo "Using font: $ALACRITTY_FONT"
 echo "Using font size: $ALACRITTY_FONT_SIZE"

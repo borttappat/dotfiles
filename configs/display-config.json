@@ -16,7 +16,9 @@
       "dunst_offset_y": 50,
       "dunst_padding": 8,
       "dunst_frame_width": 2,
-      "dunst_icon_size": 32
+      "dunst_icon_size": 32,
+      "obsidian_font_size": 11,
+      "obsidian_header_font_size": 22
     },
     "1920x1200": {
       "polybar_font_size": 9,
@@ -34,7 +36,9 @@
       "dunst_offset_y": 50,
       "dunst_padding": 8,
       "dunst_frame_width": 2,
-      "dunst_icon_size": 32
+      "dunst_icon_size": 32,
+      "obsidian_font_size": 13,
+      "obsidian_header_font_size": 26
     },
     "2560x1440": {
       "polybar_font_size": 11,
@@ -52,7 +56,9 @@
       "dunst_offset_y": 50,
       "dunst_padding": 10,
       "dunst_frame_width": 2,
-      "dunst_icon_size": 40
+      "dunst_icon_size": 40,
+      "obsidian_font_size": 13,
+      "obsidian_header_font_size": 26
     },
     "2880x1800": {
       "polybar_font_size": 12,
@@ -70,25 +76,29 @@
       "dunst_offset_y": 60,
       "dunst_padding": 12,
       "dunst_frame_width": 3,
-      "dunst_icon_size": 48
+      "dunst_icon_size": 48,
+      "obsidian_font_size": 14,
+      "obsidian_header_font_size": 28
     },
     "3440x1440": {
-      "polybar_font_size": 10,
+      "polybar_font_size": 20,
       "polybar_height": 35,
       "polybar_line_size": 2,
-      "alacritty_font_size": 13,
-      "rofi_font_size": 10,
-      "i3_font_size": 9,
+      "alacritty_font_size": 20,
+      "rofi_font_size": 20,
+      "i3_font_size": 20,
       "i3_border_thickness": 2,
       "gaps_inner": 15,
-      "dunst_font_size": 13,
+      "dunst_font_size": 20,
       "dunst_width": 350,
       "dunst_height": 350,
       "dunst_offset_x": 24,
       "dunst_offset_y": 50,
       "dunst_padding": 10,
       "dunst_frame_width": 2,
-      "dunst_icon_size": 40
+      "dunst_icon_size": 40,
+      "obsidian_font_size": 20,
+      "obsidian_header_font_size": 40
     },
     "3840x2160": {
       "polybar_font_size": 14,
@@ -106,7 +116,9 @@
       "dunst_offset_y": 60,
       "dunst_padding": 14,
       "dunst_frame_width": 3,
-      "dunst_icon_size": 56
+      "dunst_icon_size": 56,
+      "obsidian_font_size": 16,
+      "obsidian_header_font_size": 32
     }
   },
   "machine_overrides": {
@@ -122,25 +134,25 @@
         "3440",
         "3840"
       ],
-      "alacritty_font_size": 26,
+      "alacritty_font_size": 9,
       "alacritty_scale_factor": "1.5",
       "polybar_font_size": 20,
-      "rofi_font_size": 20,
-      "alacritty_font_size_external": 13,
-      "alacritty_scale_factor_external": "1",
-      "polybar_font_size_external": 10,
+      "rofi_font_size": 12,
+      "alacritty_font_size_external": 12,
+      "alacritty_scale_factor_external": "1.0",
+      "polybar_font_size_external": 13,
       "rofi_font_size_external": 13,
-      "i3_font_size_external": 9,
+      "i3_font_size_external": 13,
       "gaps_inner_external": 5,
-      "polybar_height": 45,
+      "polybar_height": 35,
       "polybar_line_size": 3,
-      "i3_font_size": 10,
+      "i3_font_size": 18,
       "i3_border_thickness": 2,
       "gaps_inner": 5,
-      "polybar_height_external": 30,
+      "polybar_height_external": 25,
       "polybar_line_size_external": 2,
       "i3_border_thickness_external": 1,
-      "dunst_font_size": 13,
+      "dunst_font_size": 18,
       "dunst_width": 500,
       "dunst_height": 500,
       "dunst_offset_x": 40,
@@ -159,6 +171,7 @@
     }
   },
   "fonts": [
-    "Cozette"
-  ]
+    "tamzen"
+  ],
+  "obsidian_font": "CozetteVector"
 }

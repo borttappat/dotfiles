@@ -1,0 +1,51 @@
+* :not([class*="icon"]):not([class*="fa-"]):not([class*="material"]):not([class*="glyph"]):not(i):not(h1):not(h2):not(h3):not(.el-h1):not(.el-h2):not(.el-h3):not(.mod-header):not(.el-ul):not(code):not(.el-text) {
+  font-family: "${OBSIDIAN_FONT}", monospace !important;
+  font-size: ${OBSIDIAN_FONT_SIZE}px !important;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: unset !important;
+  font-smooth: never !important;
+  text-rendering: optimizeSpeed !important;
+}
+
+h1, h2, h3,
+div.el-h1,
+div.el-h2,
+div.el-h3,
+div.mod-header.mod-ui {
+  font-family: "${OBSIDIAN_FONT}", monospace !important;
+  font-size: ${OBSIDIAN_HEADER_FONT_SIZE}px !important;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: unset !important;
+  font-smooth: never !important;
+  text-rendering: optimizeSpeed !important;
+}
+
+.el-ul,
+code,
+.el-text {
+  font-family: "${OBSIDIAN_FONT}", monospace !important;
+  font-size: ${OBSIDIAN_FONT_SIZE}px !important;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: unset !important;
+  font-smooth: never !important;
+  text-rendering: optimizeSpeed !important;
+}
+
+.menu .menu-item,
+.suggestion-item,
+.prompt-instruction {
+  font-size: ${OBSIDIAN_FONT_SIZE}px !important;
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: unset !important;
+  font-smooth: never !important;
+  text-rendering: optimizeSpeed !important;
+}
+
+:root {
+  --font-text-size: ${OBSIDIAN_FONT_SIZE}px !important;
+  --editor-font-size: ${OBSIDIAN_FONT_SIZE}px !important;
+  --font-ui-large: ${OBSIDIAN_HEADER_FONT_SIZE}px !important;
+  --default-font: "${OBSIDIAN_FONT}" !important;
+  --font-interface: "${OBSIDIAN_FONT}" !important;
+  --font-text: "${OBSIDIAN_FONT}" !important;
+}

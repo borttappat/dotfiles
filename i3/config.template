@@ -12,11 +12,13 @@ set $mod ${MOD_KEY}
 #############
 # Autostart #
 #############
+exec_always --no-startup-id xrdb -merge ~/.Xresources
 exec_always --no-startup-id ~/dotfiles/scripts/bash/autostart.sh
 exec_always --no-startup-id wal -Rnq
 exec_always --no-startup-id ~/.fehbg &
 exec_always --no-startup-id sleep 2 && xmodmap ~/.Xmodmap
 exec --no-startup-id dunst
+exec_always --no-startup-id sleep 1 && ~/dotfiles/scripts/bash/workspace-setup.sh
 
 #########
 # BINDS #
@@ -30,7 +32,7 @@ bindsym $mod+F3 exec "amixer set Master 5%+"
 bindsym $mod+F12 exec "flameshot gui"
 
 # Detect external monitors-script
-bindsym $mod+Shift+v exec ~/dotfiles/scripts/bash/detect-monitors.sh
+bindsym $mod+Shift+v exec ~/dotfiles/scripts/bash/detect-monitors.sh && ~/dotfiles/scripts/bash/workspace-setup.sh
 
 # htop
 bindsym $mod+Shift+u exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && htop"
@@ -242,7 +244,18 @@ tiling_drag modifier
 floating_modifier $mod
 
 # Dynamic resolution-specific settings
-font pango:CozetteVector ${I3_FONT_SIZE}
+font pango:${I3_FONT} ${I3_FONT_SIZE}
 gaps inner ${GAPS_INNER}
 gaps outer 0
-for_window [class=".*"] border pixel ${I3_BORDER_THICKNESS} 
+
+# Per-workspace borders: odd workspaces (1,3,5,7,9) = internal, even (2,4,6,8,10) = external
+for_window [workspace="1"] border pixel ${I3_BORDER_THICKNESS}
+for_window [workspace="3"] border pixel ${I3_BORDER_THICKNESS}
+for_window [workspace="5"] border pixel ${I3_BORDER_THICKNESS}
+for_window [workspace="7"] border pixel ${I3_BORDER_THICKNESS}
+for_window [workspace="9"] border pixel ${I3_BORDER_THICKNESS}
+for_window [workspace="2"] border pixel ${I3_BORDER_THICKNESS_EXTERNAL}
+for_window [workspace="4"] border pixel ${I3_BORDER_THICKNESS_EXTERNAL}
+for_window [workspace="6"] border pixel ${I3_BORDER_THICKNESS_EXTERNAL}
+for_window [workspace="8"] border pixel ${I3_BORDER_THICKNESS_EXTERNAL}
+for_window [workspace="10"] border pixel ${I3_BORDER_THICKNESS_EXTERNAL} 

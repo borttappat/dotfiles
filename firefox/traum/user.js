@@ -1,9 +1,9 @@
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 user_pref("browser.display.use_document_fonts", 0);
-user_pref("font.name.monospace.x-western", "Cozette");
-user_pref("font.name.sans-serif.x-western", "Cozette");
-user_pref("font.name.serif.x-western", "Cozette");
-user_pref("font.size.monospace.x-western", 6.5);
-user_pref("font.size.variable.x-western", 6.5);
-user_pref("font.minimum-size.x-western", 6.5);
+user_pref("font.name.monospace.x-western", "tamzen");
+user_pref("font.name.sans-serif.x-western", "tamzen");
+user_pref("font.name.serif.x-western", "tamzen");
+user_pref("font.size.monospace.x-western", 11);
+user_pref("font.size.variable.x-western", 11);
+user_pref("font.minimum-size.x-western", 9);
 user_pref("toolkit.zoomManager.zoomValues", "1,2,3,4,5");

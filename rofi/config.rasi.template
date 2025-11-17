@@ -3,7 +3,7 @@
 configuration{
 modi: "run,drun,window";
 lines: 10;
-font: "CozetteVector ${ROFI_FONT_SIZE}";
+font: "${ROFI_FONT} ${ROFI_FONT_SIZE}";
 terminal: "alacritty";
 location: 0;
 disable-history: false;
@@ -11,9 +11,9 @@ scrollbar: false;
 }
 
 window {
-height: 240px;
+height: 400px;
 border: 6px;
-width: 480px;
+width: 800px;
 }
 
 inputbar {
@@ -35,8 +35,8 @@ str: ":";
 }
 
 entry {
-padding: 2px;
-margin: 2px 0px 0px 2px;
+padding: 5px;
+margin: 5px 0px 0px 5px;
 }
 
 listview {
@@ -47,7 +47,7 @@ columns: 1;
 }
 
 element {
-padding: 1px;
+padding: 5px;
 }
 
 mode-switcher {

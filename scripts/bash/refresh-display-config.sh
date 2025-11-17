@@ -14,8 +14,10 @@ source ~/.config/scripts/load-display-config.sh
 
 # Regenerate i3 config
 sed -e "s/\${MOD_KEY}/$MOD_KEY/g" \
+    -e "s/\${I3_FONT}/$I3_FONT/g" \
     -e "s/\${I3_FONT_SIZE}/$I3_FONT_SIZE/g" \
     -e "s/\${I3_BORDER_THICKNESS}/$I3_BORDER_THICKNESS/g" \
+    -e "s/\${I3_BORDER_THICKNESS_EXTERNAL}/$I3_BORDER_THICKNESS_EXTERNAL/g" \
     -e "s/\${GAPS_INNER}/$GAPS_INNER/g" \
     ~/.config/i3/config.template > ~/.config/i3/config
 
@@ -31,6 +33,20 @@ sed -e "s/\${ALACRITTY_FONT_SIZE}/$ALACRITTY_FONT_SIZE/g" \
     -e "s/\${ALACRITTY_FONT}/$ALACRITTY_FONT/g" \
     -e "s/\${ALACRITTY_SCALE_FACTOR_LINE}/$ALACRITTY_SCALE_FACTOR_LINE/g" \
     ~/.config/alacritty/alacritty.toml.template > ~/.config/alacritty/alacritty.toml
+
+# Regenerate Firefox configs
+sed -e "s/\${FIREFOX_FONT}/$FIREFOX_FONT/g" \
+    ~/dotfiles/firefox/traum/user.js.template > ~/dotfiles/firefox/traum/user.js
+sed -e "s/\${FIREFOX_FONT}/$FIREFOX_FONT/g" \
+    ~/dotfiles/firefox/traum/chrome/userChrome.css.template > ~/dotfiles/firefox/traum/chrome/userChrome.css
+sed -e "s/\${FIREFOX_FONT}/$FIREFOX_FONT/g" \
+    ~/dotfiles/firefox/traum/chrome/userContent.css.template > ~/dotfiles/firefox/traum/chrome/userContent.css
+
+# Regenerate Obsidian font config
+sed -e "s/\${OBSIDIAN_FONT}/$OBSIDIAN_FONT/g" \
+    -e "s/\${OBSIDIAN_FONT_SIZE}/$OBSIDIAN_FONT_SIZE/g" \
+    -e "s/\${OBSIDIAN_HEADER_FONT_SIZE}/$OBSIDIAN_HEADER_FONT_SIZE/g" \
+    ~/dotfiles/obsidian/font.css.template > ~/hack_the_world/.obsidian/snippets/font.css
 
 # Reload i3 (which will reload config including gaps and borders)
 i3-msg reload

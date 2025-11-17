@@ -152,7 +152,7 @@ function sls
 end
 
 function sl
-    eza -Al --color=always --group-directories-first --icons | grep -i $argv
+    eza -Al --color=always --group-directories-first | grep -i $argv
 end
 
 # === GREP ===

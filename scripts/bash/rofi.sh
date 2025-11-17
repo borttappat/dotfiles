@@ -51,9 +51,12 @@ fi
 
 [ "$ROFI_FONT_SIZE" = "null" ] && ROFI_FONT_SIZE=$(echo "$RES_DEFAULTS" | jq -r '.rofi_font_size')
 
-echo "Using rofi font size: $ROFI_FONT_SIZE for display $CURRENT_DISPLAY"
+ROFI_FONT=$(jq -r '.fonts[0]' "$CONFIG_FILE")
 
-sed -e "s/\${ROFI_FONT_SIZE}/$ROFI_FONT_SIZE/g" \
+echo "Using rofi font: $ROFI_FONT size: $ROFI_FONT_SIZE for display $CURRENT_DISPLAY"
+
+sed -e "s/\${ROFI_FONT}/$ROFI_FONT/g" \
+    -e "s/\${ROFI_FONT_SIZE}/$ROFI_FONT_SIZE/g" \
     ~/.config/rofi/config.rasi.template > ~/.config/rofi/config.rasi
 
 rofi "$@" -config ~/.config/rofi/config.rasi -m "$MONITOR_NAME"

@@ -18,6 +18,7 @@ style = { shape = "Underline", blinking = "Always" }
 
 [font]
 size = ${ALACRITTY_FONT_SIZE}
+builtin_box_drawing = false
 
 [font.bold]
 family = "${ALACRITTY_FONT}"
@@ -26,10 +27,6 @@ style = "Bold"
 [font.bold_italic]
 family = "${ALACRITTY_FONT}"
 style = "Bold Italic"
-
-[font.glyph_offset]
-x = 1
-y = 1
 
 [font.italic]
 family = "${ALACRITTY_FONT}"
@@ -40,8 +37,8 @@ family = "${ALACRITTY_FONT}"
 style = "Regular"
 
 [font.offset]
-x = 1
-y = 1
+x = 0
+y = 0
 
 [[keyboard.bindings]]
 action = "Paste"
@@ -64,14 +61,19 @@ key = "Key0"
 mods = "Control"
 
 [[keyboard.bindings]]
-key = "Plus"
+action = "IncreaseFontSize"
+key = "Equals"
 mods = "Control"
-command = { program = "fish", args = ["-c", "if test (alacritty msg config font.size | string trim) = '13.0'; alacritty msg config font.size=26; else; alacritty msg config font.size=13; end"] }
 
 [[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Plus"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
 key = "Minus"
 mods = "Control"
-command = { program = "alacritty", args = ["msg", "config", "font.size=${ALACRITTY_FONT_SIZE}"] }
 
 [window]
 dynamic_padding = true

@@ -22,8 +22,10 @@ sleep 0.5
 source ~/.config/scripts/load-display-config.sh
 
 sed -e "s/\${MOD_KEY}/$MOD_KEY/g" \
+    -e "s/\${I3_FONT}/$I3_FONT/g" \
     -e "s/\${I3_FONT_SIZE}/$I3_FONT_SIZE/g" \
     -e "s/\${I3_BORDER_THICKNESS}/$I3_BORDER_THICKNESS/g" \
+    -e "s/\${I3_BORDER_THICKNESS_EXTERNAL}/$I3_BORDER_THICKNESS_EXTERNAL/g" \
     -e "s/\${GAPS_INNER}/$GAPS_INNER/g" \
     ~/.config/i3/config.template > ~/.config/i3/config
 sed -e "s/\${POLYBAR_FONT_SIZE}/$POLYBAR_FONT_SIZE/g" \
@@ -45,4 +47,10 @@ sed -e "s/${DUNST_FONT}/$DUNST_FONT/g" \
     -e "s/${DUNST_FRAME_WIDTH}/$DUNST_FRAME_WIDTH/g" \
     -e "s/${DUNST_ICON_SIZE}/$DUNST_ICON_SIZE/g" \
     ~/dotfiles/dunst/dunstrc.template > ~/.config/dunst/dunstrc
+sed -e "s/\${FIREFOX_FONT}/$FIREFOX_FONT/g" \
+    ~/dotfiles/firefox/traum/user.js.template > ~/dotfiles/firefox/traum/user.js
+sed -e "s/\${FIREFOX_FONT}/$FIREFOX_FONT/g" \
+    ~/dotfiles/firefox/traum/chrome/userChrome.css.template > ~/dotfiles/firefox/traum/chrome/userChrome.css
+sed -e "s/\${FIREFOX_FONT}/$FIREFOX_FONT/g" \
+    ~/dotfiles/firefox/traum/chrome/userContent.css.template > ~/dotfiles/firefox/traum/chrome/userContent.css
 exec i3
