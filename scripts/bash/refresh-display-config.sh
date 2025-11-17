@@ -16,10 +16,10 @@ source ~/.config/scripts/load-display-config.sh
 sed -e "s/\${MOD_KEY}/$MOD_KEY/g" \
     -e "s/\${I3_FONT}/$I3_FONT/g" \
     -e "s/\${I3_FONT_SIZE}/$I3_FONT_SIZE/g" \
-    -e "s/\${I3_BORDER_THICKNESS}/$I3_BORDER_THICKNESS/g" \
     -e "s/\${I3_BORDER_THICKNESS_EXTERNAL}/$I3_BORDER_THICKNESS_EXTERNAL/g" \
-    -e "s/\${GAPS_INNER}/$GAPS_INNER/g" \
+    -e "s/\${I3_BORDER_THICKNESS}/$I3_BORDER_THICKNESS/g" \
     -e "s/\${GAPS_INNER_EXTERNAL}/$GAPS_INNER_EXTERNAL/g" \
+    -e "s/\${GAPS_INNER}/$GAPS_INNER/g" \
     ~/.config/i3/config.template > ~/.config/i3/config
 
 # Regenerate polybar config (will be overridden by polybar-restart with per-monitor configs)
