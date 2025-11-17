@@ -79,18 +79,8 @@ echo "pywalfox updated successfully"
 sh ~/dotfiles/scripts/bash/wal-gtk.sh
 
 echo "Updating dunst colors..."
-# First, expand display-config variables in the wal template
-source ~/.config/scripts/load-display-config.sh
-sed -e "s/###DUNST_FONT###/$DUNST_FONT/g" \
-    -e "s/###DUNST_FONT_SIZE###/$DUNST_FONT_SIZE/g" \
-    -e "s/###DUNST_WIDTH###/$DUNST_WIDTH/g" \
-    -e "s/###DUNST_HEIGHT###/$DUNST_HEIGHT/g" \
-    -e "s/###DUNST_OFFSET_X###/$DUNST_OFFSET_X/g" \
-    -e "s/###DUNST_OFFSET_Y###/$DUNST_OFFSET_Y/g" \
-    -e "s/###DUNST_PADDING###/$DUNST_PADDING/g" \
-    -e "s/###DUNST_FRAME_WIDTH###/$DUNST_FRAME_WIDTH/g" \
-    -e "s/###DUNST_ICON_SIZE###/$DUNST_ICON_SIZE/g" \
-    ~/.cache/wal/dunstrc > ~/.config/dunst/dunstrc
+# Copy the pywal-processed dunstrc to the config directory
+cp ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
 pkill dunst
 dunst &
 echo "Dunst colors updated"

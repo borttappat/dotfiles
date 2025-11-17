@@ -1,15 +1,15 @@
 [global]
     monitor = 0
     follow = mouse
-    width = ###DUNST_WIDTH###
-    height = (0, ###DUNST_HEIGHT###)
+    width = 300
+    height = (0, 300)
     origin = top-right
-    offset = (###DUNST_OFFSET_X###, ###DUNST_OFFSET_Y###)
-    padding = ###DUNST_PADDING###
-    horizontal_padding = ###DUNST_PADDING###
-    frame_width = ###DUNST_FRAME_WIDTH###
+    offset = (24, 50)
+    padding = 8
+    horizontal_padding = 8
+    frame_width = 2
     separator_height = 2
-    font = CozetteVector ###DUNST_FONT_SIZE###
+    font = CozetteVector 6.5 
     line_height = 0
     markup = full
     format = "<b>%s</b>\n%b"
@@ -21,7 +21,7 @@
     hide_duplicate_count = false
     show_indicators = yes
     icon_position = left
-    max_icon_size = ###DUNST_ICON_SIZE###
+    max_icon_size = 32
     sticky_history = yes
     history_length = 20
     browser = /usr/bin/firefox
