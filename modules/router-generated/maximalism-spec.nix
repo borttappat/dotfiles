@@ -1,10 +1,12 @@
 # Maximalism Specialisation Template
-# Combines Router VM + Pentest VM (pentest-vm-new) autostart
-# Generated for VM: pentest-vm-new
+# Combines Router VM + Pentest VM (pentest-vm-auto) autostart
+# Generated for VM: pentest-vm-auto
 # VM Image: /home/traum/splix/pentest-vm/result/nixos.qcow2
 # Workspace: 2
 
-specialisation.maximalism.configuration = {
+{ config, lib, pkgs, ... }:
+{
+  specialisation.maximalism.configuration = {
   system.nixos.label = lib.mkForce "maximalism-setup";
   
   # Enable router VM blacklisting for maximalism mode
@@ -37,8 +39,8 @@ specialisation.maximalism.configuration = {
   };
   
   # Pentest VM Auto-start service
-  systemd.services.pentest-vm-new-autostart = {
-    description = "Auto-start pentest-vm-new pentest VM";
+  systemd.services.pentest-vm-auto-autostart = {
+    description = "Auto-start pentest-vm-auto pentest VM";
     after = [ 
       "router-vm-autostart.service"
       "libvirtd.service" 
@@ -63,7 +65,7 @@ specialisation.maximalism.configuration = {
       VIRSH="/run/current-system/sw/bin/virsh"
       SYSTEMCTL="/run/current-system/sw/bin/systemctl"
       
-      log "Starting pentest-vm-new autostart process..."
+      log "Starting pentest-vm-auto autostart process..."
       
       # Wait for router VM to be fully started first
       log "Waiting for router VM to be ready..."
@@ -81,65 +83,65 @@ specialisation.maximalism.configuration = {
       sleep 2
       
       # Check if VM exists
-      if ! $VIRSH --connect qemu:///system list --all | grep -q "pentest-vm-new"; then
-        log "ERROR: Pentest VM 'pentest-vm-new' not found"
+      if ! $VIRSH --connect qemu:///system list --all | grep -q "pentest-vm-auto"; then
+        log "ERROR: Pentest VM 'pentest-vm-auto' not found"
         log "Please ensure the VM is properly created"
         exit 1
       fi
       
       # Check current VM state
-      vm_state=$($VIRSH --connect qemu:///system list --all | grep "pentest-vm-new" | awk '{print $3}' || echo "unknown")
+      vm_state=$($VIRSH --connect qemu:///system list --all | grep "pentest-vm-auto" | awk '{print $3}' || echo "unknown")
       log "Pentest VM current state: $vm_state"
       
       case "$vm_state" in
         "running")
-          log "pentest-vm-new is already running - nothing to do"
+          log "pentest-vm-auto is already running - nothing to do"
           ;;
         "shut"|"shutoff")
-          log "Starting pentest-vm-new..."
-          if $VIRSH --connect qemu:///system start "pentest-vm-new"; then
-            log "pentest-vm-new started successfully"
+          log "Starting pentest-vm-auto..."
+          if $VIRSH --connect qemu:///system start "pentest-vm-auto"; then
+            log "pentest-vm-auto started successfully"
             sleep 3
           else
-            log "ERROR: Failed to start pentest-vm-new"
+            log "ERROR: Failed to start pentest-vm-auto"
             exit 1
           fi
           ;;
         *)
-          log "pentest-vm-new in unexpected state: $vm_state"
+          log "pentest-vm-auto in unexpected state: $vm_state"
           log "Attempting to start anyway..."
-          if $VIRSH --connect qemu:///system start "pentest-vm-new"; then
-            log "pentest-vm-new started despite unexpected state"
+          if $VIRSH --connect qemu:///system start "pentest-vm-auto"; then
+            log "pentest-vm-auto started despite unexpected state"
             sleep 3
           else
-            log "ERROR: Failed to start pentest-vm-new"
+            log "ERROR: Failed to start pentest-vm-auto"
             exit 1
           fi
           ;;
       esac
       
       # Final verification
-      if $VIRSH --connect qemu:///system list | grep -q "pentest-vm-new.*running"; then
-        log "pentest-vm-new is running and ready"
+      if $VIRSH --connect qemu:///system list | grep -q "pentest-vm-auto.*running"; then
+        log "pentest-vm-auto is running and ready"
         log "Assigned to workspace 2"
         log "Router VM also running for network isolation"
       else
-        log "pentest-vm-new startup verification failed"
+        log "pentest-vm-auto startup verification failed"
         exit 1
       fi
       
-      log "pentest-vm-new autostart completed successfully"
+      log "pentest-vm-auto autostart completed successfully"
     '';
   };
 
   # Workspace assignment service for pentest VM
-  systemd.services.pentest-vm-new-workspace-assignment = {
-    description = "Assign pentest-vm-new to workspace 2 and fullscreen";
+  systemd.services.pentest-vm-auto-workspace-assignment = {
+    description = "Assign pentest-vm-auto to workspace 2 and fullscreen";
     after = [ 
-      "pentest-vm-new-autostart.service"
+      "pentest-vm-auto-autostart.service"
       "graphical-session.target"
     ];
-    wants = [ "pentest-vm-new-autostart.service" ];
+    wants = [ "pentest-vm-auto-autostart.service" ];
     wantedBy = [ "graphical-session.target" ];
     
     serviceConfig = {
@@ -159,7 +161,7 @@ specialisation.maximalism.configuration = {
       # Wait for VM to be fully started and window manager to be ready
       sleep 15
       
-      log "Setting up workspace 2 for pentest-vm-new..."
+      log "Setting up workspace 2 for pentest-vm-auto..."
       
       # Try i3 workspace switching
       if command -v i3-msg >/dev/null 2>&1; then
@@ -169,7 +171,7 @@ specialisation.maximalism.configuration = {
         # Focus any virt-manager or VM window and fullscreen it
         i3-msg "[class=\"Virt-manager\"] focus, fullscreen enable" || true
         i3-msg "[class=\"qemu\"] focus, fullscreen enable" || true
-        log "Workspace 2 configured for pentest-vm-new"
+        log "Workspace 2 configured for pentest-vm-auto"
       else
         log "Could not configure workspace automatically (i3 not detected)"
         log "Manually switch to workspace 2 and open virt-manager"
@@ -191,8 +193,8 @@ specialisation.maximalism.configuration = {
       sudo virsh list --all | grep router || echo "Router VM not found"
       echo ""
       
-      echo "Pentest VM (pentest-vm-new) Status:"
-      sudo virsh list --all | grep "pentest-vm-new" || echo "pentest-vm-new not found"
+      echo "Pentest VM (pentest-vm-auto) Status:"
+      sudo virsh list --all | grep "pentest-vm-auto" || echo "pentest-vm-auto not found"
       echo ""
       
       echo "Network Status:"
@@ -206,10 +208,10 @@ specialisation.maximalism.configuration = {
       echo ""
       
       echo "Quick Actions:"
-      echo "  Start pentest-vm-new:    sudo virsh start pentest-vm-new"
-      echo "  Stop pentest-vm-new:     sudo virsh shutdown pentest-vm-new"
+      echo "  Start pentest-vm-auto:    sudo virsh start pentest-vm-auto"
+      echo "  Stop pentest-vm-auto:     sudo virsh shutdown pentest-vm-auto"
       echo "  Router Console:       sudo virsh console router-vm-passthrough"
-      echo "  pentest-vm-new Console:  sudo virsh console pentest-vm-new"
+      echo "  pentest-vm-auto Console:  sudo virsh console pentest-vm-auto"
       echo "  VM Manager:           virt-manager"
     '')
   ];
@@ -235,4 +237,5 @@ specialisation.maximalism.configuration = {
       fi
     '';
   };
-};
+  };
+}

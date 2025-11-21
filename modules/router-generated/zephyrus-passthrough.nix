@@ -1,6 +1,6 @@
 { config, lib, pkgs, modulesPath, ... }:
 {
-boot.kernelParams = lib.mkIf (config.system.nixos.label == "router-setup") [ 
+boot.kernelParams = lib.mkIf (config.system.nixos.label == "router-setup" || config.system.nixos.label == "maximalism-setup") [ 
     "intel_iommu=on" 
     "iommu=pt" 
     "vfio-pci.ids=8086:a370"
@@ -9,9 +9,9 @@ boot.kernelParams = lib.mkIf (config.system.nixos.label == "router-setup") [
 # NOTE: WiFi blacklisting moved to router specialization
 # so base mode can still use WiFi
   
-boot.kernelModules = lib.mkIf (config.system.nixos.label == "router-setup") [ "vfio" "vfio_iommu_type1" "vfio_pci" ];
+boot.kernelModules = lib.mkIf (config.system.nixos.label == "router-setup" || config.system.nixos.label == "maximalism-setup") [ "vfio" "vfio_iommu_type1" "vfio_pci" ];
   
-virtualisation.libvirtd = lib.mkIf (config.system.nixos.label == "router-setup") {
+virtualisation.libvirtd = lib.mkIf (config.system.nixos.label == "router-setup" || config.system.nixos.label == "maximalism-setup") {
     enable = true;
     qemu = {
         package = lib.mkForce pkgs.qemu_kvm;
@@ -25,7 +25,7 @@ virtualisation.libvirtd = lib.mkIf (config.system.nixos.label == "router-setup")
 };
 
 # Router networking configuration (only in router mode)
-networking = lib.mkIf (config.system.nixos.label == "router-setup") {
+networking = lib.mkIf (config.system.nixos.label == "router-setup" || config.system.nixos.label == "maximalism-setup") {
     # Router management bridge (host <-> router VM)  
     bridges.virbr1.interfaces = [];
     interfaces.virbr1 = {
