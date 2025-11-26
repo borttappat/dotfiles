@@ -1,10 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    # Import /etc/nixos/hardware-configuration.nix if it exists (overrides defaults below)
-  ] ++ lib.optional (builtins.pathExists /etc/nixos/hardware-configuration.nix)
-    /etc/nixos/hardware-configuration.nix;
+  # Don't import /etc/nixos/hardware-configuration.nix at build time
+  # It will be generated inside the VM on first boot
+  imports = [ ];
 
   boot.initrd.availableKernelModules = [
     "virtio_balloon" "virtio_blk" "virtio_pci" "virtio_ring"
@@ -17,9 +16,9 @@
   boot.extraModulePackages = [ ];
 
   # Default filesystem config for VMs
-  # Gets overridden by /etc/nixos/hardware-configuration.nix if it exists
+  # This gets used during initial build, then overridden by auto-generated config on first boot
   fileSystems."/" = lib.mkDefault {
-    device = "/dev/vda3";  # Default for most NixOS QEMU VMs
+    device = "/dev/disk/by-label/nixos";  # Standard qcow format default
     fsType = "ext4";
   };
 
