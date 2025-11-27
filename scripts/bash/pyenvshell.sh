@@ -32,5 +32,4 @@ exec fish
 }
 NIXEOF
 
-echo "shell.nix created! Run nix-shell to enter."
 nix-shell

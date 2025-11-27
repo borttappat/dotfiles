@@ -1,8 +1,0 @@
-* :not([class*="icon"]):not([class*="fa-"]):not([class*="material"]):not([class*="glyph"]):not(i) {
-  font-family: "tamzen", monospace !important;
-  font-size: 11px !important;
-  -webkit-font-smoothing: none !important;
-  -moz-osx-font-smoothing: unset !important;
-  font-smooth: never !important;
-  text-rendering: optimizeSpeed !important;
-}

@@ -1,8 +1,8 @@
 {
   "resolution_defaults": {
     "1920x1080": {
-      "polybar_font_size": 9,
-      "polybar_height": 30,
+      "polybar_font_size": 11,
+      "polybar_height": 25,
       "polybar_line_size": 2,
       "alacritty_font_size": 11,
       "rofi_font_size": 10,
@@ -81,10 +81,10 @@
       "obsidian_header_font_size": 28
     },
     "3440x1440": {
-      "polybar_font_size": 20,
+      "polybar_font_size": 30,
       "polybar_height": 35,
       "polybar_line_size": 2,
-      "alacritty_font_size": 20,
+      "alacritty_font_size": 12,
       "rofi_font_size": 20,
       "i3_font_size": 20,
       "i3_border_thickness": 2,

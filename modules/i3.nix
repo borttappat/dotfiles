@@ -18,7 +18,7 @@ rofi
 polybar
 alacritty
 flameshot
-dunst
+#dunst
 libnotify
 arandr
 lxappearance

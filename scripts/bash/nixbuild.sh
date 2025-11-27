@@ -126,26 +126,26 @@ elif echo "$current_model" | grep -qi "zephyrus"; then
             sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
             echo "Activating fallback specialisation..."
             sudo /run/current-system/specialisation/fallback/bin/switch-to-configuration switch
-            echo "✅ Fallback mode activated (clean configuration, no special rules)"
+            echo "Fallback mode activated (clean configuration, no special rules)"
             ;;
         "router-switch")
             echo "Building zephyrus and switching to router specialisation..."
             sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
             echo "Activating router specialisation..."
             sudo /run/current-system/specialisation/router/bin/switch-to-configuration switch
-            echo "✅ Router mode activated"
+            echo "Router mode activated"
             ;;
         "maximalism-switch")
             echo "Building zephyrus and switching to maximalism specialisation..."
             sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
             echo "Activating maximalism specialisation..."
             sudo /run/current-system/specialisation/maximalism/bin/switch-to-configuration switch
-            echo "✅ Maximalism mode activated (Router + Pentest VMs)"
+            echo "Maximalism mode activated (Router + Pentest VMs)"
             ;;
         "base-switch")
             echo "Building zephyrus and staying in base mode..."
             sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
-            echo "✅ Base mode active (specialisations available)"
+            echo "Base mode active (specialisations available)"
             ;;
         *)
             # Auto mode: maintain current configuration
@@ -156,8 +156,8 @@ elif echo "$current_model" | grep -qi "zephyrus"; then
                     echo "Building zephyrus in maximalism mode (requires reboot)..."
                     sudo nixos-rebuild boot --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
                     echo ""
-                    echo "✅ Configuration built successfully!"
-                    echo "⚠️  Reboot required to apply maximalism mode changes"
+                    echo "Configuration built successfully!"
+                    echo "Reboot required to apply maximalism mode changes"
                     echo ""
                     echo "To activate: sudo reboot"
                     echo "After reboot, maximalism mode will be active (Router + Pentest VMs)"
@@ -166,8 +166,8 @@ elif echo "$current_model" | grep -qi "zephyrus"; then
                     echo "Building zephyrus in router mode (requires reboot)..."
                     sudo nixos-rebuild boot --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
                     echo ""
-                    echo "✅ Configuration built successfully!"
-                    echo "⚠️  Reboot required to apply router mode changes"
+                    echo "Configuration built successfully!"
+                    echo "Reboot required to apply router mode changes"
                     echo ""
                     echo "To activate: sudo reboot"
                     echo "After reboot, router mode will be active"
@@ -178,14 +178,14 @@ elif echo "$current_model" | grep -qi "zephyrus"; then
                     echo "Maintaining fallback specialisation..."
                     sudo /run/current-system/specialisation/fallback/bin/switch-to-configuration switch
                     echo ""
-                    echo "✅ Fallback mode configuration applied successfully!"
+                    echo "Fallback mode configuration applied successfully!"
                     echo "System is ready to use (no reboot needed)"
                     ;;
                 "base-setup")
                     echo "Building zephyrus in base mode (live switch)..."
                     sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
                     echo ""
-                    echo "✅ Base mode configuration applied successfully!"
+                    echo "Base mode configuration applied successfully!"
                     echo "System is ready to use (no reboot needed)"
                     ;;
                 *)
@@ -193,7 +193,7 @@ elif echo "$current_model" | grep -qi "zephyrus"; then
                     echo "Unknown mode, treating as base mode (live switch)..."
                     sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
                     echo ""
-                    echo "✅ Configuration built successfully!"
+                    echo "Configuration built successfully!"
                     ;;
             esac
             ;;
