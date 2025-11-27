@@ -20,24 +20,24 @@ $character"""
 add_newline = true
 
 [jobs]
-symbol = "✦"
+symbol = ""
 number_threshold = 1
 symbol_threshold = 1
-format = "[$symbol$number]($style) "
+format = "[$number jobs]($style) "
 style = "bold blue"
 
 [username]
-format = " [┌─$user]($style) "
+format = " [$user]($style) "
 style_user = "bold yellow"
 style_root = "bold red"
 show_always = true
 
 [character]
-success_symbol = " [└─>](bold yellow)"
-error_symbol = " [└─X](bold yellow)"
+success_symbol = " [>](bold yellow)"
+error_symbol = " [X](bold yellow)"
 
 [hostname]
-format = "[ $hostname]($style) in "
+format = "[@ $hostname]($style) in "
 style = "bold red"
 trim_at = "-"
 ssh_only = false
@@ -51,7 +51,7 @@ disabled = true
 style = "bold purple"
 truncation_length = 10
 truncate_to_repo = false 
-#truncation_symbol = " "
+#truncation_symbol = " @ "
 disabled = false
 read_only = ' [R]'
 home_symbol = '~'
@@ -62,17 +62,22 @@ format = 'at [$time]($style) '
 time_format = "%H:%M:%S"
 style = "bold cyan"
 
+[git_branch]
+symbol = ""
+format = "[$branch]($style) "
+
 [git_status]
 style = "white"
-ahead = "⇡${count}"
-diverged = "⇕⇡${ahead_count}⇣${behind_count}"
-behind = "⇣${count}"
+ahead = "ahead ${count}"
+diverged = "diverged +${ahead_count} -${behind_count}"
+behind = "behind ${count}"
 deleted = "x"
 modified = "!"
-up_to_date = '✓'
+up_to_date = 'ok'
 
 [git_commit]
 commit_hash_length = 4
+tag_symbol = ""
 
 #[git_metric]
 #disabled = true
@@ -83,16 +88,16 @@ format = "took [$duration]($style) "
 disabled = false
 
 [status]
-symbol = " "
+symbol = ""
 format = '[\[$symbol$status_common_meaning$status_signal_name$status_maybe_int\]]($style)'
 map_symbol = true
 disabled = true
 not_found_symbol = "X"
 
 [python]
-symbol = " "
+symbol = "PY "
 #pyenv_version_name = true
-format = 'via [${symbol}python (${version} )(\($virtualenv\) )]($style)'
+format = 'via [python (${version} )(\($virtualenv\) )]($style)'
 style = "bold yellow"
 pyenv_prefix = "venv "
 python_binary = ["./venv/bin/python", "python", "python3", "python2"]
@@ -102,9 +107,9 @@ disabled = true
 
 [battery]
 disabled = false
-full_symbol = '🔋 '
-charging_symbol = '⚡️ '
-discharging_symbol = '💀 '
+full_symbol = 'full '
+charging_symbol = 'charging '
+discharging_symbol = 'low '
 
 [direnv]
 disabled = true

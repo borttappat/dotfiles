@@ -79,7 +79,8 @@ echo "pywalfox updated successfully"
 sh ~/dotfiles/scripts/bash/wal-gtk.sh
 
 echo "Updating dunst colors..."
-ln -sf ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
+# Copy the pywal-processed dunstrc to the config directory
+cp ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
 pkill dunst
 dunst &
 echo "Dunst colors updated"

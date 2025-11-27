@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+# Generic wrapper script for launching applications with per-monitor scaling
+# Reads all settings from display-config.json
+# Usage: scaled-app <command> [args...]
+
+if [ $# -eq 0 ]; then
+    echo "Usage: scaled-app <command> [args...]"
+    echo "Example: scaled-app firefox"
+    echo "Example: scaled-app obsidian --some-flag"
+    exit 1
+fi
+
+CONFIG_FILE="$HOME/dotfiles/configs/display-config.json"
+HOSTNAME=$(hostnamectl hostname | cut -d'-' -f1)
+
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "Config file not found: $CONFIG_FILE"
+    exec "$@"
+    exit 1
+fi
+
+# Read settings from config
+MACHINE_OVERRIDE=$(jq -r ".machine_overrides[\"$HOSTNAME\"] // null" "$CONFIG_FILE")
+
+if [ "$MACHINE_OVERRIDE" = "null" ]; then
+    # No machine overrides - just run the app
+    exec "$@"
+    exit 0
+fi
+
+# Extract scaling settings
+GDK_SCALE_VALUE=$(echo "$MACHINE_OVERRIDE" | jq -r '.gdk_scale // "null"')
+GDK_DPI_SCALE_VALUE=$(echo "$MACHINE_OVERRIDE" | jq -r '.gdk_dpi_scale // "null"')
+ELECTRON_SCALE_STANDALONE=$(echo "$MACHINE_OVERRIDE" | jq -r '.electron_scale_standalone // "null"')
+ELECTRON_SCALE_EXTERNAL=$(echo "$MACHINE_OVERRIDE" | jq -r '.electron_scale_external // "null"')
+
+# Get external monitor resolution patterns from config
+EXTERNAL_MONITOR_PATTERNS=$(echo "$MACHINE_OVERRIDE" | jq -r '.external_monitor_resolutions // [] | join("|")')
+
+# Check if any external monitors are connected
+EXTERNAL_MONITOR=0
+if [ -n "$EXTERNAL_MONITOR_PATTERNS" ] && xrandr --listmonitors | grep -qE "(${EXTERNAL_MONITOR_PATTERNS}/)"; then
+    EXTERNAL_MONITOR=1
+fi
+
+# Check if this is an Electron app
+ELECTRON_APPS="obsidian|code|slack|discord|spotify"
+IS_ELECTRON=0
+if echo "$1" | grep -qE "$ELECTRON_APPS"; then
+    IS_ELECTRON=1
+fi
+
+if [ "$EXTERNAL_MONITOR" -eq 1 ]; then
+    # External monitor detected - use external scaling settings
+    if [ "$GDK_SCALE_VALUE" != "null" ]; then
+        export GDK_SCALE=1
+    fi
+    if [ "$GDK_DPI_SCALE_VALUE" != "null" ]; then
+        export GDK_DPI_SCALE="$GDK_DPI_SCALE_VALUE"
+    fi
+    export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
+    if [ "$IS_ELECTRON" -eq 1 ] && [ "$ELECTRON_SCALE_EXTERNAL" != "null" ]; then
+        # Electron app: use external scale factor from config
+        exec "$@" --force-device-scale-factor="$ELECTRON_SCALE_EXTERNAL"
+    else
+        # Regular GTK/Qt app
+        exec "$@"
+    fi
+else
+    # No external monitor - use standalone scaling settings
+    # GTK apps: keep whatever GDK_SCALE is already set from environment
+
+    if [ "$IS_ELECTRON" -eq 1 ] && [ "$ELECTRON_SCALE_STANDALONE" != "null" ]; then
+        # Electron app: use standalone scale factor from config
+        exec "$@" --force-device-scale-factor="$ELECTRON_SCALE_STANDALONE"
+    else
+        # Regular GTK/Qt app - inherits GDK_SCALE from environment
+        exec "$@"
+    fi
+fi

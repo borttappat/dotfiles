@@ -1,7 +1,7 @@
 function stop_recording
     # Check if currently in a recording session
     if set -q RECORDING_ACTIVE
-        echo "🛑 Stopping recording..."
+        echo "[!] Stopping recording..."
         echo "   Press Ctrl+D or type 'exit' to finish this session"
         
         # Remove flag so new terminals don't record

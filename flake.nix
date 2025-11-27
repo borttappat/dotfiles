@@ -148,11 +148,12 @@ in {
             # Base system configuration
             ./modules/configuration.nix
             ./modules/hwconf.nix
-            
+
             # Device specific configurations
             ./modules/zenbook.nix
             ./modules/i3.nix
-            
+            ./modules/monitor-hotplug.nix
+
             # Core functionality modules
             ./modules/packages.nix
             ./modules/services.nix
@@ -161,7 +162,7 @@ in {
             #./modules/hosts.nix
             ./modules/virt.nix
             ./modules/scripts.nix
-            
+
             # Additional feature modules
             #./modules/pentesting.nix
             #./modules/proxychains.nix

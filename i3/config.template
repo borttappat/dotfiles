@@ -12,11 +12,13 @@ set $mod ${MOD_KEY}
 #############
 # Autostart #
 #############
+exec_always --no-startup-id xrdb -merge ~/.Xresources
 exec_always --no-startup-id ~/dotfiles/scripts/bash/autostart.sh
 exec_always --no-startup-id wal -Rnq
 exec_always --no-startup-id ~/.fehbg &
 exec_always --no-startup-id sleep 2 && xmodmap ~/.Xmodmap
 exec --no-startup-id dunst
+exec_always --no-startup-id sleep 1 && ~/dotfiles/scripts/bash/workspace-setup.sh
 
 #########
 # BINDS #
@@ -29,8 +31,8 @@ bindsym $mod+F3 exec "amixer set Master 5%+"
 # flameshot
 bindsym $mod+F12 exec "flameshot gui"
 
-# virt-manager
-bindsym $mod+Shift+v exec virt-manager
+# Detect external monitors-script
+bindsym $mod+Shift+v exec ~/dotfiles/scripts/bash/detect-monitors.sh && ~/dotfiles/scripts/bash/workspace-setup.sh
 
 # htop
 bindsym $mod+Shift+u exec ~/dotfiles/scripts/bash/alacritty.sh -e /bin/sh -c "wal -Rnq && htop"
@@ -73,12 +75,12 @@ bindsym $mod+w exec ~/dotfiles/scripts/bash/randomwalrgb.sh
 
 # Browser settings
 set $browser firefox
-bindsym $mod+b exec $browser
-bindsym $mod+a exec $browser https://claude.ai 
-bindsym $mod+shift+m exec $browser https://music.youtube.com/
-bindsym $mod+t exec $browser https://borttappat.github.io/links.html
-bindsym $mod+g exec $browser https://github.com/borttappat/dotfiles
-bindsym $mod+n exec $browser https://search.nixos.org/packages?channel=unstable
+bindsym $mod+b exec ~/dotfiles/scripts/bash/scaled-app $browser
+bindsym $mod+a exec ~/dotfiles/scripts/bash/scaled-app $browser https://claude.ai 
+bindsym $mod+shift+m exec ~/dotfiles/scripts/bash/scaled-app $browser https://music.youtube.com/
+bindsym $mod+t exec ~/dotfiles/scripts/bash/scaled-app $browser https://borttappat.github.io/links.html
+bindsym $mod+g exec ~/dotfiles/scripts/bash/scaled-app $browser https://github.com/borttappat/dotfiles
+bindsym $mod+n exec ~/dotfiles/scripts/bash/scaled-app $browser https://search.nixos.org/packages?channel=unstable
 
 # Brightness controls
 bindsym $mod+F8 exec brightnessctl set +10%
@@ -99,10 +101,10 @@ for_window [instance="floating"] resize set 800 450
 bindsym $mod+q kill
 
 # Start Obsidian
-bindsym $mod+o exec obsidian
+bindsym $mod+o exec ~/dotfiles/scripts/bash/scaled-app obsidian
 
 # Start Virt-Manager
-bindsym $mod+m exec virt-manager
+bindsym $mod+m exec ~/dotfiles/scripts/bash/scaled-app virt-manager
 
 # Start rofi
 bindsym $mod+d exec --no-startup-id ~/dotfiles/scripts/bash/rofi.sh -show drun
@@ -242,7 +244,30 @@ tiling_drag modifier
 floating_modifier $mod
 
 # Dynamic resolution-specific settings
-font pango:CozetteVector ${I3_FONT_SIZE}
+font pango:${I3_FONT} ${I3_FONT_SIZE}
 gaps inner ${GAPS_INNER}
 gaps outer 0
-for_window [class=".*"] border pixel 2
+
+# Per-workspace gaps: odd workspaces (1,3,5,7,9) = internal, even (2,4,6,8,10) = external
+workspace 1 gaps inner ${GAPS_INNER}
+workspace 2 gaps inner ${GAPS_INNER_EXTERNAL}
+workspace 3 gaps inner ${GAPS_INNER}
+workspace 4 gaps inner ${GAPS_INNER_EXTERNAL}
+workspace 5 gaps inner ${GAPS_INNER}
+workspace 6 gaps inner ${GAPS_INNER_EXTERNAL}
+workspace 7 gaps inner ${GAPS_INNER}
+workspace 8 gaps inner ${GAPS_INNER_EXTERNAL}
+workspace 9 gaps inner ${GAPS_INNER}
+workspace 10 gaps inner ${GAPS_INNER_EXTERNAL}
+
+# Per-workspace borders: odd workspaces (1,3,5,7,9) = internal, even (2,4,6,8,10) = external
+for_window [workspace="1"] border pixel ${I3_BORDER_THICKNESS}
+for_window [workspace="3"] border pixel ${I3_BORDER_THICKNESS}
+for_window [workspace="5"] border pixel ${I3_BORDER_THICKNESS}
+for_window [workspace="7"] border pixel ${I3_BORDER_THICKNESS}
+for_window [workspace="9"] border pixel ${I3_BORDER_THICKNESS}
+for_window [workspace="2"] border pixel ${I3_BORDER_THICKNESS_EXTERNAL}
+for_window [workspace="4"] border pixel ${I3_BORDER_THICKNESS_EXTERNAL}
+for_window [workspace="6"] border pixel ${I3_BORDER_THICKNESS_EXTERNAL}
+for_window [workspace="8"] border pixel ${I3_BORDER_THICKNESS_EXTERNAL}
+for_window [workspace="10"] border pixel ${I3_BORDER_THICKNESS_EXTERNAL} 
