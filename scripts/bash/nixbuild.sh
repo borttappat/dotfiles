@@ -38,86 +38,178 @@ elif echo "$current_model" | grep -qi "zenbook"; then
         "router-boot")
             echo "Building zenbook with router specialisation, staging for boot..."
             sudo nixos-rebuild boot --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
-            echo "✅ Built. Reboot, then run 'switch-to-router' for router mode"
+            echo " Built. Reboot to activate router mode (automatic detection enabled)"
             ;;
         "router-switch")
-            echo "Building zenbook and switching to router mode..."
+            echo "Building zenbook and switching to router specialisation..."
             sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
-            echo "Switching to router mode..."
-            switch-to-router
+            echo "Activating router specialisation..."
+            sudo /run/current-system/specialisation/router/bin/switch-to-configuration switch
+            echo "Running mode maintenance..."
+            sudo systemctl start splix-post-rebuild-maintenance
+            echo " Router mode activated"
             ;;
         "base-switch")
             echo "Building zenbook and staying in base mode..."
             sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
-            echo "✅ Base mode active"
+            echo " Base mode active (router specialisation available)"
             ;;
         *)
             echo "Building zenbook and maintaining current mode ($CURRENT_LABEL)..."
             sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
 
-            # Add bridge recreation for router mode
+            # Use new automatic mode maintenance instead of deprecated commands
             if [[ "$CURRENT_LABEL" == "router-setup" ]]; then
-                echo "Ensuring virbr1 bridge exists for router mode..."
-                if ! ip link show virbr1 >/dev/null 2>&1; then
-                    sudo ip link add virbr1 type bridge
-                    sudo ip addr add 192.168.100.1/24 dev virbr1
-                    sudo ip link set virbr1 up
-                    echo "✓ virbr1 bridge recreated"
-                else
-                    echo "✓ virbr1 bridge already exists"
-                fi
+                echo "Maintaining router mode configuration..."
+                # Activate router specialisation if we were in router mode
+                sudo /run/current-system/specialisation/router/bin/switch-to-configuration switch
             fi
-
-            # Switch back to whatever mode we were in
-            if [[ "$CURRENT_LABEL" == "router-setup" ]]; then
-                echo "Restoring router mode..."
-                switch-to-router
-            else
-                echo "✅ Base mode active. Available commands:"
-                echo "  switch-to-router  - Enable router mode with VFIO"
-                echo "  switch-to-base    - Return to normal WiFi"
-            fi
+            
+            # Run automatic mode maintenance
+            echo "Running automatic mode maintenance..."
+            sudo systemctl start splix-post-rebuild-maintenance
+            echo " Mode maintenance complete. Current mode: $CURRENT_LABEL"
             ;;
     esac
 
-# For ASUS Zephyrus specifically (check model line for "Zephyrus")
+# For zephyrus machines (zephyrus)
 elif echo "$current_model" | grep -qi "zephyrus"; then
-    # Detect current specialisation
-    CURRENT_LABEL=$(nixos-version | grep -o '[a-zA-Z-]*setup' || echo "base-setup")
-    echo "Current system: $CURRENT_LABEL"
+    # Detect current specialisation by checking system.nixos.label
+    if [[ -f /run/current-system/nixos-version ]]; then
+        SYSTEM_LABEL=$(cat /run/current-system/sw/bin/nixos-version 2>/dev/null | grep -oP 'nixos-system-\K[^-]+' || echo "unknown")
+    fi
 
+    # Better detection: check the actual system label from the running config
+    CURRENT_LABEL="base-setup"  # Default
+
+    if [[ -f /etc/os-release ]]; then
+        # Check for maximalism, router, or fallback in the system configuration
+        if grep -q "maximalism" /run/current-system/configuration-name 2>/dev/null; then
+            CURRENT_LABEL="maximalism-setup"
+        elif grep -q "fallback" /run/current-system/configuration-name 2>/dev/null; then
+            CURRENT_LABEL="fallback-setup"
+        elif grep -q "router" /run/current-system/configuration-name 2>/dev/null; then
+            CURRENT_LABEL="router-setup"
+        fi
+    fi
+
+    # Fallback: Check specialisation symlink
+    if [[ "$CURRENT_LABEL" == "base-setup" && -L /run/current-system/specialisation ]]; then
+        ACTIVE_SPEC=$(readlink /run/current-system/specialisation | xargs basename 2>/dev/null || echo "none")
+        if [[ "$ACTIVE_SPEC" == "maximalism" ]]; then
+            CURRENT_LABEL="maximalism-setup"
+        elif [[ "$ACTIVE_SPEC" == "fallback" ]]; then
+            CURRENT_LABEL="fallback-setup"
+        elif [[ "$ACTIVE_SPEC" == "router" ]]; then
+            CURRENT_LABEL="router-setup"
+        fi
+    fi
+
+    # Additional fallback: Check running VMs as last resort
+    if [[ "$CURRENT_LABEL" == "base-setup" ]]; then
+        PENTEST_RUNNING=$(sudo virsh list --name 2>/dev/null | grep -c "pentest-vm-auto" || echo "0")
+        ROUTER_RUNNING=$(sudo virsh list --name 2>/dev/null | grep -c "router-vm" || echo "0")
+
+        if [[ "$PENTEST_RUNNING" -gt 0 && "$ROUTER_RUNNING" -gt 0 ]]; then
+            CURRENT_LABEL="maximalism-setup"
+        elif [[ "$ROUTER_RUNNING" -gt 0 ]]; then
+            CURRENT_LABEL="router-setup"
+        fi
+    fi
+
+    echo "Current system: $CURRENT_LABEL (detected from system state)"
+
+    # Handle explicit mode switching commands
     case "${1:-auto}" in
-        "router-boot")
-            echo "Building zephyrus with router specialisation, staging for boot..."
-            sudo nixos-rebuild boot --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
-            echo "✅ Built. Reboot, then run 'switch-to-router' for router mode"
+        "fallback-switch")
+            echo "Building zephyrus and switching to fallback specialisation..."
+            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+            echo "Activating fallback specialisation..."
+            sudo /run/current-system/specialisation/fallback/bin/switch-to-configuration switch
+            echo "✅ Fallback mode activated (clean configuration, no special rules)"
             ;;
         "router-switch")
-            echo "Building zephyrus and switching to router mode..."
+            echo "Building zephyrus and switching to router specialisation..."
             sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
-            echo "Switching to router mode..."
-            switch-to-router
+            echo "Activating router specialisation..."
+            sudo /run/current-system/specialisation/router/bin/switch-to-configuration switch
+            echo "✅ Router mode activated"
+            ;;
+        "maximalism-switch")
+            echo "Building zephyrus and switching to maximalism specialisation..."
+            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+            echo "Activating maximalism specialisation..."
+            sudo /run/current-system/specialisation/maximalism/bin/switch-to-configuration switch
+            echo "✅ Maximalism mode activated (Router + Pentest VMs)"
             ;;
         "base-switch")
             echo "Building zephyrus and staying in base mode..."
             sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
-            echo "✅ Base mode active"
+            echo "✅ Base mode active (specialisations available)"
             ;;
         *)
-            echo "Building zephyrus and maintaining current mode ($CURRENT_LABEL)..."
-            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
-
-            # Switch back to whatever mode we were in
-            if [[ "$CURRENT_LABEL" == "router-setup" ]]; then
-                echo "Restoring router mode..."
-                switch-to-router
-            else
-                echo "✅ Base mode active. Available commands:"
-                echo "  switch-to-router  - Enable router mode with VFIO"
-                echo "  switch-to-base    - Return to normal WiFi"
-            fi
+            # Auto mode: maintain current configuration
+            # Build strategy: use 'boot' for router/maximalism to avoid network disruption
+            # Use 'switch' for base and fallback modes
+            case "$CURRENT_LABEL" in
+                "maximalism-setup")
+                    echo "Building zephyrus in maximalism mode (requires reboot)..."
+                    sudo nixos-rebuild boot --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+                    echo ""
+                    echo "✅ Configuration built successfully!"
+                    echo "⚠️  Reboot required to apply maximalism mode changes"
+                    echo ""
+                    echo "To activate: sudo reboot"
+                    echo "After reboot, maximalism mode will be active (Router + Pentest VMs)"
+                    ;;
+                "router-setup")
+                    echo "Building zephyrus in router mode (requires reboot)..."
+                    sudo nixos-rebuild boot --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+                    echo ""
+                    echo "✅ Configuration built successfully!"
+                    echo "⚠️  Reboot required to apply router mode changes"
+                    echo ""
+                    echo "To activate: sudo reboot"
+                    echo "After reboot, router mode will be active"
+                    ;;
+                "fallback-setup")
+                    echo "Building zephyrus in fallback mode (live switch)..."
+                    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+                    echo "Maintaining fallback specialisation..."
+                    sudo /run/current-system/specialisation/fallback/bin/switch-to-configuration switch
+                    echo ""
+                    echo "✅ Fallback mode configuration applied successfully!"
+                    echo "System is ready to use (no reboot needed)"
+                    ;;
+                "base-setup")
+                    echo "Building zephyrus in base mode (live switch)..."
+                    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+                    echo ""
+                    echo "✅ Base mode configuration applied successfully!"
+                    echo "System is ready to use (no reboot needed)"
+                    ;;
+                *)
+                    # Unknown mode - treat as base mode (safest default)
+                    echo "Unknown mode, treating as base mode (live switch)..."
+                    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
+                    echo ""
+                    echo "✅ Configuration built successfully!"
+                    ;;
+            esac
             ;;
     esac
+
+# === ADD NEW ROUTER MACHINES HERE ===
+# 
+# To add router support for a new machine:
+# 1. Run: ./scripts/generate-all-configs.sh
+# 2. Copy the generated block from: generated/nixbuild-entries/{machine}-PASTE-INTO-NIXBUILD.txt
+# 3. Paste it above this comment
+#
+# Example format:
+# elif echo "$current_model" | grep -qi "your-machine"; then
+#     # Router specialization logic here
+# 
 
 # For other Asus-hosts
 elif echo "$current_host" | grep -q "ASUS"; then
