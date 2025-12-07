@@ -128,9 +128,12 @@ get_current_device() {
         return
     fi
 
-    # Check analog headphones vs speakers
-    HEADPHONE_VOL=$(amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' 2>/dev/null | grep "Front Left:" | awk '{print $4}' | tr -d '[]%' | head -1 || echo "0")
-    if [ "$HEADPHONE_VOL" -gt 0 ] 2>/dev/null; then
+    # Get device IDs and check which is the default
+    get_device_ids
+    local default_id=$(wpctl status | sed -n '/Sinks:/,/Sources:/p' | grep "\*" | head -1 | \
+        awk '{for(i=1;i<=NF;i++) if($i ~ /^[0-9]+\.$/) {gsub(/\./,"",$i); print $i; break}}')
+
+    if [ "$default_id" = "$HEADPHONE_DEVICE" ]; then
         echo "headphones"
     else
         echo "speakers"
@@ -151,8 +154,6 @@ enable_speakers() {
     amixer -c $CARD_NUM cset name='cs42l43 Speaker L Input 1' 'DP5RX1' >/dev/null
     amixer -c $CARD_NUM cset name='cs42l43 Speaker R Input 1' 'DP5RX2' >/dev/null
     
-    amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 0% >/dev/null 2>&1 || true
-    
     wpctl set-default $SPEAKER_DEVICE >/dev/null 2>&1
     wpctl set-volume $SPEAKER_DEVICE 50% >/dev/null 2>&1
     
@@ -162,14 +163,14 @@ enable_speakers() {
 enable_headphones() {
     get_device_ids
     echo "Switching to headphones (device $HEADPHONE_DEVICE)..."
-    
+
     amixer -c $CARD_NUM cset name='cs42l43 Headphone L Input 1' 'DP5RX1' >/dev/null
     amixer -c $CARD_NUM cset name='cs42l43 Headphone R Input 1' 'DP5RX2' >/dev/null
-    amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 50% >/dev/null
     amixer -c $CARD_NUM sset 'Headphone' on >/dev/null 2>&1 || true
-    
+
     wpctl set-default $HEADPHONE_DEVICE >/dev/null 2>&1
-    
+    wpctl set-volume $HEADPHONE_DEVICE 50% >/dev/null 2>&1
+
     echo "✓ Switched to headphones"
 }
 
@@ -178,7 +179,6 @@ enable_bluetooth() {
 
     # Disable internal audio
     amixer -c $CARD_NUM sset 'cs42l43 Speaker Digital' off >/dev/null 2>&1 || true
-    amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 0% >/dev/null 2>&1 || true
 
     # Find Bluetooth sink NAME (not ID) - pactl version
     local bt_sink=$(pactl list sinks short | grep bluez | awk '{print $2}' | head -n1)
@@ -223,11 +223,11 @@ show_status() {
     wpctl status | grep -A 10 "Sinks:" | grep -E "^\s*[0-9]+\.|^Audio" | sed 's/^/  /'
     
     echo ""
-    echo "Hardware status:"
-    local speaker_status=$(amixer -c $CARD_NUM sget 'cs42l43 Speaker Digital' 2>/dev/null | grep -o "\[on\]\|\[off\]" | head -1 || echo "[unknown]")
-    local headphone_vol=$(amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' 2>/dev/null | grep "Front Left:" | awk '{print $4}' | tr -d '[]' || echo "unknown")
-    echo "  Speakers: $speaker_status"
-    echo "  Headphones: $headphone_vol"
+    echo "Volume status:"
+    local speaker_vol=$(wpctl get-volume $SPEAKER_DEVICE 2>/dev/null | awk '{print int($2*100)}' || echo "0")
+    local headphone_vol=$(wpctl get-volume $HEADPHONE_DEVICE 2>/dev/null | awk '{print int($2*100)}' || echo "0")
+    echo "  Speakers: ${speaker_vol}%"
+    echo "  Headphones: ${headphone_vol}%"
     
     echo ""
     echo "Current default sink:"
@@ -302,44 +302,29 @@ adjust_volume() {
         return
     fi
     
-    # Original volume control for speakers/headphones
+    # Volume control for speakers/headphones using wpctl
+    local device_id
+    if [ "$device_type" = "speakers" ]; then
+        device_id=$SPEAKER_DEVICE
+    else
+        device_id=$HEADPHONE_DEVICE
+    fi
+
     case "$adjustment" in
         +)
-            if [ "$device_type" = "speakers" ]; then
-                wpctl set-volume $SPEAKER_DEVICE 5%+ >/dev/null 2>&1
-            else
-                current_vol=$(amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' | grep "Front Left:" | awk '{print $4}' | tr -d '[]%' | head -1)
-                new_vol=$((current_vol + 5))
-                [ $new_vol -gt 100 ] && new_vol=100
-                amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' "${new_vol}%" >/dev/null
-            fi
+            wpctl set-volume "$device_id" 5%+ >/dev/null 2>&1
             echo "Volume increased"
             ;;
         -)
-            if [ "$device_type" = "speakers" ]; then
-                wpctl set-volume $SPEAKER_DEVICE 5%- >/dev/null 2>&1
-            else
-                current_vol=$(amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' | grep "Front Left:" | awk '{print $4}' | tr -d '[]%' | head -1)
-                new_vol=$((current_vol - 5))
-                [ $new_vol -lt 0 ] && new_vol=0
-                amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' "${new_vol}%" >/dev/null
-            fi
+            wpctl set-volume "$device_id" 5%- >/dev/null 2>&1
             echo "Volume decreased"
             ;;
         [0-9]*)
-            if [ "$device_type" = "speakers" ]; then
-                wpctl set-volume $SPEAKER_DEVICE "${adjustment}%" >/dev/null 2>&1
-            else
-                amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' "${adjustment}%" >/dev/null
-            fi
+            wpctl set-volume "$device_id" "${adjustment}%" >/dev/null 2>&1
             echo "Volume set to ${adjustment}%"
             ;;
         *)
-            if [ "$device_type" = "speakers" ]; then
-                current_vol=$(wpctl get-volume $SPEAKER_DEVICE 2>/dev/null | awk '{print int($2*100)}' || echo "0")
-            else
-                current_vol=$(amixer -c $CARD_NUM sget 'cs42l43 Headphone Digital' | grep "Front Left:" | awk '{print $4}' | tr -d '[]%' | head -1)
-            fi
+            current_vol=$(wpctl get-volume "$device_id" 2>/dev/null | awk '{print int($2*100)}' || echo "0")
             echo "Current $device_type volume: ${current_vol}%"
             ;;
     esac
@@ -354,7 +339,7 @@ mute_device() {
             echo "Speakers muted"
             ;;
         headphones)
-            amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 0% >/dev/null
+            wpctl set-mute $HEADPHONE_DEVICE 1 >/dev/null 2>&1
             echo "Headphones muted"
             ;;
         bluetooth)
@@ -374,7 +359,7 @@ unmute_device() {
             echo "Speakers unmuted"
             ;;
         headphones)
-            amixer -c $CARD_NUM sset 'cs42l43 Headphone Digital' 50% >/dev/null
+            wpctl set-mute $HEADPHONE_DEVICE 0 >/dev/null 2>&1
             echo "Headphones unmuted"
             ;;
         bluetooth)
