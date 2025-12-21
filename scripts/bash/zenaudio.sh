@@ -166,6 +166,7 @@ enable_headphones() {
 
     amixer -c $CARD_NUM cset name='cs42l43 Headphone L Input 1' 'DP5RX1' >/dev/null
     amixer -c $CARD_NUM cset name='cs42l43 Headphone R Input 1' 'DP5RX2' >/dev/null
+    amixer -c $CARD_NUM cset name='cs42l43 Headphone Digital Volume' 115,115 >/dev/null 2>&1 || true
     amixer -c $CARD_NUM sset 'Headphone' on >/dev/null 2>&1 || true
 
     wpctl set-default $HEADPHONE_DEVICE >/dev/null 2>&1
