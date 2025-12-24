@@ -41,7 +41,7 @@
       "obsidian_header_font_size": 26
     },
     "2560x1440": {
-      "polybar_font_size": 11,
+      "polybar_font_size": 9,
       "polybar_height": 35,
       "polybar_line_size": 2,
       "alacritty_font_size": 13,
@@ -124,7 +124,7 @@
   "machine_overrides": {
     "zen": {
       "force_resolution": "2880x1800",
-      "dpi": 192,
+      "dpi": 144,
       "gdk_scale": 1.5,
       "gdk_dpi_scale": 0.5,
       "electron_scale_standalone": 1.5,
@@ -140,19 +140,19 @@
       "rofi_font_size": 12,
       "alacritty_font_size_external": 11.5,
       "alacritty_scale_factor_external": "1.0",
-      "polybar_font_size_external": 13,
-      "rofi_font_size_external": 13,
+      "polybar_font_size_external": 10,
+      "rofi_font_size_external": 11,
       "i3_font_size_external": 13,
       "gaps_inner_external": 5,
-      "polybar_height": 35,
+      "polybar_height": 40,
       "polybar_line_size": 3,
       "i3_font_size": 18,
       "i3_border_thickness": 2,
-      "gaps_inner": 10,
+      "gaps_inner": 5,
       "polybar_height_external": 25,
       "polybar_line_size_external": 2,
       "i3_border_thickness_external": 1,
-      "dunst_font_size": 18,
+      "dunst_font_size": 10,
       "dunst_width": 500,
       "dunst_height": 500,
       "dunst_offset_x": 40,
@@ -173,5 +173,5 @@
   "fonts": [
     "tamzen"
   ],
-  "obsidian_font": "CozetteVector"
+  "obsidian_font": "Iosevka"
 }

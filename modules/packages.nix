@@ -55,7 +55,6 @@ fonts.packages = with pkgs; [
    #hack-font
     creep
     cherry
-    envypn-font
     tamsyn
     tamzen
     monocraft
@@ -63,6 +62,11 @@ fonts.packages = with pkgs; [
     termsyn
     spleen
     anakron
+    iosevka
+    takao
+    unscii
+    overpass
+    profont
 ];
 
 # Packages to install on a system-wide level

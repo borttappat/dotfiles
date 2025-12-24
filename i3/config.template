@@ -95,7 +95,7 @@ bindsym $mod+S exec ~/dotfiles/scripts/bash/float_window.sh
 
 # Floating window settings
 for_window [instance="floating"] floating enabled
-for_window [instance="floating"] resize set 800 450
+for_window [instance="floating"] resize set 1200 700 
 
 # Kill focused window
 bindsym $mod+q kill

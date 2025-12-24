@@ -1,0 +1,51 @@
+[global]
+    monitor = 0
+    follow = mouse
+    width = 300
+    height = (0, 300)
+    origin = top-right
+    offset = (24, 50)
+    padding = 8
+    horizontal_padding = 8
+    frame_width = 2
+    separator_height = 2
+    font = CozetteVector 6.5 
+    line_height = 0
+    markup = full
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    show_age_threshold = 60
+    word_wrap = yes
+    ignore_newline = no
+    stack_duplicates = true
+    hide_duplicate_count = false
+    show_indicators = yes
+    icon_position = left
+    max_icon_size = 32
+    sticky_history = yes
+    history_length = 20
+    browser = /usr/bin/firefox
+    always_run_script = true
+    title = Dunst
+    class = Dunst
+    corner_radius = 0
+    force_xinerama = false
+    gap_size = 10
+
+[urgency_low]
+    background = "#0C0F14"
+    foreground = "#e5e8ed"
+    frame_color = "#9FADC0"
+    timeout = 3
+    
+[urgency_normal]
+    background = "#0C0F14"
+    foreground = "#e5e8ed"
+    frame_color = "#BBC3D3"
+    timeout = 5
+    
+[urgency_critical]
+    background = "#929FB0"
+    foreground = "#e5e8ed"
+    frame_color = "#929FB0"
+    timeout = 0

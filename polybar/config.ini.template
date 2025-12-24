@@ -45,7 +45,7 @@ padding-right = 1.75
 module-margin-left = 2
 module-margin-right = 2
 
-font-0 = ${POLYBAR_FONT}:style=Regular:fontformat=truetype:size=${POLYBAR_FONT_SIZE}:antialias=false;0
+font-0 = ${POLYBAR_FONT}:style=Bold:fontformat=truetype:size=${POLYBAR_FONT_SIZE}:antialias=true;0
 font-1 = ${POLYBAR_FONT}:style=Bold:fontformat=truetype:size=${POLYBAR_FONT_SIZE}:antialias=false;0
 
 separator = "%{T1}//%{T1}"
@@ -53,7 +53,7 @@ separator-foreground= ${colors.color2}
 
 modules-left =  xworkspaces
 modules-center =   
-modules-right = hostname essid nwup nwdown ip btc eth battery volume memory cpu date 
+modules-right =  battery essid nwup nwdown ip btc volume memory cpu date 
 ;filesystem uptime pomodoro btc eth sol
 
 cursor-click = pointer
@@ -165,7 +165,7 @@ format-charging-prefix = "CHR "
 format-charging-prefix-foreground = ${colors.color3}
 format-charging-prefix-underline = ${colors.color2}
 format-low = <label-low>
-format-low-underline = ${colors.color4}
+format-low-underline = ${colors.color8}
 format-low-prefix = "PWR LOW "
 format-low-prefix-foreground = ${colors.color3}
 format-low-prefix-underline = ${colors.color4}

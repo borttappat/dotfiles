@@ -77,7 +77,7 @@ mods = "Control"
 
 [window]
 dynamic_padding = true
-opacity = 0.6
+opacity = 0.8
 resize_increments = true
 
 [window.class]
