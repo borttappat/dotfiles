@@ -20,8 +20,8 @@ current_model=$(hostnamectl | grep -i "Hardware Model")
 if echo "$current_host" | grep -q "Razer"; then
     sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#razer
 
-# For Virtual machines
-elif echo "$current_host" | grep -q "QEMU\|VMware"; then
+# For Virtual machines (QEMU, VMware, VirtualBox)
+elif echo "$current_host" | grep -q "QEMU\|VMware\|innotek\|VirtualBox"; then
     sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#VM
 
 # For ASUS Zenbook specifically (check model line for "Zenbook")

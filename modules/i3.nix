@@ -12,7 +12,6 @@ environment.systemPackages = with pkgs; [
 i3-gaps
 i3lock-color
 i3status
-picom
 feh
 rofi
 polybar

@@ -78,8 +78,6 @@ declare -A FILE_MAPPINGS=(
     ["$DOTFILES_DIR/fish/functions/start_recording.fish"]="$HOME/.config/fish/functions"
     ["$DOTFILES_DIR/fish/functions/stop_recording.fish"]="$HOME/.config/fish/functions"
     
-    ["$DOTFILES_DIR/picom/picom.conf"]="$HOME/.config/picom"
-    
     ["$DOTFILES_DIR/bin/pomo"]="$HOME/.local/bin"
     
     ["$DOTFILES_DIR/xorg/.xinitrc"]="$HOME"

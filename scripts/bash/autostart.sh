@@ -10,14 +10,6 @@ ln -sf ~/.cache/wal/dunstrc ~/.config/dunst/dunstrc
 # Notify user that display configuration is starting
 notify-send "Display Setup" "Configuring monitors..." -t 2000
 
-hostname=$(hostnamectl | grep "Icon name:" | cut -d ":" -f2 | xargs)
-
-if [[ ! $hostname =~ [vV][mM] ]]; then
-killall -q picom
-while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
-picom -b
-fi
-
 # Configure external monitors (DP and HDMI)
 # Give displays a moment to stabilize
 sleep 0.5
