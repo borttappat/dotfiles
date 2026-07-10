@@ -1,5 +1,11 @@
 # Dotfiles!
 
+
+## NOTE
+
+This repo is currently somewhat deprecated. I'm using this configuration on and off inside NixOS VMs on non-NixOS machines, as I've migrated over to [Hydrix](https://github.com/borttappat/Hydrix) as my main setup. I've kept some of the files I used in this setup over there, but I've switched to Hyprland as a WM instead of i3. Most other setups(vim, fish, zathura plus a few others) are the same across both setup otherwise. Feel free to check out `Hydrix`, I currently have no plans to update this repo, other making it more VM-friendly that it already is. 
+
+
 ![screenshot](misc/screenshot.png)
 
 This repository contains my personal dotfiles for NixOS. It's a comprehensive setup that I use across multiple machines, with a focus on automation, customization, and a streamlined workflow for development and pentesting.
