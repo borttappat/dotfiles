@@ -5,9 +5,15 @@
 
 { config, pkgs, lib, ... }:
 
-{   
+let
+  # Read whatever release the installer actually generated this system
+  # with, so stateVersion always reflects the real install and never
+  # needs bumping by hand across machines/VMs.
+  hostConfiguration = (import /etc/nixos/configuration.nix) { inherit config pkgs lib; };
+in
+{
 
-services.logind.lidSwitch = "suspend";
+services.logind.settings.Login.HandleLidSwitch = "suspend";
 
 systemd.services.i3lock-on-suspend = {
   description = "Lock screen before suspend";
@@ -40,9 +46,7 @@ nix.settings.download-buffer-size = 524288000;
 # Enable parallel startup of systemd services
 systemd = {
     services.nix-daemon.enable = true;
-    extraConfig = ''
-        DefaultTimeoutStopSec=10s
-    '';
+    settings.Manager.DefaultTimeoutStopSec = "10s";
 };
 
 # Enable earlyoom to prevent system freezes
@@ -210,6 +214,7 @@ nix.gc = {
 # Automatic nix-store optimizing
 nix.settings.auto-optimise-store = true;
 
-# System state version
-system.stateVersion = "22.11"; 
+# System state version - taken from the installer-generated configuration.nix,
+# never bumped by hand (see: https://nixos.org/manual/nixos/stable/#sec-upgrading)
+system.stateVersion = hostConfiguration.system.stateVersion;
 }
