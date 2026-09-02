@@ -35,7 +35,6 @@ echo "No VM display found, proceeding with normal logic"
 fi
 else
 INTERNAL_DISPLAY=$(xrandr | grep "eDP" | cut -d' ' -f1 | head -n1)
-EXTERNAL_CONNECTED=$(xrandr | grep " connected" | grep -v "eDP" | wc -l)
 
 if [ -n "$INTERNAL_DISPLAY" ]; then
 NATIVE_RES=$(xrandr | grep "$INTERNAL_DISPLAY" | grep -oP '\d+x\d+' | head -n1)
@@ -132,15 +131,6 @@ EOF
     esac
 }
 
-generate_modifier_settings() {
-    local is_vm=$1
-    if [[ $is_vm == "true" ]]; then
-        echo ""
-        echo "# VM-specific modifier override"
-        echo "set \$mod Mod1"
-    fi
-}
-
 CONFIG_DIR="$HOME/.config/i3"
 BASE_CONFIG="$CONFIG_DIR/config.base"
 FINAL_CONFIG="$CONFIG_DIR/config"
@@ -150,22 +140,11 @@ echo "Error: Base config file not found at $BASE_CONFIG"
 exit 1
 fi
 
-IS_VM="false"
-if [[ $hostname =~ [vV][mM] ]]; then
-    IS_VM="true"
-fi
-
 {
 cat "$BASE_CONFIG"
-generate_modifier_settings "$IS_VM"
 generate_resolution_settings "$RESOLUTION"
 } > "$FINAL_CONFIG"
 
 echo "Created i3 config at $FINAL_CONFIG for resolution $RESOLUTION"
-if [[ $IS_VM == "true" ]]; then
-    echo "VM detected: Using Mod1 (Alt) as modifier"
-else
-    echo "Regular system: Using Mod4 (Super) as modifier"
-fi
 
 exec i3
