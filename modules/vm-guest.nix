@@ -54,8 +54,8 @@ networking = {
 boot.loader.timeout = lib.mkDefault 1;
 boot.kernelParams = [
     "quiet"
-    "console=tty1"
     "console=ttyS0,115200n8"
+    "console=tty1"
 ];
 
 services.openssh = {
