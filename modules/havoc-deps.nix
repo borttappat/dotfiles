@@ -6,7 +6,7 @@
     gnumake cmake pkg-config gcc git
     
     # Qt5 dependencies 
-    qt5.qtbase qt5.qttools qt5.qtwebsockets qt5.qtdeclarative libsForQt5.full
+    qt5.qtbase qt5.qttools qt5.qtwebsockets qt5.qtdeclarative
     
     # Languages
     python3 go

@@ -35,7 +35,7 @@ services.mullvad-vpn.enable = true;
 services.resolved.enable = true;
 
 # Behaviour settings for closing lid on external power
-services.logind.lidSwitchExternalPower = "ignore";
+services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
 
 # Rsync
 services.rsyncd.enable = true;

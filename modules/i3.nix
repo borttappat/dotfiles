@@ -6,10 +6,10 @@ with lib;
 
 services.xserver.displayManager.startx.enable = true;
 services.xserver.windowManager.i3.enable = true;
-services.xserver.windowManager.i3.package = pkgs.i3-gaps;
+services.xserver.windowManager.i3.package = pkgs.i3;
 
 environment.systemPackages = with pkgs; [
-i3-gaps
+i3
 i3lock-color
 i3status
 feh

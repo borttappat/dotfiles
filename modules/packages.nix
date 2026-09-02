@@ -86,7 +86,7 @@ environment.systemPackages = with pkgs; [
     jython
 
 # Programs
-     (pkgs.burpsuite.override { proEdition = true; })
+     (pkgs.burpsuite.override { iconName = "pro"; })
     krita
     #librewolf
     firefox
@@ -114,7 +114,7 @@ environment.systemPackages = with pkgs; [
     asciinema
     cava
     #mop
-    du-dust         #better version of du
+    dust            #better version of du
     tmux 
     #zellij
     #ripgrep
