@@ -1,5 +1,11 @@
 #!/run/current-system/sw/bin/bash
 
+# nixos-rebuild action to run - defaults to switch for normal day-to-day
+# rebuilds. nixsetup.sh overrides this to "boot" for first-time guest
+# setup, so the new generation is staged for the next boot instead of
+# switching the live session out from under a fresh install.
+readonly NIXBUILD_ACTION="${NIXBUILD_ACTION:-switch}"
+
 # Get architecture
 ARCH=$(uname -m)
 # Get hardware vendor information
@@ -8,7 +14,7 @@ VENDOR=$(hostnamectl | grep -i "Hardware Vendor" | awk -F': ' '{print $2}' | xar
 # Check for ARM architecture (including Apple hardware)
 if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ] || [[ "$VENDOR" == *"Apple"* && ("$ARCH" == *"arm"* || "$ARCH" == *"aarch"*) ]]; then
     echo "Detected ARM architecture, building ARM configuration"
-    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#armVM
+    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#armVM
     exit $?
 fi
 
@@ -18,11 +24,11 @@ current_model=$(hostnamectl | grep -i "Hardware Model")
 
 # For Razer-hosts
 if echo "$current_host" | grep -q "Razer"; then
-    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#razer
+    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#razer
 
 # For Virtual machines (QEMU, VMware, VirtualBox)
 elif echo "$current_host" | grep -q "QEMU\|VMware\|innotek\|VirtualBox"; then
-    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#VM
+    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#VM
 
 # For ASUS Zenbook specifically (check model line for "Zenbook")
 elif echo "$current_model" | grep -qi "zenbook"; then
@@ -134,19 +140,19 @@ elif echo "$current_model" | grep -qi "zephyrus"; then
 
 # For other Asus-hosts
 elif echo "$current_host" | grep -q "ASUS"; then
-    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#asus
+    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#asus
 
 # For Schenker machines
 elif echo "$current_host" | grep -q "Schenker"; then
-    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#xmg
+    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#xmg
 
 # Check again for Apple vendor as fallback ARM detection
 elif [[ "$VENDOR" == *"Apple"* ]]; then
     echo "Detected Apple hardware, assuming ARM architecture"
-    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#armVM
+    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#armVM
 
 # Fallback for other or new hardware, simpler configuration
 else
     echo "Unknown host: $current_host, building default version. Modify flake.nix to adjust according to preferences"
-    sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#default
+    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#default
 fi

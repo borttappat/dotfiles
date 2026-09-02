@@ -136,10 +136,15 @@ build_system() {
     export USER="${USER:-$CURRENT_USER}"
     export SUDO_USER="${SUDO_USER:-$USER}"
 
+    # Stage the new generation as the boot default instead of switching the
+    # live session - this is a first-time setup, not a running desktop we
+    # want to switch out from under itself. Reboot to actually activate it.
+    export NIXBUILD_ACTION="boot"
+
     chmod +x "$DOTFILES_DIR/scripts/bash/nixbuild.sh"
     "$DOTFILES_DIR/scripts/bash/nixbuild.sh" || error "System build failed"
 
-    log "System built successfully"
+    log "System built successfully, staged for next boot"
 }
 
 main() {
@@ -158,7 +163,7 @@ main() {
 
     log ""
     log "Setup complete!"
-    log "  Run 'x' to start the X session (or reboot)"
+    log "  New generation staged for next boot (not switched live) - reboot to activate it"
     log "  Log saved to: $LOG_FILE"
 }
 
