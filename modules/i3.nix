@@ -22,8 +22,8 @@ libnotify
 arandr
 lxappearance
 pavucontrol
-xorg.xrandr
-xorg.xmodmap
+xrandr
+xmodmap
 xclip
 ];
 

@@ -13,10 +13,31 @@ let
   # conflict, without needing lib.mkForce sprinkled around by hand.
   hostConfigRaw = import /etc/nixos/configuration.nix args;
 
+  # Desktop/display-manager choice is this repo's call, never the
+  # installer's. A graphical install ISO's configuration.nix commonly
+  # enables its own desktopManager/displayManager (e.g. XFCE + a display
+  # manager) - those are a *different* option path than this repo's own
+  # windowManager.i3/displayManager.startx, so they wouldn't conflict and
+  # would silently coexist, letting a display manager start XFCE instead
+  # of leaving startx/i3 in control. Stripped out before wrapping, under
+  # both the old (xserver.displayManager/desktopManager) and current
+  # (top-level displayManager/desktopManager) option locations.
+  sanitizedHostConfig = hostConfigRaw // {
+    services = (builtins.removeAttrs (hostConfigRaw.services or { }) [
+      "displayManager"
+      "desktopManager"
+    ]) // {
+      xserver = builtins.removeAttrs (hostConfigRaw.services.xserver or { }) [
+        "displayManager"
+        "desktopManager"
+      ];
+    };
+  };
+
   lowerPriority = lib.mapAttrsRecursiveCond
     (v: lib.isAttrs v && !(v ? _type) && !(lib.isDerivation v))
     (_path: lib.mkDefault)
-    (builtins.removeAttrs hostConfigRaw [ "imports" ]);
+    (builtins.removeAttrs sanitizedHostConfig [ "imports" ]);
 in
 {
   imports = [

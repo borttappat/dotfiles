@@ -231,13 +231,13 @@ environment.systemPackages = with pkgs; [
 
     
 # X11
-    xorg.xinit
-    xorg.xrdb
-    xorg.xorgserver
-    xorg.xmodmap
-    xorg.xmessage
-    xorg.xcursorthemes
-    xorg.xdpyinfo
+    xinit
+    xrdb
+    xorg-server
+    xmodmap
+    xmessage
+    xcursor-themes
+    xdpyinfo
     
 
 
