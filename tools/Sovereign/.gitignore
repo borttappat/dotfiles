@@ -1,9 +1,0 @@
-*.txt
-.venv
-__pycache__
-requirements.py
-*.key
-scanner.py
-vulnscan.py
-subdomains
-subenum_improved.py

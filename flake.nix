@@ -264,7 +264,6 @@ in {
 
             # Additional feature modules
             ./modules/pentesting.nix
-            ./modules/havoc-deps.nix
             ./modules/proxychains.nix
             ./modules/firefox.nix
         ];
