@@ -42,6 +42,23 @@ check_prerequisites() {
         error "/etc/nixos/hardware-configuration.nix not found. Run nixos-generate-config first."
     fi
 
+    # modules/vm-hwconf.nix reads boot.loader.grub.device and
+    # boot.initrd.luks.devices straight out of the installer-generated
+    # configuration.nix. Catch a missing file or a missing grub device here,
+    # with a clear message, instead of letting nixos-rebuild fail deep in
+    # the flake eval.
+    if [[ ! -f /etc/nixos/configuration.nix ]]; then
+        error "/etc/nixos/configuration.nix not found. Run nixos-generate-config first."
+    fi
+
+    if ! grep -q 'boot\.loader\.grub\.device' /etc/nixos/configuration.nix; then
+        error "boot.loader.grub.device is not set in /etc/nixos/configuration.nix. This VM setup boots BIOS/legacy GRUB — add e.g. 'boot.loader.grub.device = \"/dev/sda\";' there first."
+    fi
+
+    if grep -q 'boot\.initrd\.luks\.devices' /etc/nixos/configuration.nix; then
+        log "LUKS device found in configuration.nix — will be forwarded automatically"
+    fi
+
     log "Prerequisites satisfied"
 }
 

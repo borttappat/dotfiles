@@ -10,4 +10,8 @@ in
     device = hostConfiguration.boot.loader.grub.device;
     useOSProber = false;
   };
+
+  # Pulled straight from the installer-generated configuration.nix so a new
+  # encrypted VM never needs its luks.devices stanza copied in by hand.
+  boot.initrd.luks.devices = hostConfiguration.boot.initrd.luks.devices or { };
 }
