@@ -5,6 +5,12 @@ services.qemuGuest.enable = true;
 
 services.spice-vdagentd.enable = true;
 
+# Needed for alacritty (and anything else requiring a GL context) to find
+# a usable OpenGL configuration - without this, no Mesa/DRI/libGL stack
+# gets installed at all and GL clients fail outright, even falling back
+# to software rendering (llvmpipe) needs the package set this pulls in.
+hardware.graphics.enable = lib.mkDefault true;
+
 services.xserver = {
     videoDrivers = [ "qxl" "vmware" "modesetting" ];
     displayManager.sessionCommands = ''
