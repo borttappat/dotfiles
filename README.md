@@ -81,7 +81,7 @@ Without using the splix-setup, this is just a collection of modules and scripts 
 ```
 
 - **`flake.nix`:** The heart of the configuration, defining the system's dependencies and modules.
-- **`modules/`:** Contains the modularized NixOS configuration. Each file in this directory corresponds to a specific part of the system (e.g., `users.nix`, `services.nix`, `gaming.nix`).
+- **`modules/`:** Contains the modularized NixOS configuration. Each file in this directory corresponds to a specific part of the system (e.g., `users.nix`, `services.nix`, `guest.nix`).
 - **`scripts/`:** A collection of useful scripts for managing the system.
 - **`configs/`:** Contains configuration files for various applications that are not managed directly by Nix.
 - **`tools/`:** A collection of custom tools and utilities.

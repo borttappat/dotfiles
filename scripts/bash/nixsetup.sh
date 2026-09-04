@@ -42,7 +42,7 @@ check_prerequisites() {
         error "/etc/nixos/hardware-configuration.nix not found. Run nixos-generate-config first."
     fi
 
-    # modules/vm-hwconf.nix reads boot.loader.grub.device and
+    # modules/hwconf.nix reads boot.loader.grub.device and
     # boot.initrd.luks.devices straight out of the installer-generated
     # configuration.nix. Catch a missing file or a missing grub device here,
     # with a clear message, instead of letting nixos-rebuild fail deep in

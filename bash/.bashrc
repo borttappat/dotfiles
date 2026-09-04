@@ -62,7 +62,10 @@ alias xrandrrestore='xrandr --output eDP-1 --mode 1920x1200 --output HDMI-1 --of
 
 # Configuration editing
 alias alacrittyconf='vim ~/dotfiles/alacritty/alacritty.toml'
-alias asusconf='vim ~/dotfiles/modules/asus.nix'
+alias guestconf='vim ~/dotfiles/modules/guest.nix'
+alias hostconf='vim ~/dotfiles/modules/host.nix'
+alias hwconf='vim ~/dotfiles/modules/hwconf.nix'
+alias guestagentsconf='vim ~/dotfiles/modules/guest-agents.nix'
 alias hosts='v ~/dotfiles/modules/hosts.nix'
 alias nixhosts='v ~/dotfiles/modules/hosts.nix'
 alias i3conf='v ~/dotfiles/i3/config'

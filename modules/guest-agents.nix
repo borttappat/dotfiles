@@ -1,9 +1,19 @@
 { config, lib, pkgs, ... }:
 {
+
+# Shared guest-agent stack: safe to import on bare metal or under any
+# hypervisor. VMware's own module already self-gates correctly (its systemd
+# units carry ConditionVirtualization=vmware upstream). qemu-guest-agent and
+# spice-vdagentd carry no such gating upstream, so it's added explicitly
+# below - without it they'd start (and fail to find their virtio-serial
+# channel) even on bare metal or under VMware.
 virtualisation.vmware.guest.enable = true;
+
 services.qemuGuest.enable = true;
+systemd.services.qemu-guest-agent.unitConfig.ConditionVirtualization = [ "qemu" "kvm" ];
 
 services.spice-vdagentd.enable = true;
+systemd.services.spice-vdagentd.unitConfig.ConditionVirtualization = [ "qemu" "kvm" ];
 
 # Needed for alacritty (and anything else requiring a GL context) to find
 # a usable OpenGL configuration - without this, no Mesa/DRI/libGL stack
@@ -22,53 +32,20 @@ services.xserver = {
     '';
 };
 
-
+# Union of QEMU/KVM (virtio) and VMware's default virtual hardware
+# (PVSCSI/LSI Logic SAS controller, VMXNET3 NIC), so the same image boots
+# under either hypervisor without per-machine editing. Listing a module
+# that isn't present for the actual hardware is a no-op.
 boot.initrd.availableKernelModules = [
     "virtio_balloon" "virtio_blk" "virtio_pci" "virtio_ring"
     "virtio_net" "virtio_scsi" "virtio_console"
+    "vmw_pvscsi" "mptspi" "mptbase" "vmxnet3"
 ];
-
-powerManagement = {
-    enable = false;
-    cpuFreqGovernor = lib.mkDefault "performance";
-};
-
-services = {
-    thermald.enable = false;
-    earlyoom.enable = lib.mkDefault false;
-    tlp.enable = false;
-};
-
-zramSwap = {
-    enable = true;
-    memoryPercent = 50;
-    algorithm = "zstd";
-};
 
 environment.systemPackages = with pkgs; [
     open-vm-tools
-    #qemu-guest-agent
     spice-vdagent
     spice-gtk
 ];
-
-networking = {
-    firewall.allowPing = true;
-    useDHCP = lib.mkDefault true;
-};
-
-boot.loader.timeout = lib.mkDefault 1;
-boot.kernelParams = [
-    "quiet"
-    "console=ttyS0,115200n8"
-    "console=tty1"
-];
-
-services.openssh = {
-  enable = true;
-  settings = {
-    X11Forwarding = true;
-  };
-};
 
 }
