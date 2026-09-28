@@ -16,6 +16,12 @@ inputs = {
 
 outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
 let
+    # Single source of truth for the primary user. Referenced by every module
+    # via specialArgs (inherit username) instead of a hardcoded "traum", so a
+    # fresh install only needs this one line changed (nixsetup.sh's sed pass
+    # still rewrites it, along with the dotfiles/scripts, at install time).
+    username = "traum";
+
     # Overlay to make unstable packages available
     overlay-unstable = final: prev: {
         unstable = import nixpkgs-unstable {
@@ -44,6 +50,7 @@ in {
     # no local DB/file-sync/remote-shell daemons - see modules/guest.nix).
     guest = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { inherit username; };
         modules = [
             { nixpkgs.config.allowUnfree = true; }
             { nixpkgs.overlays = [ overlay-unstable ]; }
@@ -76,6 +83,7 @@ in {
     # too, with no manual toggling either way.
     host = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { inherit username; };
         modules = [
             { nixpkgs.config.allowUnfree = true; }
             { nixpkgs.overlays = [ overlay-unstable ]; }

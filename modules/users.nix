@@ -4,12 +4,12 @@
 # / /_/ (__  )  __/ /  (__  ) / / / / />  <
 # \__,_/____/\___/_/  /____(_)_/ /_/_/_/|_|
 
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 {
 
-# Defining user 'traum'
-users.users.traum = {
+# Defining the primary user (name comes from flake.nix `username`).
+users.users.${username} = {
     isNormalUser = true;
     description = "A";
     extraGroups = [ "docker" "audio" "networkmanager" "wheel" "wireshark" "adbusers" ];
@@ -17,13 +17,12 @@ users.users.traum = {
     useDefaultShell = true;
 };
 
-services.getty.autologinUser = "traum";
+services.getty.autologinUser = username;
 
 
-# Removing need for user "traum" to type password after sudo
-# Add your username here in place of "traum"
+# Removing need for the primary user to type password after sudo
 security.sudo.extraRules= [
-    {users = [ "traum" ];
+    {users = [ username ];
         commands = [
             { command = "ALL" ;
                 options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea

@@ -2,7 +2,7 @@
 #.--.--|__.----|  |_   .-----|__.--.--.
 #|  |  |  |   _|   _|__|     |  |_   _|
 # \___/|__|__| |____|__|__|__|__|__.__|
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, username, ... }:
 {
 options = {
     virtualisation = {
@@ -13,7 +13,7 @@ options = {
         };
         mainUser = lib.mkOption {
             type = lib.types.str;
-            default = "traum";
+            default = username;
             description = "Main user for virtualization permissions";
         };
         enableLookingGlass = lib.mkOption {

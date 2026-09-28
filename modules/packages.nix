@@ -120,8 +120,8 @@ environment.systemPackages = with pkgs; [
     #ripgrep
     ugrep
     #wiki-tui
-    fzf 
-    unstable.alacritty
+    fzf
+    alacritty
     #ghostty
     warp-terminal
     #thefuck         #Magnificent app which corrects your previous console command

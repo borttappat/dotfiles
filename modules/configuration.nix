@@ -3,7 +3,7 @@
 #|       |  ||_   _||   -   |__     |
 #|__|____|__||__.__||_______|_______|
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, username, ... }:
 
 let
   # Read whatever release the installer actually generated this system
@@ -20,15 +20,15 @@ systemd.services.i3lock-on-suspend = {
   before = [ "sleep.target" ];
   wantedBy = [ "sleep.target" ];
   serviceConfig = {
-    User = "traum";
+    User = username;
     Type = "forking";
     Environment = [
       "DISPLAY=:0"
-      "XAUTHORITY=/home/traum/.Xauthority"
-      "HOME=/home/traum"
+      "XAUTHORITY=/home/${username}/.Xauthority"
+      "HOME=/home/${username}"
       "PATH=/run/current-system/sw/bin"
     ];
-    ExecStart = "/home/traum/dotfiles/scripts/bash/lock.sh";
+    ExecStart = "/home/${username}/dotfiles/scripts/bash/lock.sh";
   };
 };
 
