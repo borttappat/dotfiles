@@ -6,153 +6,32 @@
 # switching the live session out from under a fresh install.
 readonly NIXBUILD_ACTION="${NIXBUILD_ACTION:-switch}"
 
-# Get architecture
+# The flake only has two outputs: guest (lean VM guest) and host (bare
+# metal, hosts VMs/containers). Pass "guest" or "host" as $1 to force one,
+# otherwise it is picked from whether we're running under a hypervisor.
+TARGET="${1:-auto}"
+
+if [ "$TARGET" = "auto" ]; then
+    if systemd-detect-virt --vm --quiet; then
+        TARGET="guest"
+    else
+        TARGET="host"
+    fi
+fi
+
+case "$TARGET" in
+    guest|host) ;;
+    *)
+        echo "Unknown target: $TARGET (expected guest or host)" >&2
+        exit 1
+        ;;
+esac
+
 ARCH=$(uname -m)
-# Get hardware vendor information
-VENDOR=$(hostnamectl | grep -i "Hardware Vendor" | awk -F': ' '{print $2}' | xargs)
-
-# Check for ARM architecture (including Apple hardware)
-if [ "$ARCH" = "aarch64" ] || [ "$ARCH" = "arm64" ] || [[ "$VENDOR" == *"Apple"* && ("$ARCH" == *"arm"* || "$ARCH" == *"aarch"*) ]]; then
-    echo "Detected ARM architecture, building ARM configuration"
-    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#armVM
-    exit $?
+if [ "$ARCH" != "x86_64" ]; then
+    echo "Unsupported architecture: $ARCH (only x86_64 outputs exist in flake.nix)" >&2
+    exit 1
 fi
 
-# Get hardware information for x86 systems
-current_host=$(hostnamectl | grep -i "Hardware Vendor")
-current_model=$(hostnamectl | grep -i "Hardware Model")
-
-# For Razer-hosts
-if echo "$current_host" | grep -q "Razer"; then
-    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#razer
-
-# For Virtual machines (QEMU, VMware, VirtualBox)
-elif echo "$current_host" | grep -q "QEMU\|VMware\|innotek\|VirtualBox"; then
-    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#VM
-
-# For ASUS Zenbook specifically (check model line for "Zenbook")
-elif echo "$current_model" | grep -qi "zenbook"; then
-    # Detect current specialisation by checking system state
-    if lsmod | grep -q vfio_pci && [[ -d /sys/class/net/virbr1 ]]; then
-        CURRENT_LABEL="router-setup"
-    else
-        CURRENT_LABEL="base-setup"
-    fi
-    echo "Current system: $CURRENT_LABEL (detected from system state)"
-
-    case "${1:-auto}" in
-        "router-boot")
-            echo "Building zenbook with router specialisation, staging for boot..."
-            sudo nixos-rebuild boot --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
-            echo "✅ Built. Reboot to activate router mode (automatic detection enabled)"
-            ;;
-        "router-switch")
-            echo "Building zenbook and switching to router specialisation..."
-            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
-            echo "Activating router specialisation..."
-            sudo /run/current-system/specialisation/router/bin/switch-to-configuration switch
-            echo "Running mode maintenance..."
-            sudo systemctl start splix-post-rebuild-maintenance
-            echo "✅ Router mode activated"
-            ;;
-        "base-switch")
-            echo "Building zenbook and staying in base mode..."
-            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
-            echo "✅ Base mode active (router specialisation available)"
-            ;;
-        *)
-            echo "Building zenbook and maintaining current mode ($CURRENT_LABEL)..."
-            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zenbook
-
-            # Use new automatic mode maintenance instead of deprecated commands
-            if [[ "$CURRENT_LABEL" == "router-setup" ]]; then
-                echo "Maintaining router mode configuration..."
-                # Activate router specialisation if we were in router mode
-                sudo /run/current-system/specialisation/router/bin/switch-to-configuration switch
-            fi
-
-            # Run automatic mode maintenance
-            echo "Running automatic mode maintenance..."
-            sudo systemctl start splix-post-rebuild-maintenance
-            echo "✅ Mode maintenance complete. Current mode: $CURRENT_LABEL"
-            ;;
-    esac
-
-# For ASUS Zephyrus specifically (check model line for "Zephyrus")
-elif echo "$current_model" | grep -qi "zephyrus"; then
-    # Detect current specialisation by checking system state
-    if lsmod | grep -q vfio_pci && [[ -d /sys/class/net/virbr1 ]]; then
-        CURRENT_LABEL="router-setup"
-    else
-        CURRENT_LABEL="base-setup"
-    fi
-    echo "Current system: $CURRENT_LABEL (detected from system state)"
-
-    case "${1:-auto}" in
-        "router-boot")
-            echo "Building zephyrus with router specialisation, staging for boot..."
-            sudo nixos-rebuild boot --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
-            echo "✅ Built. Reboot to activate router mode (automatic detection enabled)"
-            ;;
-        "router-switch")
-            echo "Building zephyrus and switching to router specialisation..."
-            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
-            echo "Activating router specialisation..."
-            sudo /run/current-system/specialisation/router/bin/switch-to-configuration switch
-            echo "Running mode maintenance..."
-            sudo systemctl start splix-post-rebuild-maintenance
-            echo "✅ Router mode activated"
-            ;;
-        "base-switch")
-            echo "Building zephyrus and staying in base mode..."
-            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
-            echo "✅ Base mode active (router specialisation available)"
-            ;;
-        *)
-            echo "Building zephyrus and maintaining current mode ($CURRENT_LABEL)..."
-            sudo nixos-rebuild switch --impure --show-trace --option warn-dirty false --flake ~/dotfiles#zephyrus
-
-            # Use new automatic mode maintenance instead of deprecated commands
-            if [[ "$CURRENT_LABEL" == "router-setup" ]]; then
-                echo "Maintaining router mode configuration..."
-                # Activate router specialisation if we were in router mode
-                sudo /run/current-system/specialisation/router/bin/switch-to-configuration switch
-            fi
-
-            # Run automatic mode maintenance
-            echo "Running automatic mode maintenance..."
-            sudo systemctl start splix-post-rebuild-maintenance
-            echo "✅ Mode maintenance complete. Current mode: $CURRENT_LABEL"
-            ;;
-    esac
-
-# === ADD NEW ROUTER MACHINES HERE ===
-#
-# To add router support for a new machine:
-# 1. Run: ./scripts/generate-all-configs.sh
-# 2. Copy the generated block from: generated/nixbuild-entries/{machine}-PASTE-INTO-NIXBUILD.txt
-# 3. Paste it above this comment
-#
-# Example format:
-# elif echo "$current_model" | grep -qi "your-machine"; then
-#     # Router specialization logic here
-#
-
-# For other Asus-hosts
-elif echo "$current_host" | grep -q "ASUS"; then
-    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#asus
-
-# For Schenker machines
-elif echo "$current_host" | grep -q "Schenker"; then
-    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#xmg
-
-# Check again for Apple vendor as fallback ARM detection
-elif [[ "$VENDOR" == *"Apple"* ]]; then
-    echo "Detected Apple hardware, assuming ARM architecture"
-    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#armVM
-
-# Fallback for other or new hardware, simpler configuration
-else
-    echo "Unknown host: $current_host, building default version. Modify flake.nix to adjust according to preferences"
-    sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#default
-fi
+echo "Building $TARGET configuration ($NIXBUILD_ACTION)..."
+sudo nixos-rebuild "$NIXBUILD_ACTION" --impure --show-trace --option warn-dirty false --flake ~/dotfiles#"$TARGET"
