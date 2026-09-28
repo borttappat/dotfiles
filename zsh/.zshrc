@@ -117,8 +117,18 @@ export GPG_TTY=$(tty)
 alias zenaudio='sh ~/dotfiles/scripts/bash/zenaudio.sh'
 alias za='zenaudio'
 
-alias bloodhound='nix develop ~/dotfiles/modules/bloodhound.nix'
+alias bloodhound='nix develop ~/dotfiles#bloodhound'
 alias bh='bloodhound'
+
+# On-demand pentest toolsets (modules/shells)
+alias AppSec='nix develop ~/dotfiles#appsec'
+alias NetSec='nix develop ~/dotfiles#netsec'
+alias appsec='nix develop ~/dotfiles#appsec'
+alias netsec='nix develop ~/dotfiles#netsec'
+alias wifisec='nix develop ~/dotfiles#wifi'
+alias forensics='nix develop ~/dotfiles#forensics'
+alias osint='nix develop ~/dotfiles#osint'
+alias cracking='nix develop ~/dotfiles#cracking'
 
 alias burp='burpsuite --disable-auto-update'
 

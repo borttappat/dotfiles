@@ -217,6 +217,16 @@ abbr -a pyserver 'sudo python -m http.server 8002'
 # === DEV ENVIRONMENTS ===
 abbr -a bloodhound 'nix develop ~/dotfiles#bloodhound'
 
+# On-demand pentest toolsets (modules/shells)
+abbr -a AppSec 'nix develop ~/dotfiles#appsec'
+abbr -a NetSec 'nix develop ~/dotfiles#netsec'
+abbr -a appsec 'nix develop ~/dotfiles#appsec'
+abbr -a netsec 'nix develop ~/dotfiles#netsec'
+abbr -a wifisec 'nix develop ~/dotfiles#wifi'
+abbr -a forensics 'nix develop ~/dotfiles#forensics'
+abbr -a osint 'nix develop ~/dotfiles#osint'
+abbr -a cracking 'nix develop ~/dotfiles#cracking'
+
 function pyenv
     ~/dotfiles/scripts/bash/pyenvshell.sh $argv
 end

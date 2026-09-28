@@ -24,10 +24,18 @@ let
         };
   };
 
+    # pkgs for the on-demand pentest shells: unfree (burpsuite-pro, maltego)
+    # and the unstable overlay (burpsuite-pro, metasploit) both required.
+    pkgsShells = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+        overlays = [ overlay-unstable ];
+    };
+
 in {
-     devShells.x86_64-linux = (import ./modules/bloodhound.nix {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-    }).devShells;
+     # nix develop ~/dotfiles#appsec | #netsec | #wifi | #forensics | #osint |
+     # #cracking | #bloodhound  (see modules/shells).
+     devShells.x86_64-linux = import ./modules/shells { pkgs = pkgsShells; };
 
     nixosConfigurations = {
 
