@@ -49,24 +49,9 @@ nix.package = pkgs.nixVersions.git;
  
 # Fonts
 fonts.packages = with pkgs; [
-    scientifica
-    gohufont
-    cozette
+    cozette      # alacritty (CozetteVector*) + rofi
    #hack-font
-    creep
-    cherry
-    tamsyn
-    tamzen
-    monocraft
-    miracode
-    termsyn
-    spleen
-    anakron
-    iosevka
-    takao
-    unscii
-    overpass
-    profont
+    tamzen       # polybar
 ];
 
 # Packages to install on a system-wide level
@@ -86,8 +71,6 @@ environment.systemPackages = with pkgs; [
     jython
 
 # Programs
-     (pkgs.burpsuite.override { iconName = "pro"; })
-    krita
     #librewolf
     firefox
     #brave
@@ -110,9 +93,7 @@ environment.systemPackages = with pkgs; [
     fish
     #rsync 
     starship
-    artem           #img-to-ascii
-    asciinema
-    cava
+    asciinema       # terminal recording (start_recording/stop_recording)
     #mop
     dust            #better version of du
     tmux 
@@ -123,7 +104,6 @@ environment.systemPackages = with pkgs; [
     fzf
     alacritty
     #ghostty
-    warp-terminal
     #thefuck         #Magnificent app which corrects your previous console command
     #kitty
     htop
@@ -133,8 +113,6 @@ environment.systemPackages = with pkgs; [
     fastfetch
     #bunnyfetch 
     #nitch
-    cbonsai         # cli-gardening
-    cmatrix         # follow the white rabbit
     ranger
     zoxide          #cd without amnesia, sourced in config.fish
     blesh           #Bash Line Editor
@@ -143,9 +121,6 @@ environment.systemPackages = with pkgs; [
     #ticker          #text-based price tracker
     #tickrs          #visual price tracker
     eza             #better ls
-    ttyper          #typing excercises
-    pipes-rs        #rust-written replacement
-    clock-rs
     #gurk-rs
     #ddgr
     bat
@@ -155,12 +130,8 @@ environment.systemPackages = with pkgs; [
     rofi
     picom
    #picom-pijulius
-    wpgtk
     pywal
-    themix-gui
-    wallust
     pywalfox-native
-    themechanger
     #theme-sh
     imagemagick
     feh
@@ -168,7 +139,6 @@ environment.systemPackages = with pkgs; [
     #conky
     #dunst
     scrot
-    flameshot
     i3lock-color
     i3lock-fancy
     #i3lock-fancy-rapid
@@ -190,7 +160,6 @@ environment.systemPackages = with pkgs; [
     gping           #graphical ping tool
     openvpn         #openvpn-client
     brightnessctl   #brightness-handler
-    obsidian        #note taking tool
     #notesnook       #OS-alternative to obsidian
     #light           #backlight-controller
     #undervolt
@@ -205,20 +174,15 @@ environment.systemPackages = with pkgs; [
     curl
     wget
     lshw
-    toybox
     findutils
-    busybox
-    inetutils
     udisks
     nix-prefetch
     nix-prefetch-github
     
     ansible         #we be devs now
-    
-    signal-cli
+
     whois
     warpd           #click stuff without mouse input
-    ollama          #run llms locally
     unstable.claude-code
     #khoj
     #aichat          #CLI gpt-chatbot 

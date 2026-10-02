@@ -14,6 +14,7 @@ set $mod ${MOD_KEY}
 #############
 exec_always --no-startup-id xrdb -merge ~/.Xresources
 exec_always --no-startup-id ~/dotfiles/scripts/bash/autostart.sh
+exec_always --no-startup-id ~/dotfiles/scripts/bash/monitor-watch.sh
 exec_always --no-startup-id wal -Rnq
 exec_always --no-startup-id ~/.fehbg &
 exec_always --no-startup-id sleep 2 && xmodmap ~/.Xmodmap
@@ -28,8 +29,8 @@ bindsym $mod+F1 exec "amixer set Master 0%"
 bindsym $mod+F2 exec "amixer set Master 5%-"
 bindsym $mod+F3 exec "amixer set Master 5%+"
 
-# flameshot
-bindsym $mod+F12 exec "flameshot gui"
+# screenshot (scrot, replaces flameshot)
+bindsym $mod+F12 exec ~/dotfiles/scripts/bash/screenshot.sh
 
 # Detect external monitors-script
 bindsym $mod+Shift+v exec ~/dotfiles/scripts/bash/detect-monitors.sh && ~/dotfiles/scripts/bash/workspace-setup.sh

@@ -17,7 +17,6 @@ rofi
 polybar
 # alacritty comes from packages.nix; listing it here too put it in
 # systemPackages twice.
-flameshot
 dunst
 libnotify
 arandr

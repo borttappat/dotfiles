@@ -4,13 +4,21 @@ wal -Rn &
 
 find "$HOME" -maxdepth 1 -name ".serverauth.*" -type f -mtime +2 -delete 2>/dev/null
 
+# Virtual-display (VM) handling. Detect the virtual output directly rather than
+# guessing from the machine chassis/hostname (the old check grepped "Icon name:",
+# which is the chassis type, not the hostname, so it never matched and this whole
+# block was skipped). Start spice-vdagent for host-driven resizes and apply the
+# preferred mode with --auto.
+VM_DISPLAY=$(xrandr | grep -E "^(Virtual|qxl)" | grep " connected" | cut -d' ' -f1 | head -n1)
+if [ -n "$VM_DISPLAY" ]; then
+    spice-vdagent -x 2>/dev/null &
+    xrandr --output "$VM_DISPLAY" --auto 2>/dev/null || true
+fi
+
+# Mod key: Alt inside a VM chassis, Super otherwise. Detection left unchanged on
+# purpose so existing keybinding behaviour is preserved.
 hostname=$(hostnamectl | grep "Icon name:" | cut -d ":" -f2 | xargs)
 if [[ $hostname =~ [vV][mM] ]]; then
-    spice-vdagent -x &
-    VM_DISPLAY=$(xrandr | grep -E "(Virtual-1|qxl-0)" | grep " connected" | cut -d' ' -f1 | head -n1)
-    if [ -n "$VM_DISPLAY" ]; then
-        xrandr --output "$VM_DISPLAY" --mode 1920x1200 2>/dev/null || true
-    fi
     export MOD_KEY="Mod1"
 else
     export MOD_KEY="Mod4"

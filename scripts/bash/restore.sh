@@ -24,8 +24,7 @@ declare -A file_mappings=(
     ["$HOME/dotfiles/ticker/.ticker.yaml"]="$HOME"
     ["$HOME/dotfiles/bash/.bashrc"]="$HOME"
     ["$HOME/dotfiles/vim/.vimrc"]="$HOME"
-    ["$HOME/dotfiles/wallust/wallust.toml"]="$HOME/.config/wallust"
-    
+
     # Config files
     ["$HOME/dotfiles/zathura/zathurarc"]="$HOME/.config/zathura"
     ["$HOME/dotfiles/alacritty/alacritty.toml"]="$HOME/.config/alacritty"

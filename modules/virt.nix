@@ -121,7 +121,7 @@ config = {
         #OVMF
         swtpm
         virtiofsd
-        win-virtio
+        virtio-win
         win-spice
 
         # Network tools
