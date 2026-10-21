@@ -73,7 +73,7 @@
     
     font-0 = cozetteVector:style=Regular:fontformat=truetype:size=10:antialias=false;0
     
-    modules-center = lb essid sep nwup sep nwdown sep ip sep pomodoro sep btc rb
+    modules-center = lb essid sep nwup sep nwdown sep ip sep pomodoro rb
     
     cursor-click = pointer
     cursor-scroll = ns-resize
@@ -133,7 +133,7 @@
 
     modules-left = xworkspaces 
     modules-center = 
-    modules-right =  pomodoro ip btc memory cpu filesystem  date 
+    modules-right = pomodoro ip memory cpu filesystem date 
 
     cursor-click = pointer
     cursor-scroll = ns-resize
@@ -172,7 +172,7 @@
     separator = "//"
     separator-foreground= ${colors.color2}
 
-    modules-left = mullvad  nwup nwdown ip pomodoro btc 
+    modules-left = mullvad nwup nwdown ip pomodoro  
     modules-center = xworkspaces  
     modules-right = battery volume memory cpu uptime date 
 
@@ -214,7 +214,7 @@
     separator = "//"
     separator-foreground= ${colors.color4}
 
-    modules-left = essid nwup nwdown ip mullvad pomodoro btc 
+    modules-left = essid nwup nwdown ip mullvad pomodoro  
     modules-center = xworkspaces 
     modules-right = battery volume memory cpu filesystem uptime date 
 
@@ -238,15 +238,6 @@
     content = " | "
     content-foreground = ${colors.disabled}
     content-padding = 0
-
-[module/btc]
-    type = custom/script
-    exec = ~/dotfiles/scripts/bash/btc_price.sh
-    interval = 50 
-    label-underline = ${colors.color2}
-    format-prefix = "BTC "
-    format-prefix-foreground = ${colors.color3}
-    format-prefix-underline = ${colors.color2}
 
 [module/spacing]
     type = custom/text

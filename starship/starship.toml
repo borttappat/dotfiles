@@ -12,12 +12,20 @@ $git_metrics\
 $git_status\
 $jobs\
 $cmd_duration\
+${env_var.HYDRIX_REC}\
 $time\
 $line_break\
 $character"""
 
 # Inserts a blank line between shell prompts
 add_newline = true
+
+# Recording indicator: shown only in shells the session recorder started
+# (see fish/config.fish).
+[env_var.HYDRIX_REC]
+variable = "HYDRIX_REC_FILE"
+format = '[\[REC\]]($style) '
+style = "bold red"
 
 [jobs]
 symbol = ""

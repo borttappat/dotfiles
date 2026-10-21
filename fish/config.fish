@@ -5,24 +5,67 @@
 #
 # === INTERACTIVE BLOCK ===
 if status is-interactive
+    # Session recording: the first interactive shell in a terminal execs into
+    # asciinema, which runs the real fish session (that inner shell sees
+    # HYDRIX_REC and does not re-record). On exit the cast is rendered to a
+    # plain-text twin (.txt) with `asciinema convert`, which emulates a terminal,
+    # so prompt and command-line redraws come out as a readable transcript.
+    if test -t 1; and test "$TERM" != linux; and test "$TERM" != dumb; and not set -q HYDRIX_REC
+        set -gx HYDRIX_REC 1
+        set -l _dir ~/terminal_logs
+        mkdir -p $_dir
+        set -l _id (date +%Y%m%d-%H%M%S)-(openssl rand -hex 3)
+        set -gx HYDRIX_REC_FILE "$_dir/$_id.cast"
+        set -gx HYDRIX_REC_STOP "/tmp/.hydrix-rec-stop-$_id"
+        asciinema rec --quiet -c fish "$HYDRIX_REC_FILE"
+        asciinema convert --overwrite -f txt "$HYDRIX_REC_FILE" "$_dir/$_id.txt" 2>/dev/null
+        # stop-recording left a sentinel: continue in a plain, unrecorded shell
+        # rather than closing the terminal.
+        if test -e "$HYDRIX_REC_STOP"
+            rm -f "$HYDRIX_REC_STOP"
+            set -e HYDRIX_REC_FILE
+            set -e HYDRIX_REC_STOP
+            exec fish
+        end
+        exit
+    end
+
     cat /home/traum/.cache/wal/sequences
     fish_vi_key_bindings
-    
-    # Auto-start recording if flag exists
-    if test -f ~/.recording_active
-        and not set -q RECORDING_ACTIVE
-        
-        set -l log_dir (cat ~/.recording_active)
-        set -l timestamp (date +%Y%m%d_%H%M%S)
-        set -gx RECORDING_FILE "$log_dir/session_$timestamp.cast"
-        set -gx RECORDING_ACTIVE 1
-        
-        echo "[!] Recording to: $RECORDING_FILE"
-        
-        asciinema rec "$RECORDING_FILE"
-        
-        set -e RECORDING_ACTIVE
-        set -e RECORDING_FILE
+
+    # Toggle the recorder without closing the terminal: stop ends the current
+    # recording and drops to a plain shell; start begins a fresh recording.
+    function stop-recording --description "Stop recording this terminal"
+        if not set -q HYDRIX_REC_FILE
+            echo "Not recording."
+            return 1
+        end
+        command touch "$HYDRIX_REC_STOP"
+        exit
+    end
+    function start-recording --description "Start recording this terminal"
+        if set -q HYDRIX_REC_FILE
+            echo "Already recording: $HYDRIX_REC_FILE"
+            return 1
+        end
+        set -e HYDRIX_REC
+        exec fish
+    end
+
+    # `cat`-ing the live recording would feed its own output back into the
+    # growing file and loop; show a clean text render instead. Every other
+    # `cat` passes straight through unchanged.
+    if set -q HYDRIX_REC_FILE
+        function cat
+            if test (count $argv) -eq 1
+                set -l _rp (command realpath -- $argv[1] 2>/dev/null)
+                if test "$_rp" = "$HYDRIX_REC_FILE"
+                    command rec-text "$HYDRIX_REC_FILE"
+                    return
+                end
+            end
+            command cat $argv
+        end
     end
 end
 

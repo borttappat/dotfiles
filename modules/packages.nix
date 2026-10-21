@@ -93,7 +93,24 @@ environment.systemPackages = with pkgs; [
     fish
     #rsync 
     starship
-    asciinema       # terminal recording (start_recording/stop_recording)
+    asciinema       # terminal recording (fish/config.fish, start-recording/stop-recording)
+
+    # Render a recording (.cast) to clean plain text on stdout, defaulting to the
+    # current session. The input is snapshotted first so a still-growing live
+    # recording can't change under the converter, and asciinema convert only
+    # writes txt to a real file, so it goes via a temp file.
+    (writeShellScriptBin "rec-text" ''
+      set -eu
+      f="''${1:-''${HYDRIX_REC_FILE:-}}"
+      [ -n "$f" ] || { echo "Usage: rec-text [file.cast]  (defaults to the current session)" >&2; exit 1; }
+      [ -f "$f" ] || { echo "rec-text: no such file: $f" >&2; exit 1; }
+      in=$(${coreutils}/bin/mktemp)
+      out=$(${coreutils}/bin/mktemp)
+      trap 'rm -f "$in" "$out"' EXIT
+      ${coreutils}/bin/head -c "$(${coreutils}/bin/stat -c %s "$f")" "$f" > "$in"
+      ${asciinema}/bin/asciinema convert --overwrite -f txt "$in" "$out" 2>/dev/null || true
+      ${coreutils}/bin/cat "$out"
+    '')
     #mop
     dust            #better version of du
     tmux 
