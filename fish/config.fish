@@ -17,14 +17,20 @@ if status is-interactive
         set -l _id (date +%Y%m%d-%H%M%S)-(openssl rand -hex 3)
         set -gx HYDRIX_REC_FILE "$_dir/$_id.cast"
         set -gx HYDRIX_REC_STOP "/tmp/.hydrix-rec-stop-$_id"
+        set -gx HYDRIX_REC_MOVED "/tmp/.hydrix-rec-moved-$_id"
         asciinema rec --quiet -c fish "$HYDRIX_REC_FILE"
-        asciinema convert --overwrite -f txt "$HYDRIX_REC_FILE" "$_dir/$_id.txt" 2>/dev/null
+        # `rec -r` renamed the session: render the twin next to the new name.
+        set -l _cast "$HYDRIX_REC_FILE"
+        test -s "$HYDRIX_REC_MOVED"; and read _cast <"$HYDRIX_REC_MOVED"
+        rm -f "$HYDRIX_REC_MOVED"
+        asciinema convert --overwrite -f txt "$_cast" (path change-extension txt -- "$_cast") 2>/dev/null
         # stop-recording left a sentinel: continue in a plain, unrecorded shell
         # rather than closing the terminal.
         if test -e "$HYDRIX_REC_STOP"
             rm -f "$HYDRIX_REC_STOP"
             set -e HYDRIX_REC_FILE
             set -e HYDRIX_REC_STOP
+            set -e HYDRIX_REC_MOVED
             exec fish
         end
         exit
@@ -50,6 +56,126 @@ if status is-interactive
         end
         set -e HYDRIX_REC
         exec fish
+    end
+
+    # rec: inspect, name and print this terminal's recordings. A rename moves the
+    # live .cast (asciinema keeps writing through its open descriptor) and leaves
+    # the new path in $HYDRIX_REC_MOVED, so the outer shell renders the .txt twin
+    # under the new name, and nested shells pick it up on their next `rec`.
+    function __rec_find --argument-names dir arg
+        if test -f "$arg"
+            path resolve -- "$arg"
+            return
+        end
+        set -l base (string replace -r '\.(cast|txt)$' "" -- (path basename -- "$arg"))
+        if test -f "$dir/$base.cast"
+            echo "$dir/$base.cast"
+            return
+        end
+        set -l hits $dir/*$base*.cast
+        switch (count $hits)
+            case 1
+                echo $hits
+            case 0
+                echo "rec: no session matching '$arg'" >&2
+                return 1
+            case '*'
+                echo "rec: '$arg' matches several sessions:" >&2
+                printf '  %s\n' (path change-extension "" (path basename -- $hits)) >&2
+                return 1
+        end
+    end
+
+    # A finished session prints its .txt twin; a live one (this or another
+    # terminal) is rendered from a snapshot of its .cast.
+    function __rec_show --argument-names f
+        set -l txt (path change-extension txt -- "$f")
+        if test "$f" != "$HYDRIX_REC_FILE"; and test -f "$txt"
+            command cat -- "$txt"
+        else
+            command rec-text "$f"
+        end
+    end
+
+    function rec --description "List, rename and print terminal recordings"
+        set -l dir ~/terminal_logs
+        if set -q HYDRIX_REC_MOVED; and test -s "$HYDRIX_REC_MOVED"
+            read -l moved <"$HYDRIX_REC_MOVED"; and set -gx HYDRIX_REC_FILE "$moved"
+        end
+        set -l flag $argv[1]
+        set -e argv[1]
+        switch "$flag"
+            case "" -c
+                if not set -q HYDRIX_REC_FILE
+                    echo "Not recording."
+                    return 1
+                end
+                echo (path change-extension "" (path basename -- "$HYDRIX_REC_FILE"))"  $HYDRIX_REC_FILE"
+            case -l
+                set -l files $dir/*.cast
+                if test (count $files) -eq 0
+                    echo "No recordings in $dir"
+                    return
+                end
+                for f in (command ls -tr -- $files)
+                    set -l mark " "
+                    test "$f" = "$HYDRIX_REC_FILE"; and set mark "*"
+                    printf '%s %-32s %s  %5s\n' $mark (path change-extension "" (path basename -- "$f")) \
+                        (date -r "$f" '+%Y-%m-%d %H:%M') (numfmt --to=iec (stat -c %s "$f"))
+                end
+            case -r
+                if not set -q HYDRIX_REC_FILE
+                    echo "Not recording." >&2
+                    return 1
+                end
+                if not set -q HYDRIX_REC_MOVED
+                    echo "rec: this recording predates rename support; open a new terminal" >&2
+                    return 1
+                end
+                set -l name (string replace -r '\.cast$' "" -- "$argv[1]")
+                if not string match -qr '^[A-Za-z0-9][A-Za-z0-9._-]*$' -- "$name"
+                    echo "Usage: rec -r NAME  (letters, digits, . _ -)" >&2
+                    return 1
+                end
+                set -l new "$dir/$name.cast"
+                test "$new" = "$HYDRIX_REC_FILE"; and return
+                if test -e "$new"; or test -e "$dir/$name.txt"
+                    echo "rec: '$name' already exists" >&2
+                    return 1
+                end
+                command mv -n -- "$HYDRIX_REC_FILE" "$new"; or return 1
+                printf '%s\n' "$new" >"$HYDRIX_REC_MOVED"
+                set -gx HYDRIX_REC_FILE "$new"
+                echo "Recording renamed: $name"
+            case -p
+                set -l f
+                if set -q argv[1]
+                    set f (__rec_find $dir "$argv[1]"); or return 1
+                else if set -q HYDRIX_REC_FILE
+                    set f "$HYDRIX_REC_FILE"
+                else
+                    echo "Not recording; name a session (rec -l)." >&2
+                    return 1
+                end
+                __rec_show "$f"
+            case -a
+                set -l files $dir/*.cast
+                test (count $files) -eq 0; and return
+                for f in (command ls -tr -- $files)
+                    printf '\n==> %s <==\n' (path change-extension "" (path basename -- "$f"))
+                    __rec_show "$f"
+                end
+            case '*'
+                printf '%s\n' >&2 \
+                    "Usage: rec [-c | -l | -r NAME | -p [SESSION] | -a]" \
+                    "  -c            show the current session (default)" \
+                    "  -l            list sessions, oldest first (* = this terminal)" \
+                    "  -r NAME       rename the current session" \
+                    "  -p [SESSION]  print one session as text (default: current)" \
+                    "  -a            print every session as text" \
+                    "SESSION is a name, a unique part of one, or a path."
+                test "$flag" = -h; or return 1
+        end
     end
 
     # `cat`-ing the live recording would feed its own output back into the
